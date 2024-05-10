@@ -1,0 +1,25 @@
+create table Mahasiswa (
+NPM char(5) primary key,
+Nama varchar(25) not null,
+Tempat_Lahir varchar(25) not null,
+Tanggal_Lahir date not null,
+Jenis_Kelamin enum('L','P') not null,
+No_Hp varchar(25) not null
+);
+
+insert into Mahasiswa
+values
+('23501','Restu Wibisono','Temanggung','2004/09/19','L','085156476828'),
+('23502','Oktario Yudha','Purworejo','2005/10/23','L','088347627267'),
+('23503','Sunny Alodia','Magelang','2005/12/15','P','081238572834'),
+('23504','Ahmad Fadzil','Magelang','2000/04/29','L','088748392759'),
+('23505','Siwi Kartika','Papua','1995/12/02','P','08525132582');
+
+
+update `Mahasiswa` set `Nama` = 'Sani Alodia' where NPM = '23503';
+select NPM, Nama from `Mahasiswa`;
+
+delete from `Mahasiswa` where `NPM` = '23504';
+select NPM, Nama from `Mahasiswa`;
+
+select NPM, Nama, No_Hp, Jenis_Kelamin from Mahasiswa where Jenis_Kelamin = 'L';
