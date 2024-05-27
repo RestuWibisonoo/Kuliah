@@ -1,0 +1,77 @@
+create table Admin (
+ID_ADMIN varchar(10) not null primary key,
+USERNAME varchar(128) null,
+PASSWORD mediumtext null,
+LAST_LOGIN varchar(40) null,
+ROLE varchar(15) null,
+FULLNAME varchar(128) null,
+JANKEL char(1) null,
+NO_TELP varchar(20) null,
+ALAMAT mediumtext null,
+PHOTO mediumtext null,
+DTE_CREATED date null
+); 
+
+create table Anggota (
+ID_ANGGOTA varchar(10) not null primary key,
+ID_ADMIN varchar(10) null,
+FULL_NAME varchar(128) null,
+TMP_LAHIR varchar(90) null,
+TGL_LAHIR varchar(20) null,
+ALAMAT mediumtext null,
+GENDER char(1) null,
+TELP varchar(20) null,
+FOTO mediumtext null,
+D_CREATED date null,
+index(ID_ADMIN)
+);
+
+create table Buku (
+ID_BUKU varchar(10) not null primary key,
+ID_ADMIN varchar(10) null,
+TITLE varchar(150) null,
+AUTHOR varchar(128) null,
+PUBLISHER varchar(128) null,
+YEAR char(4) null,
+QTY int(11) null,
+KELUAR int(11) null,
+index(ID_ADMIN)
+);
+
+create table Detail_pinjam (
+ID_PINJAMAN int(11) not null primary key auto_increment,
+ID_PINJAM varchar(10) null,
+ID_BUKU varchar(10) null,
+TGL_KEMBALI date null,
+DENDA int(11) null,
+STATUS  varchar(20) not null,
+index(ID_PINJAM),
+index(ID_BUKU)
+);
+
+create table Notif (
+ID_NOTIF int(11) not null primary key auto_increment,
+ID_ADMIN  varchar(128) not null,
+JUDUL varchar(128) not null,
+ISI varchar(128) not null,
+DT date not null,
+index(ID_ADMIN)
+);
+
+create table Pinjaman (
+ID_PINJAM varchar(10) not null primary key,
+ID_ANGGOTA varchar(10) null,
+ID_ADMIN varchar(10) null,
+TGL_PINJAM date null,
+JML_BUKU int(11) not null,
+STATS  varchar(20) not null,
+index(ID_ANGGOTA),
+index(ID_ADMIN)
+);
+
+create table Perpus (
+ID_PERPUS int(11) not null primary key auto_increment,
+NAMA_P varchar(128) null,
+ALAMAT_P mediumtext null,
+ABOUT mediumtext null
+);
