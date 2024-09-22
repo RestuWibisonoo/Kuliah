@@ -1,8 +1,11 @@
 public class Hewan {
-    public static void main(String[] args) throws Exception {
+    String nama;
+    String jenis;
+    
+    public void tampilkanInfo() {
+        System.out.println("Nama Hewan: " + nama);
+        System.out.println("Jenis Hewan: " + jenis);
     }
-    @Override
-    public String toString() {
-        return "Hewan";
-    }
+
+    
 }

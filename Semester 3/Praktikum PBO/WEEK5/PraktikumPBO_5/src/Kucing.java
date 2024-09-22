@@ -1,5 +1,7 @@
 public class Kucing extends Hewan {
-    public void suara() {
+    @Override
+    public void tampilkanInfo() {
+        super.tampilkanInfo();
         System.out.println("Meow");
     }
     
