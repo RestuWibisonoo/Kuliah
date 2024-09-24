@@ -1,0 +1,7 @@
+Alice,20,3.5
+Bob,21,2.8
+Charlie,22,3.7
+David,20,2.9
+Eva,22,3.1
+Frank,21,3.6
+Grace,20,3.2
