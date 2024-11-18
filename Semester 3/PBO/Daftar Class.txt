@@ -1,0 +1,81 @@
+Daftar Class:
+1. Transaksi
+2. LaporanUang
+3. Pengeluaran
+4. Pemasukan
+5. Notifikasi
+6. AnalisaUang
+
+Daftar Atribut pada Class:
+1. Transaksi 
+- idTransaksi (Str)
+Unik untuk setiap transaksi, digunakan untuk mengidentifikasi transaksi tertentu.
+- tanggal (Date)
+Menyimpan tanggal transaksi untuk membantu dalam pelaporan keuangan berdasarkan waktu.
+- jumlah (Double)
+Besar nilai uang pada transaksi tersebut.
+- jenis (Str)
+Menentukan apakah transaksi tersebut merupakan pemasukan atau pengeluaran.
+- deskripsi (Str)
+Memberikan rincian atau catatan tambahan tentang transaksi, seperti tujuan atau alasan.
+
+2. LaporanUang
+- periode (Str) - Bulan/Tahun
+Menentukan periode laporan, biasanya berupa bulan dan tahun, seperti "Oktober 2024".
+- totalPemasukan (Double)
+Menyimpan total pemasukan selama periode tertentu.
+- totalPengeluaran (Double)
+Menyimpan total pengeluaran selama periode tertentu.
+- saldoAkhir (Double)
+Menghitung sisa uang setelah pemasukan dikurangi pengeluaran dalam periode tersebut
+- daftarTransaksi (List<Transaksi>)
+Berisi semua transaksi (pemasukan dan pengeluaran) dalam bentuk list yang terkait dengan periode laporan.
+
+3. Pengeluaran
+- idPengeluaran (Str)
+ID unik untuk setiap pengeluaran yang tercatat, memudahkan pelacakan.
+- tanggal (Date)
+Menunjukkan kapan pengeluaran tersebut terjadi.
+- kategori (Str)
+Menentukan jenis pengeluaran, seperti "Bahan Baku" atau "Marketing", untuk analisis yang lebih mendetail.
+- jumlah (Doble)
+Besar uang yang dikeluarkan dalam transaksi tersebut.
+- keterangan (Str)
+Catatan tambahan untuk menjelaskan detail pengeluaran, seperti nama vendor atau tujuan.
+
+4. Pemasukan
+- idPemasukan (Str)
+ID unik untuk setiap pemasukan yang dicatat.
+- tanggal (Date)
+Menyimpan tanggal pemasukan untuk melacak dan mengelompokkan transaksi.
+- sumber (Str)
+Menjelaskan asal pemasukan, seperti "Penjualan" atau "Investasi".
+- jumlah (Double)
+Besar uang yang diterima dalam transaksi tersebut.
+- keterangan (Str)
+Catatan tambahan yang menjelaskan detail pemasukan, seperti nama klien atau nomor invoice.
+
+5. Notifikasi
+- idNotifikasi (Str)
+Identifikasi unik untuk notifikasi tertentu.
+- judul (Str)
+Ringkasan pesan notifikasi, seperti "Pengingat Pencatatan Harian".
+- pesan (Str)
+Isi pesan yang memberikan detail lebih lengkap tentang notifikasi.
+- tanggalPengingat (Date)
+Tanggal dan waktu kapan notifikasi seharusnya muncul untuk pengguna.
+- status (Boolean)
+Menunjukkan apakah notifikasi sudah dibaca (true) atau belum (false).
+
+6. AnalisaUang
+- bulan (Str)
+Menyimpan nama bulan untuk analisis keuangan, seperti "November".
+- rataRataPemasukan (Double)
+Menunjukkan pemasukan rata-rata bulanan untuk membantu melihat pola keuangan.
+- rataRataPengeluaran (Double)
+Menunjukkan pengeluaran rata-rata bulanan untuk analisis efisiensi.
+- kategoriTertinggi (Str)
+Mengidentifikasi kategori pengeluaran terbesar untuk membantu pengguna fokus pada area tersebut.
+- grafikData (Map<Str, Double>)
+Data yang digunakan untuk membuat grafik perkembangan pemasukan atau pengeluaran per bulan, disimpan dalam format key-value.
+
