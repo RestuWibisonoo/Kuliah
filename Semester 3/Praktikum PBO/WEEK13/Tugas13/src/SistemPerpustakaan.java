@@ -18,7 +18,7 @@ public class SistemPerpustakaan {
 
     public void menu() {
         while (true) {
-            System.out.println("Menu:");
+            System.out.println("\nMenu:");
             System.out.println("1. Tambah Buku Baru");
             System.out.println("2. Tampilkan Daftar Buku (Text File)");
             System.out.println("3. Tampilkan Daftar Buku (Serialized File)");
@@ -33,10 +33,10 @@ public class SistemPerpustakaan {
                     tambahBuku();
                     break;
                 case 2:
-                    tampilkanBukuDariFile(TEXT_FILE);
+                    tampilkanBukuDariFile("text");
                     break;
                 case 3:
-                    tampilkanBukuDariFile(SERIALIZED_FILE);
+                    tampilkanBukuDariFile("serialized");
                     break;
                 case 4:
                     System.out.println("Keluar dari program.");
@@ -61,7 +61,7 @@ public class SistemPerpustakaan {
         bukuList.add(buku);
 
         simpanBukuKeFile();
-        simpanBukuKeSerializedFile(buku);
+        simpanBukuKeSerializedFile();
     }
 
     // Menyimpan daftar buku ke dalam file buku.txt (File I/O)
@@ -77,17 +77,17 @@ public class SistemPerpustakaan {
         }
     }
 
-    // Menyimpan objek Buku ke file buku.ser (Serialisasi)
-    private void simpanBukuKeSerializedFile(Buku buku) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_BUKU_SER, true))) {
-            oos.writeObject(buku);
+    // Menyimpan daftar buku ke file buku.ser (Serialisasi)
+    private void simpanBukuKeSerializedFile() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_BUKU_SER))) {
+            oos.writeObject(bukuList); // Menyimpan seluruh daftar buku dalam satu objek
             System.out.println("Buku berhasil disimpan ke buku.ser.");
         } catch (IOException e) {
             System.out.println("Terjadi kesalahan saat menyimpan ke buku.ser: " + e.getMessage());
         }
     }
 
-    // Menampilkan daftar buku dari file buku.txt
+    // Menampilkan daftar buku dari file buku.txt atau buku.ser
     private void tampilkanBukuDariFile(String fileType) {
         if (fileType.equals("text")) {
             try (BufferedReader reader = new BufferedReader(new FileReader(FILE_BUKU_TXT))) {
@@ -101,8 +101,8 @@ public class SistemPerpustakaan {
             }
         } else if (fileType.equals("serialized")) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_BUKU_SER))) {
-                Buku buku;
-                while ((buku = (Buku) ois.readObject()) != null) {
+                List<Buku> bukuList = (List<Buku>) ois.readObject();
+                for (Buku buku : bukuList) {
                     System.out.println(buku);
                 }
             } catch (EOFException e) {
