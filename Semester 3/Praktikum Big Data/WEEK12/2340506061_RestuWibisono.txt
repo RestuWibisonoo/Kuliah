@@ -1,0 +1,2 @@
+https://medium.com/@restu.wibisonoo_33139/data-cleaning-and-preparation-using-pandas-4d6d2e9f9778
+https://medium.com/@restu.wibisonoo_33139/data-visualization-using-matplotlib-and-seaborn-a055aa4a981a
