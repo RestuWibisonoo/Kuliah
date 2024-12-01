@@ -1,0 +1,26 @@
+Nasi Goreng;rp15.000
+Nasi Gadak;rp13.000
+Nasi Goreng Special;rp21.000
+Mie Goreng;rp16.000
+Mie Kuwah;rp15.000
+Es Jeruk;rp4.000
+Es Teh Manis;rp3.000
+Es Teh Tawar;rp2.500
+Kwetiaw Goreng;rp20.000
+Kwetiaw Kuah;rp20.000
+Kwetiaw Goreng Special;rp25.000
+Nasi Goreng Bakso;rp18.000
+Nasi Goreng Sosis;rp18.000
+Nasi Goreng Ayam;rp19.000
+Nasi Goreng Ayam Special;rp23.000
+Mie Goreng Bakso;rp17.000
+Mie Goreng Sosis;rp17.000
+Mie Goreng Ayam;rp18.000
+Es Campur;rp10.000
+Es Cincau;rp6.000
+Es Milo;rp7.000
+Es Soda Gembira;rp8.000
+Air Mineral;rp3.000
+Kopi Hitam;rp5.000
+Teh Hangat Manis;rp2.500
+Teh Hangat Tawar;rp2.000

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMKM Food Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>UMKM Food Management</h1>
+</header>
+<div class="container">
+    <h2>Daftar Menu</h2>
+    <table id="menuTable">
+        <thead>
+            <tr>
+                <th>Nama Menu</th>
+                <th>Harga</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Daftar menu akan dimuat oleh JavaScript -->
+        </tbody>
+    </table>
+</div>
+<button class="transaction-btn" onclick="toggleTransactionList()">Lihat Transaksi</button>
+<div class="transaction-list" id="transactionList">
+    <h4>Daftar Transaksi</h4>
+    <button class="close-btn" onclick="toggleTransactionList()">X</button>
+    <ul id="transactions"></ul>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
