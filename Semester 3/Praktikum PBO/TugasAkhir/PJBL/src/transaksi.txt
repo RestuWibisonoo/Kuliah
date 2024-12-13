@@ -1,3 +1,9 @@
 2024-11-30,2.0,income,Baju
 Nasi Gadak;3;Rp39000
 Teh Hangat Tawar;2;Rp4000
+Es Campur;3;Rp30000
+1. Nasi Goreng;5;Rp75000
+14. Nasi Goreng Ayam;2;Rp38000
+2024-12-13 23:18:34;5. Mie Kuwah;3;Rp45000
+2024-12-13 23:22:15;2. Nasi Gadak;1;Rp13000
+2024-12-13 23:46:49;2. Nasi Gadak;1;Rp13000
