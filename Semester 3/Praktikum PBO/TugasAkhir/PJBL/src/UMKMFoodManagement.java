@@ -12,7 +12,7 @@ public class UMKMFoodManagement {
     private static final String TRANSACTION_FILE = "transaksi.txt";
     private Map<Integer, String> menuMapping = new LinkedHashMap<>(); // Menyimpan mapping nomor ke nama menu
     private Map<String, Integer> menu = new LinkedHashMap<>(); // Menyimpan menu dengan nama dan harga
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);     
 
     public static void main(String[] args) {
         UMKMFoodManagement app = new UMKMFoodManagement();
