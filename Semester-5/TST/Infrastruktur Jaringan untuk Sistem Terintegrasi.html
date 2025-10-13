@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<!-- saved from url=(0122)https://class.tiflab.my.id/storage/lessons/materials/1756648044_3.%20Infrastruktur%20Jaringan%20Sistem%20Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infrastruktur Jaringan untuk Sistem Terintegrasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #2E8B57 0%, #3CB371 100%);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #90EE90, #ADFF2F);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ADFF2F, #32CD32);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #90EE90 rgba(255, 255, 255, 0.1);
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .slide h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #90EE90;
+        }
+
+        .slide p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .slide ul {
+            text-align: left;
+            font-size: 1.3rem;
+            line-height: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .slide ul li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .slide ul li::before {
+            content: '🔗';
+            position: absolute;
+            left: 0;
+            font-size: 1rem;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 5px solid #90EE90;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+            text-align: left;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            text-align: left;
+        }
+
+        .icon-large {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #90EE90;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .fullscreen-toggle {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .help-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .help-content {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Network Topology Animations */
+        .network-diagram {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: 30px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .network-node {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid #90EE90;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 80px;
+        }
+
+        .network-node:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(144, 238, 144, 0.3);
+        }
+
+        .network-node.active {
+            background: rgba(144, 238, 144, 0.3);
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(144, 238, 144, 0.5);
+        }
+
+        .network-line {
+            position: absolute;
+            height: 3px;
+            background: #90EE90;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .network-line.animated {
+            background: linear-gradient(90deg, #90EE90, #fff, #90EE90);
+            background-size: 200% 100%;
+            animation: dataFlow 2s linear infinite;
+        }
+
+        @keyframes dataFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .osi-layer {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .osi-layer:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .osi-layer.active {
+            border-color: #90EE90;
+            background: rgba(144, 238, 144, 0.2);
+        }
+
+        .protocol-stack {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .protocol-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .protocol-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #90EE90;
+        }
+
+        .protocol-card.active {
+            border-color: #90EE90;
+            background: rgba(144, 238, 144, 0.2);
+        }
+
+        .security-layer {
+            position: relative;
+            background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,165,0,0.1));
+            border: 2px dashed #FF6B6B;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            animation: securityPulse 3s infinite;
+        }
+
+        @keyframes securityPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+
+        .cloud-architecture {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .cloud-service {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cloud-service:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #87CEEB;
+        }
+
+        .interactive-topology {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+
+        .topology-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .topology-layer.active {
+            opacity: 1;
+        }
+
+        .performance-metrics {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            min-width: 150px;
+            margin: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #90EE90;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            .slide h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slide h2 {
+                font-size: 2rem;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .cloud-architecture {
+                grid-template-columns: 1fr;
+            }
+            
+            .protocol-stack {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="" style="cursor: default;">
+    <div class="progress-bar" id="progressBar" style="width: 5.88235%;"></div>
+    
+    <button class="fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-content">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
+                    <img src="./Infrastruktur Jaringan untuk Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 60px; margin-right: 20px;">
+                    <div style="text-align: left;">
+                        <div style="font-size: 16px; font-weight: bold; color: white;">UNIVERSITAS TIDAR</div>
+                        <div style="font-size: 14px; color: #90EE90;">Fakultas Teknik | Program Studi Teknologi Informasi</div>
+                        <div style="font-size: 12px; color: #ADFF2F;">Teknologi Sistem Terintegrasi</div>
+                    </div>
+                </div>
+                <div class="icon-large">🌐</div>
+                <h1>Infrastruktur Jaringan untuk Sistem Terintegrasi</h1>
+                <h3>Network Infrastructure for Integrated Systems: Components and Architecture</h3>
+                <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 20px;">Pertemuan 3 - 2025</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🎯 Capaian Pembelajaran</h2>
+                <div class="two-column" style="text-align: left; margin: 40px 0;">
+                    <div>
+                        <h3>🎓 CPL (Capaian Pembelajaran Lulusan)</h3>
+                        <ul>
+                            <li><strong>CPL 08:</strong> Mampu merancang dan mengembangkan produk/layanan berbasis IoT</li>
+                            <li><strong>CPL 09:</strong> Mampu merancang dan mengelola infrastruktur dan keamanan jaringan</li>
+                            <li><strong>CPL 10:</strong> Mampu merancang aplikasi mobile/web terintegrasi</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>📚 CPMK (Capaian Pembelajaran Mata Kuliah)</h3>
+                        <ul>
+                            <li><strong>CPMK 0801:</strong> Mengonsepkan metode IoT secara sistematis</li>
+                            <li><strong>CPMK 0901:</strong> Menganalisis dan merancang infrastruktur jaringan</li>
+                            <li><strong>CPMK 1001:</strong> Mengimplementasikan algoritma</li>
+                            <li><strong>CPMK 1005:</strong> Mengimplementasikan Cloud Computing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Course Overview -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📋 Overview Perkuliahan</h2>
+                <div class="highlight-box">
+                    <div class="two-column">
+                        <div>
+                            <h3>🎯 Tujuan Pembelajaran:</h3>
+                            <ul>
+                                <li>Mampu merancang infrastruktur jaringan untuk sistem terintegrasi</li>
+                                <li>Memahami komponen dan arsitektur jaringan</li>
+                                <li>Menguasai prinsip desain jaringan yang scalable dan secure</li>
+                                <li>Dapat mengintegrasikan berbagai teknologi jaringan</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>📚 Metodologi:</h3>
+                            <ul>
+                                <li><strong>Ceramah:</strong> Konsep teoritis jaringan</li>
+                                <li><strong>Diskusi:</strong> Studi kasus implementasi</li>
+                                <li><strong>Praktikum:</strong> Design network topology</li>
+                                <li><strong>Assessment:</strong> Ketepatan dan kelengkapan desain</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size: 1.2rem; margin-top: 30px; color: #90EE90;"><strong>⏱️ Duration:</strong> 3 x 50 menit (150 menit total)</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Network Fundamentals -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🔧 Fundamental Konsep Jaringan</h2>
+                <div class="protocol-stack">
+                    <div class="protocol-card" onclick="showNetworkDetail(&#39;lan&#39;)">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🏢</div>
+                        <h3>LAN</h3>
+                        <p>Local Area Network</p>
+                    </div>
+                    <div class="protocol-card" onclick="showNetworkDetail(&#39;wan&#39;)">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🌍</div>
+                        <h3>WAN</h3>
+                        <p>Wide Area Network</p>
+                    </div>
+                    <div class="protocol-card" onclick="showNetworkDetail(&#39;man&#39;)">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🏙️</div>
+                        <h3>MAN</h3>
+                        <p>Metropolitan Area Network</p>
+                    </div>
+                    <div class="protocol-card" onclick="showNetworkDetail(&#39;vpn&#39;)">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🔐</div>
+                        <h3>VPN</h3>
+                        <p>Virtual Private Network</p>
+                    </div>
+                </div>
+                
+                <div id="networkDetail" class="highlight-box">
+                    <h3>Klik pada jenis jaringan untuk melihat detail karakteristik dan implementasi</h3>
+                    <p>Setiap jenis jaringan memiliki karakteristik, teknologi, dan use case yang berbeda dalam sistem terintegrasi.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: OSI Layer Model -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📚 Model OSI Layer</h2>
+                <div class="two-column">
+                    <div>
+                        <div class="osi-layer" onclick="showOSILayer(7)" style="background: linear-gradient(45deg, #FF6B6B, #FF8E53);">
+                            <h4>Layer 7 - Application</h4>
+                            <p>HTTP, FTP, SMTP, DNS</p>
+                        </div>
+                        <div class="osi-layer" onclick="showOSILayer(6)" style="background: linear-gradient(45deg, #FF8E53, #FF6B9D);">
+                            <h4>Layer 6 - Presentation</h4>
+                            <p>SSL/TLS, Encryption, Compression</p>
+                        </div>
+                        <div class="osi-layer" onclick="showOSILayer(5)" style="background: linear-gradient(45deg, #FF6B9D, #C44569);">
+                            <h4>Layer 5 - Session</h4>
+                            <p>NetBIOS, RPC, PPTP</p>
+                        </div>
+                        <div class="osi-layer" onclick="showOSILayer(4)" style="background: linear-gradient(45deg, #C44569, #F8B500);">
+                            <h4>Layer 4 - Transport</h4>
+                            <p>TCP, UDP, SCTP</p>
+                        </div>
+                        <div class="osi-layer" onclick="showOSILayer(3)" style="background: linear-gradient(45deg, #F8B500, #6C5CE7);">
+                            <h4>Layer 3 - Network</h4>
+                            <p>IP, ICMP, IPSec, OSPF</p>
+                        </div>
+                        <div class="osi-layer" onclick="showOSILayer(2)" style="background: linear-gradient(45deg, #6C5CE7, #A29BFE);">
+                            <h4>Layer 2 - Data Link</h4>
+                            <p>Ethernet, Wi-Fi, PPP</p>
+                        </div>
+                        <div class="osi-layer" onclick="showOSILayer(1)" style="background: linear-gradient(45deg, #A29BFE, #74B9FF);">
+                            <h4>Layer 1 - Physical</h4>
+                            <p>Cable, Fiber, Radio Waves</p>
+                        </div>
+                    </div>
+                    <div id="osiDetail" class="highlight-box">
+                        <h3>OSI 7 Layer Model</h3>
+                        <p>Model referensi untuk memahami bagaimana data bergerak melalui jaringan. Klik pada setiap layer untuk melihat detail fungsi dan protokol yang beroperasi pada layer tersebut.</p>
+                        <div style="margin-top: 20px;">
+                            <h4>🎯 Kegunaan Model OSI:</h4>
+                            <ul>
+                                <li>Standardisasi komunikasi jaringan</li>
+                                <li>Troubleshooting network issues</li>
+                                <li>Desain arsitektur jaringan yang modular</li>
+                                <li>Interoperabilitas antar vendor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Network Topology -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🏗️ Topologi Jaringan</h2>
+                <div class="interactive-topology">
+                    <!-- Star Topology -->
+                    <div class="topology-layer active" id="starTopology">
+                        <div class="network-node" style="left: 45%; top: 40%; width: 100px; height: 80px; background: linear-gradient(45deg, #FFD93D, #FF6B35);">
+                            <div style="font-size: 2rem;">🌟</div>
+                            <div>Central Hub</div>
+                        </div>
+                        <div class="network-node" style="left: 20%; top: 10%; width: 80px; height: 60px;">
+                            <div style="font-size: 1.5rem;">💻</div>
+                            <div>PC 1</div>
+                        </div>
+                        <div class="network-node" style="left: 70%; top: 10%; width: 80px; height: 60px;">
+                            <div style="font-size: 1.5rem;">💻</div>
+                            <div>PC 2</div>
+                        </div>
+                        <div class="network-node" style="left: 20%; top: 70%; width: 80px; height: 60px;">
+                            <div style="font-size: 1.5rem;">💻</div>
+                            <div>PC 3</div>
+                        </div>
+                        <div class="network-node" style="left: 70%; top: 70%; width: 80px; height: 60px;">
+                            <div style="font-size: 1.5rem;">💻</div>
+                            <div>PC 4</div>
+                        </div>
+                        <!-- Connection Lines for Star -->
+                        <div class="network-line" style="left: 30%; top: 25%; width: 20%; transform: rotate(-15deg);"></div>
+                        <div class="network-line" style="left: 60%; top: 25%; width: 20%; transform: rotate(15deg);"></div>
+                        <div class="network-line" style="left: 30%; top: 60%; width: 20%; transform: rotate(15deg);"></div>
+                        <div class="network-line" style="left: 60%; top: 60%; width: 20%; transform: rotate(-15deg);"></div>
+                    </div>
+                </div>
+                
+                <div class="protocol-stack" style="margin-top: 40px;">
+                    <button class="nav-btn" onclick="showTopology(&#39;star&#39;)">⭐ Star</button>
+                    <button class="nav-btn" onclick="showTopology(&#39;bus&#39;)">🚌 Bus</button>
+                    <button class="nav-btn" onclick="showTopology(&#39;ring&#39;)">⭕ Ring</button>
+                    <button class="nav-btn" onclick="showTopology(&#39;mesh&#39;)">🕸️ Mesh</button>
+                    <button class="nav-btn" onclick="animateDataFlow()">⚡ Animate Flow</button>
+                </div>
+                
+                <div id="topologyDetail" class="highlight-box">
+                    <h3>⭐ Star Topology</h3>
+                    <p><strong>Karakteristik:</strong> Semua device terhubung ke central hub/switch</p>
+                    <p><strong>Keunggulan:</strong> Mudah maintenance, isolasi node failure, scalable</p>
+                    <p><strong>Kelemahan:</strong> Single point of failure pada central hub</p>
+                    <p><strong>Use Case:</strong> LAN modern, enterprise networks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Network Components -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🔧 Komponen Infrastruktur Jaringan</h2>
+                <div class="network-diagram">
+                    <!-- Layer 1 - Physical -->
+                    <div class="network-node" id="switch" style="left: 10%; top: 20%; width: 120px; height: 80px;" onclick="showComponentDetail(&#39;switch&#39;)">
+                        <div style="font-size: 2rem;">🔀</div>
+                        <div>Switch</div>
+                    </div>
+                    
+                    <div class="network-node" id="router" style="left: 40%; top: 20%; width: 120px; height: 80px;" onclick="showComponentDetail(&#39;router&#39;)">
+                        <div style="font-size: 2rem;">📡</div>
+                        <div>Router</div>
+                    </div>
+                    
+                    <div class="network-node" id="firewall" style="left: 70%; top: 20%; width: 120px; height: 80px;" onclick="showComponentDetail(&#39;firewall&#39;)">
+                        <div style="font-size: 2rem;">🛡️</div>
+                        <div>Firewall</div>
+                    </div>
+                    
+                    <!-- Layer 2 - Network Services -->
+                    <div class="network-node" id="loadbalancer" style="left: 10%; top: 60%; width: 120px; height: 80px;" onclick="showComponentDetail(&#39;loadbalancer&#39;)">
+                        <div style="font-size: 2rem;">⚖️</div>
+                        <div>Load Balancer</div>
+                    </div>
+                    
+                    <div class="network-node" id="dns" style="left: 40%; top: 60%; width: 120px; height: 80px;" onclick="showComponentDetail(&#39;dns&#39;)">
+                        <div style="font-size: 2rem;">🏷️</div>
+                        <div>DNS Server</div>
+                    </div>
+                    
+                    <div class="network-node" id="proxy" style="left: 70%; top: 60%; width: 120px; height: 80px;" onclick="showComponentDetail(&#39;proxy&#39;)">
+                        <div style="font-size: 2rem;">🔄</div>
+                        <div>Proxy Server</div>
+                    </div>
+                    
+                    <!-- Connection Lines -->
+                    <div class="network-line" id="line1" style="left: 22%; top: 35%; width: 25%; transform: rotate(0deg);"></div>
+                    <div class="network-line" id="line2" style="left: 52%; top: 35%; width: 25%; transform: rotate(0deg);"></div>
+                    <div class="network-line" id="line3" style="left: 15%; top: 50%; width: 2%; transform: rotate(90deg);"></div>
+                    <div class="network-line" id="line4" style="left: 45%; top: 50%; width: 2%; transform: rotate(90deg);"></div>
+                    <div class="network-line" id="line5" style="left: 75%; top: 50%; width: 2%; transform: rotate(90deg);"></div>
+                </div>
+                
+                <div id="componentDetail" class="highlight-box">
+                    <h3>Klik pada komponen untuk melihat detail fungsi dan spesifikasi</h3>
+                    <p>Setiap komponen memiliki peran khusus dalam infrastruktur jaringan sistem terintegrasi.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Network Security -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🛡️ Keamanan Jaringan</h2>
+                <div class="security-layer">
+                    <h3>🔐 Multi-Layer Security Architecture</h3>
+                    <div class="two-column" style="margin-top: 30px;">
+                        <div>
+                            <h4>🌐 Perimeter Security:</h4>
+                            <ul>
+                                <li><strong>Firewall:</strong> Packet filtering &amp; stateful inspection</li>
+                                <li><strong>IDS/IPS:</strong> Intrusion Detection/Prevention</li>
+                                <li><strong>DMZ:</strong> Demilitarized Zone untuk public services</li>
+                                <li><strong>WAF:</strong> Web Application Firewall</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🔒 Internal Security:</h4>
+                            <ul>
+                                <li><strong>VLAN Segmentation:</strong> Network isolation</li>
+                                <li><strong>NAC:</strong> Network Access Control</li>
+                                <li><strong>Zero Trust:</strong> Never trust, always verify</li>
+                                <li><strong>Monitoring:</strong> SIEM &amp; Log Analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="protocol-stack">
+                    <div class="protocol-card" onclick="showSecurityDetail(&#39;authentication&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🔑</div>
+                        <h4>Authentication</h4>
+                        <p>RADIUS, TACACS+, LDAP</p>
+                    </div>
+                    <div class="protocol-card" onclick="showSecurityDetail(&#39;encryption&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🔐</div>
+                        <h4>Encryption</h4>
+                        <p>IPSec, SSL/TLS, WPA3</p>
+                    </div>
+                    <div class="protocol-card" onclick="showSecurityDetail(&#39;monitoring&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">👁️</div>
+                        <h4>Monitoring</h4>
+                        <p>SNMP, Syslog, NetFlow</p>
+                    </div>
+                </div>
+                
+                <div id="securityDetail" class="highlight-box">
+                    <h3>🎯 Security Framework</h3>
+                    <p>Implementasi keamanan jaringan yang komprehensif dengan pendekatan defense-in-depth untuk melindungi sistem terintegrasi dari berbagai ancaman cyber.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Cloud Integration -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>☁️ Cloud Integration &amp; Hybrid Architecture</h2>
+                <div class="cloud-architecture">
+                    <div class="cloud-service" onclick="showCloudDetail(&#39;iaas&#39;)">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">🏗️</div>
+                        <h3>IaaS</h3>
+                        <h4>Infrastructure as a Service</h4>
+                        <p>Virtual machines, storage, networks</p>
+                    </div>
+                    <div class="cloud-service" onclick="showCloudDetail(&#39;paas&#39;)">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">⚙️</div>
+                        <h3>PaaS</h3>
+                        <h4>Platform as a Service</h4>
+                        <p>Development platforms, databases</p>
+                    </div>
+                    <div class="cloud-service" onclick="showCloudDetail(&#39;saas&#39;)">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">📱</div>
+                        <h3>SaaS</h3>
+                        <h4>Software as a Service</h4>
+                        <p>Applications, web services</p>
+                    </div>
+                </div>
+                
+                <div id="cloudDetail" class="highlight-box">
+                    <h3>☁️ Cloud Service Models</h3>
+                    <div class="two-column">
+                        <div>
+                            <h4>🏗️ Hybrid Cloud Architecture:</h4>
+                            <ul>
+                                <li>On-premise + Public Cloud</li>
+                                <li>Data synchronization</li>
+                                <li>Workload distribution</li>
+                                <li>Cost optimization</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🔗 Integration Patterns:</h4>
+                            <ul>
+                                <li>VPN Gateway connections</li>
+                                <li>Direct Connect / ExpressRoute</li>
+                                <li>API Gateway integration</li>
+                                <li>Message queuing systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: IoT Network Integration -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🌐 IoT Network Integration</h2>
+                <div class="network-diagram" style="background: linear-gradient(135deg, rgba(0,123,255,0.1), rgba(40,167,69,0.1));">
+                    <!-- IoT Devices -->
+                    <div class="network-node" style="left: 10%; top: 20%; width: 80px; height: 60px; background: rgba(255,193,7,0.3);">
+                        <div style="font-size: 1.5rem;">🌡️</div>
+                        <div>Sensor</div>
+                    </div>
+                    <div class="network-node" style="left: 10%; top: 60%; width: 80px; height: 60px; background: rgba(255,193,7,0.3);">
+                        <div style="font-size: 1.5rem;">📹</div>
+                        <div>Camera</div>
+                    </div>
+                    
+                    <!-- Gateway -->
+                    <div class="network-node" style="left: 35%; top: 40%; width: 100px; height: 70px; background: rgba(40,167,69,0.3);">
+                        <div style="font-size: 2rem;">🚪</div>
+                        <div>IoT Gateway</div>
+                    </div>
+                    
+                    <!-- Edge Computing -->
+                    <div class="network-node" style="left: 65%; top: 40%; width: 100px; height: 70px; background: rgba(0,123,255,0.3);">
+                        <div style="font-size: 2rem;">⚡</div>
+                        <div>Edge Server</div>
+                    </div>
+                    
+                    <!-- Cloud -->
+                    <div class="network-node" style="left: 85%; top: 30%; width: 100px; height: 90px; background: rgba(108,117,125,0.3);">
+                        <div style="font-size: 2rem;">☁️</div>
+                        <div>Cloud Platform</div>
+                    </div>
+                </div>
+                
+                <div class="protocol-stack">
+                    <div class="protocol-card" onclick="showIoTProtocol(&#39;mqtt&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">📡</div>
+                        <h4>MQTT</h4>
+                        <p>Lightweight messaging</p>
+                    </div>
+                    <div class="protocol-card" onclick="showIoTProtocol(&#39;coap&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🔄</div>
+                        <h4>CoAP</h4>
+                        <p>Constrained Application Protocol</p>
+                    </div>
+                    <div class="protocol-card" onclick="showIoTProtocol(&#39;lorawan&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">📶</div>
+                        <h4>LoRaWAN</h4>
+                        <p>Long Range Wide Area Network</p>
+                    </div>
+                    <div class="protocol-card" onclick="showIoTProtocol(&#39;zigbee&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🐝</div>
+                        <h4>Zigbee</h4>
+                        <p>Low-power mesh network</p>
+                    </div>
+                </div>
+                
+                <div id="iotDetail" class="highlight-box">
+                    <h3>🌐 IoT Network Architecture</h3>
+                    <p>Infrastruktur jaringan IoT yang scalable dengan edge computing dan cloud integration untuk mendukung sistem terintegrasi yang efisien.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Network Performance -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📊 Network Performance &amp; Monitoring</h2>
+                <div class="performance-metrics">
+                    <div class="metric-card">
+                        <h4>⚡ Latency</h4>
+                        <div class="metric-value">&lt; 50ms</div>
+                        <p>Round-trip time</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>🚀 Throughput</h4>
+                        <div class="metric-value">1 Gbps</div>
+                        <p>Data transfer rate</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>📈 Uptime</h4>
+                        <div class="metric-value">99.9%</div>
+                        <p>Service availability</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>📊 Packet Loss</h4>
+                        <div class="metric-value">&lt; 0.1%</div>
+                        <p>Error rate</p>
+                    </div>
+                </div>
+                
+                <div class="two-column" style="margin-top: 40px;">
+                    <div class="highlight-box">
+                        <h3>📊 Monitoring Tools</h3>
+                        <ul>
+                            <li><strong>SNMP:</strong> Simple Network Management Protocol</li>
+                            <li><strong>NetFlow/sFlow:</strong> Traffic analysis</li>
+                            <li><strong>RMON:</strong> Remote Network Monitoring</li>
+                            <li><strong>Wireshark:</strong> Packet analysis</li>
+                            <li><strong>Nagios:</strong> Infrastructure monitoring</li>
+                            <li><strong>Zabbix:</strong> Network performance monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>⚡ Optimization Techniques</h3>
+                        <ul>
+                            <li><strong>QoS:</strong> Quality of Service prioritization</li>
+                            <li><strong>Traffic Shaping:</strong> Bandwidth management</li>
+                            <li><strong>Caching:</strong> Content delivery optimization</li>
+                            <li><strong>Load Balancing:</strong> Resource distribution</li>
+                            <li><strong>Redundancy:</strong> Failover mechanisms</li>
+                            <li><strong>CDN:</strong> Content Distribution Networks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Case Study -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>🏥 Studi Kasus: Smart Hospital Network</h2>
+                <div class="highlight-box">
+                    <h3>🎯 Skenario:</h3>
+                    <p style="font-size: 1.3rem; margin-bottom: 25px;">Merancang infrastruktur jaringan terintegrasi untuk rumah sakit pintar dengan 500 bed, 2000 staff, dan 10,000 IoT devices.</p>
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3>🏗️ Requirements:</h3>
+                        <ul>
+                            <li><strong>High Availability:</strong> 99.99% uptime</li>
+                            <li><strong>Low Latency:</strong> &lt; 10ms untuk critical systems</li>
+                            <li><strong>Scalability:</strong> Support 20,000 concurrent users</li>
+                            <li><strong>Security:</strong> HIPAA compliance</li>
+                            <li><strong>IoT Integration:</strong> Medical devices, sensors</li>
+                            <li><strong>Mobility:</strong> Wireless coverage 100%</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>🔗 Integrated Systems:</h3>
+                        <ul>
+                            <li><strong>HIS:</strong> Hospital Information System</li>
+                            <li><strong>EMR:</strong> Electronic Medical Records</li>
+                            <li><strong>PACS:</strong> Picture Archiving System</li>
+                            <li><strong>Laboratory:</strong> LIS integration</li>
+                            <li><strong>Pharmacy:</strong> Real-time inventory</li>
+                            <li><strong>IoT Monitoring:</strong> Patient vital signs</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="nav-btn" onclick="showHospitalArchitecture()" style="margin-top: 20px;">🏗️ Show Network Architecture</button>
+            </div>
+        </div>
+
+        <!-- Slide 13: Network Design Principles -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📐 Prinsip Desain Jaringan Terintegrasi</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>🏗️ Architectural Principles:</h3>
+                        <div class="highlight-box" style="margin: 20px 0;">
+                            <h4>1. Scalability 📈</h4>
+                            <ul>
+                                <li>Modular design approach</li>
+                                <li>Horizontal scaling capability</li>
+                                <li>Future growth accommodation</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box" style="margin: 20px 0;">
+                            <h4>2. Reliability 🔧</h4>
+                            <ul>
+                                <li>Redundancy and failover</li>
+                                <li>High availability design</li>
+                                <li>Disaster recovery planning</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box" style="margin: 20px 0;">
+                            <h4>3. Security 🛡️</h4>
+                            <ul>
+                                <li>Defense-in-depth strategy</li>
+                                <li>Zero-trust architecture</li>
+                                <li>Continuous monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>⚡ Performance Principles:</h3>
+                        <div class="highlight-box" style="margin: 20px 0;">
+                            <h4>4. Performance 🚀</h4>
+                            <ul>
+                                <li>Bandwidth optimization</li>
+                                <li>Latency minimization</li>
+                                <li>QoS implementation</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box" style="margin: 20px 0;">
+                            <h4>5. Manageability 🎛️</h4>
+                            <ul>
+                                <li>Centralized management</li>
+                                <li>Automated configuration</li>
+                                <li>Monitoring and alerting</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box" style="margin: 20px 0;">
+                            <h4>6. Cost-Effectiveness 💰</h4>
+                            <ul>
+                                <li>TCO optimization</li>
+                                <li>Resource utilization</li>
+                                <li>Energy efficiency</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Best Practices -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>✅ Best Practices &amp; Standards</h2>
+                <div class="protocol-stack" style="justify-content: center;">
+                    <div class="protocol-card" onclick="showStandard(&#39;iso&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">📋</div>
+                        <h4>ISO/IEC 27001</h4>
+                        <p>Information Security</p>
+                    </div>
+                    <div class="protocol-card" onclick="showStandard(&#39;itil&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">⚙️</div>
+                        <h4>ITIL Framework</h4>
+                        <p>Service Management</p>
+                    </div>
+                    <div class="protocol-card" onclick="showStandard(&#39;cobit&#39;)">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🎯</div>
+                        <h4>COBIT</h4>
+                        <p>IT Governance</p>
+                    </div>
+                </div>
+                
+                <div id="standardDetail" class="highlight-box">
+                    <h3>📚 Industry Standards &amp; Best Practices</h3>
+                    <div class="two-column">
+                        <div>
+                            <h4>🔧 Implementation Guidelines:</h4>
+                            <ul>
+                                <li>Document network architecture thoroughly</li>
+                                <li>Implement change management processes</li>
+                                <li>Regular security assessments</li>
+                                <li>Capacity planning and forecasting</li>
+                                <li>Disaster recovery testing</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>📊 Monitoring &amp; Maintenance:</h4>
+                            <ul>
+                                <li>24/7 network monitoring setup</li>
+                                <li>Automated backup procedures</li>
+                                <li>Regular firmware updates</li>
+                                <li>Performance baseline establishment</li>
+                                <li>Incident response procedures</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Assignment -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>💼 Tugas Praktikum</h2>
+                <div class="highlight-box">
+                    <h3>🎯 Project Assignment: Network Infrastructure Design</h3>
+                    <p style="font-size: 1.3rem; margin-bottom: 20px;">Pilih salah satu skenario dan buat desain infrastruktur jaringan lengkap:</p>
+                    
+                    <div class="cloud-architecture">
+                        <div class="cloud-service">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🏪</div>
+                            <h4>E-Commerce Platform</h4>
+                            <p>Multi-region deployment dengan high availability dan disaster recovery</p>
+                        </div>
+                        <div class="cloud-service">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🏙️</div>
+                            <h4>Smart City Infrastructure</h4>
+                            <p>IoT sensors, traffic management, dan citizen services integration</p>
+                        </div>
+                        <div class="cloud-service">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🎓</div>
+                            <h4>Campus Network</h4>
+                            <p>University-wide network dengan student portal dan LMS integration</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="two-column" style="margin-top: 30px;">
+                    <div class="highlight-box">
+                        <h3>📋 Deliverables:</h3>
+                        <ul>
+                            <li><strong>Network Topology Diagram</strong></li>
+                            <li><strong>IP Addressing Scheme</strong></li>
+                            <li><strong>Security Architecture</strong></li>
+                            <li><strong>Hardware Specifications</strong></li>
+                            <li><strong>Performance Requirements</strong></li>
+                            <li><strong>Implementation Timeline</strong></li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box">
+                        <h3>🛠️ Tools:</h3>
+                        <ul>
+                            <li><strong>Cisco Packet Tracer</strong> - Network simulation</li>
+                            <li><strong>Draw.io/Lucidchart</strong> - Diagram creation</li>
+                            <li><strong>IP Calculator</strong> - Subnetting</li>
+                            <li><strong>Microsoft Visio</strong> - Professional diagrams</li>
+                        </ul>
+                        <p style="margin-top: 15px; color: #90EE90;"><strong>📅 Deadline:</strong> 2 minggu | <strong>📝 Format:</strong> PDF + Packet Tracer file</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Summary -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>📚 Ringkasan Pembelajaran</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>🎯 Key Points:</h3>
+                        <ul>
+                            <li>Infrastruktur jaringan adalah backbone sistem terintegrasi</li>
+                            <li>Design principles menentukan kesuksesan implementasi</li>
+                            <li>Security harus dipertimbangkan dari awal desain</li>
+                            <li>Monitoring dan maintenance penting untuk reliability</li>
+                            <li>Cloud integration memberikan scalability</li>
+                            <li>IoT networks memerlukan pendekatan khusus</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>🚀 Next Steps:</h3>
+                        <ul>
+                            <li>Praktikkan desain dengan tools simulasi</li>
+                            <li>Pelajari vendor-specific technologies</li>
+                            <li>Eksplor emerging technologies (5G, Edge Computing)</li>
+                            <li>Kembangkan skills network troubleshooting</li>
+                            <li>Study real-world case implementations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="text-align: center; margin-top: 40px;">
+                    <h3>📧 Questions &amp; Support</h3>
+                    <p style="font-size: 1.4rem;">ikhwan.alfath@untidar.ac.id</p>
+                    <p style="font-size: 1.1rem; opacity: 0.8;">Lab Hours: Senin-Jumat 13:00-17:00 (Lab Jaringan Komputer)</p>
+                    <p style="font-size: 1rem; opacity: 0.7;">📚 Reference: Computer Networks - Tanenbaum, Network+ Guide - Dean</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Thank You -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="icon-large">🙏</div>
+                <h1>Terima Kasih</h1>
+                <h3>Thank You</h3>
+                <p style="font-size: 1.6rem; margin-top: 40px;">Questions &amp; Discussion</p>
+                <div class="highlight-box" style="margin-top: 50px;">
+                    <h3>🔧 Next Session:</h3>
+                    <h4 style="color: #90EE90; margin: 15px 0;">Implementasi dan Konfigurasi Sistem Terintegrasi</h4>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;"><em>Implementation and Configuration of Integrated Systems</em></p>
+                    
+                    <div class="two-column" style="text-align: left; margin-top: 25px;">
+                        <div>
+                            <h4>🎯 Topics:</h4>
+                            <ul style="font-size: 1rem; line-height: 1.6;">
+                                <li>System integration methodologies</li>
+                                <li>API design and implementation</li>
+                                <li>Database integration patterns</li>
+                                <li>Testing integrated systems</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🛠️ Preparation:</h4>
+                            <ul style="font-size: 1rem; line-height: 1.6;">
+                                <li>Install development tools</li>
+                                <li>Setup virtual machines</li>
+                                <li>Review database concepts</li>
+                                <li>Practice API testing tools</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">17</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled="">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+        <button class="nav-btn" onclick="scrollToTop()">⬆ Top</button>
+        <button class="nav-btn" onclick="scrollToBottom()">⬇ Bottom</button>
+        <button class="nav-btn" onclick="showHelp()">❓ Help</button>
+    </div>
+
+    <div class="help-overlay" id="helpOverlay">
+        <div class="help-content">
+            <h2>🎮 Kontrol Presentasi</h2>
+            <div style="text-align: left; margin: 20px 0;">
+                <p><strong>Keyboard Controls:</strong></p>
+                <ul>
+                    <li><strong>→ / Space:</strong> Next slide</li>
+                    <li><strong>← / Backspace:</strong> Previous slide</li>
+                    <li><strong>F / F11:</strong> Toggle fullscreen</li>
+                    <li><strong>Esc:</strong> Exit fullscreen</li>
+                    <li><strong>H:</strong> Show/hide this help</li>
+                    <li><strong>R:</strong> Reset to first slide</li>
+                </ul>
+                <p><strong>Remote Control:</strong></p>
+                <ul>
+                    <li>Arrow buttons: Next/Previous slide</li>
+                    <li>Laser pointer button: Next slide (Space)</li>
+                    <li>Page Up/Down: Navigate slides</li>
+                    <li>Click left/right screen area: Navigate</li>
+                    <li>Numeric keys 1-9: Jump to slide</li>
+                </ul>
+            </div>
+            <button class="nav-btn" onclick="hideHelp()" style="margin-top: 20px;">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+            
+            // Update progress bar
+            const progress = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function changeSlide(direction) {
+            const newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < totalSlides) {
+                currentSlideIndex = newIndex;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        function goToSlide(index) {
+            if (index >= 0 && index < totalSlides) {
+                currentSlideIndex = index;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function showHelp() {
+            document.getElementById('helpOverlay').style.display = 'flex';
+        }
+
+        function hideHelp() {
+            document.getElementById('helpOverlay').style.display = 'none';
+        }
+        
+        function scrollToTop() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        function scrollToBottom() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: activeSlide.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Enhanced Keyboard and Remote Controls
+        document.addEventListener('keydown', function(event) {
+            const remoteKeys = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', ' ', 'Enter'];
+            if (remoteKeys.includes(event.key)) {
+                event.preventDefault();
+            }
+
+            switch(event.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case 'PageDown':
+                case ' ':
+                case 'Enter':
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                case 'PageUp':
+                case 'Backspace':
+                    changeSlide(-1);
+                    break;
+                case 'f':
+                case 'F':
+                case 'F11':
+                    toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (document.getElementById('helpOverlay').style.display === 'flex') {
+                        hideHelp();
+                    } else if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+                case 'h':
+                case 'H':
+                    if (document.getElementById('helpOverlay').style.display === 'flex') {
+                        hideHelp();
+                    } else {
+                        showHelp();
+                    }
+                    break;
+                case 'r':
+                case 'R':
+                    goToSlide(0);
+                    break;
+                case 'Home':
+                    goToSlide(0);
+                    break;
+                case 'End':
+                    goToSlide(totalSlides - 1);
+                    break;
+                // Support for numeric keys to jump to slides
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    const slideNum = parseInt(event.key) - 1;
+                    if (slideNum < totalSlides) {
+                        goToSlide(slideNum);
+                    }
+                    break;
+            }
+        });
+
+        // Enhanced mouse/touch support for remote pointers
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.navigation') || 
+                event.target.closest('.slide-counter') || 
+                event.target.closest('.fullscreen-toggle') ||
+                event.target.closest('.help-overlay')) {
+                return;
+            }
+            
+            const clickX = event.clientX;
+            const screenWidth = window.innerWidth;
+            
+            if (clickX > screenWidth * 0.7) {
+                changeSlide(1);
+            } else if (clickX < screenWidth * 0.3) {
+                changeSlide(-1);
+            }
+        });
+
+        // Network Detail Functions
+        function showNetworkDetail(networkType) {
+            const networks = {
+                'lan': {
+                    title: '🏢 Local Area Network (LAN)',
+                    content: `
+                        <h4>Karakteristik:</h4>
+                        <ul>
+                            <li><strong>Coverage:</strong> Dalam satu gedung atau kampus (< 1 km)</li>
+                            <li><strong>Speed:</strong> 100 Mbps - 10 Gbps</li>
+                            <li><strong>Technology:</strong> Ethernet, Wi-Fi</li>
+                            <li><strong>Cost:</strong> Rendah untuk deployment dan maintenance</li>
+                        </ul>
+                        <h4>Use Cases:</h4>
+                        <ul>
+                            <li>Office networks</li>
+                            <li>Campus networks</li>
+                            <li>Hospital internal networks</li>
+                            <li>Manufacturing floor networks</li>
+                        </ul>
+                    `
+                },
+                'wan': {
+                    title: '🌍 Wide Area Network (WAN)',
+                    content: `
+                        <h4>Karakteristik:</h4>
+                        <ul>
+                            <li><strong>Coverage:</strong> Geografis luas (antar kota/negara)</li>
+                            <li><strong>Speed:</strong> 1.5 Mbps - 100 Gbps</li>
+                            <li><strong>Technology:</strong> MPLS, Internet, Satellite</li>
+                            <li><strong>Cost:</strong> Tinggi, tergantung bandwidth dan jarak</li>
+                        </ul>
+                        <h4>Use Cases:</h4>
+                        <ul>
+                            <li>Corporate branch office connectivity</li>
+                            <li>Internet service provider backbone</li>
+                            <li>Government inter-agency networks</li>
+                            <li>International business connectivity</li>
+                        </ul>
+                    `
+                },
+                'man': {
+                    title: '🏙️ Metropolitan Area Network (MAN)',
+                    content: `
+                        <h4>Karakteristik:</h4>
+                        <ul>
+                            <li><strong>Coverage:</strong> Dalam satu kota (10-100 km)</li>
+                            <li><strong>Speed:</strong> 10 Mbps - 1 Gbps</li>
+                            <li><strong>Technology:</strong> Fiber optic, wireless</li>
+                            <li><strong>Cost:</strong> Sedang, shared infrastructure</li>
+                        </ul>
+                        <h4>Use Cases:</h4>
+                        <ul>
+                            <li>City-wide municipal networks</li>
+                            <li>Cable TV networks</li>
+                            <li>University campus interconnection</li>
+                            <li>Regional healthcare networks</li>
+                        </ul>
+                    `
+                },
+                'vpn': {
+                    title: '🔐 Virtual Private Network (VPN)',
+                    content: `
+                        <h4>Karakteristik:</h4>
+                        <ul>
+                            <li><strong>Technology:</strong> Tunneling protocols (IPSec, SSL)</li>
+                            <li><strong>Security:</strong> Encryption, authentication</li>
+                            <li><strong>Cost:</strong> Rendah, menggunakan internet public</li>
+                            <li><strong>Flexibility:</strong> Remote access, site-to-site</li>
+                        </ul>
+                        <h4>Types & Use Cases:</h4>
+                        <ul>
+                            <li><strong>Site-to-Site VPN:</strong> Branch office connectivity</li>
+                            <li><strong>Remote Access VPN:</strong> Mobile workers</li>
+                            <li><strong>Client-to-Site:</strong> Secure remote access</li>
+                            <li><strong>MPLS VPN:</strong> Enterprise private networks</li>
+                        </ul>
+                    `
+                }
+            };
+
+            // Reset all cards
+            document.querySelectorAll('.protocol-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Activate selected card
+            event.target.closest('.protocol-card').classList.add('active');
+            
+            // Update content
+            const network = networks[networkType];
+            document.getElementById('networkDetail').innerHTML = `
+                <h3>${network.title}</h3>
+                ${network.content}
+            `;
+        }
+
+        // OSI Layer Functions
+        function showOSILayer(layer) {
+            const osiLayers = {
+                7: {
+                    title: 'Layer 7 - Application Layer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Interface antara aplikasi dan network services</p>
+                        <h4>🔧 Protokol:</h4>
+                        <ul>
+                            <li><strong>HTTP/HTTPS:</strong> Web browsing</li>
+                            <li><strong>FTP/SFTP:</strong> File transfer</li>
+                            <li><strong>SMTP/POP3/IMAP:</strong> Email</li>
+                            <li><strong>DNS:</strong> Domain name resolution</li>
+                            <li><strong>DHCP:</strong> Dynamic IP assignment</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Layer ini menangani API calls, web services, dan application-to-application communication dalam arsitektur mikroservice.</p>
+                    `
+                },
+                6: {
+                    title: 'Layer 6 - Presentation Layer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Data formatting, encryption, dan compression</p>
+                        <h4>🔧 Services:</h4>
+                        <ul>
+                            <li><strong>Encryption/Decryption:</strong> SSL/TLS, AES</li>
+                            <li><strong>Data Compression:</strong> JPEG, MPEG, ZIP</li>
+                            <li><strong>Character Encoding:</strong> ASCII, Unicode</li>
+                            <li><strong>Data Conversion:</strong> Format translation</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Critical untuk data security dan format compatibility antar sistem yang berbeda.</p>
+                    `
+                },
+                5: {
+                    title: 'Layer 5 - Session Layer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Mengelola session dan dialog antar aplikasi</p>
+                        <h4>🔧 Protokol:</h4>
+                        <ul>
+                            <li><strong>NetBIOS:</strong> Network Basic Input/Output</li>
+                            <li><strong>RPC:</strong> Remote Procedure Call</li>
+                            <li><strong>PPTP:</strong> Point-to-Point Tunneling</li>
+                            <li><strong>SMB:</strong> Server Message Block</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Mengatur session persistence dan connection pooling untuk aplikasi enterprise.</p>
+                    `
+                },
+                4: {
+                    title: 'Layer 4 - Transport Layer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Reliable data delivery dan flow control</p>
+                        <h4>🔧 Protokol:</h4>
+                        <ul>
+                            <li><strong>TCP:</strong> Reliable, connection-oriented</li>
+                            <li><strong>UDP:</strong> Fast, connectionless</li>
+                            <li><strong>SCTP:</strong> Stream Control Transmission</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Critical untuk ensuring data integrity dan managing concurrent connections dalam high-traffic environments.</p>
+                    `
+                },
+                3: {
+                    title: 'Layer 3 - Network Layer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Routing dan logical addressing</p>
+                        <h4>🔧 Protokol:</h4>
+                        <ul>
+                            <li><strong>IP (v4/v6):</strong> Internet Protocol</li>
+                            <li><strong>ICMP:</strong> Internet Control Message</li>
+                            <li><strong>OSPF:</strong> Open Shortest Path First</li>
+                            <li><strong>BGP:</strong> Border Gateway Protocol</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Menentukan path terbaik untuk data flow antar distributed components.</p>
+                    `
+                },
+                2: {
+                    title: 'Layer 2 - Data Link Layer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Frame formatting dan error detection</p>
+                        <h4>🔧 Teknologi:</h4>
+                        <ul>
+                            <li><strong>Ethernet:</strong> Wired LAN standard</li>
+                            <li><strong>Wi-Fi:</strong> Wireless LAN (802.11)</li>
+                            <li><strong>PPP:</strong> Point-to-Point Protocol</li>
+                            <li><strong>VLAN:</strong> Virtual LAN segmentation</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>VLAN segmentation penting untuk network isolation dan security dalam multi-tenant systems.</p>
+                    `
+                },
+                1: {
+                    title: 'Layer 1 - Physical Layer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Physical transmission media dan electrical signals</p>
+                        <h4>🔧 Media:</h4>
+                        <ul>
+                            <li><strong>Copper Cable:</strong> Cat5e, Cat6, Cat6a</li>
+                            <li><strong>Fiber Optic:</strong> Single-mode, multi-mode</li>
+                            <li><strong>Wireless:</strong> Radio frequencies, infrared</li>
+                            <li><strong>Connectors:</strong> RJ45, SC, LC, SFP+</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Physical infrastructure planning crucial untuk supporting high-bandwidth requirements dan future scalability.</p>
+                    `
+                }
+            };
+
+            // Reset all layers
+            document.querySelectorAll('.osi-layer').forEach(layer => {
+                layer.classList.remove('active');
+            });
+            
+            // Activate selected layer
+            event.target.classList.add('active');
+            
+            // Update content
+            const layerInfo = osiLayers[layer];
+            document.getElementById('osiDetail').innerHTML = `
+                <h3>${layerInfo.title}</h3>
+                ${layerInfo.content}
+            `;
+        }
+
+        // Topology Functions
+        function showTopology(type) {
+            const topologies = {
+                'star': `
+                    <h3>⭐ Star Topology</h3>
+                    <p><strong>Karakteristik:</strong> Semua device terhubung ke central hub/switch</p>
+                    <p><strong>Keunggulan:</strong> Easy maintenance, isolasi node failure, scalable</p>
+                    <p><strong>Kelemahan:</strong> Single point of failure pada central hub</p>
+                    <p><strong>Use Case:</strong> Modern LAN, enterprise networks</p>
+                `,
+                'bus': `
+                    <h3>🚌 Bus Topology</h3>
+                    <p><strong>Karakteristik:</strong> Semua device terhubung ke single cable backbone</p>
+                    <p><strong>Keunggulan:</strong> Simple, cost-effective, easy to extend</p>
+                    <p><strong>Kelemahan:</strong> Collision domain shared, difficult troubleshooting</p>
+                    <p><strong>Use Case:</strong> Small networks, legacy systems</p>
+                `,
+                'ring': `
+                    <h3>⭕ Ring Topology</h3>
+                    <p><strong>Karakteristik:</strong> Device terhubung dalam circular configuration</p>
+                    <p><strong>Keunggulan:</strong> No collision, deterministic access</p>
+                    <p><strong>Kelemahan:</strong> Single point of failure, difficult reconfiguration</p>
+                    <p><strong>Use Case:</strong> Token Ring networks, FDDI</p>
+                `,
+                'mesh': `
+                    <h3>🕸️ Mesh Topology</h3>
+                    <p><strong>Karakteristik:</strong> Multiple paths antar device</p>
+                    <p><strong>Keunggulan:</strong> High redundancy, fault tolerance, load distribution</p>
+                    <p><strong>Kelemahan:</strong> Complex, expensive, difficult management</p>
+                    <p><strong>Use Case:</strong> WAN backbone, critical infrastructure</p>
+                `
+            };
+            
+            document.getElementById('topologyDetail').innerHTML = topologies[type];
+        }
+
+        function animateDataFlow() {
+            document.querySelectorAll('.network-line').forEach(line => {
+                line.classList.add('animated');
+            });
+            
+            setTimeout(() => {
+                document.querySelectorAll('.network-line').forEach(line => {
+                    line.classList.remove('animated');
+                });
+            }, 4000);
+        }
+
+        // Component Detail Functions
+        function showComponentDetail(component) {
+            const components = {
+                'switch': {
+                    title: '🔀 Network Switch',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Layer 2 device untuk forwarding frames berdasarkan MAC address</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>Port Density:</strong> 8, 24, 48 ports</li>
+                            <li><strong>VLAN Support:</strong> Network segmentation</li>
+                            <li><strong>PoE:</strong> Power over Ethernet untuk IP phones, cameras</li>
+                            <li><strong>QoS:</strong> Traffic prioritization</li>
+                            <li><strong>Link Aggregation:</strong> Bandwidth bonding</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Central component untuk LAN connectivity, VLAN segmentation untuk security zones.</p>
+                    `
+                },
+                'router': {
+                    title: '📡 Router',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Layer 3 device untuk routing packets antar networks</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>Routing Protocols:</strong> OSPF, EIGRP, BGP</li>
+                            <li><strong>NAT/PAT:</strong> Address translation</li>
+                            <li><strong>VPN:</strong> IPSec, SSL tunneling</li>
+                            <li><strong>Firewall:</strong> Access control lists</li>
+                            <li><strong>WAN Interfaces:</strong> Serial, Ethernet, fiber</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Gateway untuk inter-network communication, critical untuk multi-site deployments.</p>
+                    `
+                },
+                'firewall': {
+                    title: '🛡️ Firewall',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Security device untuk traffic filtering dan access control</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>Stateful Inspection:</strong> Connection tracking</li>
+                            <li><strong>Application Layer:</strong> Deep packet inspection</li>
+                            <li><strong>IPS:</strong> Intrusion prevention system</li>
+                            <li><strong>VPN Gateway:</strong> Secure remote access</li>
+                            <li><strong>Content Filtering:</strong> Web security</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>First line of defense, critical untuk protecting integrated systems dari cyber threats.</p>
+                    `
+                },
+                'loadbalancer': {
+                    title: '⚖️ Load Balancer',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Distribusi traffic ke multiple servers untuk performance dan availability</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>Load Balancing Algorithms:</strong> Round-robin, weighted, least connections</li>
+                            <li><strong>Health Checks:</strong> Server monitoring</li>
+                            <li><strong>SSL Termination:</strong> Offload encryption</li>
+                            <li><strong>Session Persistence:</strong> Sticky sessions</li>
+                            <li><strong>Auto-scaling:</strong> Dynamic server addition</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Essential untuk high-availability applications, distributes load across microservices.</p>
+                    `
+                },
+                'dns': {
+                    title: '🏷️ DNS Server',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Resolusi nama domain ke IP address</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>Authoritative DNS:</strong> Domain ownership</li>
+                            <li><strong>Recursive DNS:</strong> Query resolution</li>
+                            <li><strong>DNS Caching:</strong> Performance optimization</li>
+                            <li><strong>Load Balancing:</strong> Multiple A records</li>
+                            <li><strong>DNSSEC:</strong> Security extensions</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>Critical untuk service discovery dalam distributed architectures, enables friendly naming.</p>
+                    `
+                },
+                'proxy': {
+                    title: '🔄 Proxy Server',
+                    content: `
+                        <h4>🎯 Fungsi:</h4>
+                        <p>Intermediary untuk requests antara clients dan servers</p>
+                        <h4>🔧 Types:</h4>
+                        <ul>
+                            <li><strong>Forward Proxy:</strong> Client-side proxy</li>
+                            <li><strong>Reverse Proxy:</strong> Server-side proxy</li>
+                            <li><strong>Transparent Proxy:</strong> Invisible to clients</li>
+                            <li><strong>Content Filter:</strong> Policy enforcement</li>
+                            <li><strong>Cache Proxy:</strong> Content caching</li>
+                        </ul>
+                        <h4>🏗️ Dalam Sistem Terintegrasi:</h4>
+                        <p>API gateway functionality, caching layer untuk performance, security filtering.</p>
+                    `
+                }
+            };
+
+            // Reset all nodes
+            document.querySelectorAll('.network-node').forEach(node => {
+                node.classList.remove('active');
+            });
+            
+            // Activate selected node
+            event.target.closest('.network-node').classList.add('active');
+            
+            // Update content
+            const comp = components[component];
+            document.getElementById('componentDetail').innerHTML = `
+                <h3>${comp.title}</h3>
+                ${comp.content}
+            `;
+        }
+
+        // Security Detail Functions
+        function showSecurityDetail(securityType) {
+            const security = {
+                'authentication': {
+                    title: '🔑 Authentication Systems',
+                    content: `
+                        <h4>🎯 Purpose:</h4>
+                        <p>Verify identity of users dan devices accessing network</p>
+                        <h4>🔧 Protocols:</h4>
+                        <ul>
+                            <li><strong>RADIUS:</strong> Remote Authentication Dial-In User Service</li>
+                            <li><strong>TACACS+:</strong> Terminal Access Controller Access-Control System</li>
+                            <li><strong>LDAP:</strong> Lightweight Directory Access Protocol</li>
+                            <li><strong>Kerberos:</strong> Network authentication protocol</li>
+                            <li><strong>SAML:</strong> Security Assertion Markup Language</li>
+                        </ul>
+                        <h4>🏗️ Implementation:</h4>
+                        <p>Multi-factor authentication, single sign-on (SSO), dan centralized user management untuk integrated systems.</p>
+                    `
+                },
+                'encryption': {
+                    title: '🔐 Encryption Technologies',
+                    content: `
+                        <h4>🎯 Purpose:</h4>
+                        <p>Protect data confidentiality during transmission dan storage</p>
+                        <h4>🔧 Technologies:</h4>
+                        <ul>
+                            <li><strong>IPSec:</strong> Network layer encryption</li>
+                            <li><strong>SSL/TLS:</strong> Application layer security</li>
+                            <li><strong>WPA3:</strong> Wi-Fi security protocol</li>
+                            <li><strong>AES:</strong> Advanced Encryption Standard</li>
+                            <li><strong>PKI:</strong> Public Key Infrastructure</li>
+                        </ul>
+                        <h4>🏗️ Implementation:</h4>
+                        <p>End-to-end encryption untuk API communications, database encryption at rest, certificate management.</p>
+                    `
+                },
+                'monitoring': {
+                    title: '👁️ Network Monitoring',
+                    content: `
+                        <h4>🎯 Purpose:</h4>
+                        <p>Continuous visibility into network performance dan security</p>
+                        <h4>🔧 Technologies:</h4>
+                        <ul>
+                            <li><strong>SNMP:</strong> Simple Network Management Protocol</li>
+                            <li><strong>Syslog:</strong> System logging protocol</li>
+                            <li><strong>NetFlow:</strong> Traffic analysis</li>
+                            <li><strong>SIEM:</strong> Security Information Event Management</li>
+                            <li><strong>NPM:</strong> Network Performance Monitoring</li>
+                        </ul>
+                        <h4>🏗️ Implementation:</h4>
+                        <p>Real-time dashboards, automated alerting, forensic analysis capabilities untuk incident response.</p>
+                    `
+                }
+            };
+
+            // Reset all cards
+            document.querySelectorAll('.protocol-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Activate selected card
+            event.target.closest('.protocol-card').classList.add('active');
+            
+            // Update content
+            const sec = security[securityType];
+            document.getElementById('securityDetail').innerHTML = `
+                <h3>${sec.title}</h3>
+                ${sec.content}
+            `;
+        }
+
+        // Cloud Detail Functions
+        function showCloudDetail(cloudType) {
+            const cloud = {
+                'iaas': {
+                    title: '🏗️ Infrastructure as a Service (IaaS)',
+                    content: `
+                        <h4>🎯 Definition:</h4>
+                        <p>Virtualized computing resources over internet</p>
+                        <h4>🔧 Components:</h4>
+                        <ul>
+                            <li><strong>Virtual Machines:</strong> Compute instances</li>
+                            <li><strong>Virtual Networks:</strong> VPC, subnets, security groups</li>
+                            <li><strong>Storage:</strong> Block, object, dan file storage</li>
+                            <li><strong>Load Balancers:</strong> Traffic distribution</li>
+                            <li><strong>Auto-scaling:</strong> Dynamic resource allocation</li>
+                        </ul>
+                        <h4>🏗️ Integration Benefits:</h4>
+                        <p>Scalable infrastructure, pay-as-you-use model, global deployment capabilities.</p>
+                    `
+                },
+                'paas': {
+                    title: '⚙️ Platform as a Service (PaaS)',
+                    content: `
+                        <h4>🎯 Definition:</h4>
+                        <p>Complete development dan deployment environment in cloud</p>
+                        <h4>🔧 Components:</h4>
+                        <ul>
+                            <li><strong>Runtime Environments:</strong> Java, .NET, Node.js</li>
+                            <li><strong>Databases:</strong> Managed SQL dan NoSQL</li>
+                            <li><strong>Middleware:</strong> Message queues, caching</li>
+                            <li><strong>Development Tools:</strong> CI/CD pipelines</li>
+                            <li><strong>Monitoring:</strong> Application performance</li>
+                        </ul>
+                        <h4>🏗️ Integration Benefits:</h4>
+                        <p>Faster development, managed services, automatic scaling, integrated DevOps tools.</p>
+                    `
+                },
+                'saas': {
+                    title: '📱 Software as a Service (SaaS)',
+                    content: `
+                        <h4>🎯 Definition:</h4>
+                        <p>Ready-to-use software applications delivered over internet</p>
+                        <h4>🔧 Examples:</h4>
+                        <ul>
+                            <li><strong>CRM:</strong> Salesforce, HubSpot</li>
+                            <li><strong>ERP:</strong> SAP, Oracle Cloud</li>
+                            <li><strong>Collaboration:</strong> Microsoft 365, Google Workspace</li>
+                            <li><strong>Communication:</strong> Slack, Zoom</li>
+                            <li><strong>Analytics:</strong> Tableau, Power BI</li>
+                        </ul>
+                        <h4>🏗️ Integration Benefits:</h4>
+                        <p>No infrastructure management, automatic updates, API integration capabilities.</p>
+                    `
+                }
+            };
+
+            // Reset all services
+            document.querySelectorAll('.cloud-service').forEach(service => {
+                service.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                service.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+            
+            // Activate selected service
+            event.target.closest('.cloud-service').style.borderColor = '#87CEEB';
+            event.target.closest('.cloud-service').style.background = 'rgba(135, 206, 235, 0.2)';
+            
+            // Update content
+            const cloudInfo = cloud[cloudType];
+            document.getElementById('cloudDetail').innerHTML = `
+                <h3>${cloudInfo.title}</h3>
+                ${cloudInfo.content}
+            `;
+        }
+
+        // IoT Protocol Functions
+        function showIoTProtocol(protocol) {
+            const protocols = {
+                'mqtt': {
+                    title: '📡 MQTT (Message Queuing Telemetry Transport)',
+                    content: `
+                        <h4>🎯 Characteristics:</h4>
+                        <p>Lightweight publish-subscribe messaging protocol</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>QoS Levels:</strong> 0 (fire-and-forget), 1 (at least once), 2 (exactly once)</li>
+                            <li><strong>Broker Architecture:</strong> Centralized message distribution</li>
+                            <li><strong>Topics:</strong> Hierarchical message organization</li>
+                            <li><strong>Retained Messages:</strong> Last known good value</li>
+                            <li><strong>Will Messages:</strong> Device disconnect handling</li>
+                        </ul>
+                        <h4>🏗️ Use Cases:</h4>
+                        <p>IoT sensor data collection, real-time monitoring, mobile applications, smart city infrastructure.</p>
+                    `
+                },
+                'coap': {
+                    title: '🔄 CoAP (Constrained Application Protocol)',
+                    content: `
+                        <h4>🎯 Characteristics:</h4>
+                        <p>RESTful protocol untuk resource-constrained devices</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>UDP-based:</strong> Low overhead communication</li>
+                            <li><strong>RESTful:</strong> GET, POST, PUT, DELETE methods</li>
+                            <li><strong>Block Transfer:</strong> Large data handling</li>
+                            <li><strong>Resource Discovery:</strong> .well-known/core</li>
+                            <li><strong>DTLS Security:</strong> Datagram encryption</li>
+                        </ul>
+                        <h4>🏗️ Use Cases:</h4>
+                        <p>Embedded systems, sensor networks, smart meters, constrained environments.</p>
+                    `
+                },
+                'lorawan': {
+                    title: '📶 LoRaWAN (Long Range Wide Area Network)',
+                    content: `
+                        <h4>🎯 Characteristics:</h4>
+                        <p>Low-power, long-range communication untuk IoT</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>Range:</strong> Up to 15 km in rural areas</li>
+                            <li><strong>Battery Life:</strong> 10+ years operation</li>
+                            <li><strong>Data Rates:</strong> 0.3 to 50 kbps</li>
+                            <li><strong>Device Classes:</strong> A (bi-directional), B (scheduled), C (continuous)</li>
+                            <li><strong>Security:</strong> AES 128-bit encryption</li>
+                        </ul>
+                        <h4>🏗️ Use Cases:</h4>
+                        <p>Smart agriculture, environmental monitoring, asset tracking, smart city applications.</p>
+                    `
+                },
+                'zigbee': {
+                    title: '🐝 Zigbee',
+                    content: `
+                        <h4>🎯 Characteristics:</h4>
+                        <p>Low-power mesh networking protocol</p>
+                        <h4>🔧 Features:</h4>
+                        <ul>
+                            <li><strong>Mesh Topology:</strong> Self-healing network</li>
+                            <li><strong>Range:</strong> 10-100 meters per hop</li>
+                            <li><strong>Data Rate:</strong> 250 kbps maximum</li>
+                            <li><strong>Network Size:</strong> Up to 65,000 nodes</li>
+                            <li><strong>Power Consumption:</strong> Ultra-low power operation</li>
+                        </ul>
+                        <h4>🏗️ Use Cases:</h4>
+                        <p>Home automation, industrial control, smart lighting, building management systems.</p>
+                    `
+                }
+            };
+
+            // Reset all cards
+            document.querySelectorAll('.protocol-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Activate selected card
+            event.target.closest('.protocol-card').classList.add('active');
+            
+            // Update content
+            const protocolInfo = protocols[protocol];
+            document.getElementById('iotDetail').innerHTML = `
+                <h3>${protocolInfo.title}</h3>
+                ${protocolInfo.content}
+            `;
+        }
+
+        // Standards Functions
+        function showStandard(standard) {
+            const standards = {
+                'iso': {
+                    title: '📋 ISO/IEC 27001 - Information Security Management',
+                    content: `
+                        <h4>🎯 Purpose:</h4>
+                        <p>International standard untuk information security management systems (ISMS)</p>
+                        <h4>🔧 Key Controls:</h4>
+                        <ul>
+                            <li><strong>Risk Management:</strong> Systematic risk assessment</li>
+                            <li><strong>Access Control:</strong> User access management</li>
+                            <li><strong>Incident Management:</strong> Security incident response</li>
+                            <li><strong>Business Continuity:</strong> Disaster recovery planning</li>
+                            <li><strong>Compliance:</strong> Legal dan regulatory requirements</li>
+                        </ul>
+                        <h4>🏗️ Network Implementation:</h4>
+                        <p>Security policies, network segmentation, monitoring procedures, dan compliance reporting.</p>
+                    `
+                },
+                'itil': {
+                    title: '⚙️ ITIL Framework - IT Service Management',
+                    content: `
+                        <h4>🎯 Purpose:</h4>
+                        <p>Best practices untuk IT service management dan operations</p>
+                        <h4>🔧 Core Processes:</h4>
+                        <ul>
+                            <li><strong>Incident Management:</strong> Service disruption resolution</li>
+                            <li><strong>Change Management:</strong> Controlled system changes</li>
+                            <li><strong>Configuration Management:</strong> Asset tracking</li>
+                            <li><strong>Problem Management:</strong> Root cause analysis</li>
+                            <li><strong>Service Level Management:</strong> SLA monitoring</li>
+                        </ul>
+                        <h4>🏗️ Network Implementation:</h4>
+                        <p>Service desk processes, change control untuk network modifications, performance monitoring.</p>
+                    `
+                },
+                'cobit': {
+                    title: '🎯 COBIT - Control Objectives for IT',
+                    content: `
+                        <h4>🎯 Purpose:</h4>
+                        <p>Framework untuk IT governance dan management</p>
+                        <h4>🔧 Key Areas:</h4>
+                        <ul>
+                            <li><strong>Governance:</strong> Strategic alignment</li>
+                            <li><strong>Management:</strong> Operational excellence</li>
+                            <li><strong>Risk Management:</strong> Risk mitigation</li>
+                            <li><strong>Resource Management:</strong> Optimal utilization</li>
+                            <li><strong>Performance Measurement:</strong> KPI tracking</li>
+                        </ul>
+                        <h4>🏗️ Network Implementation:</h4>
+                        <p>IT governance structure, network investment decisions, performance metrics dan reporting.</p>
+                    `
+                }
+            };
+
+            // Reset all cards
+            document.querySelectorAll('.protocol-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Activate selected card
+            event.target.closest('.protocol-card').classList.add('active');
+            
+            // Update content
+            const standardInfo = standards[standard];
+            document.getElementById('standardDetail').innerHTML = `
+                <h3>${standardInfo.title}</h3>
+                ${standardInfo.content}
+            `;
+        }
+
+        // Hospital Architecture Function
+        function showHospitalArchitecture() {
+            alert('🏗️ Hospital Network Architecture akan ditampilkan dalam diagram interaktif.\n\n' +
+                  'Komponen utama:\n' +
+                  '• Core Network: Redundant switches dan routers\n' +
+                  '• DMZ: Web servers dan public services\n' +
+                  '• Internal Network: VLAN segmentation untuk departments\n' +
+                  '• IoT Network: Isolated network untuk medical devices\n' +
+                  '• Wireless: Ubiquitous Wi-Fi coverage\n' +
+                  '• Security: Multi-layer security architecture\n' +
+                  '• WAN: Connections ke other facilities dan cloud services');
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Prevent context menu on right click
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+        // Handle fullscreen changes
+        document.addEventListener('fullscreenchange', function() {
+            const fullscreenBtn = document.querySelector('.fullscreen-toggle');
+            if (document.fullscreenElement) {
+                fullscreenBtn.innerHTML = '⛶';
+                fullscreenBtn.title = 'Exit Fullscreen (F)';
+            } else {
+                fullscreenBtn.innerHTML = '⛶';
+                fullscreenBtn.title = 'Enter Fullscreen (F)';
+            }
+        });
+
+        // Auto-hide cursor in fullscreen
+        let cursorTimeout;
+        function resetCursorTimeout() {
+            clearTimeout(cursorTimeout);
+            document.body.style.cursor = 'default';
+            if (document.fullscreenElement) {
+                cursorTimeout = setTimeout(() => {
+                    document.body.style.cursor = 'none';
+                }, 3000);
+            }
+        }
+
+        document.addEventListener('mousemove', resetCursorTimeout);
+        document.addEventListener('fullscreenchange', function() {
+            if (document.fullscreenElement) {
+                resetCursorTimeout();
+            } else {
+                clearTimeout(cursorTimeout);
+                document.body.style.cursor = 'default';
+            }
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

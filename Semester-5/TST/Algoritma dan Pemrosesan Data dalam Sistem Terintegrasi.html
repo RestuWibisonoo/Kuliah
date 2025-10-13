@@ -1,0 +1,2482 @@
+<!DOCTYPE html>
+<!-- saved from url=(0116)https://class.tiflab.my.id/storage/lessons/materials/1759117351_7-Algoritma-Pemrosesan-Data-Sistem-Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 40px 60px;
+            position: relative;
+            animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Enhanced Custom Scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+            background-clip: content-box;
+            box-shadow: 0 0 15px rgba(118, 75, 162, 0.7);
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #667eea rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        /* Typography with Enhanced Effects - LARGER FONTS */
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6)); }
+        }
+
+        h2 {
+            font-size: 4rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            filter: drop-shadow(0 0 8px rgba(78, 205, 196, 0.3));
+        }
+
+        h3 {
+            font-size: 2.8rem;
+            margin-bottom: 1.8rem;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #FFD700, transparent);
+            border-radius: 2px;
+        }
+
+        h4 {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            color: #4ECDC4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Header with Glass Effect */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .university-info h1 {
+            font-size: 3.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .university-info p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: #E0E6ED;
+        }
+
+        .logo img {
+            height: 90px;
+            margin-right: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Enhanced List Styling */
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        li::before {
+            content: '▶';
+            color: #4ECDC4;
+            position: absolute;
+            left: -15px;
+            font-size: 0.8rem;
+        }
+
+        /* Glass Morphism Containers */
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 4px solid #FFD700;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .highlight-box h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        /* Advanced Algorithm Demo Container */
+        .algorithm-demo {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #4ECDC4;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(15px);
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .algorithm-demo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #4ECDC4, #45B7D1, #667eea);
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            from { opacity: 0.5; }
+            to { opacity: 0.8; }
+        }
+        
+        .algorithm-demo h4 {
+            color: #4ECDC4;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Enhanced Code Block */
+        .code-block {
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e);
+            color: #00ff41;
+            padding: 2rem;
+            border-radius: 15px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid #333;
+            box-shadow: 
+                inset 0 0 10px rgba(0, 255, 65, 0.1),
+                0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        .code-block::before {
+            content: '● ● ●';
+            position: absolute;
+            top: 12px;
+            left: 20px;
+            color: #ff5f56;
+            font-size: 1.2rem;
+        }
+
+        /* Syntax highlighting for specific keywords */
+        .code-block .keyword {
+            color: #ff79c6;
+            font-weight: bold;
+        }
+
+        .code-block .string {
+            color: #f1fa8c;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+            font-style: italic;
+        }
+
+        .code-block .function {
+            color: #8be9fd;
+        }
+
+        /* Enhanced Performance Metrics */
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #4ECDC4, #45B7D1, #667eea, #764ba2);
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .metric-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .metric-card h4 {
+            color: #4ECDC4;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00ff41;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { text-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
+            to { text-shadow: 0 0 25px rgba(0, 255, 65, 0.8); }
+        }
+
+        /* Interactive Demo Enhancements */
+        .interactive-demo {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 107, 107, 0.6);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .interactive-demo::after {
+            content: '🚀';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Enhanced Demo Button */
+        .demo-button {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4, #45B7D1);
+            background-size: 200% 200%;
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 15px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .demo-button:hover::before {
+            left: 100%;
+        }
+        
+        .demo-button:hover {
+            background-position: 100% 100%;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .demo-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Enhanced Demo Output */
+        .demo-output {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(15, 15, 35, 0.9));
+            border: 2px solid #4ECDC4;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            text-align: left;
+            min-height: 150px;
+            color: #00ff41;
+            font-size: 1rem;
+            line-height: 1.6;
+            overflow-y: auto;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 255, 65, 0.1),
+                0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .demo-output::before {
+            content: 'Terminal Output';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #4ECDC4;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Enhanced Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .fullscreen-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+        
+        .fullscreen-btn:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Enhanced Slide Counter */
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+
+        /* Enhanced Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        
+        .scroll-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .scroll-btn:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        /* Enhanced Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: background 0.3s ease;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px 30px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            h3 {
+                font-size: 1.8rem;
+            }
+            
+            .university-info h1 {
+                font-size: 2rem;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .performance-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
+
+            .logo img {
+                height: 70px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #4ECDC4;
+            z-index: 2000;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="">
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">18</span>
+        </div>
+        
+        <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">⛶</button>
+        
+        <div class="scroll-indicator">
+            <button class="scroll-btn" onclick="scrollSlideUp()" title="Scroll Up">↑</button>
+            <button class="scroll-btn" onclick="scrollSlideDown()" title="Scroll Down">↓</button>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi</h2>
+                <h3 style="text-align: center; margin-top: 40px; color: #4ECDC4;">Algorithms and Data Processing in Integrated Systems</h3>
+                
+                <div style="text-align: center; margin-top: 60px;">
+                    <p><strong>Mata Kuliah:</strong> Teknologi Sistem Terintegrasi</p>
+                    <p><strong>Pertemuan:</strong> 7</p>
+                    <p><strong>Durasi:</strong> 3 x 50 menit</p>
+                    <p><strong>Metode:</strong> Ceramah, Praktik, Diskusi</p>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 40px; animation: 0.6s ease 0s 1 normal both running slideIn;">
+                    <h4>🎯 Tujuan Pembelajaran</h4>
+                    <p>Mahasiswa dapat mengimplementasikan algoritma pemrosesan data dalam konteks sistem terintegrasi dengan fokus pada keakuratan dan efisiensi algoritma.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🎯 Capaian Pembelajaran</h2>
+                
+                <h3>Setelah menyelesaikan pertemuan ini, mahasiswa akan dapat:</h3>
+                <ul>
+                    <li>Memahami konsep fundamental algoritma dalam sistem terintegrasi</li>
+                    <li>Menganalisis kompleksitas waktu dan ruang algoritma</li>
+                    <li>Mengimplementasikan algoritma pemrosesan data real-time</li>
+                    <li>Mengevaluasi efisiensi dan keakuratan algoritma</li>
+                    <li>Menerapkan algoritma machine learning untuk data integration</li>
+                    <li>Mengoptimalkan kinerja algoritma dalam lingkungan terdistribusi</li>
+                </ul>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 0.1s 1 normal both running slideIn;">
+                    <h4>📊 Key Performance Indicators (KPI)</h4>
+                    <div class="performance-metrics">
+                        <div class="metric-card" style="animation: 0.6s ease 0.2s 1 normal both running slideIn;">
+                            <h4>Keakuratan</h4>
+                            <div class="metric-value">≥95%</div>
+                            <p>Tingkat akurasi algoritma</p>
+                        </div>
+                        <div class="metric-card" style="animation: 0.6s ease 0.3s 1 normal both running slideIn;">
+                            <h4>Efisiensi</h4>
+                            <div class="metric-value">≤100ms</div>
+                            <p>Waktu respons maksimal</p>
+                        </div>
+                        <div class="metric-card" style="animation: 0.6s ease 0.4s 1 normal both running slideIn;">
+                            <h4>Throughput</h4>
+                            <div class="metric-value">≥1000</div>
+                            <p>Operasi per detik</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Algorithm Fundamentals -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🏗️ Fundamental Algoritma dalam Sistem Terintegrasi</h2>
+                
+                <div class="two-column">
+                    <div>
+                        <h3>Karakteristik Algoritma Sistem Terintegrasi</h3>
+                        <ul>
+                            <li><strong>Distributed Processing:</strong> Algoritma harus dapat berjalan pada multiple nodes</li>
+                            <li><strong>Fault Tolerance:</strong> Robust terhadap kegagalan komponen</li>
+                            <li><strong>Real-time Performance:</strong> Memproses data dengan latency rendah</li>
+                            <li><strong>Scalability:</strong> Dapat menangani volume data yang meningkat</li>
+                            <li><strong>Data Consistency:</strong> Menjamin konsistensi data antar sistem</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3>Jenis Algoritma Utama</h3>
+                        <ul>
+                            <li><strong>Streaming Algorithms:</strong> Untuk data real-time</li>
+                            <li><strong>MapReduce:</strong> Untuk big data processing</li>
+                            <li><strong>Graph Algorithms:</strong> Untuk network analysis</li>
+                            <li><strong>ML Algorithms:</strong> Untuk pattern recognition</li>
+                            <li><strong>Consensus Algorithms:</strong> Untuk distributed systems</li>
+                            <li><strong>Optimization Algorithms:</strong> Untuk resource allocation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 0.5s 1 normal both running slideIn;">
+                    <h4>⚡ Design Principles</h4>
+                    <p>Algoritma sistem terintegrasi harus mengikuti prinsip <strong>CAP Theorem</strong>: Consistency, Availability, dan Partition Tolerance. Pilihan trade-off bergantung pada kebutuhan aplikasi.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Algorithm Complexity Analysis -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>📊 Analisis Kompleksitas Algoritma</h2>
+                
+                <h3>Time Complexity dalam Sistem Terintegrasi</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Algorithm Type</th>
+                            <th>Best Case</th>
+                            <th>Average Case</th>
+                            <th>Worst Case</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Linear Search</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                            <td>O(n)</td>
+                            <td>Small datasets, unsorted data</td>
+                        </tr>
+                        <tr>
+                            <td>Binary Search</td>
+                            <td>O(1)</td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                            <td>Sorted data, indexed systems</td>
+                        </tr>
+                        <tr>
+                            <td>Hash Table</td>
+                            <td>O(1)</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                            <td>Key-value stores, caching</td>
+                        </tr>
+                        <tr>
+                            <td>Quick Sort</td>
+                            <td>O(n log n)</td>
+                            <td>O(n log n)</td>
+                            <td>O(n²)</td>
+                            <td>General purpose sorting</td>
+                        </tr>
+                        <tr>
+                            <td>Dijkstra's</td>
+                            <td>O(V²)</td>
+                            <td>O(V²)</td>
+                            <td>O(V²)</td>
+                            <td>Shortest path, routing</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 0.6s 1 normal both running slideIn;">
+                    <h4>💾 Space Complexity Considerations</h4>
+                    <p>Dalam sistem terintegrasi, space complexity menjadi kritis karena:</p>
+                    <ul>
+                        <li>Memory limitations pada edge devices</li>
+                        <li>Network bandwidth constraints</li>
+                        <li>Storage costs dalam cloud systems</li>
+                        <li>Cache efficiency untuk performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Real-time Data Processing -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>⚡ Algoritma Pemrosesan Data Real-time</h2>
+                
+                <h3>Stream Processing Algorithms</h3>
+                
+                <div class="algorithm-demo" style="animation: 0.6s ease 0.7s 1 normal both running slideIn;">
+                    <h4>🌊 Sliding Window Algorithm</h4>
+                    <div class="code-block">
+class SlidingWindow:
+    def __init__(self, window_size):
+        self.window_size = window_size
+        self.window = []
+        self.sum = 0
+    
+
+    def add_value(self, value):
+        self.window.append(value)
+        self.sum += value
+        
+        if len(self.window) &gt; self.window_size:
+            removed = self.window.pop(0)
+            self.sum -= removed
+        
+        return self.sum / len(self.window)
+    
+
+    def get_average(self):
+        if self.window:
+            return self.sum / len(self.window)
+        else:
+            return 0</div>
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>✅ Keuntungan Stream Processing</h4>
+                        <ul>
+                            <li>Low latency processing</li>
+                            <li>Continuous data analysis</li>
+                            <li>Memory efficient</li>
+                            <li>Real-time decision making</li>
+                            <li>Scalable architecture</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>🎯 Use Cases</h4>
+                        <ul>
+                            <li>IoT sensor monitoring</li>
+                            <li>Financial fraud detection</li>
+                            <li>Network traffic analysis</li>
+                            <li>Real-time analytics</li>
+                            <li>Predictive maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🚀 Interactive Demo: Sliding Window</h4>
+                    <button class="demo-button" onclick="demonstrateStreamProcessing()">Start Stream Processing</button>
+                    <div class="demo-output" id="streamOutput">Click button to see sliding window algorithm in action...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Performance Evaluation -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>📈 Evaluasi Keakuratan dan Efisiensi Algoritma</h2>
+                
+                <h3>Key Performance Indicators (KPIs)</h3>
+                
+                <div class="performance-metrics">
+                    <div class="metric-card" style="animation: 0.6s ease 0.8s 1 normal both running slideIn;">
+                        <h4>Accuracy Rate</h4>
+                        <div class="metric-value">96.7%</div>
+                        <p>Algorithm prediction accuracy</p>
+                    </div>
+                    <div class="metric-card" style="animation: 0.6s ease 0.9s 1 normal both running slideIn;">
+                        <h4>Response Time</h4>
+                        <div class="metric-value">45ms</div>
+                        <p>Average processing latency</p>
+                    </div>
+                    <div class="metric-card" style="animation: 0.6s ease 1s 1 normal both running slideIn;">
+                        <h4>Throughput</h4>
+                        <div class="metric-value">1,847</div>
+                        <p>Operations per second</p>
+                    </div>
+                    <div class="metric-card" style="animation: 0.6s ease 1.1s 1 normal both running slideIn;">
+                        <h4>Resource Usage</h4>
+                        <div class="metric-value">23%</div>
+                        <p>CPU utilization average</p>
+                    </div>
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>📊 Accuracy Metrics</h4>
+                        <ul>
+                            <li><strong>Precision:</strong> TP / (TP + FP)</li>
+                            <li><strong>Recall:</strong> TP / (TP + FN)</li>
+                            <li><strong>F1-Score:</strong> 2 × (Precision × Recall) / (Precision + Recall)</li>
+                            <li><strong>ROC-AUC:</strong> Area Under ROC Curve</li>
+                            <li><strong>Mean Absolute Error (MAE)</strong></li>
+                            <li><strong>Root Mean Square Error (RMSE)</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>⚡ Efficiency Metrics</h4>
+                        <ul>
+                            <li><strong>Time Complexity:</strong> Big O notation</li>
+                            <li><strong>Space Complexity:</strong> Memory usage</li>
+                            <li><strong>CPU Utilization:</strong> Processing power</li>
+                            <li><strong>Memory Footprint:</strong> RAM consumption</li>
+                            <li><strong>Throughput:</strong> Operations per second</li>
+                            <li><strong>Latency:</strong> Response time</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🔬 Interactive Demo: Performance Analysis</h4>
+                    <button class="demo-button" onclick="demonstratePerformanceEvaluation()">Run Performance Analysis</button>
+                    <div class="demo-output" id="evaluationOutput">Click button to see algorithm performance evaluation...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7-18: Complete remaining slides -->
+        <!-- Slide 7: MapReduce Implementation -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🗂️ MapReduce untuk Big Data Processing</h2>
+                
+                <h3>Konsep MapReduce</h3>
+                <p>MapReduce adalah paradigma pemrograman untuk memproses dataset besar secara terdistribusi melalui dua fase utama:</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>📥 Map Phase</h4>
+                        <ul>
+                            <li>Memecah data menjadi key-value pairs</li>
+                            <li>Memproses setiap pair secara independen</li>
+                            <li>Menghasilkan intermediate results</li>
+                            <li>Dapat dijalankan secara paralel</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>📤 Reduce Phase</h4>
+                        <ul>
+                            <li>Menggabungkan intermediate results</li>
+                            <li>Melakukan agregasi berdasarkan key</li>
+                            <li>Menghasilkan output final</li>
+                            <li>Optimized untuk operasi asosiatif</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="algorithm-demo" style="animation: 0.6s ease 1.2s 1 normal both running slideIn;">
+                    <h4>🔢 Word Count Algorithm</h4>
+                    <div class="code-block">
+# Map Function
+def map_function(document):
+    words = document.split()
+    return [(word.lower(), 1) for word in words]
+
+
+# Reduce Function  
+def reduce_function(word, counts):
+    return (word, sum(counts))
+
+
+# MapReduce Execution
+def mapreduce_wordcount(documents):
+    # Map Phase
+    mapped = []
+    for doc in documents:
+        mapped.extend(map_function(doc))
+    
+    # Shuffle &amp; Sort
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for word, count in mapped:
+        groups[word].append(count)
+    
+    # Reduce Phase
+    results = []
+    for word, counts in groups.items():
+        results.append(reduce_function(word, counts))
+    
+    return sorted(results, key=lambda x: x[1], reverse=True)</div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🚀 Interactive Demo: MapReduce Word Count</h4>
+                    <button class="demo-button" onclick="demonstrateMapReduce()">Run MapReduce Demo</button>
+                    <div class="demo-output" id="mapreduceOutput">Click button to see MapReduce algorithm processing...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Machine Learning Algorithms -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🤖 Machine Learning untuk Data Integration</h2>
+                
+                <h3>Algoritma ML dalam Sistem Terintegrasi</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>🎯 Supervised Learning</h4>
+                        <ul>
+                            <li><strong>Linear Regression:</strong> Prediksi nilai numerik</li>
+                            <li><strong>Decision Trees:</strong> Klasifikasi dan regresi</li>
+                            <li><strong>Random Forest:</strong> Ensemble learning</li>
+                            <li><strong>SVM:</strong> Klasifikasi complex data</li>
+                            <li><strong>Neural Networks:</strong> Deep learning</li>
+                        </ul>
+                        
+                        <h4>🔍 Unsupervised Learning</h4>
+                        <ul>
+                            <li><strong>K-Means:</strong> Clustering analysis</li>
+                            <li><strong>Hierarchical:</strong> Dendogram clustering</li>
+                            <li><strong>PCA:</strong> Dimensionality reduction</li>
+                            <li><strong>Anomaly Detection:</strong> Outlier identification</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>⚙️ Implementation dalam Sistem Terintegrasi</h4>
+                        <ul>
+                            <li><strong>Data Preprocessing:</strong> Cleaning, normalization</li>
+                            <li><strong>Feature Engineering:</strong> Selection, extraction</li>
+                            <li><strong>Model Training:</strong> Distributed training</li>
+                            <li><strong>Model Deployment:</strong> Edge/cloud deployment</li>
+                            <li><strong>Model Monitoring:</strong> Performance tracking</li>
+                            <li><strong>Auto-scaling:</strong> Dynamic resource allocation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="algorithm-demo" style="animation: 0.6s ease 1.3s 1 normal both running slideIn;">
+                    <h4>📈 Simple Linear Regression Implementation</h4>
+                    <div class="code-block">
+import numpy as np
+
+
+class LinearRegression:
+    def __init__(self, learning_rate=0.01, max_iterations=1000):
+        self.learning_rate = learning_rate
+        self.max_iterations = max_iterations
+        self.weights = None
+        self.bias = None
+    
+
+    def fit(self, X, y):
+        n_samples, n_features = X.shape
+        self.weights = np.zeros(n_features)
+        self.bias = 0
+        
+        for i in range(self.max_iterations):
+            y_pred = np.dot(X, self.weights) + self.bias
+            
+            # Calculate gradients
+            dw = (1/n_samples) * np.dot(X.T, (y_pred - y))
+            db = (1/n_samples) * np.sum(y_pred - y)
+            
+            # Update parameters
+            self.weights -= self.learning_rate * dw
+            self.bias -= self.learning_rate * db
+    
+
+    def predict(self, X):
+        return np.dot(X, self.weights) + self.bias</div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🧠 Interactive Demo: ML Algorithm Performance</h4>
+                    <button class="demo-button" onclick="demonstrateMLPerformance()">Simulate ML Training</button>
+                    <div class="demo-output" id="mlOutput">Click button to see ML algorithm training process...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Graph Algorithms -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🕸️ Graph Algorithms untuk Network Analysis</h2>
+                
+                <h3>Aplikasi Graph Algorithms dalam Sistem Terintegrasi</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>🌐 Network Topology Analysis</h4>
+                        <ul>
+                            <li><strong>Shortest Path:</strong> Optimal routing</li>
+                            <li><strong>Minimum Spanning Tree:</strong> Network design</li>
+                            <li><strong>Network Flow:</strong> Bandwidth optimization</li>
+                            <li><strong>Centrality Measures:</strong> Node importance</li>
+                            <li><strong>Community Detection:</strong> Clustering</li>
+                        </ul>
+                        
+                        <h4>👥 Social Network Analysis</h4>
+                        <ul>
+                            <li>Influence propagation</li>
+                            <li>Recommendation systems</li>
+                            <li>Friend suggestion</li>
+                            <li>Content distribution</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>🔗 System Dependencies</h4>
+                        <ul>
+                            <li><strong>Service Dependencies:</strong> Microservices topology</li>
+                            <li><strong>Data Flow:</strong> ETL pipeline analysis</li>
+                            <li><strong>Fault Analysis:</strong> Failure propagation</li>
+                            <li><strong>Load Balancing:</strong> Traffic distribution</li>
+                            <li><strong>Security Analysis:</strong> Vulnerability paths</li>
+                        </ul>
+                        
+                        <h4>🌐 IoT Networks</h4>
+                        <ul>
+                            <li>Device connectivity</li>
+                            <li>Sensor networks</li>
+                            <li>Energy optimization</li>
+                            <li>Coverage analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="algorithm-demo" style="animation: 0.6s ease 1.4s 1 normal both running slideIn;">
+                    <h4>🛤️ Dijkstra's Shortest Path Algorithm</h4>
+                    <div class="code-block">
+import heapq
+from collections import defaultdict
+
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+    
+
+    def add_edge(self, u, v, weight):
+        self.graph[u].append((v, weight))
+        self.graph[v].append((u, weight))  # For undirected graph
+    
+
+    def dijkstra(self, start, end):
+        distances = defaultdict(lambda: float('inf'))
+        distances[start] = 0
+        previous = {}
+        pq = [(0, start)]
+        visited = set()
+        
+        while pq:
+            current_dist, current = heapq.heappop(pq)
+            
+            if current in visited:
+                continue
+                
+            visited.add(current)
+            
+            if current == end:
+                break
+                
+            for neighbor, weight in self.graph[current]:
+                distance = current_dist + weight
+                
+                if distance &lt; distances[neighbor]:
+                    distances[neighbor] = distance
+                    previous[neighbor] = current
+                    heapq.heappush(pq, (distance, neighbor))
+        
+        # Reconstruct path
+        path = []
+        current = end
+        while current in previous:
+            path.append(current)
+            current = previous[current]
+        path.append(start)
+        path.reverse()
+        
+        return distances[end], path</div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🗺️ Interactive Demo: Network Path Finding</h4>
+                    <button class="demo-button" onclick="demonstrateGraphAlgorithm()">Find Shortest Path</button>
+                    <div class="demo-output" id="graphOutput">Click button to see graph algorithm finding optimal network paths...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Case Study -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🏙️ Case Study: Smart Traffic Management System</h2>
+                
+                <h3>Problem Statement</h3>
+                <p>Kota Magelang membutuhkan sistem manajemen lalu lintas cerdas untuk mengurangi kemacetan dan meningkatkan efisiensi transportasi menggunakan algoritma optimisasi dalam sistem terintegrasi.</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>📋 System Requirements</h4>
+                        <ul>
+                            <li><strong>Real-time Processing:</strong> Data dari 200+ traffic sensors</li>
+                            <li><strong>Traffic Flow Optimization:</strong> Dynamic traffic light control</li>
+                            <li><strong>Route Optimization:</strong> Shortest path calculation</li>
+                            <li><strong>Incident Detection:</strong> Automatic accident detection</li>
+                            <li><strong>Predictive Analytics:</strong> Traffic pattern prediction</li>
+                            <li><strong>Mobile Integration:</strong> Real-time navigation updates</li>
+                        </ul>
+                        
+                        <h4>⚠️ Technical Challenges</h4>
+                        <ul>
+                            <li>High-frequency sensor data processing</li>
+                            <li>Real-time decision making (&lt; 1 second)</li>
+                            <li>Multiple data sources integration</li>
+                            <li>Scalable architecture design</li>
+                            <li>Fault tolerance requirements</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>🔧 Algorithm Implementation</h4>
+                        <ul>
+                            <li><strong>Stream Processing:</strong> Kafka + Storm untuk real-time data</li>
+                            <li><strong>Graph Algorithms:</strong> Dijkstra untuk route optimization</li>
+                            <li><strong>Machine Learning:</strong> LSTM untuk traffic prediction</li>
+                            <li><strong>Optimization:</strong> Genetic algorithm untuk signal timing</li>
+                            <li><strong>Anomaly Detection:</strong> Statistical methods</li>
+                        </ul>
+                        
+                        <h4>📊 Performance Results</h4>
+                        <ul>
+                            <li>35% reduction dalam average travel time</li>
+                            <li>50% improvement dalam traffic flow</li>
+                            <li>90% accuracy dalam incident detection</li>
+                            <li>&lt; 500ms response time untuk route updates</li>
+                            <li>99.9% system uptime</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 1.5s 1 normal both running slideIn;">
+                    <h4>📚 Lessons Learned</h4>
+                    <ul>
+                        <li><strong>Algorithm Selection:</strong> Right algorithm for the right problem</li>
+                        <li><strong>Real-time Constraints:</strong> Balance accuracy with response time</li>
+                        <li><strong>Data Quality:</strong> Sensor data validation is crucial</li>
+                        <li><strong>Scalability Planning:</strong> Design for future growth</li>
+                        <li><strong>User Experience:</strong> System reliability affects public trust</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🚦 Interactive Demo: Traffic Optimization</h4>
+                    <button class="demo-button" onclick="demonstrateTrafficOptimization()">Simulate Traffic System</button>
+                    <div class="demo-output" id="trafficOutput">Click button to see smart traffic management in action...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Distributed Algorithms -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🌐 Algoritma Terdistribusi</h2>
+                
+                <h3>Consensus Algorithms untuk Sistem Terdistribusi</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>🗳️ Raft Consensus Algorithm</h4>
+                        <ul>
+                            <li><strong>Leader Election:</strong> Pemilihan node coordinator</li>
+                            <li><strong>Log Replication:</strong> Sinkronisasi data</li>
+                            <li><strong>Safety Properties:</strong> Konsistensi data</li>
+                            <li><strong>Fault Tolerance:</strong> Handle node failures</li>
+                        </ul>
+                        
+                        <h4>🏛️ Paxos Algorithm</h4>
+                        <ul>
+                            <li>Multi-phase consensus</li>
+                            <li>Byzantine fault tolerance</li>
+                            <li>Network partition handling</li>
+                            <li>Strong consistency guarantee</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>🗂️ Distributed Hash Tables (DHT)</h4>
+                        <ul>
+                            <li><strong>Consistent Hashing:</strong> Load balancing</li>
+                            <li><strong>Chord Protocol:</strong> Peer-to-peer lookup</li>
+                            <li><strong>Kademlia:</strong> BitTorrent DHT</li>
+                            <li><strong>Replication:</strong> Data redundancy</li>
+                        </ul>
+                        
+                        <h4>🔄 MapReduce in Distributed Systems</h4>
+                        <ul>
+                            <li>Job scheduling</li>
+                            <li>Data locality optimization</li>
+                            <li>Fault recovery mechanism</li>
+                            <li>Dynamic resource allocation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🗳️ Interactive Demo: Distributed Consensus</h4>
+                    <button class="demo-button" onclick="demonstrateConsensus()">Simulate Leader Election</button>
+                    <div class="demo-output" id="consensusOutput">Click button to see distributed consensus algorithm...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Algorithm Security -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🔐 Keamanan Algoritma dalam Sistem Terintegrasi</h2>
+                
+                <h3>Security Considerations</h3>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>🔒 Cryptographic Algorithms</h4>
+                        <ul>
+                            <li><strong>Symmetric Encryption:</strong> AES-256</li>
+                            <li><strong>Asymmetric Encryption:</strong> RSA, ECC</li>
+                            <li><strong>Hash Functions:</strong> SHA-256, SHA-3</li>
+                            <li><strong>Digital Signatures:</strong> ECDSA</li>
+                            <li><strong>Key Exchange:</strong> Diffie-Hellman</li>
+                        </ul>
+                        
+                        <h4>⚠️ Algorithm Vulnerabilities</h4>
+                        <ul>
+                            <li>Timing attacks</li>
+                            <li>Side-channel attacks</li>
+                            <li>Buffer overflow</li>
+                            <li>Injection attacks</li>
+                            <li>Race conditions</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>🛡️ Secure Implementation Practices</h4>
+                        <ul>
+                            <li><strong>Input Validation:</strong> Sanitize all inputs</li>
+                            <li><strong>Secure Coding:</strong> Avoid common vulnerabilities</li>
+                            <li><strong>Constant-time Operations:</strong> Prevent timing attacks</li>
+                            <li><strong>Memory Safety:</strong> Prevent buffer overflows</li>
+                            <li><strong>Error Handling:</strong> Secure error messages</li>
+                        </ul>
+                        
+                        <h4>🔍 Security Testing</h4>
+                        <ul>
+                            <li>Static code analysis</li>
+                            <li>Dynamic security testing</li>
+                            <li>Penetration testing</li>
+                            <li>Formal verification</li>
+                            <li>Security audits</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 1.6s 1 normal both running slideIn;">
+                    <h4>🔐 Security Best Practices</h4>
+                    <ul>
+                        <li><strong>Principle of Least Privilege:</strong> Minimal access rights</li>
+                        <li><strong>Defense in Depth:</strong> Multiple security layers</li>
+                        <li><strong>Fail Securely:</strong> Secure default behavior</li>
+                        <li><strong>Security by Design:</strong> Built-in security considerations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Performance Optimization -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>⚡ Optimisasi Performa Algoritma</h2>
+                
+                <h3>Strategi Optimisasi</h3>
+                
+                <div class="performance-metrics">
+                    <div class="metric-card" style="animation: 0.6s ease 1.7s 1 normal both running slideIn;">
+                        <h4>CPU Optimization</h4>
+                        <div class="metric-value">85%</div>
+                        <p>Reduction in CPU usage</p>
+                    </div>
+                    <div class="metric-card" style="animation: 0.6s ease 1.8s 1 normal both running slideIn;">
+                        <h4>Memory Efficiency</h4>
+                        <div class="metric-value">60%</div>
+                        <p>Memory footprint reduction</p>
+                    </div>
+                    <div class="metric-card" style="animation: 0.6s ease 1.9s 1 normal both running slideIn;">
+                        <h4>Response Time</h4>
+                        <div class="metric-value">50ms</div>
+                        <p>Average response time</p>
+                    </div>
+                    <div class="metric-card" style="animation: 0.6s ease 2s 1 normal both running slideIn;">
+                        <h4>Throughput</h4>
+                        <div class="metric-value">2000</div>
+                        <p>Operations per second</p>
+                    </div>
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>🧮 Algorithm-Level Optimization</h4>
+                        <ul>
+                            <li><strong>Choose Right Data Structure:</strong> Array vs LinkedList vs HashMap</li>
+                            <li><strong>Algorithm Selection:</strong> Quick sort vs Merge sort</li>
+                            <li><strong>Space-Time Tradeoffs:</strong> Memoization, caching</li>
+                            <li><strong>Loop Optimization:</strong> Unrolling, vectorization</li>
+                            <li><strong>Lazy Evaluation:</strong> Compute only when needed</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>⚙️ System-Level Optimization</h4>
+                        <ul>
+                            <li><strong>Parallel Processing:</strong> Multi-threading, GPU</li>
+                            <li><strong>Distributed Computing:</strong> Load balancing</li>
+                            <li><strong>Caching Strategies:</strong> Redis, Memcached</li>
+                            <li><strong>Database Optimization:</strong> Indexing, partitioning</li>
+                            <li><strong>Network Optimization:</strong> Compression, CDN</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 2.1s 1 normal both running slideIn;">
+                    <h4>📊 Profiling dan Monitoring</h4>
+                    <ul>
+                        <li><strong>Code Profiling:</strong> Identify bottlenecks menggunakan profiler tools</li>
+                        <li><strong>Performance Metrics:</strong> CPU usage, memory consumption, I/O operations</li>
+                        <li><strong>Real-time Monitoring:</strong> Application Performance Monitoring (APM)</li>
+                        <li><strong>Load Testing:</strong> Stress testing untuk menentukan capacity limits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Hands-on Lab 1 -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🧪 Hands-on Lab 1: Stream Processing Implementation</h2>
+                
+                <h3>Lab Objective</h3>
+                <p>Implementasikan sistem real-time data processing untuk monitoring IoT sensors menggunakan sliding window algorithm.</p>
+                
+                <h4>📋 Requirements:</h4>
+                <ul>
+                    <li>Process sensor data streams in real-time</li>
+                    <li>Calculate moving averages menggunakan sliding window</li>
+                    <li>Detect anomalies berdasarkan statistical thresholds</li>
+                    <li>Generate alerts untuk abnormal readings</li>
+                    <li>Visualize data trends dalam real-time</li>
+                </ul>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 2.2s 1 normal both running slideIn;">
+                    <h4>🎯 Lab Tasks</h4>
+                    <ol>
+                        <li>Complete the IoTSensorProcessor implementation</li>
+                        <li>Add support for multiple sensors</li>
+                        <li>Implement different window types (time-based, count-based)</li>
+                        <li>Create a simple web dashboard untuk monitoring</li>
+                        <li>Test with different anomaly scenarios</li>
+                        <li>Measure performance dan memory usage</li>
+                    </ol>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🔬 Lab Demo: IoT Sensor Processing</h4>
+                    <button class="demo-button" onclick="demonstrateIoTLab()">Start IoT Lab Simulation</button>
+                    <div class="demo-output" id="iotLabOutput">Click button to see IoT sensor processing lab...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Hands-on Lab 2 -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🧪 Hands-on Lab 2: Distributed MapReduce Implementation</h2>
+                
+                <h3>Lab Objective</h3>
+                <p>Implement distributed log analysis system menggunakan MapReduce paradigm untuk processing large-scale web server logs.</p>
+                
+                <h4>📊 Use Case Scenario:</h4>
+                <ul>
+                    <li>Analyze millions of web server log entries</li>
+                    <li>Extract insights tentang traffic patterns</li>
+                    <li>Identify top pages, users, dan error patterns</li>
+                    <li>Generate reports untuk business intelligence</li>
+                </ul>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 2.3s 1 normal both running slideIn;">
+                    <h4>🎯 Lab Deliverables</h4>
+                    <ol>
+                        <li>Complete MapReduce implementation untuk log analysis</li>
+                        <li>Add geographic analysis berdasarkan IP addresses</li>
+                        <li>Implement user session reconstruction</li>
+                        <li>Create performance benchmarking tools</li>
+                        <li>Generate comprehensive analysis reports</li>
+                        <li>Compare dengan single-threaded processing</li>
+                    </ol>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>📊 Lab Demo: MapReduce Log Analysis</h4>
+                    <button class="demo-button" onclick="demonstrateLogAnalysisLab()">Start Log Analysis Lab</button>
+                    <div class="demo-output" id="logAnalysisOutput">Click button to see MapReduce log analysis lab...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Future Trends -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>🔮 Future Trends in Algorithm Development</h2>
+                
+                <div class="two-column">
+                    <div>
+                        <h3>🚀 Emerging Technologies</h3>
+                        
+                        <h4>⚛️ Quantum Computing Algorithms</h4>
+                        <ul>
+                            <li><strong>Quantum Supremacy:</strong> Solving problems impossible for classical computers</li>
+                            <li><strong>Shor's Algorithm:</strong> Cryptography implications</li>
+                            <li><strong>Grover's Algorithm:</strong> Database search optimization</li>
+                            <li><strong>Quantum Machine Learning:</strong> Exponential speedup potential</li>
+                        </ul>
+                        
+                        <h4>🧠 Neuromorphic Computing</h4>
+                        <ul>
+                            <li>Brain-inspired computing architectures</li>
+                            <li>Ultra-low power consumption</li>
+                            <li>Real-time adaptive learning</li>
+                            <li>Spike-based neural networks</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3>🤖 Advanced Algorithm Paradigms</h3>
+                        
+                        <h4>🔄 Self-Adaptive Algorithms</h4>
+                        <ul>
+                            <li><strong>Auto-ML:</strong> Automatic algorithm selection</li>
+                            <li><strong>Hyperparameter Optimization:</strong> Self-tuning systems</li>
+                            <li><strong>Dynamic Architecture:</strong> Runtime adaptation</li>
+                            <li><strong>Continuous Learning:</strong> Lifelong learning systems</li>
+                        </ul>
+                        
+                        <h4>🔍 Explainable AI (XAI)</h4>
+                        <ul>
+                            <li>Algorithm interpretability</li>
+                            <li>Decision transparency</li>
+                            <li>Bias detection and mitigation</li>
+                            <li>Regulatory compliance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 2.4s 1 normal both running slideIn;">
+                    <h4>🌱 Green Computing Algorithms</h4>
+                    <ul>
+                        <li><strong>Energy-efficient optimization:</strong> Reduce computational energy consumption</li>
+                        <li><strong>Carbon footprint reduction:</strong> Sustainable computing practices</li>
+                        <li><strong>Green data center algorithms:</strong> Optimize cooling and power usage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Assignment Project -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>📝 Assignment Project: Smart Campus Data Analytics System</h2>
+                
+                <h3>Project Overview</h3>
+                <p>Develop a comprehensive data analytics system untuk Universitas Tidar yang mengintegrasikan multiple algorithms untuk optimisasi operasional campus.</p>
+                
+                <div class="two-column">
+                    <div>
+                        <h4>🏫 System Components</h4>
+                        <ul>
+                            <li><strong>Student Performance Analytics:</strong>
+                                <ul>
+                                    <li>Academic performance prediction</li>
+                                    <li>Early warning system</li>
+                                    <li>Personalized learning paths</li>
+                                </ul>
+                            </li>
+                            <li><strong>Campus Resource Optimization:</strong>
+                                <ul>
+                                    <li>Classroom allocation algorithm</li>
+                                    <li>Energy consumption optimization</li>
+                                    <li>Library resource management</li>
+                                </ul>
+                            </li>
+                            <li><strong>Smart Parking System:</strong>
+                                <ul>
+                                    <li>Real-time parking availability</li>
+                                    <li>Dynamic pricing algorithm</li>
+                                    <li>Traffic flow optimization</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4>⚙️ Technical Requirements</h4>
+                        <ul>
+                            <li><strong>Algorithms to Implement:</strong>
+                                <ul>
+                                    <li>Machine Learning (classification, regression)</li>
+                                    <li>Graph algorithms (shortest path)</li>
+                                    <li>Optimization algorithms (genetic, simulated annealing)</li>
+                                    <li>Stream processing (real-time data)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Performance Criteria:</strong>
+                                <ul>
+                                    <li>Response time &lt; 100ms</li>
+                                    <li>Accuracy &gt; 90%</li>
+                                    <li>Handle 1000+ concurrent users</li>
+                                    <li>99% system availability</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 2.5s 1 normal both running slideIn;">
+                    <h4>📊 Evaluation Criteria</h4>
+                    <ul>
+                        <li><strong>Algorithm Implementation (40%):</strong> Correctness, efficiency, innovation</li>
+                        <li><strong>Performance Optimization (25%):</strong> Speed, memory usage, scalability</li>
+                        <li><strong>System Integration (20%):</strong> Architecture design, modularity</li>
+                        <li><strong>Documentation &amp; Testing (15%):</strong> Code quality, test coverage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Summary -->
+        <div class="slide">
+            <div class="header">
+                <div class="university-info">
+                    <h1>Universitas Tidar</h1>
+                    <p>Program Studi Teknologi Informasi</p>
+                </div>
+                <div class="logo">
+                    <img src="./Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar">
+                </div>
+            </div>
+            <div class="content">
+                <h2>📋 Summary: Algoritma dan Pemrosesan Data dalam Sistem Terintegrasi</h2>
+                
+                <div class="two-column">
+                    <div>
+                        <h3>🎯 Key Learning Outcomes</h3>
+                        <ul>
+                            <li><strong>Algorithm Fundamentals:</strong> Memahami karakteristik algoritma dalam sistem terintegrasi</li>
+                            <li><strong>Complexity Analysis:</strong> Menganalisis time dan space complexity untuk optimisasi</li>
+                            <li><strong>Real-time Processing:</strong> Implementasi stream processing dan sliding window algorithms</li>
+                            <li><strong>Distributed Computing:</strong> MapReduce dan consensus algorithms</li>
+                            <li><strong>Machine Learning Integration:</strong> ML algorithms untuk data integration</li>
+                            <li><strong>Performance Optimization:</strong> Teknik optimisasi algorithm dan system-level</li>
+                        </ul>
+                        
+                        <h3>🛠️ Technical Skills Developed</h3>
+                        <ul>
+                            <li>Stream processing implementation</li>
+                            <li>MapReduce framework development</li>
+                            <li>Graph algorithm applications</li>
+                            <li>Performance benchmarking</li>
+                            <li>Security-aware algorithm design</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3>🚀 Practical Applications</h3>
+                        <ul>
+                            <li><strong>IoT Data Processing:</strong> Real-time sensor data analytics</li>
+                            <li><strong>Big Data Analytics:</strong> Large-scale log processing</li>
+                            <li><strong>Traffic Management:</strong> Smart city optimization</li>
+                            <li><strong>Network Analysis:</strong> Graph-based system analysis</li>
+                            <li><strong>Predictive Analytics:</strong> ML-powered forecasting</li>
+                        </ul>
+                        
+                        <h3>📈 Performance Achievements</h3>
+                        <div class="performance-metrics" style="grid-template-columns: 1fr 1fr;">
+                            <div class="metric-card" style="animation: 0.6s ease 2.6s 1 normal both running slideIn;">
+                                <h4>Algorithm Accuracy</h4>
+                                <div class="metric-value">96.7%</div>
+                                <p>Average accuracy achieved</p>
+                            </div>
+                            <div class="metric-card" style="animation: 0.6s ease 2.7s 1 normal both running slideIn;">
+                                <h4>Response Time</h4>
+                                <div class="metric-value">45ms</div>
+                                <p>Real-time processing latency</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>🔮 Next Steps &amp; Advanced Topics</h3>
+                <ul>
+                    <li><strong>Quantum Computing:</strong> Explore quantum algorithms for complex problems</li>
+                    <li><strong>Edge AI:</strong> Deploy algorithms pada edge devices</li>
+                    <li><strong>Auto-ML:</strong> Automatic algorithm selection dan tuning</li>
+                    <li><strong>Green Computing:</strong> Energy-efficient algorithm design</li>
+                    <li><strong>Explainable AI:</strong> Transparent dan interpretable algorithms</li>
+                </ul>
+                
+                <div class="highlight-box" style="animation: 0.6s ease 2.8s 1 normal both running slideIn;">
+                    <h4>🎓 Final Project Deliverables</h4>
+                    <ul>
+                        <li><strong>Smart Campus Analytics System:</strong> Complete implementation dengan multiple algorithms</li>
+                        <li><strong>Performance Report:</strong> Comprehensive analysis of efficiency dan accuracy</li>
+                        <li><strong>Documentation:</strong> Technical documentation dan user guides</li>
+                        <li><strong>Presentation:</strong> Demo sistem dan lessons learned</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <h3 style="color: #4ECDC4;">🙏 Terima Kasih!</h3>
+                    <p><strong>Questions &amp; Discussion</strong></p>
+                    <p>📧 Email: <a href="mailto:ikhwan.alfath@untidar.ac.id" style="color: #FFD700;">ikhwan.alfath@untidar.ac.id</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" title="Previous Slide">‹</button>
+        <button class="nav-btn" onclick="nextSlide()" title="Next Slide">›</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        // Update total slides counter
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+        
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+        
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+        
+        function scrollSlideUp() {
+            const activeSlide = document.querySelector('.slide.active');
+            activeSlide.scrollBy({ top: -100, behavior: 'smooth' });
+        }
+        
+        function scrollSlideDown() {
+            const activeSlide = document.querySelector('.slide.active');
+            activeSlide.scrollBy({ top: 100, behavior: 'smooth' });
+        }
+        
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const activeSlide = document.querySelector('.slide.active');
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    previousSlide();
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlideUp();
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlideDown();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    currentSlide = 0;
+                    showSlide(currentSlide);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    currentSlide = totalSlides - 1;
+                    showSlide(currentSlide);
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    activeSlide.scrollBy({ 
+                        top: -activeSlide.clientHeight * 0.8, 
+                        behavior: 'smooth' 
+                    });
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    activeSlide.scrollBy({ 
+                        top: activeSlide.clientHeight * 0.8, 
+                        behavior: 'smooth' 
+                    });
+                    break;
+            }
+        });
+        
+        // Enhanced touch support
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            touchEndY = e.changedTouches[0].clientY;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const deltaX = touchStartX - touchEndX;
+            const deltaY = touchStartY - touchEndY;
+            const minSwipeDistance = 50;
+            
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (Math.abs(deltaX) > minSwipeDistance) {
+                    if (deltaX > 0) {
+                        nextSlide();
+                    } else {
+                        previousSlide();
+                    }
+                }
+            } else {
+                if (Math.abs(deltaY) > minSwipeDistance) {
+                    const activeSlide = document.querySelector('.slide.active');
+                    if (deltaY > 0) {
+                        activeSlide.scrollBy({ top: 100, behavior: 'smooth' });
+                    } else {
+                        activeSlide.scrollBy({ top: -100, behavior: 'smooth' });
+                    }
+                }
+            }
+            
+            // Reset touch coordinates
+            touchStartX = 0;
+            touchStartY = 0;
+            touchEndX = 0;
+            touchEndY = 0;
+        }
+        
+        // Interactive demos with enhanced animations
+        function demonstrateStreamProcessing() {
+            const output = document.getElementById('streamOutput');
+            output.innerHTML = '🚀 Starting stream processing simulation...\n\n';
+            
+            let step = 0;
+            const values = [];
+            const windowSize = 5;
+            
+            const simulation = setInterval(() => {
+                const value = (Math.random() * 100).toFixed(2);
+                const timestamp = new Date().toLocaleTimeString();
+                
+                values.push(parseFloat(value));
+                if (values.length > windowSize) {
+                    values.shift();
+                }
+                
+                const average = (values.reduce((a, b) => a + b, 0) / values.length).toFixed(2);
+                
+                output.innerHTML += `📊 Step ${++step}: Value=${value}, Window=[${values.join(', ')}]\n`;
+                output.innerHTML += `📈 Moving Average: ${average}\n`;
+                output.innerHTML += `⏰ Timestamp: ${timestamp}\n\n`;
+                
+                if (step >= 8) {
+                    clearInterval(simulation);
+                    output.innerHTML += '✅ Stream processing completed successfully!\n';
+                    output.innerHTML += '🎯 Algorithm performed efficient sliding window calculations.';
+                }
+                
+                output.scrollTop = output.scrollHeight;
+            }, 800);
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        function demonstrateConsensus() {
+            const output = document.getElementById('consensusOutput');
+            output.innerHTML = '🗳️ Starting distributed consensus simulation...\n\n';
+            
+            const nodes = ['Node-1', 'Node-2', 'Node-3', 'Node-4', 'Node-5'];
+            
+            output.innerHTML += '🌐 Initializing cluster with 5 nodes...\n';
+            output.innerHTML += '📡 Nodes: ' + nodes.join(', ') + '\n\n';
+            
+            setTimeout(() => {
+                output.innerHTML += '⏰ Election triggered by timeout...\n';
+                output.innerHTML += '🗳️ Node-3 becomes candidate for term 1\n';
+                output.innerHTML += '📤 Requesting votes from other nodes...\n\n';
+                
+                setTimeout(() => {
+                    output.innerHTML += '📊 Vote responses:\n';
+                    output.innerHTML += '✅ Node-1: GRANTED\n';
+                    output.innerHTML += '✅ Node-2: GRANTED\n';
+                    output.innerHTML += '✅ Node-4: GRANTED\n';
+                    output.innerHTML += '❌ Node-5: DENIED\n\n';
+                    
+                    setTimeout(() => {
+                        output.innerHTML += '🎉 Node-3 elected as leader (3 votes >= majority)\n';
+                        output.innerHTML += '💓 Starting heartbeat broadcasts...\n';
+                        output.innerHTML += '✅ Cluster consensus achieved!\n';
+                        output.innerHTML += '📊 System status: STABLE';
+                    }, 1000);
+                }, 1500);
+            }, 1000);
+        }
+        
+        function demonstrateIoTLab() {
+            const output = document.getElementById('iotLabOutput');
+            output.innerHTML = '🔬 Initializing IoT Sensor Processing Lab...\n\n';
+            
+            const sensors = ['Temperature', 'Humidity', 'Pressure', 'Light'];
+            
+            setTimeout(() => {
+                output.innerHTML += '📡 Connecting to IoT sensors:\n';
+                sensors.forEach((sensor, i) => {
+                    const value = (Math.random() * 50 + 20).toFixed(2);
+                    output.innerHTML += `📊 ${sensor} Sensor: ${value}${i === 0 ? '°C' : i === 1 ? '%' : i === 2 ? 'hPa' : 'lux'}\n`;
+                });
+                
+                setTimeout(() => {
+                    output.innerHTML += '\n🌊 Implementing sliding window algorithm...\n';
+                    output.innerHTML += '📈 Calculating moving averages...\n';
+                    output.innerHTML += '🚨 Anomaly detection: ACTIVE\n';
+                    
+                    setTimeout(() => {
+                        output.innerHTML += '\n📊 Lab Results:\n';
+                        output.innerHTML += '✅ Real-time processing: SUCCESS\n';
+                        output.innerHTML += '⚡ Processing latency: 15ms\n';
+                        output.innerHTML += '🎯 Anomaly detection accuracy: 94%\n';
+                        output.innerHTML += '📱 Dashboard integration: COMPLETE\n';
+                        output.innerHTML += '🧪 Lab objectives achieved!';
+                    }, 2000);
+                }, 1500);
+            }, 800);
+        }
+        
+        function demonstrateLogAnalysisLab() {
+            const output = document.getElementById('logAnalysisOutput');
+            output.innerHTML = '📊 Initializing MapReduce Log Analysis Lab...\n\n';
+            
+            setTimeout(() => {
+                output.innerHTML += '📁 Loading web server logs...\n';
+                output.innerHTML += '📈 Dataset: 1,250,000 log entries\n';
+                output.innerHTML += '🌐 Date range: Last 30 days\n';
+                output.innerHTML += '💾 Total size: 2.3 GB\n\n';
+                
+                setTimeout(() => {
+                    output.innerHTML += '⚙️ Starting MapReduce processing...\n';
+                    output.innerHTML += '📥 MAP Phase: Parsing log entries (4 workers)\n';
+                    output.innerHTML += '🔄 SHUFFLE Phase: Grouping by keys\n';
+                    output.innerHTML += '📤 REDUCE Phase: Aggregating results\n';
+                    
+                    setTimeout(() => {
+                        output.innerHTML += '\n📊 Analysis Results:\n';
+                        output.innerHTML += '🏆 Top Page: /index.html (125,430 visits)\n';
+                        output.innerHTML += '🌍 Top Country: Indonesia (45% traffic)\n';
+                        output.innerHTML += '⚠️ Error Rate: 2.3% (mostly 404s)\n';
+                        output.innerHTML += '⚡ Processing Speed: 5.2x faster than single-thread\n';
+                        output.innerHTML += '📈 Peak Hours: 14:00-16:00 WIB\n\n';
+                        output.innerHTML += '✅ MapReduce lab completed successfully!';
+                    }, 2500);
+                }, 1500);
+            }, 600);
+        }
+        
+        function demonstratePerformanceEvaluation() {
+            const output = document.getElementById('evaluationOutput');
+            output.innerHTML = '🔍 Starting comprehensive performance evaluation...\n\n';
+            
+            const metrics = [
+                { name: 'Accuracy', value: '96.7%', status: 'EXCELLENT', emoji: '🎯' },
+                { name: 'Response Time', value: '45ms', status: 'GOOD', emoji: '⚡' },
+                { name: 'Throughput', value: '1847 ops/sec', status: 'EXCELLENT', emoji: '🚀' },
+                { name: 'Memory Usage', value: '234MB', status: 'GOOD', emoji: '💾' },
+                { name: 'CPU Utilization', value: '23%', status: 'EXCELLENT', emoji: '⚙️' }
+            ];
+            
+            let completed = 0;
+            metrics.forEach((metric, index) => {
+                setTimeout(() => {
+                    output.innerHTML += `${metric.emoji} Evaluating ${metric.name}...\n`;
+                    output.innerHTML += `📊 Result: ${metric.value} - ${metric.status}\n\n`;
+                    
+                    completed++;
+                    if (completed === metrics.length) {
+                        output.innerHTML += '🏆 Performance evaluation completed!\n';
+                        output.innerHTML += '🌟 Overall Score: A+ (Excellent Performance)\n';
+                        output.innerHTML += '✅ Recommendation: Algorithm ready for production deployment\n';
+                        output.innerHTML += '🚀 System optimized for high-performance computing!';
+                    }
+                    
+                    output.scrollTop = output.scrollHeight;
+                }, index * 1000);
+            });
+        }
+        
+        function demonstrateMapReduce() {
+            const output = document.getElementById('mapreduceOutput');
+            const documents = [
+                "The quick brown fox jumps over the lazy dog",
+                "A journey of thousand miles begins with single step",
+                "To be or not to be that is the question"
+            ];
+            
+            output.innerHTML = '🚀 Starting MapReduce word count...\n\n';
+            
+            setTimeout(() => {
+                output.innerHTML += '📥 MAP PHASE:\n';
+                documents.forEach((doc, i) => {
+                    output.innerHTML += `📄 Document ${i+1}: ${doc.split(' ').length} words mapped\n`;
+                });
+                
+                setTimeout(() => {
+                    output.innerHTML += '\n🔄 SHUFFLE & SORT PHASE:\n';
+                    output.innerHTML += '🔀 Grouping words by key...\n';
+                    
+                    setTimeout(() => {
+                        output.innerHTML += '\n📤 REDUCE PHASE:\n';
+                        output.innerHTML += '📊 Word counts calculated:\n';
+                        output.innerHTML += '• "the": 3 occurrences\n';
+                        output.innerHTML += '• "to": 2 occurrences\n';
+                        output.innerHTML += '• "be": 2 occurrences\n';
+                        output.innerHTML += '• Other words: 1 occurrence each\n';
+                        output.innerHTML += '\n✅ MapReduce job completed successfully!\n';
+                        output.innerHTML += '🎯 Total processing time: 2.3 seconds';
+                    }, 1000);
+                }, 1000);
+            }, 500);
+        }
+        
+        function demonstrateMLPerformance() {
+            const output = document.getElementById('mlOutput');
+            output.innerHTML = '🧠 Initializing ML training simulation...\n\n';
+            
+            let epoch = 0;
+            const training = setInterval(() => {
+                epoch++;
+                const loss = (1.0 - (epoch * 0.05)).toFixed(4);
+                const accuracy = (epoch * 8 + Math.random() * 5).toFixed(2);
+                
+                output.innerHTML += `📈 Epoch ${epoch}: Loss=${loss}, Accuracy=${accuracy}%\n`;
+                
+                if (epoch >= 15) {
+                    clearInterval(training);
+                    output.innerHTML += '\n🏆 Training completed!\n';
+                    output.innerHTML += '📊 Final model performance:\n';
+                    output.innerHTML += '• Training accuracy: 94.7%\n';
+                    output.innerHTML += '• Validation accuracy: 91.3%\n';
+                    output.innerHTML += '• Training time: 2.34 seconds\n';
+                    output.innerHTML += '✅ Model ready for deployment!';
+                }
+                
+                output.scrollTop = output.scrollHeight;
+            }, 200);
+        }
+        
+        function demonstrateGraphAlgorithm() {
+            const output = document.getElementById('graphOutput');
+            output.innerHTML = '🌐 Building network topology...\n\n';
+            
+            const nodes = ['Router-A', 'Router-B', 'Router-C', 'Router-D', 'Router-E'];
+            
+            setTimeout(() => {
+                output.innerHTML += '🔗 Network nodes: ' + nodes.join(', ') + '\n\n';
+                output.innerHTML += '🛤️ Finding shortest path from Router-A to Router-E...\n\n';
+                
+                setTimeout(() => {
+                    output.innerHTML += '⚡ Running Dijkstra algorithm:\n';
+                    output.innerHTML += '1️⃣ Initialize distances\n';
+                    output.innerHTML += '2️⃣ Visit Router-A (distance: 0)\n';
+                    output.innerHTML += '3️⃣ Visit Router-B (distance: 2)\n';
+                    output.innerHTML += '4️⃣ Visit Router-D (distance: 5)\n';
+                    output.innerHTML += '5️⃣ Visit Router-E (distance: 7)\n\n';
+                    output.innerHTML += '🎯 Optimal path found: A → B → D → E\n';
+                    output.innerHTML += '📏 Total distance: 7 units\n';
+                    output.innerHTML += '⚡ Execution time: 0.003ms\n';
+                    output.innerHTML += '✅ Path optimization completed!';
+                }, 1500);
+            }, 500);
+        }
+        
+        function demonstrateTrafficOptimization() {
+            const output = document.getElementById('trafficOutput');
+            output.innerHTML = '🚦 Initializing Smart Traffic Management System...\n\n';
+            
+            const intersections = ['Jl. Magelang-Yogya', 'Jl. Ahmad Yani', 'Jl. Diponegoro', 'Jl. Sudirman'];
+            
+            setTimeout(() => {
+                output.innerHTML += '📡 Connecting to traffic sensors:\n';
+                intersections.forEach((intersection, i) => {
+                    output.innerHTML += `✅ ${intersection}: ${200 + i * 50} vehicles detected\n`;
+                });
+                
+                setTimeout(() => {
+                    output.innerHTML += '\n🧠 Running traffic optimization algorithms...\n';
+                    output.innerHTML += '• Dijkstra pathfinding: ACTIVE\n';
+                    output.innerHTML += '• LSTM traffic prediction: LEARNING\n';
+                    output.innerHTML += '• Genetic signal optimization: EVOLVING\n';
+                    
+                    setTimeout(() => {
+                        output.innerHTML += '\n📊 Optimization results:\n';
+                        output.innerHTML += '🚗 Average travel time: -35% (12min → 7.8min)\n';
+                        output.innerHTML += '⚡ Traffic flow improvement: +50%\n';
+                        output.innerHTML += '🎯 Incident detection accuracy: 90%\n';
+                        output.innerHTML += '⏱️ System response time: 450ms\n';
+                        output.innerHTML += '🟢 System status: OPERATIONAL (99.9% uptime)\n\n';
+                        output.innerHTML += '✅ Smart traffic system optimization completed!';
+                    }, 2000);
+                }, 1500);
+            }, 800);
+        }
+        
+        // Initialize presentation with loading animation
+        function initPresentation() {
+            showSlide(0);
+            
+            // Add some entrance animations
+            setTimeout(() => {
+                document.querySelectorAll('.metric-card, .highlight-box, .algorithm-demo').forEach((element, index) => {
+                    element.style.animation = `slideIn 0.6s ease ${index * 0.1}s both`;
+                });
+            }, 500);
+        }
+        
+        // Start presentation when page loads
+        document.addEventListener('DOMContentLoaded', initPresentation);
+        
+        // Add some interactive effects
+        document.querySelectorAll('.demo-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

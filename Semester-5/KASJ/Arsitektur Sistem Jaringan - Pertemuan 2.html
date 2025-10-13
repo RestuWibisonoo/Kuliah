@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<!-- saved from url=(0115)https://class.tiflab.my.id/storage/lessons/materials/1756602602_2.%20KASJ%20-%20Arsitektur%20Sistem%20Jaringan.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsitektur Sistem Jaringan - Pertemuan 2</title>
+    <link rel="stylesheet" href="./Arsitektur Sistem Jaringan - Pertemuan 2_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #667eea;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #667eea;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            color: #667eea;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .network-diagram {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .network-layer {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .network-layer:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #ff4757;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.6);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 793px; top: 493px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 7.69231%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 13</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+    
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Arsitektur Sistem Jaringan - Pertemuan 2_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Arsitektur Sistem Jaringan</div>
+                <div class="slide-subtitle">Konfigurasi dan Administrasi Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-network-wired icon"></i>
+                    Pertemuan 2
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu memahami arsitektur dan komponen sistem jaringan</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>2 x 50 menit</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="list-item">
+                    <i class="fas fa-bullseye icon"></i>
+                    <strong>Menganalisis arsitektur jaringan existing</strong>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-cogs icon"></i>
+                    <strong>Mengidentifikasi kebutuhan hardware/software</strong>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-drafting-compass icon"></i>
+                    <strong>Merancang topologi jaringan sederhana</strong>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-chart-line icon"></i>
+                    <strong>Memahami perencanaan kapasitas dan skalabilitas</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Materi Utama</h3>
+                        <div class="list-item">
+                            <i class="fas fa-sitemap icon"></i>
+                            Topologi Jaringan Enterprise
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-microchip icon"></i>
+                            Komponen Hardware &amp; Software
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Model &amp; Perencanaan</h3>
+                        <div class="list-item">
+                            <i class="fas fa-layer-group icon"></i>
+                            Model OSI dan TCP/IP
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-expand-arrows-alt icon"></i>
+                            Perencanaan Kapasitas
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Definisi Arsitektur Sistem Jaringan -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Arsitektur Sistem Jaringan</div>
+                <div class="slide-subtitle">Definisi &amp; Konsep Dasar</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-quote-left" style="font-size: 24px; opacity: 0.7;"></i>
+                    Arsitektur jaringan adalah kerangka kerja yang menggambarkan struktur fisik dan logis dari sistem jaringan komputer
+                </div>
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Komponen Utama:</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li class="list-item">📡 Infrastruktur Fisik</li>
+                            <li class="list-item">💻 Perangkat Jaringan</li>
+                            <li class="list-item">🔧 Protocol &amp; Standar</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea;">Karakteristik:</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li class="list-item">🔄 Skalabilitas</li>
+                            <li class="list-item">🔒 Keamanan</li>
+                            <li class="list-item">⚡ Performance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Topologi Jaringan Enterprise -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Topologi Jaringan Enterprise</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Jenis Topologi</h3>
+                        <div class="list-item">
+                            <i class="fas fa-star icon"></i>
+                            <strong>Star Topology</strong><br>
+                            <small>Sentralisasi kontrol, mudah maintenance</small>
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-circle icon"></i>
+                            <strong>Ring Topology</strong><br>
+                            <small>Data mengalir satu arah, deterministik</small>
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-project-diagram icon"></i>
+                            <strong>Mesh Topology</strong><br>
+                            <small>Redundansi tinggi, fault tolerance</small>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Enterprise Model</h3>
+                        <div class="network-diagram">
+                            <div class="network-layer">
+                                <strong>Core Layer</strong><br>
+                                <small>High-speed backbone</small>
+                            </div>
+                            <div class="network-layer">
+                                <strong>Distribution Layer</strong><br>
+                                <small>Policy &amp; access control</small>
+                            </div>
+                            <div class="network-layer">
+                                <strong>Access Layer</strong><br>
+                                <small>End-user connectivity</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Komponen Hardware -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Komponen Hardware Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Perangkat Aktif</h3>
+                        <div class="list-item">
+                            <i class="fas fa-wifi icon"></i>
+                            <strong>Router</strong><br>
+                            Menghubungkan jaringan berbeda, routing protocol
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-network-wired icon"></i>
+                            <strong>Switch</strong><br>
+                            Layer 2/3 switching, VLAN support
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            <strong>Firewall</strong><br>
+                            Security gateway, traffic filtering
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea;">Perangkat Pasif</h3>
+                        <div class="list-item">
+                            <i class="fas fa-plug icon"></i>
+                            <strong>Kabel &amp; Konektor</strong><br>
+                            UTP, Fiber Optic, RJ45, SFP
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-server icon"></i>
+                            <strong>Patch Panel</strong><br>
+                            Cable management, organized connectivity
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-building icon"></i>
+                            <strong>Rack &amp; Cabinet</strong><br>
+                            Physical infrastructure, cable management
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Komponen Software -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Komponen Software Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Network Operating System</h3>
+                        <div class="list-item">
+                            <i class="fas fa-linux icon"></i>
+                            <strong>Linux-based</strong><br>
+                            Ubuntu Server, CentOS, pfSense
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-windows icon"></i>
+                            <strong>Windows Server</strong><br>
+                            Active Directory, DNS, DHCP
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-cog icon"></i>
+                            <strong>Embedded OS</strong><br>
+                            Cisco IOS, Juniper JunOS
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea;">Management Software</h3>
+                        <div class="list-item">
+                            <i class="fas fa-chart-bar icon"></i>
+                            <strong>Network Monitoring</strong><br>
+                            PRTG, SolarWinds, Nagios
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-tools icon"></i>
+                            <strong>Configuration Management</strong><br>
+                            Ansible, Puppet, Chef
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-database icon"></i>
+                            <strong>Network Services</strong><br>
+                            DNS, DHCP, NTP, RADIUS
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Model OSI -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Model OSI dalam Administrasi Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="network-diagram">
+                    <div class="network-layer" style="background: #e74c3c; color: white;">
+                        <strong>7. Application</strong> - HTTP, FTP, SMTP, DNS
+                    </div>
+                    <div class="network-layer" style="background: #f39c12; color: white;">
+                        <strong>6. Presentation</strong> - SSL/TLS, Encryption, Compression
+                    </div>
+                    <div class="network-layer" style="background: #f1c40f;">
+                        <strong>5. Session</strong> - Session Management, RPC
+                    </div>
+                    <div class="network-layer" style="background: #2ecc71; color: white;">
+                        <strong>4. Transport</strong> - TCP, UDP, Port Numbers
+                    </div>
+                    <div class="network-layer" style="background: #3498db; color: white;">
+                        <strong>3. Network</strong> - IP, ICMP, Routing Protocols
+                    </div>
+                    <div class="network-layer" style="background: #9b59b6; color: white;">
+                        <strong>2. Data Link</strong> - Ethernet, VLAN, MAC Address
+                    </div>
+                    <div class="network-layer" style="background: #34495e; color: white;">
+                        <strong>1. Physical</strong> - Cables, Switches, Physical Topology
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Model TCP/IP -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Model TCP/IP dalam Konteks Administrasi</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">TCP/IP Layers</h3>
+                        <div class="network-layer" style="background: #3498db; color: white; margin: 15px 0;">
+                            <strong>Application Layer</strong><br>
+                            <small>HTTP, HTTPS, FTP, SMTP, DNS</small>
+                        </div>
+                        <div class="network-layer" style="background: #2ecc71; color: white; margin: 15px 0;">
+                            <strong>Transport Layer</strong><br>
+                            <small>TCP, UDP</small>
+                        </div>
+                        <div class="network-layer" style="background: #f39c12; color: white; margin: 15px 0;">
+                            <strong>Internet Layer</strong><br>
+                            <small>IP, ICMP, IGMP</small>
+                        </div>
+                        <div class="network-layer" style="background: #e74c3c; color: white; margin: 15px 0;">
+                            <strong>Network Access</strong><br>
+                            <small>Ethernet, Wi-Fi, PPP</small>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea;">Implementasi Praktis</h3>
+                        <div class="list-item">
+                            <i class="fas fa-globe icon"></i>
+                            <strong>IP Addressing</strong><br>
+                            IPv4/IPv6, Subnetting, CIDR
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-route icon"></i>
+                            <strong>Routing</strong><br>
+                            Static, Dynamic (OSPF, BGP)
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-exchange-alt icon"></i>
+                            <strong>Switching</strong><br>
+                            VLAN, STP, LACP
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Perencanaan Kapasitas -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Perencanaan Kapasitas Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box" style="margin-bottom: 30px;">
+                    Capacity Planning = Right sizing + Performance + Cost optimization
+                </div>
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Faktor Perencanaan</h3>
+                        <div class="list-item">
+                            <i class="fas fa-users icon"></i>
+                            <strong>Jumlah User</strong><br>
+                            Concurrent users, growth projection
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-tachometer-alt icon"></i>
+                            <strong>Bandwidth Requirements</strong><br>
+                            Peak usage, application needs
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-clock icon"></i>
+                            <strong>Latency &amp; QoS</strong><br>
+                            Real-time applications, SLA
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea;">Tools &amp; Metodologi</h3>
+                        <div class="list-item">
+                            <i class="fas fa-chart-line icon"></i>
+                            <strong>Traffic Analysis</strong><br>
+                            MRTG, Cacti, NetFlow
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-calculator icon"></i>
+                            <strong>Capacity Models</strong><br>
+                            Mathematical modeling, simulation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-sync-alt icon"></i>
+                            <strong>Regular Review</strong><br>
+                            Quarterly assessment, trend analysis
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Skalabilitas Jaringan -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Skalabilitas Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Horizontal Scaling</h3>
+                        <div class="list-item">
+                            <i class="fas fa-plus icon"></i>
+                            <strong>Add More Devices</strong><br>
+                            Switches, Access Points, Servers
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-layer-group icon"></i>
+                            <strong>Network Segmentation</strong><br>
+                            VLANs, Subnets, Zones
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-balance-scale icon"></i>
+                            <strong>Load Distribution</strong><br>
+                            Load Balancers, Link Aggregation
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea;">Vertical Scaling</h3>
+                        <div class="list-item">
+                            <i class="fas fa-arrow-up icon"></i>
+                            <strong>Upgrade Hardware</strong><br>
+                            Higher port density, faster processors
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-tachometer-alt icon"></i>
+                            <strong>Bandwidth Increase</strong><br>
+                            Gigabit to 10G, fiber upgrades
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-microchip icon"></i>
+                            <strong>Software Optimization</strong><br>
+                            Protocol tuning, feature upgrades
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 30px; font-size: 24px;">
+                    Best Practice: Combine both approaches for optimal scalability
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Summary & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ringkasan &amp; Langkah Selanjutnya</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Key Takeaways</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Arsitektur jaringan enterprise menggunakan model hierarki
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Hardware &amp; software harus dipilih sesuai kebutuhan
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Model OSI/TCP-IP penting untuk troubleshooting
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Capacity planning mencegah bottleneck
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea;">Praktik Selanjutnya</h3>
+                        <div class="list-item">
+                            <i class="fas fa-laptop-code icon"></i>
+                            <strong>Lab Session:</strong><br>
+                            Analisis topologi jaringan existing
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-drafting-compass icon"></i>
+                            <strong>Assignment:</strong><br>
+                            Desain arsitektur jaringan sederhana
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-book icon"></i>
+                            <strong>Reading:</strong><br>
+                            Network Design Fundamentals
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box animation-bounce" style="margin-top: 30px;">
+                    <i class="fas fa-question-circle icon"></i>
+                    Terima kasih! Ada pertanyaan?
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Terima Kasih</div>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="margin-bottom: 2rem; font-size: 2rem; color: #667eea;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h1 style="color: #667eea; margin-bottom: 2rem;">Terima Kasih!</h1>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle icon" style="color: #27ae60;"></i>
+                    <strong>Semoga materi Arsitektur Sistem Jaringan ini bermanfaat!</strong>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-user icon"></i>
+                    <strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong><br>
+                    Program Studi Teknologi Informasi, Universitas Tidar Magelang
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <div style="font-size: 3rem; color: #667eea;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Memperkenalkan materi dan tujuan pembelajaran</p>
+            <p>Tekankan pentingnya memahami arsitektur jaringan untuk administrasi yang efektif</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">00:56</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Perkenalan materi Arsitektur Sistem Jaringan. Tekankan pentingnya memahami dasar-dasar arsitektur untuk administrasi jaringan yang efektif.",
+            "Slide 2: Jelaskan tujuan pembelajaran yang akan dicapai. Pastikan mahasiswa memahami outcome yang diharapkan di akhir pertemuan.",
+            "Slide 3: Overview agenda pertemuan. Berikan gambaran alur materi yang akan dipelajari selama 2x50 menit.",
+            "Slide 4: Definisi fundamental arsitektur jaringan. Jelaskan perbedaan struktur fisik dan logis dalam konteks jaringan enterprise.",
+            "Slide 5: Deep dive ke topologi jaringan enterprise. Diskusikan mengapa model hierarki 3-layer menjadi standar industry.",
+            "Slide 6: Hardware components - fokus pada fungsi dan karakteristik setiap perangkat dalam ekosistem jaringan.",
+            "Slide 7: Software components - jelaskan peran NOS dan tools management dalam operasional jaringan sehari-hari.",
+            "Slide 8: Model OSI dalam praktik administrasi. Berikan contoh troubleshooting menggunakan pendekatan layer-by-layer.",
+            "Slide 9: TCP/IP model yang lebih praktis. Hubungkan dengan konfigurasi real-world yang akan mereka temui.",
+            "Slide 10: Capacity planning methodology. Diskusikan pentingnya perencanaan untuk mencegah bottleneck dan downtime.",
+            "Slide 11: Scalability strategies. Jelaskan trade-off antara horizontal vs vertical scaling dalam konteks budget dan requirement.",
+            "Slide 12: Rangkuman dan preparation untuk praktikum selanjutnya. Berikan preview assignment yang akan diberikan."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+                case 'p':
+                case 'P':
+                    togglePresenterMode();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        setTimeout(showHelpText, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1); // Swipe left = next slide
+                } else {
+                    changeSlide(-1); // Swipe right = previous slide
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Presenter remote support (if available)
+        if ('serial' in navigator) {
+            // Web Serial API support for presenter remotes
+            console.log('Presenter remote support available');
+        }
+
+        // Auto-hide cursor after inactivity
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

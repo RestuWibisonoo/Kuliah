@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<!-- saved from url=(0115)https://class.tiflab.my.id/storage/lessons/materials/1756648189_5.%20Cloud%20Computing%20Sistem%20Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing dalam Sistem Terintegrasi: Platform dan Layanan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #4ECDC4, #FF6B6B);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #FF6B6B rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #FFA500;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #FFEAA7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #DDD;
+        }
+
+        ul {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "☁️";
+            position: absolute;
+            left: -2rem;
+            top: 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-box h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+
+        .content-box ul {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .aws-box {
+            background: rgba(255, 152, 0, 0.2);
+            border-left: 4px solid #FF9800;
+        }
+
+        .azure-box {
+            background: rgba(33, 150, 243, 0.2);
+            border-left: 4px solid #2196F3;
+        }
+
+        .gcp-box {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .comparison-box {
+            background: rgba(156, 39, 176, 0.2);
+            border-left: 4px solid #9C27B0;
+        }
+
+        .case-study {
+            background: rgba(255, 193, 7, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border-left: 4px solid #FFC107;
+        }
+
+        .case-study h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .framework-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .framework-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .framework-item h5 {
+            font-size: 1.3rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            vertical-align: middle;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #FFD700 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .cloud-layers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .layer-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #FFD700;
+            transition: all 0.3s ease;
+        }
+
+        .layer-item:hover {
+            transform: translateY(-5px);
+            border-color: #FFA500;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .layer-item h5 {
+            color: #FFD700;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-top: 0.5rem;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .detail-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .detail-box h5 {
+            color: #FFD700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-section {
+            background: rgba(76, 175, 80, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #4CAF50;
+        }
+
+        .demo-section h4 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .code-example {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            border-left: 4px solid #4ECDC4;
+            font-size: 0.9rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #FFD700;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .cost-calculator {
+            background: rgba(255, 87, 34, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #FF5722;
+        }
+
+        .cost-calculator h4 {
+            color: #FF5722;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .architecture-diagram {
+            background: rgba(63, 81, 181, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #3F51B5;
+        }
+
+        .architecture-diagram h4 {
+            color: #3F51B5;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .discussion-box {
+            background: rgba(233, 30, 99, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #E91E63;
+        }
+
+        .discussion-box h4 {
+            color: #E91E63;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .provider-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .aws-badge { background: #FF9800; color: white; }
+        .azure-badge { background: #2196F3; color: white; }
+        .gcp-badge { background: #4CAF50; color: white; }
+        .multi-badge { background: #9C27B0; color: white; }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .service-item h6 {
+            color: #FFD700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .migration-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .migration-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            flex: 1;
+            margin: 0.5rem;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .migration-step:not(:last-child):after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #FFD700;
+        }
+
+        .migration-step h6 {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="">
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar" style="width: 5.26316%;"></div>
+        
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div class="university-info">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Cloud Computing dalam Sistem Terintegrasi_ Platform dan Layanan_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 60px; margin-right: 20px;">
+                    <div style="text-align: left;">
+                        <div class="university-name" style="font-size: 16px; font-weight: bold;">UNIVERSITAS TIDAR</div>
+                        <div class="faculty-info">Fakultas Teknik | Program Studi Teknologi Informasi</div>
+                        <div class="course-info">Teknologi Sistem Terintegrasi</div>
+                    </div>
+                </div>
+            </div>
+            <h1>☁️ Cloud Computing dalam Sistem Terintegrasi</h1>
+            <div class="subtitle">Cloud Computing for Integrated Systems: Platforms and Services</div>
+            <div class="subtitle">Pertemuan ke-5 • 170 menit</div>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🎯 Capaian Pembelajaran</h4>
+                    <ul>
+                        <li>Memahami konsep cloud computing untuk sistem terintegrasi</li>
+                        <li>Membandingkan platform cloud utama (AWS, Azure, GCP)</li>
+                        <li>Memilih teknologi cloud yang tepat</li>
+                        <li>Merancang arsitektur cloud untuk integrasi sistem</li>
+                        <li>Mengevaluasi cost dan performance</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⏰ Informasi Sesi</h4>
+                    <ul>
+                        <li><strong>Durasi:</strong> 3 x 50 menit (170 menit)</li>
+                        <li><strong>Metode:</strong> Ceramah &amp; Diskusi</li>
+                        <li><strong>Penilaian:</strong> Pilihan teknologi yang sesuai</li>
+                        <li><strong>Target:</strong> Memilih platform cloud</li>
+                        <li><strong>Deliverable:</strong> Proposal arsitektur cloud</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Mengapa Cloud Computing? -->
+        <div class="slide">
+            <h2>🌟 Mengapa Cloud Computing untuk Sistem Terintegrasi?</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">94%</div>
+                    <div class="metric-label">Enterprise menggunakan cloud</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">38%</div>
+                    <div class="metric-label">Penghematan biaya infrastruktur</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">20x</div>
+                    <div class="metric-label">Faster deployment</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">99.9%</div>
+                    <div class="metric-label">Service availability</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box aws-box">
+                    <h4>💰 Business Benefits</h4>
+                    <ul>
+                        <li><strong>Cost Optimization:</strong> Pay-as-you-use model</li>
+                        <li><strong>Scalability:</strong> Auto-scaling berdasarkan demand</li>
+                        <li><strong>Speed to Market:</strong> Rapid deployment &amp; iteration</li>
+                        <li><strong>Global Reach:</strong> Worldwide infrastructure</li>
+                        <li><strong>Focus on Core Business:</strong> Managed services</li>
+                        <li><strong>Disaster Recovery:</strong> Built-in backup &amp; recovery</li>
+                    </ul>
+                </div>
+                <div class="content-box azure-box">
+                    <h4>🔧 Technical Advantages</h4>
+                    <ul>
+                        <li><strong>Elasticity:</strong> Dynamic resource allocation</li>
+                        <li><strong>High Availability:</strong> Multi-region redundancy</li>
+                        <li><strong>Security:</strong> Enterprise-grade security</li>
+                        <li><strong>Integration:</strong> APIs dan microservices</li>
+                        <li><strong>Innovation:</strong> AI/ML, IoT, Analytics</li>
+                        <li><strong>Compliance:</strong> Industry standards</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Cloud Adoption Statistics 2024</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5 style="color: #FF6B6B;">Growth Trends</h5>
+                        <ul>
+                            <li>Cloud market: $591B by 2024</li>
+                            <li>Multi-cloud adoption: 76% of enterprises</li>
+                            <li>Hybrid cloud: 82% preferred approach</li>
+                            <li>Serverless adoption: 50% increase</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="color: #4ECDC4;">Integration Focus</h5>
+                        <ul>
+                            <li>API-first architecture: 89%</li>
+                            <li>Microservices adoption: 67%</li>
+                            <li>Container usage: 84%</li>
+                            <li>DevOps integration: 91%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Cloud Service Models -->
+        <div class="slide">
+            <h2>🏗️ Cloud Service Models</h2>
+            
+            <div class="cloud-layers">
+                <div class="layer-item">
+                    <h5>🏢 IaaS</h5>
+                    <p><strong>Infrastructure as a Service</strong></p>
+                    <ul style="font-size: 1rem; text-align: left;">
+                        <li>Virtual Machines</li>
+                        <li>Storage &amp; Networking</li>
+                        <li>Load Balancers</li>
+                        <li>Security Groups</li>
+                    </ul>
+                    <div class="provider-badge aws-badge">EC2</div>
+                    <div class="provider-badge azure-badge">Virtual Machines</div>
+                    <div class="provider-badge gcp-badge">Compute Engine</div>
+                </div>
+                
+                <div class="layer-item">
+                    <h5>⚙️ PaaS</h5>
+                    <p><strong>Platform as a Service</strong></p>
+                    <ul style="font-size: 1rem; text-align: left;">
+                        <li>Runtime Environment</li>
+                        <li>Database Services</li>
+                        <li>Development Tools</li>
+                        <li>Middleware</li>
+                    </ul>
+                    <div class="provider-badge aws-badge">Elastic Beanstalk</div>
+                    <div class="provider-badge azure-badge">App Service</div>
+                    <div class="provider-badge gcp-badge">App Engine</div>
+                </div>
+                
+                <div class="layer-item">
+                    <h5>📱 SaaS</h5>
+                    <p><strong>Software as a Service</strong></p>
+                    <ul style="font-size: 1rem; text-align: left;">
+                        <li>Ready-to-use Applications</li>
+                        <li>Email &amp; Collaboration</li>
+                        <li>CRM &amp; ERP Systems</li>
+                        <li>Analytics &amp; BI Tools</li>
+                    </ul>
+                    <div class="provider-badge aws-badge">WorkMail</div>
+                    <div class="provider-badge azure-badge">Office 365</div>
+                    <div class="provider-badge gcp-badge">Workspace</div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🎯 Choosing the Right Model</h4>
+                <div class="three-column">
+                    <div>
+                        <h6 style="color: #4CAF50;">IaaS - Best For:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Maximum control over infrastructure</li>
+                            <li>Custom OS configurations</li>
+                            <li>Legacy application migration</li>
+                            <li>High-performance computing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #4CAF50;">PaaS - Best For:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Rapid application development</li>
+                            <li>Focus on code, not infrastructure</li>
+                            <li>Built-in scalability</li>
+                            <li>DevOps integration</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #4CAF50;">SaaS - Best For:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Ready-to-use solutions</li>
+                            <li>Minimal IT management</li>
+                            <li>Standard business processes</li>
+                            <li>Quick deployment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: AWS Deep Dive -->
+        <div class="slide">
+            <h2>🟠 Amazon Web Services (AWS)</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">32%</div>
+                    <div class="metric-label">Market share</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">200+</div>
+                    <div class="metric-label">Services available</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">99</div>
+                    <div class="metric-label">Availability zones</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">31</div>
+                    <div class="metric-label">Geographic regions</div>
+                </div>
+            </div>
+
+            <div class="service-grid">
+                <div class="service-item aws-box">
+                    <h6>💻 Compute</h6>
+                    <p style="font-size: 0.9rem;">EC2, Lambda, ECS, EKS, Fargate</p>
+                </div>
+                <div class="service-item aws-box">
+                    <h6>🗄️ Storage</h6>
+                    <p style="font-size: 0.9rem;">S3, EBS, EFS, Glacier</p>
+                </div>
+                <div class="service-item aws-box">
+                    <h6>🗃️ Database</h6>
+                    <p style="font-size: 0.9rem;">RDS, DynamoDB, Aurora, Redshift</p>
+                </div>
+                <div class="service-item aws-box">
+                    <h6>🌐 Networking</h6>
+                    <p style="font-size: 0.9rem;">VPC, CloudFront, Route 53, ALB</p>
+                </div>
+                <div class="service-item aws-box">
+                    <h6>🔒 Security</h6>
+                    <p style="font-size: 0.9rem;">IAM, KMS, WAF, Shield</p>
+                </div>
+                <div class="service-item aws-box">
+                    <h6>📊 Analytics</h6>
+                    <p style="font-size: 0.9rem;">EMR, Kinesis, Athena, QuickSight</p>
+                </div>
+                <div class="service-item aws-box">
+                    <h6>🤖 AI/ML</h6>
+                    <p style="font-size: 0.9rem;">SageMaker, Rekognition, Comprehend</p>
+                </div>
+                <div class="service-item aws-box">
+                    <h6>🔗 Integration</h6>
+                    <p style="font-size: 0.9rem;">API Gateway, SQS, SNS, EventBridge</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box aws-box">
+                    <h4>✅ AWS Strengths</h4>
+                    <ul>
+                        <li><strong>Market Leader:</strong> Largest ecosystem</li>
+                        <li><strong>Service Breadth:</strong> Most comprehensive</li>
+                        <li><strong>Global Infrastructure:</strong> Worldwide presence</li>
+                        <li><strong>Enterprise Focus:</strong> Enterprise-grade features</li>
+                        <li><strong>Innovation:</strong> Fastest feature releases</li>
+                        <li><strong>Community:</strong> Large developer community</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⚠️ Considerations</h4>
+                    <ul>
+                        <li><strong>Complexity:</strong> Steep learning curve</li>
+                        <li><strong>Cost Management:</strong> Can be expensive</li>
+                        <li><strong>Vendor Lock-in:</strong> Proprietary services</li>
+                        <li><strong>Support Costs:</strong> Premium support pricing</li>
+                        <li><strong>Configuration:</strong> Requires expertise</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🛠️ AWS Integration Architecture Example</h4>
+                <div class="code-example">
+                    <strong>Microservices on AWS:</strong><br><br>
+                    
+                    <strong>Frontend:</strong> S3 + CloudFront + Route 53<br>
+                    <strong>API Gateway:</strong> API Gateway + Lambda Authorizer<br>
+                    <strong>Compute:</strong> ECS Fargate / EKS for containerized services<br>
+                    <strong>Database:</strong> RDS (relational) + DynamoDB (NoSQL)<br>
+                    <strong>Messaging:</strong> SQS + SNS + EventBridge<br>
+                    <strong>Cache:</strong> ElastiCache (Redis/Memcached)<br>
+                    <strong>Storage:</strong> S3 for files, EBS for persistent volumes<br>
+                    <strong>Monitoring:</strong> CloudWatch + X-Ray + CloudTrail<br>
+                    <strong>Security:</strong> IAM + KMS + WAF + Security Groups
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Microsoft Azure Deep Dive -->
+        <div class="slide">
+            <h2>🔵 Microsoft Azure</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">21%</div>
+                    <div class="metric-label">Market share</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">600+</div>
+                    <div class="metric-label">Services available</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">60</div>
+                    <div class="metric-label">Azure regions</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">140</div>
+                    <div class="metric-label">Countries available</div>
+                </div>
+            </div>
+
+            <div class="service-grid">
+                <div class="service-item azure-box">
+                    <h6>💻 Compute</h6>
+                    <p style="font-size: 0.9rem;">VMs, App Service, Functions, AKS</p>
+                </div>
+                <div class="service-item azure-box">
+                    <h6>🗄️ Storage</h6>
+                    <p style="font-size: 0.9rem;">Blob, Files, Queue, Table Storage</p>
+                </div>
+                <div class="service-item azure-box">
+                    <h6>🗃️ Database</h6>
+                    <p style="font-size: 0.9rem;">SQL DB, Cosmos DB, PostgreSQL</p>
+                </div>
+                <div class="service-item azure-box">
+                    <h6>🌐 Networking</h6>
+                    <p style="font-size: 0.9rem;">VNet, Load Balancer, CDN, DNS</p>
+                </div>
+                <div class="service-item azure-box">
+                    <h6>🔒 Security</h6>
+                    <p style="font-size: 0.9rem;">Azure AD, Key Vault, Security Center</p>
+                </div>
+                <div class="service-item azure-box">
+                    <h6>📊 Analytics</h6>
+                    <p style="font-size: 0.9rem;">Synapse, HDInsight, Stream Analytics</p>
+                </div>
+                <div class="service-item azure-box">
+                    <h6>🤖 AI/ML</h6>
+                    <p style="font-size: 0.9rem;">ML Studio, Cognitive Services, Bot</p>
+                </div>
+                <div class="service-item azure-box">
+                    <h6>🔗 Integration</h6>
+                    <p style="font-size: 0.9rem;">Logic Apps, Service Bus, Event Grid</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box azure-box">
+                    <h4>✅ Azure Strengths</h4>
+                    <ul>
+                        <li><strong>Enterprise Integration:</strong> Microsoft ecosystem</li>
+                        <li><strong>Hybrid Cloud:</strong> On-premises integration</li>
+                        <li><strong>Office 365 Integration:</strong> Seamless productivity</li>
+                        <li><strong>Windows Workloads:</strong> Native Windows support</li>
+                        <li><strong>Developer Tools:</strong> Visual Studio integration</li>
+                        <li><strong>Compliance:</strong> Government &amp; enterprise certifications</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⚠️ Considerations</h4>
+                    <ul>
+                        <li><strong>Windows-centric:</strong> Traditionally Windows-focused</li>
+                        <li><strong>Service Maturity:</strong> Some services newer than AWS</li>
+                        <li><strong>Documentation:</strong> Can be inconsistent</li>
+                        <li><strong>Pricing Model:</strong> Complex pricing structure</li>
+                        <li><strong>Linux Support:</strong> Growing but behind competitors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🛠️ Azure Integration Architecture Example</h4>
+                <div class="code-example">
+                    <strong>Enterprise Integration on Azure:</strong><br><br>
+                    
+                    <strong>Frontend:</strong> Static Web Apps + CDN<br>
+                    <strong>API Management:</strong> API Management + Azure AD B2C<br>
+                    <strong>Compute:</strong> App Service + Azure Functions<br>
+                    <strong>Database:</strong> Azure SQL + Cosmos DB<br>
+                    <strong>Integration:</strong> Logic Apps + Service Bus + Event Grid<br>
+                    <strong>Cache:</strong> Azure Cache for Redis<br>
+                    <strong>Storage:</strong> Blob Storage + Azure Files<br>
+                    <strong>Monitoring:</strong> Application Insights + Azure Monitor<br>
+                    <strong>Security:</strong> Azure AD + Key Vault + Defender
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Google Cloud Platform Deep Dive -->
+        <div class="slide">
+            <h2>🟢 Google Cloud Platform (GCP)</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">10%</div>
+                    <div class="metric-label">Market share</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">100+</div>
+                    <div class="metric-label">Services available</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">35</div>
+                    <div class="metric-label">Cloud regions</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">200+</div>
+                    <div class="metric-label">Countries &amp; territories</div>
+                </div>
+            </div>
+
+            <div class="service-grid">
+                <div class="service-item gcp-box">
+                    <h6>💻 Compute</h6>
+                    <p style="font-size: 0.9rem;">Compute Engine, App Engine, GKE, Functions</p>
+                </div>
+                <div class="service-item gcp-box">
+                    <h6>🗄️ Storage</h6>
+                    <p style="font-size: 0.9rem;">Cloud Storage, Persistent Disk</p>
+                </div>
+                <div class="service-item gcp-box">
+                    <h6>🗃️ Database</h6>
+                    <p style="font-size: 0.9rem;">Cloud SQL, Firestore, BigQuery</p>
+                </div>
+                <div class="service-item gcp-box">
+                    <h6>🌐 Networking</h6>
+                    <p style="font-size: 0.9rem;">VPC, Load Balancer, CDN, DNS</p>
+                </div>
+                <div class="service-item gcp-box">
+                    <h6>🔒 Security</h6>
+                    <p style="font-size: 0.9rem;">IAM, KMS, Security Command Center</p>
+                </div>
+                <div class="service-item gcp-box">
+                    <h6>📊 Analytics</h6>
+                    <p style="font-size: 0.9rem;">BigQuery, Dataflow, Dataproc</p>
+                </div>
+                <div class="service-item gcp-box">
+                    <h6>🤖 AI/ML</h6>
+                    <p style="font-size: 0.9rem;">Vertex AI, AutoML, Vision API</p>
+                </div>
+                <div class="service-item gcp-box">
+                    <h6>🔗 Integration</h6>
+                    <p style="font-size: 0.9rem;">Cloud Pub/Sub, Cloud Tasks, Workflows</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box gcp-box">
+                    <h4>✅ GCP Strengths</h4>
+                    <ul>
+                        <li><strong>AI/ML Leadership:</strong> Advanced AI capabilities</li>
+                        <li><strong>Data Analytics:</strong> BigQuery &amp; data tools</li>
+                        <li><strong>Kubernetes:</strong> Native Kubernetes support</li>
+                        <li><strong>Network Performance:</strong> Google's global network</li>
+                        <li><strong>Pricing:</strong> Competitive pricing model</li>
+                        <li><strong>Innovation:</strong> Cutting-edge technologies</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⚠️ Considerations</h4>
+                    <ul>
+                        <li><strong>Market Position:</strong> Smaller market share</li>
+                        <li><strong>Service Range:</strong> Fewer services than AWS</li>
+                        <li><strong>Enterprise Features:</strong> Still developing</li>
+                        <li><strong>Support:</strong> Limited enterprise support</li>
+                        <li><strong>Geographic Coverage:</strong> Fewer regions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🛠️ GCP Integration Architecture Example</h4>
+                <div class="code-example">
+                    <strong>Data-Driven Application on GCP:</strong><br><br>
+                    
+                    <strong>Frontend:</strong> Firebase Hosting + CDN<br>
+                    <strong>API Gateway:</strong> Cloud Endpoints + Identity Platform<br>
+                    <strong>Compute:</strong> Cloud Run + GKE for containers<br>
+                    <strong>Database:</strong> Cloud SQL + Firestore + Bigtable<br>
+                    <strong>Data Pipeline:</strong> Pub/Sub + Dataflow + Dataproc<br>
+                    <strong>Analytics:</strong> BigQuery + Looker Studio<br>
+                    <strong>ML/AI:</strong> Vertex AI + AutoML<br>
+                    <strong>Storage:</strong> Cloud Storage + Cloud Filestore<br>
+                    <strong>Monitoring:</strong> Cloud Monitoring + Cloud Logging
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Platform Comparison -->
+        <div class="slide">
+            <h2>⚖️ Platform Comparison Matrix</h2>
+            
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin: 2rem 0; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <thead>
+                        <tr style="background: rgba(255,255,255,0.2);">
+                            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #FFD700;">Criteria</th>
+                            <th style="padding: 1rem; text-align: center; border-bottom: 2px solid #FF9800; color: #FF9800;">AWS</th>
+                            <th style="padding: 1rem; text-align: center; border-bottom: 2px solid #2196F3; color: #2196F3;">Azure</th>
+                            <th style="padding: 1rem; text-align: center; border-bottom: 2px solid #4CAF50; color: #4CAF50;">GCP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 1rem; font-weight: bold;">Market Share</td>
+                            <td style="padding: 1rem; text-align: center;">32% 🥇</td>
+                            <td style="padding: 1rem; text-align: center;">21% 🥈</td>
+                            <td style="padding: 1rem; text-align: center;">10% 🥉</td>
+                        </tr>
+                        <tr style="background: rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: bold;">Service Breadth</td>
+                            <td style="padding: 1rem; text-align: center;">200+ 🥇</td>
+                            <td style="padding: 1rem; text-align: center;">600+ 🥇</td>
+                            <td style="padding: 1rem; text-align: center;">100+ 🥉</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; font-weight: bold;">Global Infrastructure</td>
+                            <td style="padding: 1rem; text-align: center;">99 AZs 🥇</td>
+                            <td style="padding: 1rem; text-align: center;">60+ regions 🥈</td>
+                            <td style="padding: 1rem; text-align: center;">35 regions 🥉</td>
+                        </tr>
+                        <tr style="background: rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: bold;">Pricing</td>
+                            <td style="padding: 1rem; text-align: center;">Complex 🥉</td>
+                            <td style="padding: 1rem; text-align: center;">Complex 🥉</td>
+                            <td style="padding: 1rem; text-align: center;">Transparent 🥇</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; font-weight: bold;">AI/ML Capabilities</td>
+                            <td style="padding: 1rem; text-align: center;">Comprehensive 🥈</td>
+                            <td style="padding: 1rem; text-align: center;">Growing 🥉</td>
+                            <td style="padding: 1rem; text-align: center;">Leading 🥇</td>
+                        </tr>
+                        <tr style="background: rgba(255,255,255,0.05);">
+                            <td style="padding: 1rem; font-weight: bold;">Enterprise Support</td>
+                            <td style="padding: 1rem; text-align: center;">Excellent 🥇</td>
+                            <td style="padding: 1rem; text-align: center;">Excellent 🥇</td>
+                            <td style="padding: 1rem; text-align: center;">Good 🥉</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem; font-weight: bold;">Learning Curve</td>
+                            <td style="padding: 1rem; text-align: center;">Steep 🥉</td>
+                            <td style="padding: 1rem; text-align: center;">Moderate 🥈</td>
+                            <td style="padding: 1rem; text-align: center;">Gentle 🥇</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="discussion-box">
+                <h4>🎯 Decision Framework</h4>
+                <div class="three-column">
+                    <div>
+                        <h6 style="color: #E91E63;">Choose AWS If:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Need comprehensive service portfolio</li>
+                            <li>Enterprise-scale requirements</li>
+                            <li>Global deployment needed</li>
+                            <li>Team has AWS expertise</li>
+                            <li>Complex integration requirements</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #E91E63;">Choose Azure If:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Microsoft ecosystem integration</li>
+                            <li>Hybrid cloud requirements</li>
+                            <li>Windows workloads dominant</li>
+                            <li>Office 365 integration needed</li>
+                            <li>Enterprise compliance focus</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #E91E63;">Choose GCP If:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>AI/ML is core requirement</li>
+                            <li>Big data analytics focus</li>
+                            <li>Kubernetes-native applications</li>
+                            <li>Cost optimization priority</li>
+                            <li>Innovation-focused projects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Multi-Cloud Strategy -->
+        <div class="slide">
+            <h2>🌐 Multi-Cloud dan Hybrid Cloud Strategy</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">76%</div>
+                    <div class="metric-label">Multi-cloud adoption</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">82%</div>
+                    <div class="metric-label">Hybrid approach preferred</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">45%</div>
+                    <div class="metric-label">Cost reduction achieved</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">58%</div>
+                    <div class="metric-label">Better resilience</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box multi-badge">
+                    <h4>✅ Multi-Cloud Benefits</h4>
+                    <ul>
+                        <li><strong>Vendor Lock-in Avoidance:</strong> Reduced dependency</li>
+                        <li><strong>Best-of-breed:</strong> Choose optimal services</li>
+                        <li><strong>Geographic Distribution:</strong> Global presence</li>
+                        <li><strong>Risk Mitigation:</strong> Provider failure resilience</li>
+                        <li><strong>Cost Optimization:</strong> Leverage pricing differences</li>
+                        <li><strong>Compliance:</strong> Meet regional requirements</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⚠️ Multi-Cloud Challenges</h4>
+                    <ul>
+                        <li><strong>Complexity:</strong> Multiple platforms to manage</li>
+                        <li><strong>Skills Gap:</strong> Need diverse expertise</li>
+                        <li><strong>Data Transfer:</strong> Inter-cloud communication costs</li>
+                        <li><strong>Security:</strong> Consistent security policies</li>
+                        <li><strong>Governance:</strong> Unified management</li>
+                        <li><strong>Integration:</strong> Cross-platform challenges</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🏗️ Multi-Cloud Architecture Patterns</h4>
+                <div class="three-column">
+                    <div class="detail-box">
+                        <h5>🔄 Cloud-Agnostic</h5>
+                        <ul style="font-size: 1rem;">
+                            <li>Containerization (Docker/K8s)</li>
+                            <li>Terraform for IaC</li>
+                            <li>CI/CD pipelines</li>
+                            <li>Monitoring &amp; logging</li>
+                            <li>Service mesh</li>
+                        </ul>
+                    </div>
+                    <div class="detail-box">
+                        <h5>🎯 Best-of-Breed</h5>
+                        <ul style="font-size: 1rem;">
+                            <li>AWS: Compute &amp; Storage</li>
+                            <li>GCP: AI/ML &amp; Analytics</li>
+                            <li>Azure: Enterprise Integration</li>
+                            <li>Specialized providers</li>
+                            <li>Edge computing</li>
+                        </ul>
+                    </div>
+                    <div class="detail-box">
+                        <h5>🌍 Geographic Distribution</h5>
+                        <ul style="font-size: 1rem;">
+                            <li>Regional data residency</li>
+                            <li>Latency optimization</li>
+                            <li>Disaster recovery</li>
+                            <li>Compliance requirements</li>
+                            <li>Load distribution</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4>🎨 Multi-Cloud Reference Architecture</h4>
+                <div class="code-example">
+                    <strong>Enterprise Multi-Cloud Setup:</strong><br><br>
+                    
+                    <strong>Management Layer:</strong><br>
+                    • Terraform Cloud / GitLab CI/CD<br>
+                    • Kubernetes (EKS, AKS, GKE)<br>
+                    • Service Mesh (Istio/Consul Connect)<br><br>
+                    
+                    <strong>Application Layer:</strong><br>
+                    • AWS: Core business applications (EC2, RDS)<br>
+                    • GCP: AI/ML workloads (Vertex AI, BigQuery)<br>
+                    • Azure: Office integration (Azure AD, Teams)<br><br>
+                    
+                    <strong>Data Layer:</strong><br>
+                    • Cross-cloud data replication<br>
+                    • Unified data lake (S3, Azure Data Lake, GCS)<br>
+                    • Real-time synchronization (Kafka, Pub/Sub)<br><br>
+                    
+                    <strong>Security Layer:</strong><br>
+                    • Centralized identity (Azure AD, Okta)<br>
+                    • Policy as code (OPA, Sentinel)<br>
+                    • Zero-trust networking
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Cost Optimization -->
+        <div class="slide">
+            <h2>💰 Cloud Cost Optimization Strategies</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">30%</div>
+                    <div class="metric-label">Average cloud waste</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">23%</div>
+                    <div class="metric-label">Savings with optimization</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">65%</div>
+                    <div class="metric-label">Underutilized resources</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">40%</div>
+                    <div class="metric-label">Potential savings</div>
+                </div>
+            </div>
+
+            <div class="cost-calculator">
+                <h4>💡 Cost Optimization Techniques</h4>
+                <div class="three-column">
+                    <div>
+                        <h6 style="color: #FF5722;">Right-Sizing</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Monitor resource utilization</li>
+                            <li>Scale down oversized instances</li>
+                            <li>Use appropriate instance types</li>
+                            <li>Implement auto-scaling</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #FF5722;">Reserved Instances</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>1-3 year commitments</li>
+                            <li>Up to 75% cost savings</li>
+                            <li>Convertible options</li>
+                            <li>Capacity reservations</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #FF5722;">Spot Instances</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Up to 90% discounts</li>
+                            <li>Fault-tolerant workloads</li>
+                            <li>Batch processing</li>
+                            <li>Development environments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📊 Cost Monitoring Tools</h4>
+                    <ul>
+                        <li><strong>AWS:</strong> Cost Explorer, Budgets, Trusted Advisor</li>
+                        <li><strong>Azure:</strong> Cost Management, Advisor, Budgets</li>
+                        <li><strong>GCP:</strong> Cloud Billing, Recommender, Budgets</li>
+                        <li><strong>Third-party:</strong> CloudHealth, Cloudyn, ParkMyCloud</li>
+                        <li><strong>FinOps:</strong> Cultural practices for cost management</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🎯 Cost Optimization Strategies</h4>
+                    <ul>
+                        <li><strong>Serverless:</strong> Pay only for execution time</li>
+                        <li><strong>Containers:</strong> Better resource utilization</li>
+                        <li><strong>Storage Tiering:</strong> Move data to cheaper tiers</li>
+                        <li><strong>Data Transfer:</strong> Minimize cross-region traffic</li>
+                        <li><strong>Lifecycle Policies:</strong> Automated cleanup</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>📈 Cost Optimization Example</h4>
+                <div class="code-example">
+                    <strong>E-commerce Platform Cost Optimization:</strong><br><br>
+                    
+                    <strong>Before Optimization:</strong><br>
+                    • Fixed EC2 instances: $3,500/month<br>
+                    • RDS always-on: $800/month<br>
+                    • S3 standard storage: $400/month<br>
+                    • Total: $4,700/month<br><br>
+                    
+                    <strong>After Optimization:</strong><br>
+                    • Auto-scaling + Reserved: $1,800/month (-49%)<br>
+                    • RDS scheduled scaling: $450/month (-44%)<br>
+                    • S3 Intelligent Tiering: $180/month (-55%)<br>
+                    • Lambda for batch jobs: $120/month<br>
+                    • Total: $2,550/month (46% savings = $2,150/month)<br><br>
+                    
+                    <strong>Annual Savings: $25,800</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Cloud Migration Strategies -->
+        <div class="slide">
+            <h2>🚀 Cloud Migration Strategies</h2>
+            
+            <div class="migration-steps">
+                <div class="migration-step">
+                    <h6>1️⃣ Assessment</h6>
+                    <p>Inventory applications, dependencies, and requirements</p>
+                </div>
+                <div class="migration-step">
+                    <h6>2️⃣ Planning</h6>
+                    <p>Choose migration strategy and create roadmap</p>
+                </div>
+                <div class="migration-step">
+                    <h6>3️⃣ Design</h6>
+                    <p>Architect cloud solution and security model</p>
+                </div>
+                <div class="migration-step">
+                    <h6>4️⃣ Migrate</h6>
+                    <p>Execute migration with testing and validation</p>
+                </div>
+                <div class="migration-step">
+                    <h6>5️⃣ Optimize</h6>
+                    <p>Performance tuning and cost optimization</p>
+                </div>
+            </div>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>🔄 Rehosting</h5>
+                    <p>"Lift and Shift"<br>Minimal changes</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🔧 Replatforming</h5>
+                    <p>"Lift, Tinker, Shift"<br>Minor optimizations</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🏗️ Refactoring</h5>
+                    <p>"Re-architecting"<br>Cloud-native redesign</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📦 Repurchasing</h5>
+                    <p>"Drop and Shop"<br>Move to SaaS</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🚫 Retiring</h5>
+                    <p>Decommission<br>Unused applications</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🏠 Retaining</h5>
+                    <p>Keep on-premises<br>Hybrid approach</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📋 Migration Assessment Criteria</h4>
+                    <ul>
+                        <li><strong>Business Criticality:</strong> Mission-critical vs. non-critical</li>
+                        <li><strong>Technical Complexity:</strong> Dependencies and integrations</li>
+                        <li><strong>Compliance Requirements:</strong> Regulatory constraints</li>
+                        <li><strong>Performance Sensitivity:</strong> Latency and throughput needs</li>
+                        <li><strong>Data Sensitivity:</strong> Security and privacy requirements</li>
+                        <li><strong>Cost Considerations:</strong> Migration and operational costs</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🎯 Success Factors</h4>
+                    <ul>
+                        <li><strong>Executive Sponsorship:</strong> C-level commitment</li>
+                        <li><strong>Skills Development:</strong> Team training and certification</li>
+                        <li><strong>Pilot Projects:</strong> Start small, learn, scale</li>
+                        <li><strong>Change Management:</strong> Cultural transformation</li>
+                        <li><strong>Partner Ecosystem:</strong> Leverage expertise</li>
+                        <li><strong>Continuous Learning:</strong> Iterate and improve</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Phase 1 (Months 1-3):</strong> Assessment, planning, and pilot project selection
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 2 (Months 4-6):</strong> Infrastructure setup and low-risk migrations
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 3 (Months 7-12):</strong> Core application migrations and testing
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 4 (Months 13-18):</strong> Mission-critical systems and optimization
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 5 (Ongoing):</strong> Continuous improvement and innovation
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Container & Serverless -->
+        <div class="slide">
+            <h2>📦 Containers dan Serverless Computing</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">84%</div>
+                    <div class="metric-label">Container adoption rate</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">50%</div>
+                    <div class="metric-label">Serverless usage growth</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">67%</div>
+                    <div class="metric-label">Microservices adoption</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">40%</div>
+                    <div class="metric-label">Cost reduction achieved</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📦 Container Services</h4>
+                    <div style="margin-bottom: 1rem;">
+                        <div class="provider-badge aws-badge">Amazon ECS</div>
+                        <div class="provider-badge aws-badge">Amazon EKS</div>
+                        <div class="provider-badge aws-badge">AWS Fargate</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div class="provider-badge azure-badge">Azure Container Instances</div>
+                        <div class="provider-badge azure-badge">Azure Kubernetes Service</div>
+                    </div>
+                    <div>
+                        <div class="provider-badge gcp-badge">Google Kubernetes Engine</div>
+                        <div class="provider-badge gcp-badge">Cloud Run</div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h4>⚡ Serverless Services</h4>
+                    <div style="margin-bottom: 1rem;">
+                        <div class="provider-badge aws-badge">AWS Lambda</div>
+                        <div class="provider-badge aws-badge">API Gateway</div>
+                        <div class="provider-badge aws-badge">Step Functions</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <div class="provider-badge azure-badge">Azure Functions</div>
+                        <div class="provider-badge azure-badge">Logic Apps</div>
+                    </div>
+                    <div>
+                        <div class="provider-badge gcp-badge">Cloud Functions</div>
+                        <div class="provider-badge gcp-badge">Cloud Run</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🏗️ Container vs Serverless Architecture</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5 style="color: #4CAF50;">Container Architecture</h5>
+                        <div class="code-example">
+                            <strong>E-commerce Microservices:</strong><br><br>
+                            
+                            <strong>Frontend:</strong> React app in NGINX container<br>
+                            <strong>API Gateway:</strong> Kong/Traefik container<br>
+                            <strong>Services:</strong><br>
+                            • User Service (Node.js container)<br>
+                            • Product Service (Java container)<br>
+                            • Order Service (Python container)<br>
+                            • Payment Service (Go container)<br>
+                            <strong>Database:</strong> PostgreSQL, Redis containers<br>
+                            <strong>Orchestration:</strong> Kubernetes<br>
+                            <strong>Monitoring:</strong> Prometheus, Grafana
+                        </div>
+                    </div>
+                    <div>
+                        <h5 style="color: #4CAF50;">Serverless Architecture</h5>
+                        <div class="code-example">
+                            <strong>Event-driven E-commerce:</strong><br><br>
+                            
+                            <strong>Frontend:</strong> Static site (S3/CloudFront)<br>
+                            <strong>API:</strong> API Gateway + Lambda functions<br>
+                            <strong>Functions:</strong><br>
+                            • User registration/login<br>
+                            • Product catalog search<br>
+                            • Order processing<br>
+                            • Payment processing<br>
+                            <strong>Database:</strong> DynamoDB, RDS Serverless<br>
+                            <strong>Events:</strong> EventBridge, SNS/SQS<br>
+                            <strong>Storage:</strong> S3 for static assets
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <h4>⚖️ Containers vs Serverless Decision Matrix</h4>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.2);">
+                                <th style="padding: 0.5rem; text-align: left;">Criteria</th>
+                                <th style="padding: 0.5rem; text-align: center;">Containers</th>
+                                <th style="padding: 0.5rem; text-align: center;">Serverless</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 0.5rem;">Control</td>
+                                <td style="padding: 0.5rem; text-align: center;">High ✅</td>
+                                <td style="padding: 0.5rem; text-align: center;">Low ❌</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 0.5rem;">Scalability</td>
+                                <td style="padding: 0.5rem; text-align: center;">Manual ⚠️</td>
+                                <td style="padding: 0.5rem; text-align: center;">Automatic ✅</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem;">Cost (Low Traffic)</td>
+                                <td style="padding: 0.5rem; text-align: center;">Higher ❌</td>
+                                <td style="padding: 0.5rem; text-align: center;">Lower ✅</td>
+                            </tr>
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td style="padding: 0.5rem;">Cost (High Traffic)</td>
+                                <td style="padding: 0.5rem; text-align: center;">Lower ✅</td>
+                                <td style="padding: 0.5rem; text-align: center;">Higher ❌</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem;">Cold Start</td>
+                                <td style="padding: 0.5rem; text-align: center;">No Issue ✅</td>
+                                <td style="padding: 0.5rem; text-align: center;">Potential Issue ⚠️</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: DevOps & CI/CD -->
+        <div class="slide">
+            <h2>🔄 DevOps dan CI/CD dalam Cloud</h2>
+            
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>📝 Plan</h5>
+                    <p>Requirements, architecture design</p>
+                </div>
+                <div class="framework-item">
+                    <h5>💻 Code</h5>
+                    <p>Version control, collaboration</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🔨 Build</h5>
+                    <p>Compilation, packaging</p>
+                </div>
+                <div class="framework-item">
+                    <h5>✅ Test</h5>
+                    <p>Unit, integration, security tests</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📦 Package</h5>
+                    <p>Container images, artifacts</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🚀 Deploy</h5>
+                    <p>Automated deployment</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📊 Monitor</h5>
+                    <p>Metrics, logging, alerting</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🔄 Feedback</h5>
+                    <p>Continuous improvement</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box aws-box">
+                    <h4>🟠 AWS DevOps Stack</h4>
+                    <ul>
+                        <li><strong>Source Control:</strong> CodeCommit</li>
+                        <li><strong>Build:</strong> CodeBuild</li>
+                        <li><strong>Pipeline:</strong> CodePipeline</li>
+                        <li><strong>Deploy:</strong> CodeDeploy</li>
+                        <li><strong>Infrastructure:</strong> CloudFormation</li>
+                        <li><strong>Monitoring:</strong> CloudWatch</li>
+                    </ul>
+                </div>
+                <div class="content-box azure-box">
+                    <h4>🔵 Azure DevOps Stack</h4>
+                    <ul>
+                        <li><strong>Source Control:</strong> Azure Repos</li>
+                        <li><strong>CI/CD:</strong> Azure Pipelines</li>
+                        <li><strong>Planning:</strong> Azure Boards</li>
+                        <li><strong>Testing:</strong> Azure Test Plans</li>
+                        <li><strong>Infrastructure:</strong> ARM Templates</li>
+                        <li><strong>Monitoring:</strong> Azure Monitor</li>
+                    </ul>
+                </div>
+                <div class="content-box gcp-box">
+                    <h4>🟢 GCP DevOps Stack</h4>
+                    <ul>
+                        <li><strong>Source Control:</strong> Cloud Source Repos</li>
+                        <li><strong>Build:</strong> Cloud Build</li>
+                        <li><strong>Deploy:</strong> Cloud Deploy</li>
+                        <li><strong>Registry:</strong> Artifact Registry</li>
+                        <li><strong>Infrastructure:</strong> Deployment Manager</li>
+                        <li><strong>Monitoring:</strong> Cloud Monitoring</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🔧 Third-Party Tools</h4>
+                    <ul>
+                        <li><strong>Git:</strong> GitHub, GitLab, Bitbucket</li>
+                        <li><strong>CI/CD:</strong> Jenkins, CircleCI, GitLab CI</li>
+                        <li><strong>Infrastructure:</strong> Terraform, Ansible</li>
+                        <li><strong>Containers:</strong> Docker, Kubernetes</li>
+                        <li><strong>Monitoring:</strong> Datadog, New Relic</li>
+                        <li><strong>Security:</strong> Snyk, SonarQube</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🎯 CI/CD Pipeline Example</h4>
+                <div class="code-example">
+                    <strong>Multi-Cloud CI/CD Pipeline (GitLab CI):</strong><br><br>
+                    
+                    stages:<br>
+                    &nbsp;&nbsp;- test<br>
+                    &nbsp;&nbsp;- build<br>
+                    &nbsp;&nbsp;- deploy-staging<br>
+                    &nbsp;&nbsp;- deploy-production<br><br>
+                    
+                    test:<br>
+                    &nbsp;&nbsp;script:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- npm test<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- sonar-scanner<br><br>
+                    
+                    build:<br>
+                    &nbsp;&nbsp;script:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- docker build -t myapp:$CI_COMMIT_SHA .<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- docker push registry.gitlab.com/myapp<br><br>
+                    
+                    deploy-staging:<br>
+                    &nbsp;&nbsp;script:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- terraform apply -var environment=staging<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- kubectl apply -f k8s/staging/<br><br>
+                    
+                    deploy-production:<br>
+                    &nbsp;&nbsp;when: manual<br>
+                    &nbsp;&nbsp;script:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- terraform apply -var environment=prod<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;- kubectl apply -f k8s/production/
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Monitoring & Observability -->
+        <div class="slide">
+            <h2>📊 Cloud Monitoring dan Observability</h2>
+            
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>📈 Metrics</h5>
+                    <p>Numerical measurements over time</p>
+                    <ul style="font-size: 1rem;">
+                        <li>CPU, Memory, Disk usage</li>
+                        <li>Response times</li>
+                        <li>Error rates</li>
+                        <li>Throughput</li>
+                        <li>Custom business metrics</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>📝 Logs</h5>
+                    <p>Discrete events with context</p>
+                    <ul style="font-size: 1rem;">
+                        <li>Application logs</li>
+                        <li>System logs</li>
+                        <li>Security audit logs</li>
+                        <li>Access logs</li>
+                        <li>Error logs</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🔍 Traces</h5>
+                    <p>Request flow through systems</p>
+                    <ul style="font-size: 1rem;">
+                        <li>Distributed tracing</li>
+                        <li>Request correlation</li>
+                        <li>Performance bottlenecks</li>
+                        <li>Service dependencies</li>
+                        <li>Error propagation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🛠️ Cloud Monitoring Tools</h4>
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Native Cloud Tools:</strong>
+                        <div class="provider-badge aws-badge">CloudWatch</div>
+                        <div class="provider-badge azure-badge">Azure Monitor</div>
+                        <div class="provider-badge gcp-badge">Cloud Monitoring</div>
+                    </div>
+                    <div>
+                        <strong>Third-Party Tools:</strong>
+                        <div class="provider-badge multi-badge">Datadog</div>
+                        <div class="provider-badge multi-badge">New Relic</div>
+                        <div class="provider-badge multi-badge">Dynatrace</div>
+                        <div class="provider-badge multi-badge">Splunk</div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h4>🎯 Monitoring Best Practices</h4>
+                    <ul>
+                        <li><strong>SLI/SLO/SLA:</strong> Define service levels</li>
+                        <li><strong>Golden Signals:</strong> Latency, traffic, errors, saturation</li>
+                        <li><strong>Alerting:</strong> Actionable, not noisy</li>
+                        <li><strong>Dashboards:</strong> Role-based visibility</li>
+                        <li><strong>Runbooks:</strong> Standardized procedures</li>
+                        <li><strong>Automation:</strong> Auto-remediation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>📊 Observability Stack Example</h4>
+                <div class="code-example">
+                    <strong>Modern Observability Stack:</strong><br><br>
+                    
+                    <strong>Metrics Collection:</strong><br>
+                    • Prometheus (metrics collection)<br>
+                    • Grafana (visualization)<br>
+                    • AlertManager (alerting)<br><br>
+                    
+                    <strong>Logging:</strong><br>
+                    • Fluentd/Fluent Bit (log shipping)<br>
+                    • Elasticsearch (log storage)<br>
+                    • Kibana (log visualization)<br><br>
+                    
+                    <strong>Distributed Tracing:</strong><br>
+                    • Jaeger/Zipkin (tracing backend)<br>
+                    • OpenTelemetry (instrumentation)<br>
+                    • Service mesh integration<br><br>
+                    
+                    <strong>APM:</strong><br>
+                    • Application performance monitoring<br>
+                    • Error tracking (Sentry)<br>
+                    • User experience monitoring<br>
+                    • Synthetic monitoring
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4>🔧 Monitoring Architecture</h4>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Data Collection:</strong> Agents, sidecars, instrumentation libraries
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Data Processing:</strong> Aggregation, enrichment, correlation
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Storage:</strong> Time-series databases, log stores, trace backends
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Analysis:</strong> Dashboards, alerting, anomaly detection
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Action:</strong> Automated remediation, incident management
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Security Best Practices -->
+        <div class="slide">
+            <h2>🔐 Cloud Security Best Practices</h2>
+            
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>🔑 Identity</h5>
+                    <p>IAM, MFA, SSO</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🌐 Network</h5>
+                    <p>VPC, Security Groups, WAF</p>
+                </div>
+                <div class="framework-item">
+                    <h5>💾 Data</h5>
+                    <p>Encryption, DLP, Backup</p>
+                </div>
+                <div class="framework-item">
+                    <h5>⚙️ Compute</h5>
+                    <p>Hardening, Patching, Monitoring</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📊 Logging</h5>
+                    <p>Audit trails, SIEM, Compliance</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🛡️ Governance</h5>
+                    <p>Policies, Compliance, Risk</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔒 Security Controls</h4>
+                    <ul>
+                        <li><strong>Least Privilege:</strong> Minimal access rights</li>
+                        <li><strong>Defense in Depth:</strong> Multiple security layers</li>
+                        <li><strong>Zero Trust:</strong> Never trust, always verify</li>
+                        <li><strong>Encryption Everywhere:</strong> Data at rest and in transit</li>
+                        <li><strong>Security Automation:</strong> Automated security controls</li>
+                        <li><strong>Incident Response:</strong> Prepared response procedures</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🛡️ Cloud Security Services</h4>
+                    <ul>
+                        <li><strong>AWS:</strong> GuardDuty, Security Hub, WAF, KMS</li>
+                        <li><strong>Azure:</strong> Security Center, Sentinel, Key Vault</li>
+                        <li><strong>GCP:</strong> Security Command Center, Cloud KMS</li>
+                        <li><strong>Third-party:</strong> Qualys, Rapid7, CrowdStrike</li>
+                        <li><strong>CASB:</strong> Cloud Access Security Brokers</li>
+                        <li><strong>CSPM:</strong> Cloud Security Posture Management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🔧 Security Implementation Example</h4>
+                <div class="code-example">
+                    <strong>Multi-layered Security Architecture:</strong><br><br>
+                    
+                    <strong>Perimeter Security:</strong><br>
+                    • WAF for web application protection<br>
+                    • DDoS protection (CloudFlare/AWS Shield)<br>
+                    • Network ACLs and Security Groups<br><br>
+                    
+                    <strong>Identity &amp; Access:</strong><br>
+                    • Azure AD/AWS SSO for identity management<br>
+                    • Multi-factor authentication (MFA)<br>
+                    • Just-in-time access (JIT)<br>
+                    • Privileged access management (PAM)<br><br>
+                    
+                    <strong>Data Protection:</strong><br>
+                    • Encryption at rest (AES-256)<br>
+                    • Encryption in transit (TLS 1.3)<br>
+                    • Key management service integration<br>
+                    • Data loss prevention (DLP)<br><br>
+                    
+                    <strong>Monitoring &amp; Response:</strong><br>
+                    • SIEM integration (Splunk/Azure Sentinel)<br>
+                    • Threat detection and response<br>
+                    • Automated incident response<br>
+                    • Compliance monitoring
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <h4>⚠️ Common Security Pitfalls</h4>
+                <div class="three-column">
+                    <div>
+                        <h6 style="color: #E91E63;">Configuration Errors</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Misconfigured S3 buckets</li>
+                            <li>Overly permissive IAM policies</li>
+                            <li>Unencrypted data stores</li>
+                            <li>Default credentials</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #E91E63;">Access Management</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Shared credentials</li>
+                            <li>Long-lived access keys</li>
+                            <li>Excessive permissions</li>
+                            <li>No MFA enforcement</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #E91E63;">Monitoring Gaps</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>No audit logging</li>
+                            <li>Missing security alerts</li>
+                            <li>No incident response plan</li>
+                            <li>Inadequate backup strategy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Case Study -->
+        <div class="slide">
+            <h2>📚 Case Study: E-Commerce Platform Migration</h2>
+            
+            <div class="case-study">
+                <h4>🏢 Company Profile: TokoBesar.com</h4>
+                <p><strong>Challenge:</strong> Startup e-commerce dengan pertumbuhan 300% YoY, infrastruktur on-premise tidak mampu menangani traffic spike, need untuk global expansion, dan team development yang terbatas.</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📊 Current State</h4>
+                    <ul>
+                        <li><strong>Traffic:</strong> 100K daily active users</li>
+                        <li><strong>Peak Traffic:</strong> 10x during flash sales</li>
+                        <li><strong>Infrastructure:</strong> 5 physical servers</li>
+                        <li><strong>Downtime:</strong> 4-6 hours/month</li>
+                        <li><strong>Team:</strong> 3 DevOps engineers</li>
+                        <li><strong>Cost:</strong> $15K/month infrastructure</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🎯 Business Requirements</h4>
+                    <ul>
+                        <li><strong>Scalability:</strong> Handle 10x traffic growth</li>
+                        <li><strong>Availability:</strong> 99.9% uptime SLA</li>
+                        <li><strong>Global:</strong> Expand to 3 new countries</li>
+                        <li><strong>Speed:</strong> &lt; 2s page load time</li>
+                        <li><strong>Cost:</strong> 30% cost optimization</li>
+                        <li><strong>Security:</strong> PCI DSS compliance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🏗️ Solution Architecture</h4>
+                <div class="code-example">
+                    <strong>Multi-Cloud Architecture Decision:</strong><br><br>
+                    
+                    <strong>Primary Cloud: AWS (Global Infrastructure)</strong><br>
+                    • EC2 Auto Scaling Groups for web servers<br>
+                    • Application Load Balancer + CloudFront CDN<br>
+                    • RDS Multi-AZ for database<br>
+                    • ElastiCache for session management<br>
+                    • S3 for static assets and backups<br><br>
+                    
+                    <strong>Secondary: GCP (Analytics &amp; AI)</strong><br>
+                    • BigQuery for data analytics<br>
+                    • Cloud ML for recommendation engine<br>
+                    • Cloud Functions for real-time events<br><br>
+                    
+                    <strong>Hybrid: On-premises (Compliance)</strong><br>
+                    • Sensitive customer data storage<br>
+                    • Legacy ERP system integration<br>
+                    • VPN connection to cloud resources
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Phase 1 (Month 1-2):</strong> Infrastructure setup, DNS migration, static assets to CDN
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 2 (Month 3-4):</strong> Database migration, application refactoring for cloud
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 3 (Month 5-6):</strong> Full application migration, load testing, security audit
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 4 (Month 7-8):</strong> Analytics integration, AI recommendation system
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 5 (Month 9-12):</strong> Global expansion, optimization, team training
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📈 Results Achieved</h4>
+                    <ul>
+                        <li><strong>Scalability:</strong> Auto-scales to handle 1M+ concurrent users</li>
+                        <li><strong>Availability:</strong> 99.95% uptime achieved</li>
+                        <li><strong>Performance:</strong> Page load time reduced to 1.2s</li>
+                        <li><strong>Cost:</strong> 40% infrastructure cost reduction</li>
+                        <li><strong>Global:</strong> Successfully expanded to 5 countries</li>
+                        <li><strong>Team:</strong> Freed DevOps team to focus on innovation</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>💡 Lessons Learned</h4>
+                    <ul>
+                        <li><strong>Start Small:</strong> Pilot projects reduce risk</li>
+                        <li><strong>Team Training:</strong> Invest in cloud skills early</li>
+                        <li><strong>Monitoring First:</strong> Implement observability from day 1</li>
+                        <li><strong>Cost Control:</strong> Set up budgets and alerts immediately</li>
+                        <li><strong>Security:</strong> Security by design, not afterthought</li>
+                        <li><strong>Documentation:</strong> Document everything for knowledge transfer</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Hands-on Workshop -->
+        <div class="slide">
+            <h2>🧪 Hands-on Workshop: Cloud Architecture Design</h2>
+            
+            <div class="demo-section">
+                <h4>🎯 Workshop Scenario</h4>
+                <div class="case-study">
+                    <p><strong>Project:</strong> Design cloud architecture for University Learning Management System (LMS) dengan requirements:</p>
+                    <ul style="font-size: 1.2rem; margin-top: 1rem;">
+                        <li>10,000 students, 500 faculty members</li>
+                        <li>Peak usage: exam periods (5x normal traffic)</li>
+                        <li>Global access (students dari berbagai negara)</li>
+                        <li>File storage untuk course materials (video, documents)</li>
+                        <li>Real-time collaboration features</li>
+                        <li>Budget constraint: $5,000/month</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📋 Workshop Tasks (90 menit)</h4>
+                    <ul>
+                        <li><strong>Task 1 (20 min):</strong> Requirements analysis &amp; cloud provider comparison</li>
+                        <li><strong>Task 2 (30 min):</strong> Architecture design &amp; service selection</li>
+                        <li><strong>Task 3 (20 min):</strong> Cost estimation &amp; optimization</li>
+                        <li><strong>Task 4 (20 min):</strong> Prepare presentation &amp; demo</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>👥 Team Formation</h4>
+                    <ul>
+                        <li><strong>Team Size:</strong> 4-5 students per group</li>
+                        <li><strong>Roles:</strong> Solutions Architect, DevOps Engineer, Security Specialist, Cost Analyst</li>
+                        <li><strong>Deliverable:</strong> Architecture diagram + cost breakdown</li>
+                        <li><strong>Presentation:</strong> 10 minutes per team</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🛠️ Tools Provided</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>AWS Calculator</li>
+                        <li>Azure Calculator</li>
+                        <li>GCP Calculator</li>
+                        <li>Draw.io for diagrams</li>
+                        <li>Architecture templates</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>📊 Evaluation Criteria</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Technical soundness (40%)</li>
+                        <li>Cost optimization (30%)</li>
+                        <li>Innovation &amp; creativity (20%)</li>
+                        <li>Presentation quality (10%)</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🏆 Expected Outcomes</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Cloud provider selection rationale</li>
+                        <li>Scalable architecture design</li>
+                        <li>Security considerations</li>
+                        <li>Cost-performance optimization</li>
+                        <li>Migration strategy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <h4>💭 Discussion Questions</h4>
+                <ol style="font-size: 1.3rem;">
+                    <li>Mengapa memilih cloud provider tertentu untuk use case ini?</li>
+                    <li>Bagaimana menangani peak traffic selama periode ujian?</li>
+                    <li>Strategi apa untuk optimasi cost tanpa mengorbankan performance?</li>
+                    <li>Bagaimana memastikan data privacy untuk student records?</li>
+                    <li>Rencana disaster recovery untuk sistem kritikal universitas?</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 17: Future Trends -->
+        <div class="slide">
+            <h2>🔮 Future of Cloud Computing</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">$1.5T</div>
+                    <div class="metric-label">Cloud market by 2030</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">95%</div>
+                    <div class="metric-label">Workloads in cloud by 2025</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">80%</div>
+                    <div class="metric-label">Serverless adoption</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">5G</div>
+                    <div class="metric-label">Edge computing catalyst</div>
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🤖 AI-Native Cloud</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>AI-powered automation</li>
+                        <li>Intelligent resource optimization</li>
+                        <li>Automated security responses</li>
+                        <li>Predictive scaling</li>
+                        <li>Self-healing systems</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🏭 Edge Computing</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>5G network integration</li>
+                        <li>IoT device processing</li>
+                        <li>Ultra-low latency apps</li>
+                        <li>Distributed cloud architecture</li>
+                        <li>Autonomous systems</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🔐 Quantum Cloud</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Quantum computing as a service</li>
+                        <li>Post-quantum cryptography</li>
+                        <li>Advanced simulation capabilities</li>
+                        <li>Drug discovery acceleration</li>
+                        <li>Financial modeling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>🌱 Sustainability</h5>
+                    <p>Carbon-neutral cloud operations</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🔗 Web3 Integration</h5>
+                    <p>Blockchain and decentralized computing</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🎮 Metaverse Infrastructure</h5>
+                    <p>Virtual world hosting and computing</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🧠 Neuromorphic Computing</h5>
+                    <p>Brain-inspired processing units</p>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🚀 Emerging Technologies Impact</h4>
+                <div class="content-grid">
+                    <div>
+                        <h6 style="color: #4CAF50;">Near Term (2024-2026)</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Serverless computing dominance</li>
+                            <li>AI/ML democratization</li>
+                            <li>Edge computing proliferation</li>
+                            <li>Multi-cloud orchestration tools</li>
+                            <li>Sustainability focus</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #4CAF50;">Long Term (2027-2030)</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Quantum cloud services</li>
+                            <li>Autonomous cloud management</li>
+                            <li>Web3 infrastructure integration</li>
+                            <li>Distributed cloud ecosystems</li>
+                            <li>Digital twin as a service</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="discussion-box">
+                <h4>💭 Strategic Implications</h4>
+                <ul style="font-size: 1.3rem;">
+                    <li><strong>Skills Evolution:</strong> Cloud architects need AI/ML expertise</li>
+                    <li><strong>Business Models:</strong> Outcome-based cloud services</li>
+                    <li><strong>Security Paradigms:</strong> Zero-trust becomes standard</li>
+                    <li><strong>Sustainability:</strong> Green computing requirements</li>
+                    <li><strong>Regulation:</strong> Data sovereignty and privacy laws</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 18: Assignment -->
+        <div class="slide">
+            <h2>📝 Assignment: Cloud Architecture Proposal</h2>
+            
+            <div class="case-study">
+                <h4>🎯 Final Project: Enterprise Cloud Migration Strategy</h4>
+                <p><strong>Scenario:</strong> PT. Sejahtera Digital adalah perusahaan fintech yang ingin melakukan digital transformation dengan migrasi ke cloud. Mereka memiliki 50+ aplikasi, 100+ server on-premise, dan melayani 1 juta+ customers.</p>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📋 Deliverables (50 pages)</h4>
+                    <ul>
+                        <li><strong>Executive Summary (3 pages)</strong></li>
+                        <li><strong>Current State Analysis (8 pages)</strong></li>
+                        <li><strong>Cloud Strategy &amp; Provider Selection (10 pages)</strong></li>
+                        <li><strong>Target Architecture Design (12 pages)</strong></li>
+                        <li><strong>Migration Roadmap (8 pages)</strong></li>
+                        <li><strong>Cost-Benefit Analysis (5 pages)</strong></li>
+                        <li><strong>Risk Assessment &amp; Mitigation (4 pages)</strong></li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🏆 Grading Criteria</h4>
+                    <ul>
+                        <li><strong>Technical Depth (30%):</strong> Architecture quality &amp; feasibility</li>
+                        <li><strong>Business Case (25%):</strong> ROI analysis &amp; business justification</li>
+                        <li><strong>Innovation (20%):</strong> Creative solutions &amp; best practices</li>
+                        <li><strong>Risk Management (15%):</strong> Comprehensive risk analysis</li>
+                        <li><strong>Presentation (10%):</strong> Professional delivery &amp; communication</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Week 1-2:</strong> Requirements gathering &amp; current state analysis
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 3-4:</strong> Cloud provider evaluation &amp; architecture design
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 5-6:</strong> Cost analysis &amp; risk assessment
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 7:</strong> Final report preparation &amp; presentation rehearsal
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 8:</strong> Final presentations (45 minutes per team)
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h4>🛠️ Tools dan Resources</h4>
+                <div class="three-column">
+                    <div>
+                        <h6 style="color: #4CAF50;">Analysis Tools</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>AWS Migration Hub</li>
+                            <li>Azure Migrate</li>
+                            <li>GCP Migration Center</li>
+                            <li>CloudEndure</li>
+                            <li>Turbonomic</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #4CAF50;">Design Tools</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>AWS Well-Architected Tool</li>
+                            <li>Azure Architecture Center</li>
+                            <li>GCP Architecture Framework</li>
+                            <li>Lucidchart</li>
+                            <li>Draw.io</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #4CAF50;">Cost Calculators</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>AWS Pricing Calculator</li>
+                            <li>Azure Calculator</li>
+                            <li>GCP Calculator</li>
+                            <li>CloudHealth</li>
+                            <li>RightScale Optima</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>👥 Team</h5>
+                    <p>5-6 students per group<br>Cross-functional roles</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📊 Format</h5>
+                    <p>Professional report + Live presentation<br>Demo environment optional</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🎯 Focus</h5>
+                    <p>Real-world applicability<br>Industry best practices</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Conclusion -->
+        <div class="slide">
+            <h2>🎯 Kesimpulan dan Key Takeaways</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔑 Fundamental Principles</h4>
+                    <ul>
+                        <li>Cloud-first strategy untuk <span class="highlight">competitive advantage</span></li>
+                        <li>Right cloud, right workload, right cost</li>
+                        <li>Security dan compliance by design</li>
+                        <li>Automation untuk operational excellence</li>
+                        <li>Continuous optimization dan learning</li>
+                        <li>People dan culture transformation</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🚀 Strategic Recommendations</h4>
+                    <ul>
+                        <li><strong>Start Small:</strong> Begin with pilot projects</li>
+                        <li><strong>Invest in Skills:</strong> Cloud certifications for team</li>
+                        <li><strong>Embrace DevOps:</strong> Cultural transformation</li>
+                        <li><strong>Think Multi-cloud:</strong> Avoid vendor lock-in</li>
+                        <li><strong>Focus on Business Value:</strong> Not just technology</li>
+                        <li><strong>Measure Everything:</strong> Data-driven decisions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h4>💡 Cloud Transformation Mindset</h4>
+                <p style="font-size: 1.4rem; text-align: center; font-style: italic;">
+                    "Cloud computing is not just about technology - it's about enabling business agility, innovation, and digital transformation. The question is not whether to adopt cloud, but how to do it strategically and successfully."
+                </p>
+            </div>
+            
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>📚 Continue Learning</h5>
+                    <p>Cloud certifications, hands-on projects, community engagement</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🏃 Next Actions</h5>
+                    <p>Start team project, choose cloud provider, design architecture</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📖 Resources</h5>
+                    <p>Documentation, whitepapers, case studies, best practices</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <h3 style="color: #FFD700;">🙏 Questions &amp; Discussion</h3>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">Ready to embrace the cloud-native future?</p>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="prevSlide()">⬅️ Previous</button>
+            <button class="control-btn" onclick="nextSlide()">Next ➡️</button>
+            <button class="control-btn" onclick="scrollToTop()">⬆️ Top</button>
+            <button class="control-btn" onclick="scrollToBottom()">⬇️ Bottom</button>
+            <button class="control-btn" onclick="toggleFullscreen()">🔳 Fullscreen</button>
+        </div>
+        
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">19</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            const progressWidth = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progressWidth + '%';
+        }
+        
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+        
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        function scrollToTop() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        function scrollToBottom() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: activeSlide.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const activeSlide = document.querySelector('.slide.active');
+            
+            switch(event.key) {
+                case 'ArrowRight':
+                case 'PageDown':
+                    event.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                    event.preventDefault();
+                    prevSlide();
+                    break;
+                case ' ':
+                    if (!event.shiftKey) {
+                        event.preventDefault();
+                        nextSlide();
+                    }
+                    break;
+                case 'ArrowUp':
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: -100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'ArrowDown':
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'Home':
+                    if (event.ctrlKey) {
+                        currentSlideIndex = 0;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'End':
+                    if (event.ctrlKey) {
+                        currentSlideIndex = totalSlides - 1;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: activeSlide.scrollHeight,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+            }
+        });
+        
+        // Touch/swipe support
+        let startX = null;
+        document.addEventListener('touchstart', function(event) {
+            startX = event.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', function(event) {
+            if (startX === null) return;
+            
+            let endX = event.changedTouches[0].clientX;
+            let diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            
+            startX = null;
+        });
+        
+        // Initialize
+        showSlide(0);
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

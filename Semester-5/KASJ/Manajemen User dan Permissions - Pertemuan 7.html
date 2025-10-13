@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)https://class.tiflab.my.id/storage/lessons/materials/1756596059_7.%20Manajemen%20User%20Permissions.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen User dan Permissions - Pertemuan 7</title>
+    <link rel="stylesheet" href="./Manajemen User dan Permissions - Pertemuan 7_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #2980b9;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #2980b9;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #2980b9;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #2980b9;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #2980b9;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #2980b9;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            color: #2980b9;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+            overflow-x: auto;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #2980b9;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #2980b9;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 3px solid #2980b9;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .role-card:hover {
+            background: #2980b9;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .role-card i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .role-card:hover i {
+            color: white;
+        }
+
+        .permission-matrix {
+            display: grid;
+            grid-template-columns: 200px repeat(4, 1fr);
+            gap: 2px;
+            margin: 20px 0;
+            background: #2980b9;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .matrix-header {
+            background: #2980b9;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .matrix-cell {
+            background: white;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-cell:hover {
+            background: #ecf0f1;
+        }
+
+        .matrix-cell.granted {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .matrix-cell.denied {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #f39c12;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.6);
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .info-box {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+        }
+
+        .danger-box {
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #c0392b;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #2980b9;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .user-hierarchy {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .hierarchy-level {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 3px solid #2980b9;
+            border-radius: 15px;
+            padding: 20px 40px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-width: 250px;
+        }
+
+        .hierarchy-level:hover {
+            background: #2980b9;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .hierarchy-arrow {
+            font-size: 30px;
+            color: #2980b9;
+            margin: 5px 0;
+        }
+
+        .security-level {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .security-level.critical {
+            background: #fee;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .security-level.high {
+            background: #fff3e0;
+            border-left: 5px solid #f39c12;
+        }
+
+        .security-level.medium {
+            background: #e8f5e8;
+            border-left: 5px solid #27ae60;
+        }
+
+        .security-level.low {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+        }
+
+        .audit-log {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+            border-left: 5px solid #2980b9;
+        }
+
+        .scenario-box {
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            border: 2px solid #2980b9;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .scenario-box::before {
+            content: "SCENARIO";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #2980b9;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+            }
+
+            .permission-matrix {
+                grid-template-columns: 150px repeat(3, 1fr);
+                font-size: 14px;
+            }
+
+            .role-card {
+                min-height: 120px;
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .permission-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .permission-badge.read {
+            background: #27ae60;
+            color: white;
+        }
+
+        .permission-badge.write {
+            background: #f39c12;
+            color: white;
+        }
+
+        .permission-badge.execute {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .permission-badge.full {
+            background: #8e44ad;
+            color: white;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 794px; top: 383px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 5.55556%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 18</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Manajemen User dan Permissions - Pertemuan 7_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Manajemen User dan Permissions</div>
+                <div class="slide-subtitle">Konfigurasi dan Administrasi Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-users icon"></i>
+                    Pertemuan 7
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu mengelola user accounts dan permissions</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>2 x 50 menit</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="list-item">
+                    <i class="fas fa-user-plus icon"></i>
+                    <strong>Membuat dan mengelola user accounts</strong><br>
+                    User creation, modification, dan deletion
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-users-cog icon"></i>
+                    <strong>Setup group permissions</strong><br>
+                    Group policies dan access control
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-folder-lock icon"></i>
+                    <strong>Implementasi file security</strong><br>
+                    File dan folder permissions management
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-clipboard-check icon"></i>
+                    <strong>Audit user activities</strong><br>
+                    Monitoring dan compliance tracking
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9; margin-bottom: 20px;">User Management</h3>
+                        <div class="list-item">
+                            <i class="fas fa-user-circle icon"></i>
+                            User Account Management
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-users icon"></i>
+                            Group Policy &amp; Permissions
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-key icon"></i>
+                            Authentication Methods
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9; margin-bottom: 20px;">Security &amp; Compliance</h3>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            File and Folder Security
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-search icon"></i>
+                            Audit dan Monitoring
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-theater-masks icon"></i>
+                            Role-Play Scenarios
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: User Management Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">User Management Overview</div>
+                <div class="slide-subtitle">Foundation of System Security</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box" style="margin-bottom: 30px; font-size: 28px;">
+                    User Management = Identity + Authentication + Authorization + Auditing
+                </div>
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Core Components</h3>
+                        <div class="list-item">
+                            <i class="fas fa-id-card icon"></i>
+                            <strong>User Accounts</strong><br>
+                            Identity management
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-users icon"></i>
+                            <strong>Groups</strong><br>
+                            Collective permissions
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Security Principles</h3>
+                        <div class="list-item">
+                            <i class="fas fa-user-shield icon"></i>
+                            <strong>Least Privilege</strong><br>
+                            Minimum required access
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-sync-alt icon"></i>
+                            <strong>Separation of Duties</strong><br>
+                            Role-based controls
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Best Practices</h3>
+                        <div class="list-item">
+                            <i class="fas fa-clock icon"></i>
+                            <strong>Regular Reviews</strong><br>
+                            Access auditing
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-key icon"></i>
+                            <strong>Strong Authentication</strong><br>
+                            Password policies
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: User Account Hierarchy -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">User Account Hierarchy</div>
+                <div class="slide-subtitle">Access Levels &amp; Privileges</div>
+            </div>
+            <div class="slide-content">
+                <div class="user-hierarchy">
+                    <div class="hierarchy-level" style="background: #e74c3c; color: white;">
+                        <i class="fas fa-crown" style="margin-right: 10px;"></i>
+                        <strong>Root/Administrator</strong><br>
+                        <small>Full system control</small>
+                    </div>
+                    <div class="hierarchy-arrow">↓</div>
+                    <div class="hierarchy-level" style="background: #f39c12; color: white;">
+                        <i class="fas fa-user-cog" style="margin-right: 10px;"></i>
+                        <strong>System Users</strong><br>
+                        <small>Service accounts, daemons</small>
+                    </div>
+                    <div class="hierarchy-arrow">↓</div>
+                    <div class="hierarchy-level" style="background: #27ae60; color: white;">
+                        <i class="fas fa-user-tie" style="margin-right: 10px;"></i>
+                        <strong>Privileged Users</strong><br>
+                        <small>Administrators, sudo access</small>
+                    </div>
+                    <div class="hierarchy-arrow">↓</div>
+                    <div class="hierarchy-level" style="background: #3498db; color: white;">
+                        <i class="fas fa-user" style="margin-right: 10px;"></i>
+                        <strong>Regular Users</strong><br>
+                        <small>Standard user accounts</small>
+                    </div>
+                    <div class="hierarchy-arrow">↓</div>
+                    <div class="hierarchy-level" style="background: #95a5a6; color: white;">
+                        <i class="fas fa-user-slash" style="margin-right: 10px;"></i>
+                        <strong>Guest/Limited Users</strong><br>
+                        <small>Restricted access</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Linux User Management -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Linux User Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">User Management Commands</h3>
+                        <div class="code-block">
+<pre># Create new user
+sudo useradd -m -s /bin/bash username
+sudo useradd -m -G sudo,www-data john
+
+# Set password
+sudo passwd username
+
+# Modify user
+sudo usermod -aG groupname username
+sudo usermod -l newname oldname
+
+# Delete user
+sudo userdel username
+sudo userdel -r username  # with home directory</pre>
+                        </div>
+                        <div class="success-box">
+                            <strong>User Info Files:</strong><br>
+                            /etc/passwd, /etc/shadow, /etc/group
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Group Management</h3>
+                        <div class="code-block">
+<pre># Create group
+sudo groupadd groupname
+
+# Add user to group
+sudo usermod -aG groupname username
+sudo gpasswd -a username groupname
+
+# Remove user from group
+sudo gpasswd -d username groupname
+
+# List user groups
+groups username
+id username
+
+# Delete group
+sudo groupdel groupname</pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Important Groups:</strong><br>
+                            sudo, wheel, www-data, docker
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Windows User Management -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Windows User Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Command Line Management</h3>
+                        <div class="code-block">
+<pre># Create new user
+net user username password /add
+net user john P@ssw0rd! /add /fullname:"John Doe"
+
+# Add to group
+net localgroup "Administrators" username /add
+net localgroup "Remote Desktop Users" john /add
+
+# Modify user
+net user username /active:yes
+net user username /expires:never
+
+# Delete user
+net user username /delete</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">PowerShell Commands</h3>
+                        <div class="code-block">
+<pre># Create user
+New-LocalUser -Name "john" -Password (ConvertTo-SecureString "P@ssw0rd!" -AsPlainText -Force) -FullName "John Doe"
+
+# Add to group
+Add-LocalGroupMember -Group "Administrators" -Member "john"
+
+# List users
+Get-LocalUser
+
+# Modify user
+Set-LocalUser -Name "john" -Description "IT Admin"
+
+# Remove user
+Remove-LocalUser -Name "john"</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <strong>Security Note:</strong> Always use strong passwords and follow company password policy
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: File Permissions Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">File and Folder Permissions</div>
+                <div class="slide-subtitle">Access Control Fundamentals</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Linux Permissions</h3>
+                        <div class="permission-matrix">
+                            <div class="matrix-header">Permission</div>
+                            <div class="matrix-header">Read (r)</div>
+                            <div class="matrix-header">Write (w)</div>
+                            <div class="matrix-header">Execute (x)</div>
+                            <div class="matrix-header">Numeric</div>
+                            
+                            <div class="matrix-cell"><strong>Owner</strong></div>
+                            <div class="matrix-cell granted">✓</div>
+                            <div class="matrix-cell granted">✓</div>
+                            <div class="matrix-cell granted">✓</div>
+                            <div class="matrix-cell">7</div>
+                            
+                            <div class="matrix-cell"><strong>Group</strong></div>
+                            <div class="matrix-cell granted">✓</div>
+                            <div class="matrix-cell denied">✗</div>
+                            <div class="matrix-cell granted">✓</div>
+                            <div class="matrix-cell">5</div>
+                            
+                            <div class="matrix-cell"><strong>Others</strong></div>
+                            <div class="matrix-cell granted">✓</div>
+                            <div class="matrix-cell denied">✗</div>
+                            <div class="matrix-cell denied">✗</div>
+                            <div class="matrix-cell">4</div>
+                        </div>
+                        <div class="code-block">
+<pre># Change permissions
+chmod 755 filename
+chmod u+x,g+r,o-w filename
+
+# Change ownership
+chown user:group filename
+chown -R user:group directory/</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Windows Permissions</h3>
+                        <div class="list-item">
+                            <span class="permission-badge full">Full Control</span>
+                            Complete access to file/folder
+                        </div>
+                        <div class="list-item">
+                            <span class="permission-badge write">Modify</span>
+                            Read, write, execute, delete
+                        </div>
+                        <div class="list-item">
+                            <span class="permission-badge read">Read &amp; Execute</span>
+                            View and run files
+                        </div>
+                        <div class="list-item">
+                            <span class="permission-badge read">Read</span>
+                            View files only
+                        </div>
+                        <div class="list-item">
+                            <span class="permission-badge write">Write</span>
+                            Create and modify files
+                        </div>
+                        <div class="code-block">
+<pre># PowerShell ACL Management
+Get-Acl C:\folder | Format-List
+$acl = Get-Acl C:\folder
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("user","FullControl","Allow")
+$acl.SetAccessRule($accessRule)
+Set-Acl C:\folder $acl</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Role-Based Access Control -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Role-Based Access Control (RBAC)</div>
+                <div class="slide-subtitle">Organizational Permission Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div class="role-card">
+                        <i class="fas fa-user-tie" style="color: #e74c3c;"></i>
+                        <h3>Administrator</h3>
+                        <p>Full system access, user management, security policies</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-code" style="color: #27ae60;"></i>
+                        <h3>Developer</h3>
+                        <p>Application deployment, development tools, code repositories</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-chart-bar" style="color: #3498db;"></i>
+                        <h3>Analyst</h3>
+                        <p>Data access, reporting tools, read-only system info</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-users" style="color: #f39c12;"></i>
+                        <h3>Manager</h3>
+                        <p>Team resources, project folders, approval workflows</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-user" style="color: #9b59b6;"></i>
+                        <h3>End User</h3>
+                        <p>Personal files, shared resources, basic applications</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-user-clock" style="color: #95a5a6;"></i>
+                        <h3>Guest</h3>
+                        <p>Limited access, temporary resources, restricted permissions</p>
+                    </div>
+                </div>
+                <div class="info-box" style="margin-top: 30px;">
+                    <strong>RBAC Benefits:</strong> Simplified management • Consistent permissions • Easier auditing • Reduced errors • Scalable security model
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Group Policy Management -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Group Policy Management</div>
+                <div class="slide-subtitle">Windows Domain Environment</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Policy Categories</h3>
+                        <div class="security-level high">
+                            <i class="fas fa-shield-alt" style="margin-right: 15px;"></i>
+                            <strong>Security Policies</strong><br>
+                            Password policy, account lockout, user rights
+                        </div>
+                        <div class="security-level medium">
+                            <i class="fas fa-desktop" style="margin-right: 15px;"></i>
+                            <strong>Desktop Policies</strong><br>
+                            Start menu, taskbar, desktop settings
+                        </div>
+                        <div class="security-level medium">
+                            <i class="fas fa-cogs" style="margin-right: 15px;"></i>
+                            <strong>Software Policies</strong><br>
+                            Software installation, restrictions
+                        </div>
+                        <div class="security-level low">
+                            <i class="fas fa-network-wired" style="margin-right: 15px;"></i>
+                            <strong>Network Policies</strong><br>
+                            Network access, VPN, wireless settings
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Implementation Example</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Open Group Policy Management</strong><br>
+                            gpmc.msc atau Server Manager
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Create/Edit GPO</strong><br>
+                            Link to Organizational Unit
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Configure Settings</strong><br>
+                            Computer/User Configuration
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Apply &amp; Test</strong><br>
+                            gpupdate /force
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Password Policies -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Password Security Policies</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Linux Password Policy</h3>
+                        <div class="code-block">
+<pre># Install password quality tools
+sudo apt install libpam-pwquality
+
+# Configure /etc/security/pwquality.conf
+minlen = 12
+minclass = 3
+maxrepeat = 2
+dcredit = -1
+ucredit = -1
+lcredit = -1
+ocredit = -1
+
+# Password aging in /etc/login.defs
+PASS_MAX_DAYS 90
+PASS_MIN_DAYS 1
+PASS_WARN_AGE 7</pre>
+                        </div>
+                        <div class="success-box">
+                            <strong>Enforce for existing users:</strong><br>
+                            sudo chage -M 90 -m 1 -W 7 username
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Windows Password Policy</h3>
+                        <div class="security-level critical">
+                            <i class="fas fa-key" style="margin-right: 15px;"></i>
+                            <strong>Minimum Length:</strong> 12 characters
+                        </div>
+                        <div class="security-level high">
+                            <i class="fas fa-clock" style="margin-right: 15px;"></i>
+                            <strong>Maximum Age:</strong> 90 days
+                        </div>
+                        <div class="security-level high">
+                            <i class="fas fa-history" style="margin-right: 15px;"></i>
+                            <strong>History:</strong> Remember last 12 passwords
+                        </div>
+                        <div class="security-level medium">
+                            <i class="fas fa-lock" style="margin-right: 15px;"></i>
+                            <strong>Lockout:</strong> 5 failed attempts = 30 min lockout
+                        </div>
+                        <div class="code-block">
+<pre># PowerShell commands
+Get-ADDefaultDomainPasswordPolicy
+Set-ADDefaultDomainPasswordPolicy -MinPasswordLength 12 -PasswordHistoryCount 12</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: File Security Implementation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">File Security Implementation</div>
+                <div class="slide-subtitle">Practical Scenarios</div>
+            </div>
+            <div class="slide-content">
+                <div class="scenario-box">
+                    <h3 style="color: #2980b9;">Scenario: Departmental File Structure</h3>
+                    <p><strong>Requirement:</strong> Create secure file structure untuk HR, Finance, dan IT departments dengan appropriate access controls.</p>
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Linux Implementation</h3>
+                        <div class="code-block">
+<pre># Create directory structure
+sudo mkdir -p /company/{hr,finance,it,shared}
+
+# Create groups
+sudo groupadd hr-dept
+sudo groupadd finance-dept  
+sudo groupadd it-dept
+
+# Set permissions
+sudo chown root:hr-dept /company/hr
+sudo chmod 2770 /company/hr
+
+sudo chown root:finance-dept /company/finance
+sudo chmod 2770 /company/finance
+
+sudo chown root:it-dept /company/it
+sudo chmod 2770 /company/it
+
+# Shared folder - all departments read access
+sudo chown root:root /company/shared
+sudo chmod 755 /company/shared</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Windows Implementation</h3>
+                        <div class="code-block">
+<pre># PowerShell script
+$departments = @("HR", "Finance", "IT")
+
+foreach ($dept in $departments) {
+    # Create directory
+    New-Item -Path "C:\Company\$dept" -ItemType Directory -Force
+    
+    # Create group
+    New-LocalGroup -Name "$dept-Dept" -Description "$dept Department"
+    
+    # Set permissions
+    $acl = Get-Acl "C:\Company\$dept"
+    $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("$dept-Dept","FullControl","ContainerInherit,ObjectInherit","None","Allow")
+    $acl.SetAccessRule($accessRule)
+    Set-Acl "C:\Company\$dept" $acl
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Advanced Permissions -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Advanced Permission Concepts</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Linux ACLs (Access Control Lists)</h3>
+                        <div class="code-block">
+<pre># Install ACL support
+sudo apt install acl
+
+# Mount with ACL support
+sudo mount -o remount,acl /
+
+# Set ACL permissions
+setfacl -m user:john:rwx /path/to/file
+setfacl -m group:developers:rw /path/to/directory
+
+# View ACL
+getfacl /path/to/file
+
+# Remove ACL
+setfacl -x user:john /path/to/file
+
+# Default ACLs for directories
+setfacl -d -m group:developers:rw /path/to/directory</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Windows Advanced Permissions</h3>
+                        <div class="list-item">
+                            <strong>Full Control</strong><br>
+                            All permissions including change permissions
+                        </div>
+                        <div class="list-item">
+                            <strong>Traverse Folder</strong><br>
+                            Navigate through folders without read permission
+                        </div>
+                        <div class="list-item">
+                            <strong>List Folder Contents</strong><br>
+                            View files in directory
+                        </div>
+                        <div class="list-item">
+                            <strong>Read Attributes</strong><br>
+                            View file properties
+                        </div>
+                        <div class="list-item">
+                            <strong>Create Files/Folders</strong><br>
+                            Add new content to directory
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <strong>Inheritance:</strong> Child objects inherit permissions from parent containers by default
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Auditing and Monitoring -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Auditing and Monitoring</div>
+                <div class="slide-subtitle">Compliance and Security Tracking</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Linux Audit System</h3>
+                        <div class="code-block">
+<pre># Install auditd
+sudo apt install auditd
+
+# Configure audit rules
+sudo nano /etc/audit/rules.d/audit.rules
+
+# Monitor file access
+-w /etc/passwd -p wa -k passwd_changes
+-w /etc/shadow -p wa -k shadow_changes
+-w /company/hr -p rwxa -k hr_access
+
+# Start audit service
+sudo systemctl start auditd
+sudo systemctl enable auditd
+
+# Search audit logs
+sudo ausearch -k passwd_changes
+sudo aureport --summary</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Windows Audit Policy</h3>
+                        <div class="code-block">
+<pre># Enable audit policies
+auditpol /set /subcategory:"Logon" /success:enable /failure:enable
+auditpol /set /subcategory:"File System" /success:enable /failure:enable
+
+# PowerShell audit configuration
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "AuditBaseObjects" -Value 1
+
+# View audit events
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624}  # Successful logon
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625}  # Failed logon</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="audit-log">
+<pre>Sample Audit Log Entries:
+[2024-01-15 10:23:45] User 'john' successfully logged in from 192.168.1.100
+[2024-01-15 10:24:12] User 'john' accessed file '/company/hr/employee_data.xlsx'
+[2024-01-15 10:25:33] Failed login attempt for user 'admin' from 192.168.1.150
+[2024-01-15 10:26:01] User 'mary' modified permissions on '/company/finance/'
+[2024-01-15 10:27:15] User 'bob' deleted file '/company/it/old_configs.txt'</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Role-Play Scenarios -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Role-Play Scenarios</div>
+                <div class="slide-subtitle">Hands-on Learning Experience</div>
+            </div>
+            <div class="slide-content">
+                <div class="scenario-box">
+                    <h3 style="color: #2980b9;">Scenario 1: New Employee Onboarding</h3>
+                    <p><strong>Role:</strong> IT Administrator</p>
+                    <p><strong>Task:</strong> Create account untuk Sarah (Marketing Manager) dengan appropriate permissions untuk Marketing department resources.</p>
+                </div>
+
+                <div class="scenario-box">
+                    <h3 style="color: #2980b9;">Scenario 2: Department Restructuring</h3>
+                    <p><strong>Role:</strong> System Administrator</p>
+                    <p><strong>Task:</strong> Marketing dan Sales departments merger. Adjust permissions untuk shared resources dan maintain security.</p>
+                </div>
+
+                <div class="scenario-box">
+                    <h3 style="color: #2980b9;">Scenario 3: Security Incident Response</h3>
+                    <p><strong>Role:</strong> Security Administrator</p>
+                    <p><strong>Task:</strong> Detected unauthorized access attempt. Investigate audit logs, identify compromised accounts, implement remediation.</p>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Learning Objectives</h3>
+                        <div class="list-item">
+                            <i class="fas fa-user-check icon"></i>
+                            Account lifecycle management
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            Security best practices
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Assessment Criteria</h3>
+                        <div class="list-item">
+                            <i class="fas fa-clipboard-check icon"></i>
+                            Correct implementation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-search icon"></i>
+                            Problem-solving approach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Compliance and Standards -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Compliance and Standards</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Regulatory Standards</h3>
+                        <div class="security-level critical">
+                            <i class="fas fa-balance-scale" style="margin-right: 15px;"></i>
+                            <strong>GDPR</strong><br>
+                            Data protection dan privacy rights
+                        </div>
+                        <div class="security-level high">
+                            <i class="fas fa-hospital" style="margin-right: 15px;"></i>
+                            <strong>HIPAA</strong><br>
+                            Healthcare information security
+                        </div>
+                        <div class="security-level high">
+                            <i class="fas fa-credit-card" style="margin-right: 15px;"></i>
+                            <strong>PCI DSS</strong><br>
+                            Payment card industry security
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Security Frameworks</h3>
+                        <div class="security-level medium">
+                            <i class="fas fa-shield-alt" style="margin-right: 15px;"></i>
+                            <strong>ISO 27001</strong><br>
+                            Information security management
+                        </div>
+                        <div class="security-level medium">
+                            <i class="fas fa-building" style="margin-right: 15px;"></i>
+                            <strong>NIST Framework</strong><br>
+                            Cybersecurity framework
+                        </div>
+                        <div class="security-level low">
+                            <i class="fas fa-cogs" style="margin-right: 15px;"></i>
+                            <strong>COBIT</strong><br>
+                            IT governance framework
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Best Practices</h3>
+                        <div class="list-item">
+                            <i class="fas fa-calendar-check icon"></i>
+                            <strong>Regular Reviews</strong><br>
+                            Quarterly access reviews
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-file-alt icon"></i>
+                            <strong>Documentation</strong><br>
+                            Maintain access records
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-graduation-cap icon"></i>
+                            <strong>Training</strong><br>
+                            User security awareness
+                        </div>
+                    </div>
+                </div>
+                <div class="danger-box" style="margin-top: 20px;">
+                    <strong>Compliance Requirements:</strong> Regular audits • Access logs retention • Incident documentation • User training records • Policy reviews • Risk assessments
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Summary & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ringkasan &amp; Langkah Selanjutnya</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #2980b9;">Key Takeaways</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            User management adalah foundation of security
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Least privilege principle harus diterapkan
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Group-based permissions simplify management
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            File permissions protect sensitive data
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Auditing essential untuk compliance
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Regular reviews maintain security posture
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #2980b9;">Praktik Selanjutnya</h3>
+                        <div class="list-item">
+                            <i class="fas fa-theater-masks icon"></i>
+                            <strong>Role-Play Sessions:</strong><br>
+                            Hands-on user management scenarios
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            <strong>Security Assessment:</strong><br>
+                            Evaluate current permission structure
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-clipboard-check icon"></i>
+                            <strong>Compliance Audit:</strong><br>
+                            Create audit trails dan documentation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-database icon"></i>
+                            <strong>Next Topic:</strong><br>
+                            Database Security dan Access Control
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Manajemen User dan Permissions - Pertemuan 7_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title" style="color: #2980b9;">Terima Kasih</div>
+                <div class="slide-subtitle">Manajemen User dan Permissions</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce" style="margin-bottom: 40px;">
+                    <i class="fas fa-heart icon"></i>
+                    Thank You!
+                </div>
+                
+                <div style="text-align: center; font-size: 32px; margin-bottom: 40px;">
+                    <i class="fas fa-question-circle" style="color: #2980b9; margin-right: 15px;"></i>
+                    <strong>Ada Pertanyaan?</strong>
+                </div>
+
+                <div class="two-column" style="align-items: center;">
+                    <div style="text-align: center;">
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-user-tie icon"></i>
+                            <strong>Dosen Pengampu</strong><br>
+                            <span style="color: #2980b9; font-size: 28px;">Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</span>
+                        </div>
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-envelope icon"></i>
+                            <strong>Email</strong><br>
+                            <span style="color: #2980b9; font-size: 26px;">ikhwan.alfath@untidar.ac.id</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-university icon"></i>
+                            <strong>Mata Kuliah</strong><br>
+                            <span style="color: #2980b9;">Konfigurasi dan Administrasi Sistem Jaringan</span>
+                        </div>
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-graduation-cap icon"></i>
+                            <strong>Program Studi</strong><br>
+                            <span style="color: #2980b9;">Teknologi Informasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; font-size: 20px; color: #666;">
+                    <i class="fas fa-clock" style="margin-right: 10px;"></i>
+                    Silakan ajukan pertanyaan seputar materi User dan Permissions Management
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Perkenalan materi user dan permissions management</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">04:54</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Perkenalan user dan permissions management. Tekankan pentingnya identity management sebagai foundation of security.",
+            "Slide 2: Learning objectives yang fokus pada hands-on role-play. Siswa harus bisa manage complete user lifecycle.",
+            "Slide 3: Agenda yang balance user management, security implementation, dan compliance dengan interactive scenarios.",
+            "Slide 4: User management overview dengan security principles. Jelaskan CIA triad dalam context of user management.",
+            "Slide 5: User hierarchy visualization untuk understanding privilege levels. Important untuk role-based thinking.",
+            "Slide 6: Linux user management commands dengan practical examples. Demonstrate command usage dengan real scenarios.",
+            "Slide 7: Windows user management dengan CLI dan PowerShell. Show both methods untuk comprehensive understanding.",
+            "Slide 8: File permissions fundamentals. Critical untuk understanding access control mechanisms.",
+            "Slide 9: Role-based access control dengan interactive role cards. Students dapat click untuk explore each role.",
+            "Slide 10: Group Policy implementation untuk Windows environments. Show actual GPO configuration examples.",
+            "Slide 11: Password security policies untuk both platforms. Emphasize security best practices dan compliance requirements.",
+            "Slide 12: Practical file security implementation dengan real-world scenarios. Department-based access control example.",
+            "Slide 13: Advanced permissions concepts. ACLs dan inheritance untuk complex permission structures.",
+            "Slide 14: Auditing dan monitoring implementation. Show actual audit log examples dan analysis techniques.",
+            "Slide 15: Role-play scenarios untuk hands-on learning. Assign different roles kepada students untuk interactive experience.",
+            "Slide 16: Compliance dan standards untuk regulatory requirements. Important untuk enterprise environments.",
+            "Slide 17: Summary dan preparation untuk role-play sessions. Preview assessment criteria dan next topic.",
+            "Slide 18: Thank you slide dengan contact information. Open untuk user management dan security questions."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'f':
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    togglePresenterMode();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Show help text on first load
+        setTimeout(showHelpText, 1000);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1); // Swipe left = next slide
+                } else {
+                    changeSlide(-1); // Swipe right = previous slide
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Auto-hide cursor after inactivity
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

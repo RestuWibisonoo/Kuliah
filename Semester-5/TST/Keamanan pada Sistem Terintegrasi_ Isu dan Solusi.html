@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<!-- saved from url=(0117)https://class.tiflab.my.id/storage/lessons/materials/1756648147_4.%20Keamanan%20Sistem%20Terintegrasi%20Extended.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keamanan pada Sistem Terintegrasi: Isu dan Solusi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #FFA500, #FF8C00);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #FFD700 rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #FFA500;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #FFEAA7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #DDD;
+        }
+
+        ul {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "🔒";
+            position: absolute;
+            left: -2rem;
+            top: 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-box h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+
+        .content-box ul {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .threat-box {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid #E74C3C;
+        }
+
+        .solution-box {
+            background: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid #2ECC71;
+        }
+
+        .warning-box {
+            background: rgba(230, 126, 34, 0.2);
+            border-left: 4px solid #E67E22;
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.2);
+            border-left: 4px solid #3498DB;
+        }
+
+        .case-study {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border-left: 4px solid #9B59B6;
+        }
+
+        .case-study h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .framework-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .framework-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .framework-item h5 {
+            font-size: 1.3rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            vertical-align: middle;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #FFD700 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .security-layers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .layer-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #FFD700;
+            transition: all 0.3s ease;
+        }
+
+        .layer-item:hover {
+            transform: translateY(-5px);
+            border-color: #FFA500;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .layer-item h5 {
+            color: #FFD700;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-top: 0.5rem;
+        }
+
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .assessment-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #3498DB;
+        }
+
+        .assessment-item h5 {
+            color: #FFD700;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .risk-high {
+            background: #E74C3C;
+            color: white;
+        }
+
+        .risk-medium {
+            background: #F39C12;
+            color: white;
+        }
+
+        .risk-low {
+            background: #27AE60;
+            color: white;
+        }
+
+        .practical-demo {
+            background: rgba(142, 68, 173, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #8E44AD;
+        }
+
+        .practical-demo h4 {
+            color: #E74C3C;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .code-example {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            border-left: 4px solid #3498DB;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #FFD700;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .detail-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .detail-box h5 {
+            color: #FFD700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .vulnerability-showcase {
+            background: rgba(231, 76, 60, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #E74C3C;
+        }
+
+        .vulnerability-showcase h4 {
+            color: #E74C3C;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .lab-exercise {
+            background: rgba(46, 204, 113, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #2ECC71;
+        }
+
+        .lab-exercise h4 {
+            color: #2ECC71;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .discussion-box {
+            background: rgba(52, 152, 219, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #3498DB;
+        }
+
+        .discussion-box h4 {
+            color: #3498DB;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="">
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar" style="width: 5.88235%;"></div>
+        
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div class="university-info">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Keamanan pada Sistem Terintegrasi_ Isu dan Solusi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 60px; margin-right: 20px;">
+                    <div style="text-align: left;">
+                        <div class="university-name" style="font-size: 16px; font-weight: bold;">UNIVERSITAS TIDAR</div>
+                        <div class="faculty-info">Fakultas Teknik | Program Studi Teknologi Informasi</div>
+                        <div class="course-info">Teknologi Sistem Terintegrasi</div>
+                    </div>
+                </div>
+            </div>
+            <h1>🔒 Keamanan pada Sistem Terintegrasi</h1>
+            <div class="subtitle">Security in Integrated Systems: Issues and Solutions</div>
+            <div class="subtitle">Pertemuan ke-4 • Extended Edition (170 menit)</div>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📋 Capaian Pembelajaran</h4>
+                    <ul>
+                        <li>Menganalisis ancaman keamanan sistem terintegrasi</li>
+                        <li>Merancang solusi keamanan yang komprehensif</li>
+                        <li>Menerapkan best practices keamanan</li>
+                        <li>Mengevaluasi efektivitas solusi keamanan</li>
+                        <li>Implementasi security monitoring</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⏰ Informasi Sesi</h4>
+                    <ul>
+                        <li><strong>Durasi:</strong> 3 x 50 menit (170 menit)</li>
+                        <li><strong>Metode:</strong> Ceramah, Demo &amp; Studi Kasus</li>
+                        <li><strong>Penilaian:</strong> Ketepatan desain keamanan</li>
+                        <li><strong>Target:</strong> Merancang solusi keamanan</li>
+                        <li><strong>Praktik:</strong> Hands-on security lab</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Pendahuluan Extended -->
+        <div class="slide">
+            <h2>🎯 Mengapa Keamanan Sistem Terintegrasi Penting?</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">68%</div>
+                    <div class="metric-label">Perusahaan mengalami breach</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">$4.45M</div>
+                    <div class="metric-label">Rata-rata biaya data breach</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">287</div>
+                    <div class="metric-label">Hari untuk deteksi &amp; containment</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">95%</div>
+                    <div class="metric-label">Disebabkan human error</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box threat-box">
+                    <h4>🚨 Tantangan Keamanan Modern</h4>
+                    <ul>
+                        <li>Kompleksitas sistem yang tinggi</li>
+                        <li>Multiple attack surfaces</li>
+                        <li>Integration dengan cloud services</li>
+                        <li>IoT dan edge computing</li>
+                        <li>Supply chain vulnerabilities</li>
+                        <li>Advanced persistent threats</li>
+                        <li>Compliance requirements</li>
+                    </ul>
+                </div>
+                <div class="content-box solution-box">
+                    <h4>✅ Strategic Security Approach</h4>
+                    <ul>
+                        <li>Security by Design philosophy</li>
+                        <li>Zero Trust Architecture</li>
+                        <li>DevSecOps integration</li>
+                        <li>Continuous security monitoring</li>
+                        <li>Threat intelligence integration</li>
+                        <li>Incident response automation</li>
+                        <li>Risk-based security controls</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Landscape Ancaman Cyber -->
+        <div class="slide">
+            <h2>🌍 Landscape Ancaman Cyber 2024-2025</h2>
+            
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🎭 Social Engineering</h5>
+                    <p>Manipulasi psikologis untuk mendapatkan akses unauthorized</p>
+                    <ul style="font-size: 1rem;">
+                        <li>Phishing &amp; Spear Phishing</li>
+                        <li>Business Email Compromise (BEC)</li>
+                        <li>Pretexting &amp; Baiting</li>
+                        <li>CEO Fraud</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>🤖 AI-Powered Attacks</h5>
+                    <p>Serangan yang memanfaatkan kecerdasan buatan</p>
+                    <ul style="font-size: 1rem;">
+                        <li>Deepfake voice/video</li>
+                        <li>AI-generated phishing</li>
+                        <li>Automated vulnerability discovery</li>
+                        <li>Adversarial ML attacks</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>⛓️ Supply Chain Attacks</h5>
+                    <p>Serangan melalui third-party dependencies</p>
+                    <ul style="font-size: 1rem;">
+                        <li>Software supply chain</li>
+                        <li>Hardware implants</li>
+                        <li>Service provider compromise</li>
+                        <li>Open source vulnerabilities</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h4>📊 Trend Ancaman Terkini</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5 style="color: #E74C3C;">Rising Threats</h5>
+                        <ul>
+                            <li>Ransomware-as-a-Service (RaaS)</li>
+                            <li>Cloud-native attacks</li>
+                            <li>API vulnerabilities</li>
+                            <li>Container &amp; Kubernetes attacks</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="color: #F39C12;">Emerging Concerns</h5>
+                        <ul>
+                            <li>Quantum computing threats</li>
+                            <li>5G security challenges</li>
+                            <li>IoT botnets</li>
+                            <li>Privacy regulation compliance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Kategori Ancaman Detail -->
+        <div class="slide">
+            <h2>⚠️ Kategori Ancaman pada Sistem Terintegrasi</h2>
+            
+            <div class="assessment-grid">
+                <div class="assessment-item">
+                    <h5>🎯 Targeted Attacks (APT)</h5>
+                    <p>Serangan canggih dan berkelanjutan dari nation-state actors</p>
+                    <div class="risk-level risk-high">Risk: CRITICAL</div>
+                    <ul>
+                        <li>Multi-stage attack campaigns</li>
+                        <li>Zero-day exploits</li>
+                        <li>Living-off-the-land techniques</li>
+                        <li>Lateral movement strategies</li>
+                    </ul>
+                    
+                    <div class="code-example">
+                        <strong>Contoh Indikator APT:</strong><br>
+                        • Unusual network traffic patterns<br>
+                        • Persistence mechanisms<br>
+                        • Data exfiltration attempts<br>
+                        • Command &amp; control communications
+                    </div>
+                </div>
+                
+                <div class="assessment-item">
+                    <h5>🌐 Network-based Attacks</h5>
+                    <p>Serangan melalui infrastruktur jaringan</p>
+                    <div class="risk-level risk-high">Risk: HIGH</div>
+                    <ul>
+                        <li>Man-in-the-middle (MITM)</li>
+                        <li>DNS hijacking &amp; poisoning</li>
+                        <li>DDoS &amp; amplification attacks</li>
+                        <li>BGP hijacking</li>
+                    </ul>
+                    
+                    <div class="code-example">
+                        <strong>Mitigasi Network:</strong><br>
+                        • Network segmentation<br>
+                        • Traffic monitoring &amp; analysis<br>
+                        • DDoS protection services<br>
+                        • Encrypted communications
+                    </div>
+                </div>
+                
+                <div class="assessment-item">
+                    <h5>💻 Application-level Attacks</h5>
+                    <p>Serangan pada lapisan aplikasi dan API</p>
+                    <div class="risk-level risk-medium">Risk: MEDIUM-HIGH</div>
+                    <ul>
+                        <li>OWASP Top 10 vulnerabilities</li>
+                        <li>API security issues</li>
+                        <li>Business logic flaws</li>
+                        <li>Server-side request forgery (SSRF)</li>
+                    </ul>
+                    
+                    <div class="code-example">
+                        <strong>Secure Coding Practices:</strong><br>
+                        • Input validation &amp; sanitization<br>
+                        • Output encoding<br>
+                        • Parameterized queries<br>
+                        • Security headers
+                    </div>
+                </div>
+                
+                <div class="assessment-item">
+                    <h5>🔑 Identity &amp; Access Threats</h5>
+                    <p>Serangan terkait autentikasi dan autorisasi</p>
+                    <div class="risk-level risk-medium">Risk: MEDIUM</div>
+                    <ul>
+                        <li>Credential stuffing &amp; spraying</li>
+                        <li>Token hijacking</li>
+                        <li>Privilege escalation</li>
+                        <li>Account takeover</li>
+                    </ul>
+                    
+                    <div class="code-example">
+                        <strong>IAM Best Practices:</strong><br>
+                        • Multi-factor authentication<br>
+                        • Least privilege access<br>
+                        • Regular access reviews<br>
+                        • Session management
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Vulnerability Assessment Demo -->
+        <div class="slide">
+            <h2>🔍 Vulnerability Assessment &amp; Penetration Testing</h2>
+            
+            <div class="vulnerability-showcase">
+                <h4>🛠️ Tools &amp; Metodologi</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5 style="color: #E74C3C;">Automated Scanning</h5>
+                        <ul>
+                            <li><strong>Nessus/OpenVAS:</strong> Network vulnerability scanning</li>
+                            <li><strong>OWASP ZAP:</strong> Web application security testing</li>
+                            <li><strong>Burp Suite:</strong> Advanced web security testing</li>
+                            <li><strong>Nuclei:</strong> Fast vulnerability scanner</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="color: #E67E22;">Manual Testing</h5>
+                        <ul>
+                            <li><strong>Reconnaissance:</strong> Information gathering</li>
+                            <li><strong>Enumeration:</strong> Service &amp; version detection</li>
+                            <li><strong>Exploitation:</strong> Proof of concept</li>
+                            <li><strong>Post-exploitation:</strong> Lateral movement</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="code-example">
+                    <strong>Contoh Command Nmap Scan:</strong><br>
+                    # Basic port scan<br>
+                    nmap -sS -sV -O target_ip<br><br>
+                    
+                    # Service enumeration<br>
+                    nmap -sC -sV -p- target_ip<br><br>
+                    
+                    # Vulnerability scan with NSE<br>
+                    nmap --script vuln target_ip
+                </div>
+            </div>
+            
+            <div class="practical-demo">
+                <h4>🎯 Live Demo: Web Application Testing</h4>
+                <ol style="font-size: 1.2rem;">
+                    <li><strong>Setup DVWA:</strong> Deploy Damn Vulnerable Web Application</li>
+                    <li><strong>SQLi Testing:</strong> Manual &amp; automated SQL injection</li>
+                    <li><strong>XSS Testing:</strong> Reflected &amp; stored XSS</li>
+                    <li><strong>CSRF Testing:</strong> Cross-site request forgery</li>
+                    <li><strong>File Upload:</strong> Malicious file upload bypass</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 6: Zero Trust Architecture Deep Dive -->
+        <div class="slide">
+            <h2>🛡️ Zero Trust Architecture - Implementation Guide</h2>
+            
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>🚫 Never Trust</h5>
+                    <p>Assume breach mentality</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🔍 Always Verify</h5>
+                    <p>Continuous authentication</p>
+                </div>
+                <div class="framework-item">
+                    <h5>⚡ Least Privilege</h5>
+                    <p>Minimal necessary access</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📊 Monitor Everything</h5>
+                    <p>Full visibility &amp; logging</p>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-box info-box">
+                    <h4>🏗️ Zero Trust Pillars</h4>
+                    <ul>
+                        <li><strong>Identity:</strong> User &amp; service identity verification</li>
+                        <li><strong>Device:</strong> Device compliance &amp; health</li>
+                        <li><strong>Network:</strong> Micro-segmentation &amp; encryption</li>
+                        <li><strong>Application:</strong> App-aware security policies</li>
+                        <li><strong>Data:</strong> Data classification &amp; protection</li>
+                        <li><strong>Analytics:</strong> Behavioral analytics &amp; ML</li>
+                    </ul>
+                </div>
+                <div class="content-box solution-box">
+                    <h4>🔄 Implementation Phases</h4>
+                    <ul>
+                        <li><strong>Phase 1:</strong> Asset inventory &amp; visibility (2-4 weeks)</li>
+                        <li><strong>Phase 2:</strong> Network micro-segmentation (1-3 months)</li>
+                        <li><strong>Phase 3:</strong> Identity &amp; access controls (1-2 months)</li>
+                        <li><strong>Phase 4:</strong> Policy automation (2-4 months)</li>
+                        <li><strong>Phase 5:</strong> Advanced analytics (3-6 months)</li>
+                        <li><strong>Phase 6:</strong> Continuous optimization (ongoing)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <strong>Zero Trust Policy Example (Conditional Access):</strong><br>
+                {<br>
+                &nbsp;&nbsp;"policy": "High_Risk_Access",<br>
+                &nbsp;&nbsp;"conditions": {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"user_risk": "high",<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"device_compliance": "non_compliant",<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"location": "untrusted"<br>
+                &nbsp;&nbsp;},<br>
+                &nbsp;&nbsp;"actions": ["block", "require_mfa", "limit_access"]<br>
+                }
+            </div>
+        </div>
+
+        <!-- Slide 7: Security Architecture Design -->
+        <div class="slide">
+            <h2>🏗️ Security Architecture untuk Sistem Terintegrasi</h2>
+            
+            <div class="security-layers">
+                <div class="layer-item">
+                    <h5>🌐 Perimeter Defense</h5>
+                    <p>Next-gen Firewalls, WAF, IPS/IDS, DDoS Protection</p>
+                </div>
+                <div class="layer-item">
+                    <h5>🔐 Identity &amp; Access</h5>
+                    <p>SSO, MFA, RBAC, PAM, Identity Governance</p>
+                </div>
+                <div class="layer-item">
+                    <h5>💻 Endpoint Security</h5>
+                    <p>EDR, Mobile Security, Device Management</p>
+                </div>
+                <div class="layer-item">
+                    <h5>🛡️ Application Security</h5>
+                    <p>SAST, DAST, IAST, Runtime Protection</p>
+                </div>
+                <div class="layer-item">
+                    <h5>🗄️ Data Protection</h5>
+                    <p>Encryption, DLP, Database Security, Backup</p>
+                </div>
+                <div class="layer-item">
+                    <h5>☁️ Cloud Security</h5>
+                    <p>CSPM, CWPP, Container Security, API Security</p>
+                </div>
+                <div class="layer-item">
+                    <h5>📊 Security Analytics</h5>
+                    <p>SIEM, SOAR, UEBA, Threat Intelligence</p>
+                </div>
+                <div class="layer-item">
+                    <h5>🚨 Incident Response</h5>
+                    <p>Orchestration, Forensics, Recovery, Lessons Learned</p>
+                </div>
+                <div class="layer-item">
+                    <h5>📋 Governance</h5>
+                    <p>Policies, Compliance, Risk Management, Training</p>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h4>💡 Defense in Depth Strategy</h4>
+                <p>Implementasi berlapis-lapis dengan <span class="highlight">redundant security controls</span> untuk memastikan bahwa kegagalan satu layer tidak mengkompromikan keseluruhan sistem. Setiap layer memiliki kontrol yang independen namun terintegrasi.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Detection Time:</strong> Reduce mean time to detection (MTTD) &lt; 1 hour
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Response Time:</strong> Achieve mean time to response (MTTR) &lt; 4 hours
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Recovery Time:</strong> Complete recovery objective &lt; 24 hours
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Security Controls Deep Dive -->
+        <div class="slide">
+            <h2>🔧 Security Controls Implementation</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔐 Technical Controls</h4>
+                    <ul>
+                        <li><strong>Preventive:</strong> Firewalls, encryption, access controls</li>
+                        <li><strong>Detective:</strong> IDS, SIEM, vulnerability scanners</li>
+                        <li><strong>Corrective:</strong> Patch management, incident response</li>
+                        <li><strong>Recovery:</strong> Backup systems, disaster recovery</li>
+                        <li><strong>Deterrent:</strong> Security awareness, visible controls</li>
+                        <li><strong>Compensating:</strong> Alternative security measures</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>📋 Administrative Controls</h4>
+                    <ul>
+                        <li><strong>Policies &amp; Procedures:</strong> Security governance framework</li>
+                        <li><strong>Security Training:</strong> Awareness &amp; skill development</li>
+                        <li><strong>Risk Management:</strong> Risk assessment &amp; mitigation</li>
+                        <li><strong>Change Management:</strong> Controlled system changes</li>
+                        <li><strong>Incident Management:</strong> Response procedures</li>
+                        <li><strong>Compliance:</strong> Regulatory adherence</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🏢 Physical Controls</h4>
+                    <ul>
+                        <li><strong>Access Control:</strong> Biometrics, card readers</li>
+                        <li><strong>Environmental:</strong> HVAC, power, fire suppression</li>
+                        <li><strong>Monitoring:</strong> CCTV, motion sensors</li>
+                        <li><strong>Secure Areas:</strong> Data centers, server rooms</li>
+                        <li><strong>Hardware Security:</strong> Device locks, cable locks</li>
+                        <li><strong>Disposal:</strong> Secure data destruction</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⚖️ Compliance Framework</h4>
+                    <ul>
+                        <li><strong>ISO 27001:</strong> Information security management</li>
+                        <li><strong>NIST Framework:</strong> Cybersecurity framework</li>
+                        <li><strong>SOC 2:</strong> Service organization controls</li>
+                        <li><strong>GDPR:</strong> Data protection regulation</li>
+                        <li><strong>PCI DSS:</strong> Payment card data security</li>
+                        <li><strong>COBIT:</strong> IT governance framework</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Hands-on Lab Exercise -->
+        <div class="slide">
+            <h2>🧪 Hands-on Security Lab</h2>
+            
+            <div class="lab-exercise">
+                <h4>🚀 Lab 1: Network Security Analysis</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Objectives:</h5>
+                        <ul>
+                            <li>Perform network reconnaissance</li>
+                            <li>Identify open ports and services</li>
+                            <li>Analyze network traffic</li>
+                            <li>Implement firewall rules</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Tools Required:</h5>
+                        <ul>
+                            <li>Nmap for port scanning</li>
+                            <li>Wireshark for traffic analysis</li>
+                            <li>pfSense for firewall config</li>
+                            <li>Metasploitable for target</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="code-example">
+                    <strong>Lab Commands:</strong><br>
+                    # Network discovery<br>
+                    nmap -sn 192.168.1.0/24<br><br>
+                    
+                    # Service enumeration<br>
+                    nmap -sV -sC -p- target_ip<br><br>
+                    
+                    # Vulnerability assessment<br>
+                    nmap --script vuln target_ip
+                </div>
+            </div>
+            
+            <div class="lab-exercise">
+                <h4>🔐 Lab 2: Web Application Security</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Testing Scenarios:</h5>
+                        <ul>
+                            <li>SQL Injection attacks</li>
+                            <li>Cross-Site Scripting (XSS)</li>
+                            <li>Cross-Site Request Forgery</li>
+                            <li>Authentication bypass</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Remediation:</h5>
+                        <ul>
+                            <li>Input validation implementation</li>
+                            <li>Output encoding</li>
+                            <li>CSRF token implementation</li>
+                            <li>Session security hardening</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Duration:</strong> 45 minutes hands-on lab session
+                </div>
+                <div class="timeline-item">
+                    <strong>Groups:</strong> 3-4 students per group
+                </div>
+                <div class="timeline-item">
+                    <strong>Deliverable:</strong> Lab report with findings and remediation
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Studi Kasus Enterprise -->
+        <div class="slide">
+            <h2>📚 Studi Kasus: Enterprise Security Architecture</h2>
+            
+            <div class="case-study">
+                <h4>🏦 Skenario: Global Financial Services Company</h4>
+                <p><strong>Challenge:</strong> PT. Indo Finance memiliki 50+ cabang, 10,000+ karyawan, sistem core banking, mobile banking, internet banking, payment gateway, dan compliance requirements (BI, OJK, PCI DSS).</p>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-box threat-box">
+                    <h4>🎯 Risk Assessment</h4>
+                    <ul>
+                        <li><strong>External Threats:</strong>
+                            <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                <li>Advanced persistent threats (APT)</li>
+                                <li>Ransomware attacks</li>
+                                <li>DDoS attacks on online services</li>
+                                <li>Social engineering &amp; phishing</li>
+                            </ul>
+                        </li>
+                        <li><strong>Internal Risks:</strong>
+                            <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                <li>Insider threats &amp; fraud</li>
+                                <li>Privilege escalation</li>
+                                <li>Data leakage</li>
+                                <li>Compliance violations</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-box solution-box">
+                    <h4>🛡️ Security Solution Design</h4>
+                    <ul>
+                        <li><strong>Network Security:</strong>
+                            <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                <li>Next-gen firewalls with IPS</li>
+                                <li>Network segmentation &amp; micro-segmentation</li>
+                                <li>DDoS protection services</li>
+                                <li>Secure connectivity (MPLS, SD-WAN)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Identity &amp; Access:</strong>
+                            <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                <li>Multi-factor authentication</li>
+                                <li>Privileged access management</li>
+                                <li>Role-based access controls</li>
+                                <li>Single sign-on (SSO)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>📊 Monitoring &amp; Detection</h5>
+                    <ul>
+                        <li>Security Information Event Management (SIEM)</li>
+                        <li>Security Orchestration &amp; Response (SOAR)</li>
+                        <li>User &amp; Entity Behavior Analytics (UEBA)</li>
+                        <li>Threat intelligence integration</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>🚨 Incident Response</h5>
+                    <ul>
+                        <li>24/7 Security Operations Center</li>
+                        <li>Automated response playbooks</li>
+                        <li>Digital forensics capabilities</li>
+                        <li>Crisis communication plan</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>📋 Compliance &amp; Governance</h5>
+                    <ul>
+                        <li>Regular security assessments</li>
+                        <li>Penetration testing program</li>
+                        <li>Security awareness training</li>
+                        <li>Policy &amp; procedure management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Security Monitoring & SIEM -->
+        <div class="slide">
+            <h2>📊 Security Monitoring &amp; SIEM Implementation</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔍 SIEM Architecture</h4>
+                    <ul>
+                        <li><strong>Data Collection:</strong> Logs from all systems</li>
+                        <li><strong>Normalization:</strong> Common event format</li>
+                        <li><strong>Correlation:</strong> Rule-based &amp; behavioral analysis</li>
+                        <li><strong>Alerting:</strong> Risk-based prioritization</li>
+                        <li><strong>Reporting:</strong> Executive &amp; technical dashboards</li>
+                        <li><strong>Retention:</strong> Long-term log storage</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>📈 Security Metrics &amp; KPIs</h4>
+                    <ul>
+                        <li><strong>Mean Time to Detection (MTTD):</strong> &lt; 1 hour</li>
+                        <li><strong>Mean Time to Response (MTTR):</strong> &lt; 4 hours</li>
+                        <li><strong>False Positive Rate:</strong> &lt; 5%</li>
+                        <li><strong>Security Incident Volume:</strong> Monthly trend</li>
+                        <li><strong>Vulnerability Remediation:</strong> 95% within SLA</li>
+                        <li><strong>Compliance Score:</strong> &gt; 95% adherence</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="practical-demo">
+                <h4>🎯 SIEM Use Cases</h4>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Failed Login Detection:</strong> Multiple failed authentication attempts from single source
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Data Exfiltration:</strong> Unusual data transfer volumes or destinations
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Privilege Escalation:</strong> Unauthorized elevation of user privileges
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Malware Detection:</strong> Suspicious process execution or file modifications
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <strong>SIEM Rule Example (Splunk SPL):</strong><br>
+                index=security sourcetype=linux_audit<br>
+                | search "failed password"<br>
+                | stats count by src_ip user<br>
+                | where count &gt; 10<br>
+                | eval risk_score = case(<br>
+                &nbsp;&nbsp;count &gt; 50, "high",<br>
+                &nbsp;&nbsp;count &gt; 20, "medium",<br>
+                &nbsp;&nbsp;1=1, "low")<br>
+                | table src_ip user count risk_score
+            </div>
+        </div>
+
+        <!-- Slide 12: Incident Response & Forensics -->
+        <div class="slide">
+            <h2>🚨 Incident Response &amp; Digital Forensics</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔄 NIST Incident Response Lifecycle</h4>
+                    <ol>
+                        <li><strong>Preparation:</strong> IR team, tools, procedures</li>
+                        <li><strong>Detection &amp; Analysis:</strong> Alert triage &amp; investigation</li>
+                        <li><strong>Containment:</strong> Short &amp; long-term containment</li>
+                        <li><strong>Eradication:</strong> Remove threats &amp; vulnerabilities</li>
+                        <li><strong>Recovery:</strong> Restore systems &amp; operations</li>
+                        <li><strong>Post-Incident:</strong> Lessons learned &amp; improvement</li>
+                    </ol>
+                </div>
+                <div class="content-box">
+                    <h4>🔬 Digital Forensics Process</h4>
+                    <ol>
+                        <li><strong>Identification:</strong> Evidence identification</li>
+                        <li><strong>Preservation:</strong> Chain of custody</li>
+                        <li><strong>Collection:</strong> Forensic imaging</li>
+                        <li><strong>Examination:</strong> Data analysis</li>
+                        <li><strong>Analysis:</strong> Timeline reconstruction</li>
+                        <li><strong>Presentation:</strong> Report &amp; testimony</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="lab-exercise">
+                <h4>🧪 Forensics Lab Exercise</h4>
+                <div class="three-column">
+                    <div>
+                        <h5>Memory Analysis</h5>
+                        <ul>
+                            <li>Memory dump acquisition</li>
+                            <li>Process analysis</li>
+                            <li>Network connections</li>
+                            <li>Malware detection</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Disk Analysis</h5>
+                        <ul>
+                            <li>File system timeline</li>
+                            <li>Deleted file recovery</li>
+                            <li>Registry analysis</li>
+                            <li>Browser artifacts</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Network Analysis</h5>
+                        <ul>
+                            <li>Packet capture analysis</li>
+                            <li>Protocol analysis</li>
+                            <li>Traffic flow analysis</li>
+                            <li>Malicious communication</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="code-example">
+                    <strong>Volatility Commands:</strong><br>
+                    # Memory dump analysis<br>
+                    volatility -f memory.dmp imageinfo<br>
+                    volatility -f memory.dmp --profile=Win7SP1x64 pslist<br>
+                    volatility -f memory.dmp --profile=Win7SP1x64 netscan<br>
+                    volatility -f memory.dmp --profile=Win7SP1x64 malfind
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Cloud Security -->
+        <div class="slide">
+            <h2>☁️ Cloud Security untuk Sistem Terintegrasi</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔐 Shared Responsibility Model</h4>
+                    <ul>
+                        <li><strong>Cloud Provider:</strong>
+                            <ul style="font-size: 1rem; margin-top: 0.5rem;">
+                                <li>Physical infrastructure security</li>
+                                <li>Host OS patching &amp; maintenance</li>
+                                <li>Network infrastructure controls</li>
+                                <li>Hypervisor security</li>
+                            </ul>
+                        </li>
+                        <li><strong>Customer:</strong>
+                            <ul style="font-size: 1rem; margin-top: 0.5rem;">
+                                <li>Data classification &amp; protection</li>
+                                <li>Identity &amp; access management</li>
+                                <li>Application-level security</li>
+                                <li>Guest OS security &amp; updates</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🛡️ Cloud Security Tools</h4>
+                    <ul>
+                        <li><strong>CSPM:</strong> Cloud Security Posture Management</li>
+                        <li><strong>CWPP:</strong> Cloud Workload Protection Platform</li>
+                        <li><strong>CASB:</strong> Cloud Access Security Broker</li>
+                        <li><strong>SASE:</strong> Secure Access Service Edge</li>
+                        <li><strong>Container Security:</strong> Runtime protection</li>
+                        <li><strong>API Security:</strong> API gateway &amp; monitoring</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🔍 AWS Security Services</h5>
+                    <ul>
+                        <li>AWS GuardDuty (threat detection)</li>
+                        <li>AWS Security Hub (centralized findings)</li>
+                        <li>AWS Config (compliance monitoring)</li>
+                        <li>AWS CloudTrail (audit logging)</li>
+                        <li>AWS WAF (web application firewall)</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>☁️ Azure Security Services</h5>
+                    <ul>
+                        <li>Azure Sentinel (SIEM/SOAR)</li>
+                        <li>Azure Security Center (CSPM)</li>
+                        <li>Azure Key Vault (secrets management)</li>
+                        <li>Azure AD (identity &amp; access)</li>
+                        <li>Azure Firewall (network security)</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>🌐 Multi-Cloud Security</h5>
+                    <ul>
+                        <li>Centralized policy management</li>
+                        <li>Cross-cloud visibility</li>
+                        <li>Unified threat detection</li>
+                        <li>Consistent compliance</li>
+                        <li>Hybrid cloud connectivity</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <strong>Terraform Cloud Security Config:</strong><br>
+                resource "aws_s3_bucket_encryption" "example" {<br>
+                &nbsp;&nbsp;bucket = aws_s3_bucket.example.id<br>
+                &nbsp;&nbsp;server_side_encryption_configuration {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;rule {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apply_server_side_encryption_by_default {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sse_algorithm = "AES256"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;}<br>
+                }
+            </div>
+        </div>
+
+        <!-- Slide 14: DevSecOps Integration -->
+        <div class="slide">
+            <h2>🔄 DevSecOps: Security in CI/CD Pipeline</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Plan:</strong> Security requirements, threat modeling, secure design
+                </div>
+                <div class="timeline-item">
+                    <strong>Code:</strong> Secure coding practices, IDE security plugins
+                </div>
+                <div class="timeline-item">
+                    <strong>Build:</strong> SAST, dependency scanning, secrets detection
+                </div>
+                <div class="timeline-item">
+                    <strong>Test:</strong> DAST, IAST, penetration testing automation
+                </div>
+                <div class="timeline-item">
+                    <strong>Deploy:</strong> Infrastructure as Code security, configuration validation
+                </div>
+                <div class="timeline-item">
+                    <strong>Monitor:</strong> Runtime security, continuous compliance
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🛠️ DevSecOps Tools</h4>
+                    <ul>
+                        <li><strong>SAST:</strong> SonarQube, Checkmarx, Veracode</li>
+                        <li><strong>DAST:</strong> OWASP ZAP, Burp Suite Enterprise</li>
+                        <li><strong>Container Security:</strong> Twistlock, Aqua Security</li>
+                        <li><strong>Secrets Management:</strong> HashiCorp Vault, AWS Secrets</li>
+                        <li><strong>IaC Security:</strong> Terraform Sentinel, Checkov</li>
+                        <li><strong>Compliance:</strong> Chef InSpec, AWS Config</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>📊 Security Metrics in DevOps</h4>
+                    <ul>
+                        <li><strong>Deployment Frequency:</strong> With security gates</li>
+                        <li><strong>Lead Time:</strong> Including security review time</li>
+                        <li><strong>MTTR:</strong> Security incident response time</li>
+                        <li><strong>Change Failure Rate:</strong> Security-related failures</li>
+                        <li><strong>Vulnerability SLA:</strong> Time to fix by severity</li>
+                        <li><strong>Security Debt:</strong> Outstanding security issues</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <strong>GitLab CI/CD Security Pipeline:</strong><br>
+                stages:<br>
+                &nbsp;&nbsp;- security<br>
+                &nbsp;&nbsp;- test<br>
+                &nbsp;&nbsp;- deploy<br><br>
+                
+                sast:<br>
+                &nbsp;&nbsp;stage: security<br>
+                &nbsp;&nbsp;script:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;- semgrep --config=auto --json --output=gl-sast-report.json .<br>
+                &nbsp;&nbsp;artifacts:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;reports:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sast: gl-sast-report.json<br><br>
+                
+                dast:<br>
+                &nbsp;&nbsp;stage: test<br>
+                &nbsp;&nbsp;script:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;- zap-baseline.py -t $CI_ENVIRONMENT_URL -J gl-dast-report.json<br>
+                &nbsp;&nbsp;artifacts:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;reports:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dast: gl-dast-report.json
+            </div>
+        </div>
+
+        <!-- Slide 15: Future of Security -->
+        <div class="slide">
+            <h2>🔮 Future of Cybersecurity</h2>
+            
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🤖 AI &amp; Machine Learning</h5>
+                    <ul>
+                        <li>Advanced threat detection</li>
+                        <li>Behavioral analytics</li>
+                        <li>Automated incident response</li>
+                        <li>Predictive security</li>
+                        <li>AI-powered SOC</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>🔐 Quantum Security</h5>
+                    <ul>
+                        <li>Quantum-resistant cryptography</li>
+                        <li>Post-quantum algorithms</li>
+                        <li>Quantum key distribution</li>
+                        <li>Crypto-agility preparation</li>
+                        <li>NIST standardization</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-box">
+                    <h5>🌐 Zero Trust Evolution</h5>
+                    <ul>
+                        <li>Continuous verification</li>
+                        <li>Contextual access</li>
+                        <li>Dynamic policy enforcement</li>
+                        <li>Micro-segmentation at scale</li>
+                        <li>Identity-centric security</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="vulnerability-showcase">
+                <h4>⚠️ Emerging Threats</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Technology-Based</h5>
+                        <ul>
+                            <li>AI-powered attacks</li>
+                            <li>Deepfake social engineering</li>
+                            <li>IoT &amp; 5G vulnerabilities</li>
+                            <li>Quantum computing threats</li>
+                            <li>Edge computing security</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Human-Centric</h5>
+                        <ul>
+                            <li>Remote work security challenges</li>
+                            <li>Insider threat evolution</li>
+                            <li>Security skill shortage</li>
+                            <li>Privacy vs security balance</li>
+                            <li>Regulatory complexity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="discussion-box">
+                <h4>💭 Discussion: Preparing for Tomorrow's Security</h4>
+                <ul>
+                    <li>How will AI change the threat landscape?</li>
+                    <li>What skills will security professionals need?</li>
+                    <li>How can organizations stay ahead of threats?</li>
+                    <li>What role will automation play in security?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 16: Tugas dan Evaluasi Extended -->
+        <div class="slide">
+            <h2>📝 Tugas Praktik: Enterprise Security Design</h2>
+            
+            <div class="case-study">
+                <h4>🎯 Tugas Kelompok - Comprehensive Security Architecture</h4>
+                <p><strong>Skenario:</strong> Rancang sistem keamanan untuk perusahaan e-commerce multinasional dengan 1M+ pengguna, payment gateway, supply chain management, customer data, dan multi-cloud infrastructure.</p>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📋 Deliverables (40 pages)</h4>
+                    <ul>
+                        <li><strong>Executive Summary (2 pages)</strong></li>
+                        <li><strong>Threat Landscape Analysis (8 pages)</strong></li>
+                        <li><strong>Security Architecture Design (12 pages)</strong></li>
+                        <li><strong>Implementation Roadmap (6 pages)</strong></li>
+                        <li><strong>Monitoring Strategy (4 pages)</strong></li>
+                        <li><strong>Incident Response Plan (4 pages)</strong></li>
+                        <li><strong>Budget &amp; ROI Analysis (2 pages)</strong></li>
+                        <li><strong>Compliance Mapping (2 pages)</strong></li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🏆 Penilaian Detail</h4>
+                    <ul>
+                        <li><strong>Technical Depth (35%):</strong> Architecture quality</li>
+                        <li><strong>Risk Analysis (25%):</strong> Threat identification</li>
+                        <li><strong>Implementation (20%):</strong> Practical approach</li>
+                        <li><strong>Innovation (10%):</strong> Creative solutions</li>
+                        <li><strong>Presentation (10%):</strong> Communication skills</li>
+                    </ul>
+                    
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                        <strong>Bonus Points:</strong>
+                        <ul style="font-size: 1rem;">
+                            <li>Working prototype demo (+5 points)</li>
+                            <li>Cost-benefit analysis (+3 points)</li>
+                            <li>Real-world case studies (+2 points)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Week 1-2:</strong> Research &amp; threat modeling
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 3:</strong> Architecture design &amp; documentation
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 4:</strong> Implementation planning &amp; presentation prep
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 5:</strong> Final presentation &amp; demo (30 minutes per group)
+                </div>
+            </div>
+            
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>👥 Tim</h5>
+                    <p>4-5 orang per kelompok<br>Diversitas skill required</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📊 Format</h5>
+                    <p>Technical report + Live presentation<br>Optional working demo</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🎯 Focus Areas</h5>
+                    <p>Real-world applicability<br>Industry best practices</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Kesimpulan Extended -->
+        <div class="slide">
+            <h2>🎯 Kesimpulan dan Key Takeaways</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔑 Fundamental Principles</h4>
+                    <ul>
+                        <li>Security adalah <span class="highlight">business enabler</span>, bukan blocker</li>
+                        <li>Defense in depth dengan multiple layers</li>
+                        <li>Zero trust: "never trust, always verify"</li>
+                        <li>Continuous monitoring dan improvement</li>
+                        <li>Human factor adalah weakest link</li>
+                        <li>Compliance != Security</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🚀 Action Items</h4>
+                    <ul>
+                        <li><strong>Short-term:</strong> Security assessment &amp; gap analysis</li>
+                        <li><strong>Medium-term:</strong> Zero trust implementation</li>
+                        <li><strong>Long-term:</strong> AI-powered security operations</li>
+                        <li><strong>Continuous:</strong> Security awareness &amp; training</li>
+                        <li><strong>Emergency:</strong> Incident response readiness</li>
+                        <li><strong>Strategic:</strong> Security culture development</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h4>💡 Security Mindset</h4>
+                <p style="font-size: 1.4rem; text-align: center; font-style: italic;">
+                    "Security is not a product to be bought, but a process to be followed. It's not about achieving perfect security, but about continuous risk management and improvement in an ever-evolving threat landscape."
+                </p>
+            </div>
+            
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>📚 Next Learning</h5>
+                    <p>API Security, Container Security, Cloud Native Security</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🏃 Next Actions</h5>
+                    <p>Start your group project, begin threat modeling</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📖 Recommended Reading</h5>
+                    <p>NIST Framework, OWASP Top 10, SANS Resources</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <h3 style="color: #FFD700;">🙏 Questions &amp; Discussion</h3>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">Time for Q&amp;A and group discussions</p>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="prevSlide()">⬅️ Previous</button>
+            <button class="control-btn" onclick="nextSlide()">Next ➡️</button>
+            <button class="control-btn" onclick="scrollToTop()">⬆️ Top</button>
+            <button class="control-btn" onclick="scrollToBottom()">⬇️ Bottom</button>
+            <button class="control-btn" onclick="toggleFullscreen()">🔳 Fullscreen</button>
+        </div>
+        
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">17</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            const progressWidth = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progressWidth + '%';
+        }
+        
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+        
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        function scrollToTop() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        function scrollToBottom() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: activeSlide.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const activeSlide = document.querySelector('.slide.active');
+            
+            switch(event.key) {
+                case 'ArrowRight':
+                case 'PageDown':
+                    // Only navigate to next slide if not using Space for scrolling
+                    if (event.key !== ' ') {
+                        event.preventDefault();
+                        nextSlide();
+                    }
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                    event.preventDefault();
+                    prevSlide();
+                    break;
+                case ' ':
+                    // Space key for next slide, but allow default scroll behavior with Shift+Space
+                    if (!event.shiftKey) {
+                        event.preventDefault();
+                        nextSlide();
+                    }
+                    break;
+                case 'ArrowUp':
+                    // Scroll up within slide
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: -100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'ArrowDown':
+                    // Scroll down within slide
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'Home':
+                    if (event.ctrlKey) {
+                        // Ctrl+Home: Go to first slide
+                        currentSlideIndex = 0;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        // Home: Scroll to top of current slide
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'End':
+                    if (event.ctrlKey) {
+                        // Ctrl+End: Go to last slide
+                        currentSlideIndex = totalSlides - 1;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        // End: Scroll to bottom of current slide
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: activeSlide.scrollHeight,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+            }
+        });
+        
+        // Touch/swipe support
+        let startX = null;
+        document.addEventListener('touchstart', function(event) {
+            startX = event.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', function(event) {
+            if (startX === null) return;
+            
+            let endX = event.changedTouches[0].clientX;
+            let diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                if (diffX > 0) {
+                    nextSlide(); // Swipe left - next slide
+                } else {
+                    prevSlide(); // Swipe right - previous slide
+                }
+            }
+            
+            startX = null;
+        });
+        
+        // Initialize
+        showSlide(0);
+        
+        // Prevent right-click context menu in presentation mode
+        document.addEventListener('contextmenu', function(event) {
+            if (document.fullscreenElement) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

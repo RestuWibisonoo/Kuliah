@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://class.tiflab.my.id/storage/lessons/materials/1756595988_5.%20Konfigurasi%20Layanan%20DNS.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfigurasi Layanan DNS - Pertemuan 5</title>
+    <link rel="stylesheet" href="./Konfigurasi Layanan DNS - Pertemuan 5_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #8e44ad;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #9b59b6;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #8e44ad;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #8e44ad;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #8e44ad;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #8e44ad;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #8e44ad;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #8e44ad;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            color: #8e44ad;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #8e44ad;
+            overflow-x: auto;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #8e44ad;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #8e44ad;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .dns-hierarchy {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .dns-level {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #8e44ad;
+            border-radius: 15px;
+            padding: 20px 40px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-width: 250px;
+        }
+
+        .dns-level:hover {
+            background: #8e44ad;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .dns-arrow {
+            font-size: 30px;
+            color: #8e44ad;
+            margin: 5px 0;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .info-box {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #8e44ad;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .zone-example {
+            background: #ecf0f1;
+            border: 2px solid #8e44ad;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        .record-type {
+            background: #8e44ad;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+            }
+
+            .dns-hierarchy {
+                transform: scale(0.8);
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 801px; top: 493px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 5.88235%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 17</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Konfigurasi Layanan DNS - Pertemuan 5_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Konfigurasi Layanan DNS</div>
+                <div class="slide-subtitle">Konfigurasi dan Administrasi Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-globe icon"></i>
+                    Pertemuan 5
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu mengkonfigurasi layanan DNS untuk name resolution</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>2 x 50 menit</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="list-item">
+                    <i class="fas fa-server icon"></i>
+                    <strong>Setup DNS server</strong><br>
+                    Windows DNS Server dan BIND Linux
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-sitemap icon"></i>
+                    <strong>Membuat forward/reverse zones</strong><br>
+                    Zone configuration dan resource records
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-share icon"></i>
+                    <strong>Konfigurasi DNS forwarders</strong><br>
+                    Conditional forwarding dan root hints
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-search icon"></i>
+                    <strong>Testing resolusi DNS</strong><br>
+                    Troubleshooting tools dan diagnostic
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad; margin-bottom: 20px;">Konsep &amp; Teori</h3>
+                        <div class="list-item">
+                            <i class="fas fa-network-wired icon"></i>
+                            Konsep DNS dan Hierarki
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-download icon"></i>
+                            Instalasi DNS Server
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            DNS Security Best Practices
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad; margin-bottom: 20px;">Praktik &amp; Studi Kasus</h3>
+                        <div class="list-item">
+                            <i class="fas fa-cogs icon"></i>
+                            Forward &amp; Reverse Zones
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-route icon"></i>
+                            DNS Forwarders Setup
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-bug icon"></i>
+                            Testing &amp; Troubleshooting
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: DNS Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Domain Name System (DNS)</div>
+                <div class="slide-subtitle">The Internet's Phone Book</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box" style="margin-bottom: 30px; font-size: 28px;">
+                    DNS = Name Resolution Service yang menerjemahkan domain names ke IP addresses
+                </div>
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Fungsi Utama</h3>
+                        <div class="list-item">
+                            <i class="fas fa-exchange-alt icon"></i>
+                            <strong>Name Resolution</strong><br>
+                            Domain → IP Address
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-undo icon"></i>
+                            <strong>Reverse Lookup</strong><br>
+                            IP Address → Domain
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Keuntungan</h3>
+                        <div class="list-item">
+                            <i class="fas fa-brain icon"></i>
+                            <strong>Human Readable</strong><br>
+                            Easy to remember names
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-sync icon"></i>
+                            <strong>Flexibility</strong><br>
+                            IP can change transparently
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Use Cases</h3>
+                        <div class="list-item">
+                            <i class="fas fa-globe icon"></i>
+                            <strong>Web Browsing</strong><br>
+                            www.example.com
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-envelope icon"></i>
+                            <strong>Email Services</strong><br>
+                            MX record resolution
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: DNS Hierarchy -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DNS Hierarchy Structure</div>
+                <div class="slide-subtitle">Distributed Database System</div>
+            </div>
+            <div class="slide-content">
+                <div class="dns-hierarchy">
+                    <div class="dns-level" style="background: #e74c3c; color: white;">
+                        <strong>Root Level (".")</strong><br>
+                        <small>13 Root Servers Worldwide</small>
+                    </div>
+                    <div class="dns-arrow">↓</div>
+                    <div class="dns-level" style="background: #f39c12; color: white;">
+                        <strong>Top Level Domain (TLD)</strong><br>
+                        <small>.com, .org, .net, .id, .edu</small>
+                    </div>
+                    <div class="dns-arrow">↓</div>
+                    <div class="dns-level" style="background: #27ae60; color: white;">
+                        <strong>Second Level Domain</strong><br>
+                        <small>google, facebook, untidar</small>
+                    </div>
+                    <div class="dns-arrow">↓</div>
+                    <div class="dns-level" style="background: #3498db; color: white;">
+                        <strong>Subdomain</strong><br>
+                        <small>www, mail, ftp, api</small>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <strong>Example Resolution:</strong> www.untidar.ac.id<br>
+                    • Root → .id (Indonesia TLD) → ac.id (Academic) → untidar.ac.id → www.untidar.ac.id
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: DNS Resolution Process -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DNS Resolution Process</div>
+                <div class="slide-subtitle">Step-by-Step Query Resolution</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Recursive Resolution</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Client Query</strong><br>
+                            User types www.example.com
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Local Cache Check</strong><br>
+                            Check resolver cache
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Recursive Server</strong><br>
+                            Query DNS server
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Root Server Query</strong><br>
+                            Ask root for .com TLD
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Iterative Process</h3>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>TLD Server Query</strong><br>
+                            Ask .com for example.com
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>Authoritative Server</strong><br>
+                            Query example.com DNS
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>Answer Retrieved</strong><br>
+                            Get A record with IP
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">8</div>
+                            <strong>Response to Client</strong><br>
+                            Return IP to client
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: DNS Record Types -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DNS Resource Record Types</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Common Record Types</h3>
+                        <div class="list-item">
+                            <span class="record-type">A</span>
+                            <strong>Address Record</strong><br>
+                            Maps hostname to IPv4 address
+                        </div>
+                        <div class="list-item">
+                            <span class="record-type">AAAA</span>
+                            <strong>IPv6 Address</strong><br>
+                            Maps hostname to IPv6 address
+                        </div>
+                        <div class="list-item">
+                            <span class="record-type">CNAME</span>
+                            <strong>Canonical Name</strong><br>
+                            Alias for another domain name
+                        </div>
+                        <div class="list-item">
+                            <span class="record-type">MX</span>
+                            <strong>Mail Exchange</strong><br>
+                            Mail server for domain
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Advanced Records</h3>
+                        <div class="list-item">
+                            <span class="record-type">PTR</span>
+                            <strong>Pointer Record</strong><br>
+                            Reverse DNS lookup
+                        </div>
+                        <div class="list-item">
+                            <span class="record-type">NS</span>
+                            <strong>Name Server</strong><br>
+                            Authoritative DNS server
+                        </div>
+                        <div class="list-item">
+                            <span class="record-type">SOA</span>
+                            <strong>Start of Authority</strong><br>
+                            Zone configuration info
+                        </div>
+                        <div class="list-item">
+                            <span class="record-type">TXT</span>
+                            <strong>Text Record</strong><br>
+                            Arbitrary text data
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Windows DNS Server Installation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Windows DNS Server Installation</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Installation Steps</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Server Manager</strong><br>
+                            Add Roles and Features Wizard
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Role Selection</strong><br>
+                            DNS Server role
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Installation</strong><br>
+                            Complete installation with dependencies
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Configuration</strong><br>
+                            DNS Manager console setup
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">PowerShell Method</h3>
+                        <div class="code-block">
+<pre># Install DNS Server Feature
+Install-WindowsFeature -Name DNS `
+    -IncludeManagementTools
+
+# Verify Installation
+Get-WindowsFeature -Name DNS
+
+# Start DNS Service
+Start-Service -Name DNS
+Set-Service -Name DNS -StartupType Automatic
+
+# Check DNS Service Status
+Get-Service -Name DNS</pre>
+                        </div>
+                        <div class="success-box">
+                            <strong>Verification:</strong><br>
+                            DNS Manager akan tersedia di Administrative Tools
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Linux BIND Installation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Linux BIND DNS Server Installation</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Ubuntu/Debian Installation</h3>
+                        <div class="code-block">
+<pre># Update package repository
+sudo apt update
+
+# Install BIND9 DNS Server
+sudo apt install bind9 bind9utils bind9-doc
+
+# Enable and start service
+sudo systemctl enable bind9
+sudo systemctl start bind9</pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Config Files:</strong><br>
+                            • /etc/bind/named.conf<br>
+                            • /etc/bind/named.conf.local<br>
+                            • /etc/bind/named.conf.options
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">CentOS/RHEL Installation</h3>
+                        <div class="code-block">
+<pre># Install BIND DNS Server
+sudo yum install bind bind-utils
+# or for newer versions
+sudo dnf install bind bind-utils
+
+# Enable and start service
+sudo systemctl enable named
+sudo systemctl start named
+
+# Check service status
+sudo systemctl status named</pre>
+                        </div>
+                        <div class="warning-box">
+                            <strong>Firewall:</strong><br>
+                            sudo firewall-cmd --permanent --add-service=dns<br>
+                            sudo firewall-cmd --reload
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Forward Lookup Zone -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Forward Lookup Zone Configuration</div>
+                <div class="slide-subtitle">Domain Name to IP Address Resolution</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Windows DNS Forward Zone</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>DNS Manager</strong><br>
+                            Right-click Forward Lookup Zones
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>New Zone Wizard</strong><br>
+                            Primary Zone → Zone name (contoh.local)
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Zone File</strong><br>
+                            Create zone file or use existing
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Dynamic Updates</strong><br>
+                            Configure dynamic update settings
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">BIND Forward Zone</h3>
+                        <div class="code-block">
+<pre># /etc/bind/named.conf.local
+zone "contoh.local" {
+&nbsp;&nbsp;&nbsp;&nbsp;type master;
+&nbsp;&nbsp;&nbsp;&nbsp;file "/etc/bind/db.contoh.local";
+};</pre>
+                        </div>
+                        <div class="zone-example">
+<pre>; /etc/bind/db.contoh.local
+$TTL    604800
+@       IN      SOA     ns1.contoh.local. admin.contoh.local. (
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2023010101      ; Serial
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;604800          ; Refresh
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;86400           ; Retry
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2419200         ; Expire
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;604800 )        ; Minimum
+;
+@       IN      NS      ns1.contoh.local.
+@       IN      A       192.168.1.10
+ns1     IN      A       192.168.1.10
+www     IN      A       192.168.1.20
+mail    IN      A       192.168.1.30
+ftp     IN      CNAME   www.contoh.local.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Reverse Lookup Zone -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Reverse Lookup Zone Configuration</div>
+                <div class="slide-subtitle">IP Address to Domain Name Resolution</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Windows Reverse Zone</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Reverse Lookup Zones</strong><br>
+                            Right-click → New Zone
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Network ID</strong><br>
+                            Enter network (192.168.1)
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>PTR Records</strong><br>
+                            Add reverse lookup records
+                        </div>
+                        <div class="warning-box" style="font-size: 16px;">
+                            <strong>Network Format:</strong><br>
+                            192.168.1.0/24 → 1.168.192.in-addr.arpa
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">BIND Reverse Zone</h3>
+                        <div class="code-block">
+<pre># /etc/bind/named.conf.local
+zone "1.168.192.in-addr.arpa" {
+&nbsp;&nbsp;&nbsp;&nbsp;type master;
+&nbsp;&nbsp;&nbsp;&nbsp;file "/etc/bind/db.192.168.1";
+};</pre>
+                        </div>
+                        <div class="zone-example">
+<pre>; /etc/bind/db.192.168.1
+$TTL    604800
+@       IN      SOA     ns1.contoh.local. admin.contoh.local. (
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2023010101      ; Serial
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;604800          ; Refresh
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;86400           ; Retry
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2419200         ; Expire
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;604800 )        ; Minimum
+;
+@       IN      NS      ns1.contoh.local.
+10      IN      PTR     ns1.contoh.local.
+20      IN      PTR     www.contoh.local.
+30      IN      PTR     mail.contoh.local.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: DNS Forwarders -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DNS Forwarders Configuration</div>
+                <div class="slide-subtitle">External Query Resolution</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Windows DNS Forwarders</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>DNS Manager</strong><br>
+                            Right-click server → Properties
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Forwarders Tab</strong><br>
+                            Add forwarder IP addresses
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Common Forwarders</strong><br>
+                            8.8.8.8, 1.1.1.1, 208.67.222.222
+                        </div>
+                        <div class="code-block" style="font-size: 16px;">
+<pre># PowerShell Configuration
+Add-DnsServerForwarder -IPAddress "8.8.8.8"
+Add-DnsServerForwarder -IPAddress "1.1.1.1"
+
+# Verify forwarders
+Get-DnsServerForwarder</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">BIND Forwarders</h3>
+                        <div class="code-block">
+<pre># /etc/bind/named.conf.options
+options {
+&nbsp;&nbsp;&nbsp;&nbsp;directory "/var/cache/bind";
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;forwarders {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.8.8.8;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.1.1.1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;208.67.222.222;
+&nbsp;&nbsp;&nbsp;&nbsp;};
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;forward only;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;dnssec-validation auto;
+&nbsp;&nbsp;&nbsp;&nbsp;listen-on-v6 { any; };
+};</pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Conditional Forwarding:</strong><br>
+                            Forward specific domains to specific DNS servers
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: DNS Security Best Practices -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DNS Security &amp; Best Practices</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Access Control</h3>
+                        <div class="list-item">
+                            <i class="fas fa-lock icon"></i>
+                            <strong>Zone Transfer Security</strong><br>
+                            Restrict zone transfers to authorized servers
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            <strong>Query ACLs</strong><br>
+                            Control who can query DNS server
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-user-shield icon"></i>
+                            <strong>Admin Access</strong><br>
+                            Secure DNS management interfaces
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">DNSSEC</h3>
+                        <div class="list-item">
+                            <i class="fas fa-certificate icon"></i>
+                            <strong>Zone Signing</strong><br>
+                            Cryptographic signatures for zones
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-key icon"></i>
+                            <strong>Key Management</strong><br>
+                            KSK and ZSK key rotation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            <strong>Validation</strong><br>
+                            Enable DNSSEC validation
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Monitoring</h3>
+                        <div class="list-item">
+                            <i class="fas fa-chart-line icon"></i>
+                            <strong>Query Logging</strong><br>
+                            Monitor DNS query patterns
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-exclamation-triangle icon"></i>
+                            <strong>Alert Systems</strong><br>
+                            Suspicious activity alerts
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-sync-alt icon"></i>
+                            <strong>Regular Updates</strong><br>
+                            Keep DNS software updated
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-box" style="margin-top: 20px; font-size: 18px;">
+                    <strong>Security Recommendations:</strong><br>
+                    • Disable DNS recursion untuk authoritative servers<br>
+                    • Implement rate limiting untuk prevent DDoS attacks<br>
+                    • Use separate DNS servers untuk internal dan external zones<br>
+                    • Regular backup DNS zone files dan configuration
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: DNS Testing Tools -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DNS Testing &amp; Troubleshooting Tools</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Windows Tools</h3>
+                        <div class="code-block">
+<pre># nslookup - Interactive DNS lookup
+nslookup www.example.com
+nslookup 192.168.1.20
+
+# dig equivalent for Windows
+Resolve-DnsName www.example.com
+Resolve-DnsName -Type MX example.com
+
+# Test DNS server
+Test-DnsServer -IPAddress 8.8.8.8
+
+# Clear DNS cache
+Clear-DnsClientCache
+ipconfig /flushdns</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Linux Tools</h3>
+                        <div class="code-block">
+<pre># dig - Domain Information Groper
+dig www.example.com
+dig @8.8.8.8 example.com MX
+dig -x 192.168.1.20
+
+# nslookup
+nslookup www.example.com
+nslookup www.example.com 8.8.8.8
+
+# host command
+host www.example.com
+host 192.168.1.20
+
+# Check BIND configuration
+named-checkconf /etc/bind/named.conf
+named-checkzone example.com /etc/bind/db.example.com</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>Testing Checklist:</strong><br>
+                    ✓ Forward lookup (A records) • ✓ Reverse lookup (PTR records) • ✓ MX records for email • ✓ NS records for delegation • ✓ Zone transfer functionality • ✓ Forwarder configuration
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Common DNS Issues -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Common DNS Issues &amp; Solutions</div>
+            </div>
+            <div class="slide-content">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Symptoms</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>No DNS Resolution</strong></td>
+                            <td>Cannot resolve any domain names</td>
+                            <td>Check DNS service, network connectivity, forwarders</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Slow Resolution</strong></td>
+                            <td>DNS queries take long time</td>
+                            <td>Check forwarders, network latency, cache settings</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reverse Lookup Fails</strong></td>
+                            <td>IP to name resolution not working</td>
+                            <td>Check PTR records, reverse zone configuration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zone Transfer Errors</strong></td>
+                            <td>Secondary server not updating</td>
+                            <td>Check zone transfer settings, firewall, SOA serial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cache Poisoning</strong></td>
+                            <td>Wrong IP addresses returned</td>
+                            <td>Clear DNS cache, check security settings</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NXDOMAIN Errors</strong></td>
+                            <td>Domain not found responses</td>
+                            <td>Check zone files, record syntax, delegation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 16: Summary & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ringkasan &amp; Langkah Selanjutnya</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Key Takeaways</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            DNS adalah hierarchical distributed database system
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Forward zones untuk name-to-IP resolution
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Reverse zones untuk IP-to-name resolution
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Forwarders untuk external query handling
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Security dan monitoring sangat penting
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Testing tools essential untuk troubleshooting
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Praktik Selanjutnya</h3>
+                        <div class="list-item">
+                            <i class="fas fa-laptop-code icon"></i>
+                            <strong>Lab Session:</strong><br>
+                            Hands-on DNS server setup dan zone configuration
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-cogs icon"></i>
+                            <strong>Assignment:</strong><br>
+                            Setup DNS dengan forward/reverse zones
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-search icon"></i>
+                            <strong>Case Study:</strong><br>
+                            Troubleshoot DNS resolution issues
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-network-wired icon"></i>
+                            <strong>Next Topic:</strong><br>
+                            Web Server Configuration (Apache/Nginx)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Konfigurasi Layanan DNS - Pertemuan 5_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title" style="color: #8e44ad;">Terima Kasih</div>
+                <div class="slide-subtitle">Konfigurasi Layanan DNS</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce" style="margin-bottom: 40px;">
+                    <i class="fas fa-heart icon"></i>
+                    Thank You!
+                </div>
+                
+                <div style="text-align: center; font-size: 32px; margin-bottom: 40px;">
+                    <i class="fas fa-question-circle" style="color: #8e44ad; margin-right: 15px;"></i>
+                    <strong>Ada Pertanyaan?</strong>
+                </div>
+
+                <div class="two-column" style="align-items: center;">
+                    <div style="text-align: center;">
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-user-tie icon"></i>
+                            <strong>Dosen Pengampu</strong><br>
+                            <span style="color: #8e44ad; font-size: 28px;">Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</span>
+                        </div>
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-envelope icon"></i>
+                            <strong>Email</strong><br>
+                            <span style="color: #8e44ad; font-size: 26px;">ikhwan.alfath@untidar.ac.id</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-university icon"></i>
+                            <strong>Mata Kuliah</strong><br>
+                            <span style="color: #8e44ad;">Konfigurasi dan Administrasi Sistem Jaringan</span>
+                        </div>
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-graduation-cap icon"></i>
+                            <strong>Program Studi</strong><br>
+                            <span style="color: #8e44ad;">Teknologi Informasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; font-size: 20px; color: #666;">
+                    <i class="fas fa-clock" style="margin-right: 10px;"></i>
+                    Silakan ajukan pertanyaan seputar materi DNS Configuration
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Perkenalan materi DNS service configuration</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">02:40</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Perkenalan DNS service configuration. Tekankan pentingnya DNS sebagai foundation untuk semua layanan network.",
+            "Slide 2: Learning objectives yang fokus pada hands-on skills. Siswa harus bisa setup, configure, dan troubleshoot DNS.",
+            "Slide 3: Agenda yang balance antara teori dan praktik dengan studi kasus real-world implementation.",
+            "Slide 4: DNS overview sebagai 'Internet's phone book'. Jelaskan analogy telepon untuk memudahkan pemahaman.",
+            "Slide 5: DNS hierarchy structure - fundamental untuk memahami bagaimana DNS resolution bekerja globally.",
+            "Slide 6: DNS resolution process step-by-step. Trace actual query dari client sampai authoritative server.",
+            "Slide 7: DNS record types yang commonly used. Focus pada practical applications untuk setiap record type.",
+            "Slide 8: Windows DNS installation - demonstrate jika ada lab environment. Show DNS Manager interface.",
+            "Slide 9: Linux BIND installation dan configuration. Highlight config file locations dan basic setup.",
+            "Slide 10: Forward lookup zone configuration. Show real zone file examples dan best practices.",
+            "Slide 11: Reverse lookup zone setup. Explain in-addr.arpa format dan common pitfalls.",
+            "Slide 12: DNS forwarders untuk external queries. Discuss performance implications dan redundancy.",
+            "Slide 13: DNS security best practices. Critical untuk production environments - tidak boleh diabaikan.",
+            "Slide 14: Testing tools dan diagnostic commands. Hands-on demonstration dengan real examples.",
+            "Slide 15: Common issues dan troubleshooting methodology. Share real-world troubleshooting experiences.",
+            "Slide 16: Summary dan preparation untuk lab session. Preview assignment dan case study requirements.",
+            "Slide 17: Thank you slide dengan contact information. Open Q&A session untuk DNS troubleshooting questions."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'f':
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    togglePresenterMode();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Show help text on first load
+        setTimeout(showHelpText, 1000);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1); // Swipe left = next slide
+                } else {
+                    changeSlide(-1); // Swipe right = previous slide
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Auto-hide cursor after inactivity
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

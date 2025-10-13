@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<!-- saved from url=(0102)https://class.tiflab.my.id/storage/lessons/materials/1756595952_4.%20Konfigurasi%20Layanan%20DHCP.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfigurasi Layanan DHCP - Pertemuan 4</title>
+    <link rel="stylesheet" href="./Konfigurasi Layanan DHCP - Pertemuan 4_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #27ae60;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #2ecc71;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #27ae60;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #27ae60;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #27ae60;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #27ae60;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #27ae60;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #27ae60;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            color: #27ae60;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #27ae60;
+            overflow-x: auto;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #27ae60;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #27ae60;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .dhcp-process {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 15px;
+            border: 2px solid #27ae60;
+        }
+
+        .dhcp-step {
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .dhcp-step:hover {
+            transform: scale(1.05);
+        }
+
+        .dhcp-step-number {
+            background: #27ae60;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            margin: 0 auto 15px;
+        }
+
+        .arrow {
+            font-size: 30px;
+            color: #27ae60;
+            margin: 0 10px;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .info-box {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .scope-example {
+            background: #ecf0f1;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+            }
+
+            .dhcp-process {
+                flex-direction: column;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+                margin: 20px 0;
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 811px; top: 508px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 5.88235%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 17</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Konfigurasi Layanan DHCP - Pertemuan 4_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Konfigurasi Layanan DHCP</div>
+                <div class="slide-subtitle">Konfigurasi dan Administrasi Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-network-wired icon"></i>
+                    Pertemuan 4
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu mengkonfigurasi layanan DHCP untuk manajemen IP address</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>2 x 50 menit</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="list-item">
+                    <i class="fas fa-server icon"></i>
+                    <strong>Mengkonfigurasi DHCP server</strong><br>
+                    Windows Server dan Linux DHCP service
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-list icon"></i>
+                    <strong>Membuat scope dan reservation</strong><br>
+                    IP address pools dan static assignments
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-bug icon"></i>
+                    <strong>Testing dan troubleshooting DHCP</strong><br>
+                    Diagnostic tools dan problem solving
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-file-alt icon"></i>
+                    <strong>Monitoring DHCP logs</strong><br>
+                    Log analysis dan performance monitoring
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60; margin-bottom: 20px;">Konsep &amp; Teori</h3>
+                        <div class="list-item">
+                            <i class="fas fa-lightbulb icon"></i>
+                            Konsep DHCP
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-exchange-alt icon"></i>
+                            Proses DHCP (DORA)
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-download icon"></i>
+                            Instalasi DHCP Server
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60; margin-bottom: 20px;">Konfigurasi &amp; Praktik</h3>
+                        <div class="list-item">
+                            <i class="fas fa-cogs icon"></i>
+                            Scope Configuration
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-bookmark icon"></i>
+                            Reservations &amp; Options
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-tools icon"></i>
+                            Troubleshooting &amp; Monitoring
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: DHCP Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Dynamic Host Configuration Protocol</div>
+                <div class="slide-subtitle">Konsep Dasar DHCP</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box" style="margin-bottom: 30px; font-size: 28px;">
+                    DHCP = Automatic IP Address Assignment + Network Configuration
+                </div>
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Fungsi Utama</h3>
+                        <div class="list-item">
+                            <i class="fas fa-globe icon"></i>
+                            <strong>IP Address Assignment</strong><br>
+                            Dynamic allocation dari pool
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-route icon"></i>
+                            <strong>Network Parameters</strong><br>
+                            Gateway, DNS, subnet mask
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Keuntungan</h3>
+                        <div class="list-item">
+                            <i class="fas fa-clock icon"></i>
+                            <strong>Efisiensi Waktu</strong><br>
+                            Automatic configuration
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            <strong>Reduce Errors</strong><br>
+                            No manual IP conflicts
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Use Cases</h3>
+                        <div class="list-item">
+                            <i class="fas fa-building icon"></i>
+                            <strong>Corporate Networks</strong><br>
+                            Large scale deployment
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-wifi icon"></i>
+                            <strong>Wi-Fi Networks</strong><br>
+                            Guest and BYOD access
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: DHCP Process (DORA) -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Process - DORA</div>
+                <div class="slide-subtitle">Discovery • Offer • Request • Acknowledgment</div>
+            </div>
+            <div class="slide-content">
+                <div class="dhcp-process">
+                    <div class="dhcp-step">
+                        <div class="dhcp-step-number">1</div>
+                        <h4 style="color: #27ae60;">DISCOVER</h4>
+                        <p>Client broadcasts request untuk IP address</p>
+                        <small>UDP Port 67</small>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="dhcp-step">
+                        <div class="dhcp-step-number">2</div>
+                        <h4 style="color: #27ae60;">OFFER</h4>
+                        <p>Server offers available IP address</p>
+                        <small>UDP Port 68</small>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="dhcp-step">
+                        <div class="dhcp-step-number">3</div>
+                        <h4 style="color: #27ae60;">REQUEST</h4>
+                        <p>Client requests offered IP address</p>
+                        <small>Broadcast Message</small>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="dhcp-step">
+                        <div class="dhcp-step-number">4</div>
+                        <h4 style="color: #27ae60;">ACK</h4>
+                        <p>Server acknowledges dan assigns IP</p>
+                        <small>Lease Duration</small>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <strong>Important Notes:</strong><br>
+                    • DHCP menggunakan UDP protocol (connectionless)<br>
+                    • Broadcast pada network segment yang sama<br>
+                    • Lease time menentukan durasi assignment<br>
+                    • Client akan renew lease pada 50% dari lease time
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: DHCP Components -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Components</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Server Components</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>DHCP Service</strong><br>
+                            Core service untuk IP assignment
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Database</strong><br>
+                            Menyimpan lease information
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Scope</strong><br>
+                            Range IP addresses untuk assignment
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Reservations</strong><br>
+                            Static IP assignments berdasarkan MAC
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Network Components</h3>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>DHCP Relay</strong><br>
+                            Forward DHCP requests across subnets
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>Options</strong><br>
+                            Additional network parameters
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>Lease Database</strong><br>
+                            Track active dan expired leases
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">8</div>
+                            <strong>Failover</strong><br>
+                            High availability configuration
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Windows DHCP Installation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Windows DHCP Server Installation</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Installation Steps</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Server Manager</strong><br>
+                            Add Roles and Features
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Role Selection</strong><br>
+                            DHCP Server role
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Installation</strong><br>
+                            Install with required features
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Post-Installation</strong><br>
+                            Complete DHCP configuration
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">PowerShell Method</h3>
+                        <div class="code-block">
+<pre># Install DHCP Server Feature
+Install-WindowsFeature -Name DHCP `
+    -IncludeManagementTools
+
+# Add DHCP Server to Active Directory
+Add-DhcpServerInDC -DnsName "server.domain.com" `
+    -IPAddress 192.168.1.10
+
+# Set DHCP Server credentials
+Set-DhcpServerDnsCredential -Credential `
+    (Get-Credential) -ComputerName "server"</pre>
+                        </div>
+                        <div class="success-box">
+                            <strong>Verification:</strong><br>
+                            Get-WindowsFeature -Name DHCP
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Linux DHCP Installation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Linux DHCP Server Installation</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Ubuntu/Debian Installation</h3>
+                        <div class="code-block">
+<pre># Update package repository
+sudo apt update
+
+# Install ISC DHCP Server
+sudo apt install isc-dhcp-server
+
+# Enable and start service
+sudo systemctl enable isc-dhcp-server
+sudo systemctl start isc-dhcp-server</pre>
+                        </div>
+                        <div class="warning-box">
+                            <strong>Note:</strong> Service will fail first time until configuration is completed
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">CentOS/RHEL Installation</h3>
+                        <div class="code-block">
+<pre># Install DHCP Server package
+sudo yum install dhcp-server
+# or for newer versions
+sudo dnf install dhcp-server
+
+# Enable service
+sudo systemctl enable dhcpd
+sudo systemctl start dhcpd
+
+# Check service status
+sudo systemctl status dhcpd</pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Config Files:</strong><br>
+                            • Ubuntu: /etc/dhcp/dhcpd.conf<br>
+                            • CentOS: /etc/dhcp/dhcpd.conf
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: DHCP Scope Configuration -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Scope Configuration</div>
+                <div class="slide-subtitle">IP Address Pool Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Windows Server Scope</h3>
+                        <div class="scope-example">
+                            <strong>Scope Properties:</strong><br>
+                            • Name: LAN Scope<br>
+                            • Start IP: 192.168.1.100<br>
+                            • End IP: 192.168.1.200<br>
+                            • Subnet Mask: 255.255.255.0<br>
+                            • Lease Duration: 8 days<br>
+                            • Router: 192.168.1.1<br>
+                            • DNS: 8.8.8.8, 8.8.4.4
+                        </div>
+                        <div class="code-block" style="font-size: 16px;">
+<pre># PowerShell Scope Creation
+Add-DhcpServerv4Scope -Name "LAN Scope" `
+    -StartRange 192.168.1.100 `
+    -EndRange 192.168.1.200 `
+    -SubnetMask 255.255.255.0 `
+    -LeaseDuration 8.00:00:00</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Linux DHCP Configuration</h3>
+                        <div class="code-block">
+<pre># /etc/dhcp/dhcpd.conf
+default-lease-time 691200;  # 8 days
+max-lease-time 691200;
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+&nbsp;&nbsp;&nbsp;&nbsp;range 192.168.1.100 192.168.1.200;
+&nbsp;&nbsp;&nbsp;&nbsp;option routers 192.168.1.1;
+&nbsp;&nbsp;&nbsp;&nbsp;option domain-name-servers 8.8.8.8, 8.8.4.4;
+&nbsp;&nbsp;&nbsp;&nbsp;option domain-name "local.domain";
+&nbsp;&nbsp;&nbsp;&nbsp;option broadcast-address 192.168.1.255;
+}</pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Restart Service:</strong><br>
+                            sudo systemctl restart isc-dhcp-server
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: DHCP Reservations -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Reservations</div>
+                <div class="slide-subtitle">Static IP Assignment based on MAC Address</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Windows Server Reservations</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>DHCP Console</strong><br>
+                            Navigate to Scope → Reservations
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Add Reservation</strong><br>
+                            Right-click → New Reservation
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Enter Details</strong><br>
+                            Name, IP, MAC Address, Description
+                        </div>
+                        <div class="code-block" style="font-size: 16px;">
+<pre># PowerShell Reservation
+Add-DhcpServerv4Reservation `
+    -ScopeId 192.168.1.0 `
+    -IPAddress 192.168.1.50 `
+    -ClientId "00-15-5D-00-27-01" `
+    -Name "File Server"</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Linux DHCP Reservations</h3>
+                        <div class="code-block">
+<pre># /etc/dhcp/dhcpd.conf
+# Fixed IP reservations
+host fileserver {
+&nbsp;&nbsp;&nbsp;&nbsp;hardware ethernet 00:15:5d:00:27:01;
+&nbsp;&nbsp;&nbsp;&nbsp;fixed-address 192.168.1.50;
+&nbsp;&nbsp;&nbsp;&nbsp;option host-name "fileserver";
+}
+
+host printer {
+&nbsp;&nbsp;&nbsp;&nbsp;hardware ethernet 08:00:27:12:34:56;
+&nbsp;&nbsp;&nbsp;&nbsp;fixed-address 192.168.1.60;
+&nbsp;&nbsp;&nbsp;&nbsp;option host-name "printer";
+}
+
+host webserver {
+&nbsp;&nbsp;&nbsp;&nbsp;hardware ethernet 52:54:00:12:34:56;
+&nbsp;&nbsp;&nbsp;&nbsp;fixed-address 192.168.1.70;
+}</pre>
+                        </div>
+                        <div class="success-box">
+                            <strong>Best Practice:</strong> Always use reservations for servers, printers, dan critical devices
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: DHCP Options -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Options</div>
+                <div class="slide-subtitle">Additional Network Parameters</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Common Options</h3>
+                        <div class="list-item">
+                            <strong>Option 3:</strong> Router/Gateway
+                        </div>
+                        <div class="list-item">
+                            <strong>Option 6:</strong> DNS Servers
+                        </div>
+                        <div class="list-item">
+                            <strong>Option 15:</strong> Domain Name
+                        </div>
+                        <div class="list-item">
+                            <strong>Option 42:</strong> NTP Servers
+                        </div>
+                        <div class="list-item">
+                            <strong>Option 44:</strong> WINS Servers
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Windows Configuration</h3>
+                        <div class="code-block" style="font-size: 14px;">
+<pre># Set DHCP Options via PowerShell
+Set-DhcpServerv4OptionValue `
+    -OptionId 3 `
+    -Value 192.168.1.1
+
+Set-DhcpServerv4OptionValue `
+    -OptionId 6 `
+    -Value 8.8.8.8,8.8.4.4
+
+Set-DhcpServerv4OptionValue `
+    -OptionId 15 `
+    -Value "company.local"</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Linux Configuration</h3>
+                        <div class="code-block" style="font-size: 14px;">
+<pre># /etc/dhcp/dhcpd.conf
+option routers 192.168.1.1;
+option domain-name-servers 
+    8.8.8.8, 8.8.4.4;
+option domain-name "company.local";
+option ntp-servers 192.168.1.5;
+option netbios-name-servers 
+    192.168.1.10;</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-box" style="margin-top: 15px; font-size: 22px; line-height: 1.4; padding: 25px;">
+                    <strong style="font-size: 26px; display: block; margin-bottom: 15px;">Option Hierarchy:</strong>
+                    • <strong>Server Options:</strong> Applied to all scopes globally<br>
+                    • <strong>Scope Options:</strong> Applied to specific scope only<br>
+                    • <strong>Reservation Options:</strong> Applied to specific client only
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: DHCP Relay -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Relay</div>
+                <div class="slide-subtitle">Cross-Subnet DHCP Support</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Konsep DHCP Relay</h3>
+                        <div class="info-box">
+                            <strong>Problem:</strong> DHCP broadcasts tidak melewati router<br>
+                            <strong>Solution:</strong> DHCP Relay Agent forwards requests
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-broadcast-tower icon"></i>
+                            <strong>Broadcast to Unicast</strong><br>
+                            Convert DHCP broadcasts to unicast
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-route icon"></i>
+                            <strong>Cross-Subnet</strong><br>
+                            Enable DHCP across multiple VLANs
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-server icon"></i>
+                            <strong>Centralized DHCP</strong><br>
+                            Single DHCP server for multiple subnets
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Configuration Examples</h3>
+                        <div class="code-block">
+<pre># Cisco Router DHCP Helper
+interface GigabitEthernet0/1
+&nbsp;&nbsp;&nbsp;&nbsp;ip helper-address 192.168.1.10
+
+# Linux DHCP Relay (Ubuntu)
+sudo apt install isc-dhcp-relay
+
+# Configure /etc/default/isc-dhcp-relay
+SERVERS="192.168.1.10"
+INTERFACES="eth0 eth1"
+OPTIONS=""
+
+# Windows Server - DHCP Relay
+# Install Remote Access role
+# Configure as DHCP Relay Agent</pre>
+                        </div>
+                        <div class="success-box">
+                            <strong>Best Practice:</strong> Configure relay on router or Layer 3 switch untuk setiap VLAN
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: DHCP Failover -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Failover</div>
+                <div class="slide-subtitle">High Availability Configuration</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Windows Server Failover</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Configure Primary Server</strong><br>
+                            Setup DHCP scopes dan options
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Install Secondary Server</strong><br>
+                            Install DHCP role on second server
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Configure Failover Relationship</strong><br>
+                            Right-click scope → Configure Failover
+                        </div>
+                        <div class="code-block" style="font-size: 14px;">
+<pre># PowerShell Failover Setup
+Add-DhcpServerv4Failover `
+    -Name "DHCP-Failover" `
+    -PartnerServer "DHCP-Server2" `
+    -ScopeId 192.168.1.0 `
+    -LoadBalancePercent 50</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Linux DHCP Failover</h3>
+                        <div class="code-block">
+<pre># /etc/dhcp/dhcpd.conf (Primary Server)
+failover peer "dhcp-failover" {
+&nbsp;&nbsp;&nbsp;&nbsp;primary;
+&nbsp;&nbsp;&nbsp;&nbsp;address 192.168.1.10;
+&nbsp;&nbsp;&nbsp;&nbsp;port 647;
+&nbsp;&nbsp;&nbsp;&nbsp;peer address 192.168.1.11;
+&nbsp;&nbsp;&nbsp;&nbsp;peer port 647;
+&nbsp;&nbsp;&nbsp;&nbsp;max-response-delay 60;
+&nbsp;&nbsp;&nbsp;&nbsp;max-unacked-updates 10;
+&nbsp;&nbsp;&nbsp;&nbsp;split 128;
+&nbsp;&nbsp;&nbsp;&nbsp;mclt 3600;
+&nbsp;&nbsp;&nbsp;&nbsp;load balance max seconds 3;
+}
+
+# Pool configuration with failover
+pool {
+&nbsp;&nbsp;&nbsp;&nbsp;failover peer "dhcp-failover";
+&nbsp;&nbsp;&nbsp;&nbsp;range 192.168.1.100 192.168.1.200;
+}</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <strong>Failover Modes:</strong> Load Balance (50/50) atau Hot Standby (active/passive)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: DHCP Testing & Troubleshooting -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Testing &amp; Troubleshooting</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Testing Tools</h3>
+                        <div class="code-block">
+<pre># Windows Client Testing
+ipconfig /release
+ipconfig /renew
+ipconfig /displaydns
+
+# DHCP Server testing
+Get-DhcpServerv4Lease -ScopeId 192.168.1.0
+Get-DhcpServerv4Statistics
+
+# Network testing
+ping dhcp-server-ip
+telnet dhcp-server-ip 67</pre>
+                        </div>
+                        <div class="code-block">
+<pre># Linux Client Testing
+sudo dhclient -r eth0    # Release
+sudo dhclient eth0       # Renew
+
+# DHCP server testing
+sudo journalctl -u isc-dhcp-server
+tail -f /var/log/syslog | grep dhcp</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Common Issues</h3>
+                        <table class="comparison-table" style="font-size: 16px;">
+                            <thead>
+                                <tr>
+                                    <th>Problem</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>No IP Address</td>
+                                    <td>Check scope activation, server status</td>
+                                </tr>
+                                <tr>
+                                    <td>Wrong IP Range</td>
+                                    <td>Verify scope configuration</td>
+                                </tr>
+                                <tr>
+                                    <td>No DNS Resolution</td>
+                                    <td>Check DHCP option 6 configuration</td>
+                                </tr>
+                                <tr>
+                                    <td>Reservation Not Working</td>
+                                    <td>Verify MAC address format</td>
+                                </tr>
+                                <tr>
+                                    <td>Cross-Subnet Issues</td>
+                                    <td>Configure DHCP relay</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: DHCP Monitoring & Logs -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DHCP Monitoring &amp; Logs</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Windows Server Monitoring</h3>
+                        <div class="code-block">
+<pre># Enable DHCP Logging
+netsh dhcp server set optionvalue 81 BYTE 1
+
+# View DHCP Statistics
+Get-DhcpServerv4Statistics
+Get-DhcpServerv4ScopeStatistics
+
+# Check Event Logs
+Get-WinEvent -LogName "Microsoft-Windows-Dhcp-Server/Operational"
+
+# Monitor lease database
+Get-DhcpServerv4Lease -AllLeases</pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Log Location:</strong><br>
+                            %SystemRoot%\System32\Dhcp\
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Linux Server Monitoring</h3>
+                        <div class="code-block">
+<pre># View DHCP logs
+sudo tail -f /var/log/syslog | grep dhcp
+sudo journalctl -u isc-dhcp-server -f
+
+# Check lease file
+sudo cat /var/lib/dhcp/dhcpd.leases
+
+# Monitor active leases
+sudo dhcp-lease-list
+
+# Server status
+sudo systemctl status isc-dhcp-server</pre>
+                        </div>
+                        <div class="code-block">
+<pre># Custom monitoring script
+#!/bin/bash
+echo "DHCP Server Status:"
+systemctl is-active isc-dhcp-server
+echo "Active leases:"
+grep "binding state active" /var/lib/dhcp/dhcpd.leases | wc -l</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Summary & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ringkasan &amp; Langkah Selanjutnya</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #27ae60;">Key Takeaways</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            DHCP menggunakan proses DORA untuk IP assignment
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Scope menentukan range IP addresses available
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Reservations untuk static assignment servers/printers
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            DHCP relay diperlukan untuk multi-subnet
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Failover ensures high availability
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Monitoring dan logging penting untuk troubleshooting
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #27ae60;">Praktik Selanjutnya</h3>
+                        <div class="list-item">
+                            <i class="fas fa-laptop-code icon"></i>
+                            <strong>Lab Session:</strong><br>
+                            Hands-on DHCP server setup dan configuration
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-cogs icon"></i>
+                            <strong>Assignment:</strong><br>
+                            Configure DHCP dengan multiple scopes dan reservations
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-bug icon"></i>
+                            <strong>Troubleshooting Exercise:</strong><br>
+                            Analyze DHCP logs dan resolve common issues
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-network-wired icon"></i>
+                            <strong>Next Topic:</strong><br>
+                            DNS Service Configuration
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Konfigurasi Layanan DHCP - Pertemuan 4_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title" style="color: #27ae60;">Terima Kasih</div>
+                <div class="slide-subtitle">Konfigurasi Layanan DHCP</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce" style="margin-bottom: 40px;">
+                    <i class="fas fa-heart icon"></i>
+                    Thank You!
+                </div>
+                
+                <div style="text-align: center; font-size: 32px; margin-bottom: 40px;">
+                    <i class="fas fa-question-circle" style="color: #27ae60; margin-right: 15px;"></i>
+                    <strong>Ada Pertanyaan?</strong>
+                </div>
+
+                <div class="two-column" style="align-items: center;">
+                    <div style="text-align: center;">
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-user-tie icon"></i>
+                            <strong>Dosen Pengampu</strong><br>
+                            <span style="color: #27ae60; font-size: 28px;">Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</span>
+                        </div>
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-envelope icon"></i>
+                            <strong>Email</strong><br>
+                            <span style="color: #27ae60; font-size: 26px;">ikhwan.alfath@untidar.ac.id</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-university icon"></i>
+                            <strong>Mata Kuliah</strong><br>
+                            <span style="color: #27ae60;">Konfigurasi dan Administrasi Sistem Jaringan</span>
+                        </div>
+                        <div class="list-item" style="font-size: 24px; padding: 30px;">
+                            <i class="fas fa-graduation-cap icon"></i>
+                            <strong>Program Studi</strong><br>
+                            <span style="color: #27ae60;">Teknologi Informasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; font-size: 20px; color: #666;">
+                    <i class="fas fa-clock" style="margin-right: 10px;"></i>
+                    Silakan ajukan pertanyaan seputar materi DHCP Configuration
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Perkenalan materi DHCP service configuration</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">02:37</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Perkenalan DHCP service configuration. Tekankan pentingnya automatic IP management dalam enterprise network.",
+            "Slide 2: Learning objectives yang fokus pada hands-on skills. Siswa harus bisa configure, test, dan troubleshoot DHCP.",
+            "Slide 3: Agenda yang balance antara teori dan praktik. Alokasikan waktu lebih banyak untuk hands-on configuration.",
+            "Slide 4: DHCP overview dan benefits. Jelaskan mengapa DHCP essential untuk modern network management.",
+            "Slide 5: DHCP DORA process - ini fundamental yang harus dipahami untuk troubleshooting. Gunakan analogy jika perlu.",
+            "Slide 6: DHCP components overview. Jelaskan relationship antar komponen dan bagaimana mereka bekerja together.",
+            "Slide 7: Windows DHCP installation - demonstrate step by step jika ada lab environment available.",
+            "Slide 8: Linux DHCP installation. Compare dan contrast dengan Windows approach. Highlight config file locations.",
+            "Slide 9: Scope configuration - ini core functionality. Demonstrasi dengan real examples dan best practices.",
+            "Slide 10: DHCP reservations untuk critical devices. Explain MAC address format dan common use cases.",
+            "Slide 11: DHCP options untuk additional network parameters. Focus pada most commonly used options.",
+            "Slide 12: DHCP relay untuk multi-subnet environments. Critical untuk enterprise networks dengan multiple VLANs.",
+            "Slide 13: DHCP failover untuk high availability. Explain load balancing vs hot standby modes.",
+            "Slide 14: Troubleshooting methodology dan common issues. Share real-world troubleshooting experiences.",
+            "Slide 15: Monitoring dan logging untuk proactive management. Show actual log examples jika possible.",
+            "Slide 16: Summary dan preparation untuk hands-on lab. Preview assignment requirements dan next topic.",
+            "Slide 17: Thank you slide dengan contact information. Buka sesi Q&A untuk pertanyaan mahasiswa tentang DHCP configuration."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'f':
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    togglePresenterMode();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Show help text on first load
+        setTimeout(showHelpText, 1000);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1); // Swipe left = next slide
+                } else {
+                    changeSlide(-1); // Swipe right = previous slide
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Auto-hide cursor after inactivity
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<!-- saved from url=(0114)https://class.tiflab.my.id/storage/lessons/materials/1758456819_6.%20Edge%20Computing%20Sistem%20Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge Computing: Konsep dan Implementasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #667eea rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #FFA500;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #FFEAA7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #DDD;
+        }
+
+        ul {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "⚡";
+            position: absolute;
+            left: -2rem;
+            top: 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-box h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+
+        .content-box ul {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .edge-box {
+            background: rgba(102, 126, 234, 0.2);
+            border-left: 4px solid #667eea;
+        }
+
+        .cloud-box {
+            background: rgba(118, 75, 162, 0.2);
+            border-left: 4px solid #764ba2;
+        }
+
+        .iot-box {
+            background: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid #2ecc71;
+        }
+
+        .latency-box {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid #e74c3c;
+        }
+
+        .case-study {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-study h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .framework-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .framework-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .framework-item h5 {
+            font-size: 1.3rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            vertical-align: middle;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #FFD700 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-top: 0.5rem;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .detail-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .detail-box h5 {
+            color: #FFD700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .simulation-section {
+            background: rgba(46, 204, 113, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #2ecc71;
+        }
+
+        .simulation-section h4 {
+            color: #2ecc71;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .code-example {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+            font-size: 0.9rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #FFD700;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .architecture-diagram {
+            background: rgba(63, 81, 181, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #3f51b5;
+        }
+
+        .architecture-diagram h4 {
+            color: #3f51b5;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .implementation-box {
+            background: rgba(255, 87, 34, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #ff5722;
+        }
+
+        .implementation-box h4 {
+            color: #ff5722;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            padding: 1rem;
+            background: rgba(255,255,255,0.2);
+            border-bottom: 2px solid #FFD700;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .performance-chart {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            height: 200px;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .chart-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            width: 80px;
+            margin: 0 10px;
+        }
+
+        .bar {
+            background: linear-gradient(to top, #667eea, #764ba2);
+            border-radius: 5px 5px 0 0;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .interactive-demo {
+            background: rgba(233, 30, 99, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #e91e63;
+        }
+
+        .interactive-demo h4 {
+            color: #e91e63;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .demo-result {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .edge-layer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .layer-component {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .layer-component:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .layer-component h6 {
+            color: #FFD700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .use-case-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .use-case-item h5 {
+            color: #FFD700;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="">
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar" style="width: 6.25%;"></div>
+        
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div class="university-info">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Edge Computing_ Konsep dan Implementasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 60px; margin-right: 20px;">
+                    <div style="text-align: left;">
+                        <div class="university-name" style="font-size: 16px; font-weight: bold;">UNIVERSITAS TIDAR</div>
+                        <div class="faculty-info">Fakultas Teknik | Program Studi Teknologi Informasi</div>
+                        <div class="course-info">Teknologi Sistem Terintegrasi</div>
+                    </div>
+                </div>
+            </div>
+            <h1>⚡ Edge Computing: Konsep dan Implementasi</h1>
+            <div class="subtitle">Edge Computing: Concepts and Implementation</div>
+            <div class="subtitle">Pertemuan ke-6 • 170 menit</div>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🎯 Capaian Pembelajaran</h4>
+                    <ul>
+                        <li>Memahami konsep edge computing dalam sistem terintegrasi</li>
+                        <li>Menganalisis kebutuhan implementasi edge computing</li>
+                        <li>Merancang arsitektur edge computing</li>
+                        <li>Mengimplementasikan edge computing solutions</li>
+                        <li>Mengevaluasi performance dan efektivitas</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⏰ Informasi Sesi</h4>
+                    <ul>
+                        <li><strong>Durasi:</strong> 3 x 50 menit (170 menit)</li>
+                        <li><strong>Metode:</strong> Ceramah &amp; Simulasi</li>
+                        <li><strong>Penilaian:</strong> Keberhasilan implementasi</li>
+                        <li><strong>Target:</strong> Edge computing implementation</li>
+                        <li><strong>Output:</strong> Working edge system prototype</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Mengapa Edge Computing? -->
+        <div class="slide">
+            <h2>🌟 Mengapa Edge Computing Penting?</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">175B</div>
+                    <div class="metric-label">Connected devices by 2025</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">90%</div>
+                    <div class="metric-label">Data processed at edge</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">10x</div>
+                    <div class="metric-label">Faster response time</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">50%</div>
+                    <div class="metric-label">Bandwidth savings</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box edge-box">
+                    <h4>⚡ Edge Computing Benefits</h4>
+                    <ul>
+                        <li><strong>Ultra-low Latency:</strong> &lt;1ms response time</li>
+                        <li><strong>Bandwidth Optimization:</strong> Reduced data transfer</li>
+                        <li><strong>Privacy &amp; Security:</strong> Data stays local</li>
+                        <li><strong>Reliability:</strong> Offline capability</li>
+                        <li><strong>Real-time Processing:</strong> Instant decision making</li>
+                        <li><strong>Cost Efficiency:</strong> Reduced cloud costs</li>
+                    </ul>
+                </div>
+                <div class="content-box cloud-box">
+                    <h4>🌩️ Traditional Cloud Challenges</h4>
+                    <ul>
+                        <li><strong>High Latency:</strong> 100-500ms round trip</li>
+                        <li><strong>Bandwidth Bottleneck:</strong> Network congestion</li>
+                        <li><strong>Single Point of Failure:</strong> Connectivity issues</li>
+                        <li><strong>Data Privacy:</strong> Sensitive data in cloud</li>
+                        <li><strong>Compliance:</strong> Data sovereignty</li>
+                        <li><strong>High Costs:</strong> Data transfer charges</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="performance-chart">
+                <div class="chart-bar">
+                    <div class="bar" style="height: 150px;"></div>
+                    <div class="bar-label">Cloud<br>150ms</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar" style="height: 50px;"></div>
+                    <div class="bar-label">Edge<br>5ms</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar" style="height: 10px;"></div>
+                    <div class="bar-label">Local<br>1ms</div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Real-World Impact</h4>
+                <p>Autonomous vehicles require <span class="highlight">&lt; 1ms latency</span> for collision avoidance. Industrial IoT systems need real-time monitoring for safety. Smart cities must process millions of sensor data points instantly.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Edge Computing Architecture -->
+        <div class="slide">
+            <h2>🏗️ Edge Computing Architecture</h2>
+            
+            <div class="edge-layer">
+                <div class="layer-component">
+                    <h6>📱 Device Edge</h6>
+                    <p style="font-size: 0.9rem;">Smartphones, IoT sensors, embedded systems</p>
+                </div>
+                <div class="layer-component">
+                    <h6>🏢 On-Premise Edge</h6>
+                    <p style="font-size: 0.9rem;">Local servers, gateways, micro data centers</p>
+                </div>
+                <div class="layer-component">
+                    <h6>🌐 Network Edge</h6>
+                    <p style="font-size: 0.9rem;">CDN, 5G base stations, ISP nodes</p>
+                </div>
+                <div class="layer-component">
+                    <h6>☁️ Near Edge</h6>
+                    <p style="font-size: 0.9rem;">Regional cloud, edge cloud services</p>
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4>🎨 Edge Computing Topology</h4>
+                <div class="code-example">
+                    <strong>Multi-Tier Edge Architecture:</strong><br><br>
+                    
+                    <strong>Tier 1 - Device Edge:</strong><br>
+                    • Sensors &amp; actuators (temperature, motion, pressure)<br>
+                    • Embedded processors (ARM Cortex, ESP32)<br>
+                    • Edge AI chips (Google Edge TPU, Intel Movidius)<br>
+                    • Local storage (flash memory, SD cards)<br><br>
+                    
+                    <strong>Tier 2 - Local Edge:</strong><br>
+                    • Edge gateways (industrial PCs, Raspberry Pi clusters)<br>
+                    • Local databases (SQLite, Redis, InfluxDB)<br>
+                    • Container orchestration (K3s, Docker Swarm)<br>
+                    • Local networking (WiFi, Bluetooth, Zigbee)<br><br>
+                    
+                    <strong>Tier 3 - Regional Edge:</strong><br>
+                    • Edge data centers (AWS Wavelength, Azure Edge)<br>
+                    • CDN edge servers (CloudFlare, Akamai)<br>
+                    • 5G MEC (Multi-access Edge Computing)<br>
+                    • Distributed databases (CockroachDB, Cassandra)
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔗 Edge-Cloud Continuum</h4>
+                    <ul>
+                        <li><strong>Data Processing:</strong> Filter and aggregate at edge</li>
+                        <li><strong>Machine Learning:</strong> Inference at edge, training in cloud</li>
+                        <li><strong>Storage:</strong> Hot data at edge, cold data in cloud</li>
+                        <li><strong>Analytics:</strong> Real-time at edge, batch in cloud</li>
+                        <li><strong>Management:</strong> Centralized orchestration</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>📡 Communication Patterns</h4>
+                    <ul>
+                        <li><strong>Device-to-Device:</strong> Direct communication</li>
+                        <li><strong>Device-to-Edge:</strong> Local processing</li>
+                        <li><strong>Edge-to-Edge:</strong> Distributed coordination</li>
+                        <li><strong>Edge-to-Cloud:</strong> Selective synchronization</li>
+                        <li><strong>Mesh Networks:</strong> Self-healing topology</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Edge Computing vs Cloud Computing -->
+        <div class="slide">
+            <h2>⚖️ Edge vs Cloud: Detailed Comparison</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th style="color: #667eea;">Edge Computing</th>
+                        <th style="color: #764ba2;">Cloud Computing</th>
+                        <th style="color: #2ecc71;">Hybrid Approach</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Latency</strong></td>
+                        <td>1-10ms ✅</td>
+                        <td>50-500ms ❌</td>
+                        <td>Optimized per use case ⚡</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bandwidth</strong></td>
+                        <td>Low usage ✅</td>
+                        <td>High usage ❌</td>
+                        <td>Efficient distribution 🔄</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scalability</strong></td>
+                        <td>Limited ⚠️</td>
+                        <td>Unlimited ✅</td>
+                        <td>Best of both worlds 🌟</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security</strong></td>
+                        <td>Distributed risk ⚠️</td>
+                        <td>Centralized security ✅</td>
+                        <td>Layered security 🛡️</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost (Small Scale)</strong></td>
+                        <td>Lower ✅</td>
+                        <td>Higher ❌</td>
+                        <td>Optimized 💰</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost (Large Scale)</strong></td>
+                        <td>Higher ❌</td>
+                        <td>Lower ✅</td>
+                        <td>Balanced 📊</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maintenance</strong></td>
+                        <td>Complex ❌</td>
+                        <td>Simple ✅</td>
+                        <td>Automated 🤖</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reliability</strong></td>
+                        <td>Offline capable ✅</td>
+                        <td>Internet dependent ❌</td>
+                        <td>Fault tolerant 🔧</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="case-study">
+                <h4>🎯 Decision Framework</h4>
+                <div class="three-column">
+                    <div>
+                        <h6 style="color: #667eea;">Choose Edge When:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Ultra-low latency required</li>
+                            <li>Bandwidth is expensive/limited</li>
+                            <li>Data privacy is critical</li>
+                            <li>Offline operation needed</li>
+                            <li>Real-time processing essential</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #764ba2;">Choose Cloud When:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Heavy computational needs</li>
+                            <li>Large-scale data analytics</li>
+                            <li>Cost optimization priority</li>
+                            <li>Easy maintenance required</li>
+                            <li>Global accessibility needed</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #2ecc71;">Choose Hybrid When:</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Complex system requirements</li>
+                            <li>Multi-tier processing</li>
+                            <li>Gradual migration strategy</li>
+                            <li>Best of both worlds</li>
+                            <li>Enterprise environments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Edge Computing Use Cases -->
+        <div class="slide">
+            <h2>🎯 Edge Computing Use Cases</h2>
+            
+            <div class="use-case-grid">
+                <div class="use-case-item">
+                    <h5>🚗 Autonomous Vehicles</h5>
+                    <p><strong>Requirements:</strong> &lt;1ms latency, real-time decision making</p>
+                    <ul style="font-size: 1rem; margin-top: 1rem;">
+                        <li>LIDAR data processing (100GB/hour)</li>
+                        <li>Computer vision for object detection</li>
+                        <li>Collision avoidance systems</li>
+                        <li>V2X communication (Vehicle-to-Everything)</li>
+                        <li>Route optimization with real-time traffic</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>🏭 Industrial IoT (IIoT)</h5>
+                    <p><strong>Requirements:</strong> Predictive maintenance, safety monitoring</p>
+                    <ul style="font-size: 1rem; margin-top: 1rem;">
+                        <li>Machine condition monitoring</li>
+                        <li>Quality control with computer vision</li>
+                        <li>Supply chain optimization</li>
+                        <li>Energy management systems</li>
+                        <li>Worker safety monitoring</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>🏥 Healthcare &amp; Medical</h5>
+                    <p><strong>Requirements:</strong> Patient data privacy, real-time monitoring</p>
+                    <ul style="font-size: 1rem; margin-top: 1rem;">
+                        <li>Patient vital signs monitoring</li>
+                        <li>Medical image analysis</li>
+                        <li>Drug discovery acceleration</li>
+                        <li>Surgical robotics assistance</li>
+                        <li>Emergency response systems</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>🏙️ Smart Cities</h5>
+                    <p><strong>Requirements:</strong> Massive scale, diverse data sources</p>
+                    <ul style="font-size: 1rem; margin-top: 1rem;">
+                        <li>Traffic management &amp; optimization</li>
+                        <li>Public safety &amp; surveillance</li>
+                        <li>Environmental monitoring</li>
+                        <li>Smart lighting &amp; energy</li>
+                        <li>Waste management optimization</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>🎮 Gaming &amp; AR/VR</h5>
+                    <p><strong>Requirements:</strong> Ultra-low latency, high bandwidth</p>
+                    <ul style="font-size: 1rem; margin-top: 1rem;">
+                        <li>Cloud gaming with &lt;20ms latency</li>
+                        <li>Augmented reality overlays</li>
+                        <li>Virtual reality experiences</li>
+                        <li>Real-time multiplayer gaming</li>
+                        <li>Interactive content delivery</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>📱 Mobile &amp; Retail</h5>
+                    <p><strong>Requirements:</strong> Personalization, instant responses</p>
+                    <ul style="font-size: 1rem; margin-top: 1rem;">
+                        <li>Personalized recommendations</li>
+                        <li>Mobile edge computing (MEC)</li>
+                        <li>Inventory management</li>
+                        <li>Customer behavior analytics</li>
+                        <li>Dynamic pricing optimization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">$8.9B</div>
+                    <div class="metric-label">Autonomous vehicle market</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">$263B</div>
+                    <div class="metric-label">Industrial IoT market</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">$659B</div>
+                    <div class="metric-label">Smart cities investment</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">$31B</div>
+                    <div class="metric-label">AR/VR market size</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Edge Computing Technologies -->
+        <div class="slide">
+            <h2>🛠️ Edge Computing Technologies &amp; Platforms</h2>
+            
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🖥️ Hardware Platforms</h5>
+                    <ul style="font-size: 1rem;">
+                        <li><strong>ARM-based:</strong> Raspberry Pi, NVIDIA Jetson</li>
+                        <li><strong>x86-based:</strong> Intel NUC, UP Board</li>
+                        <li><strong>GPU Accelerated:</strong> NVIDIA Tesla, AMD Instinct</li>
+                        <li><strong>FPGA:</strong> Xilinx Zynq, Intel Altera</li>
+                        <li><strong>Edge AI Chips:</strong> Google TPU, Intel Movidius</li>
+                        <li><strong>Industrial:</strong> Siemens SIMATIC, Beckhoff CX</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>💻 Software Platforms</h5>
+                    <ul style="font-size: 1rem;">
+                        <li><strong>Container Platforms:</strong> Docker, Podman</li>
+                        <li><strong>Orchestration:</strong> K3s, KubeEdge, OpenYurt</li>
+                        <li><strong>IoT Frameworks:</strong> EdgeX Foundry, Azure IoT Edge</li>
+                        <li><strong>ML Frameworks:</strong> TensorFlow Lite, ONNX Runtime</li>
+                        <li><strong>Operating Systems:</strong> Ubuntu Core, Windows IoT</li>
+                        <li><strong>Edge Analytics:</strong> Apache Storm, Kafka Streams</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>☁️ Cloud Edge Services</h5>
+                    <ul style="font-size: 1rem;">
+                        <li><strong>AWS:</strong> Wavelength, Outposts, IoT Greengrass</li>
+                        <li><strong>Microsoft:</strong> Azure Stack Edge, IoT Edge</li>
+                        <li><strong>Google:</strong> Anthos, Edge TPU, Coral Dev Board</li>
+                        <li><strong>IBM:</strong> Edge Application Manager</li>
+                        <li><strong>VMware:</strong> vSphere with Tanzu</li>
+                        <li><strong>Red Hat:</strong> OpenShift, MicroShift</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="implementation-box">
+                <h4>🔧 Edge Computing Stack</h4>
+                <div class="code-example">
+                    <strong>Complete Edge Technology Stack:</strong><br><br>
+                    
+                    <strong>Hardware Layer:</strong><br>
+                    • Edge devices: Raspberry Pi 4, NVIDIA Jetson Nano<br>
+                    • Connectivity: WiFi 6, 5G, LoRaWAN, Bluetooth 5.0<br>
+                    • Sensors: Temperature, humidity, accelerometer, camera<br>
+                    • Storage: NVMe SSD, eMMC, microSD<br><br>
+                    
+                    <strong>System Layer:</strong><br>
+                    • OS: Ubuntu 20.04 LTS, Raspberry Pi OS<br>
+                    • Container Runtime: Docker 20.10, containerd<br>
+                    • Orchestration: K3s (lightweight Kubernetes)<br>
+                    • Networking: Flannel, Calico for CNI<br><br>
+                    
+                    <strong>Application Layer:</strong><br>
+                    • Data Processing: Apache Kafka, Redis Streams<br>
+                    • ML Inference: TensorFlow Lite, OpenVINO<br>
+                    • Databases: SQLite, InfluxDB, Redis<br>
+                    • APIs: FastAPI, Flask, Node.js<br><br>
+                    
+                    <strong>Management Layer:</strong><br>
+                    • Monitoring: Prometheus, Grafana<br>
+                    • Logging: Fluentd, Elasticsearch<br>
+                    • Security: Falco, Open Policy Agent<br>
+                    • Updates: Balena, Mender.io
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Hands-on Simulation Lab -->
+        <div class="slide">
+            <h2>🧪 Hands-on Lab: Edge Computing Simulation</h2>
+            
+            <div class="simulation-section">
+                <h4>🎯 Lab Objectives</h4>
+                <p>Build a complete edge computing system for smart factory monitoring with real-time analytics and predictive maintenance.</p>
+            </div>
+
+            <div class="interactive-demo">
+                <h4>🚀 Interactive Edge Computing Demo</h4>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="simulateLatency()">📊 Latency Comparison</button>
+                    <button class="demo-btn" onclick="simulateDataFlow()">🔄 Data Flow</button>
+                    <button class="demo-btn" onclick="simulateFailover()">⚠️ Failover Test</button>
+                    <button class="demo-btn" onclick="simulateScaling()">📈 Auto Scaling</button>
+                    <button class="demo-btn" onclick="resetDemo()">🔄 Reset</button>
+                </div>
+                <div class="demo-result" id="demoResult">
+                    Click any button above to run edge computing simulations
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🏭 Lab Scenario: Smart Factory</h4>
+                    <ul>
+                        <li><strong>Environment:</strong> Manufacturing floor with 100+ machines</li>
+                        <li><strong>Sensors:</strong> Temperature, vibration, pressure, sound</li>
+                        <li><strong>Data Volume:</strong> 10,000 readings per second</li>
+                        <li><strong>Requirements:</strong> &lt;5ms response time for alerts</li>
+                        <li><strong>Analytics:</strong> Predictive maintenance ML models</li>
+                        <li><strong>Connectivity:</strong> 5G, WiFi 6, Industrial Ethernet</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🛠️ Implementation Tasks</h4>
+                    <ul>
+                        <li><strong>Task 1:</strong> Setup edge hardware (Raspberry Pi cluster)</li>
+                        <li><strong>Task 2:</strong> Deploy sensor data pipeline</li>
+                        <li><strong>Task 3:</strong> Implement real-time analytics</li>
+                        <li><strong>Task 4:</strong> Configure ML inference at edge</li>
+                        <li><strong>Task 5:</strong> Setup monitoring &amp; alerting</li>
+                        <li><strong>Task 6:</strong> Test failover &amp; recovery</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4>🏗️ Lab Architecture</h4>
+                <div class="code-example">
+                    <strong>Smart Factory Edge System:</strong><br><br>
+                    
+                    <strong>Edge Nodes (Raspberry Pi 4 Cluster):</strong><br>
+                    • Node 1: Data ingestion &amp; preprocessing<br>
+                    • Node 2: ML inference &amp; anomaly detection<br>
+                    • Node 3: Real-time alerts &amp; control systems<br>
+                    • Node 4: Local data storage &amp; backup<br><br>
+                    
+                    <strong>Software Stack:</strong><br>
+                    version: '3.8'<br>
+                    services:<br>
+                    &nbsp;&nbsp;mqtt-broker:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: eclipse-mosquitto:2.0<br>
+                    &nbsp;&nbsp;influxdb:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: influxdb:2.0<br>
+                    &nbsp;&nbsp;edge-analytics:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: tensorflow/tensorflow:latest-gpu<br>
+                    &nbsp;&nbsp;grafana:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: grafana/grafana:latest<br>
+                    &nbsp;&nbsp;alert-manager:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: prom/alertmanager:latest
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Setup Phase (30 min):</strong> Hardware configuration, OS installation, network setup
+                </div>
+                <div class="timeline-item">
+                    <strong>Development Phase (60 min):</strong> Deploy services, configure data pipeline, ML model deployment
+                </div>
+                <div class="timeline-item">
+                    <strong>Testing Phase (30 min):</strong> Load testing, failover scenarios, performance validation
+                </div>
+                <div class="timeline-item">
+                    <strong>Demo Phase (20 min):</strong> Team presentations, results comparison, lessons learned
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Edge AI & Machine Learning -->
+        <div class="slide">
+            <h2>🤖 Edge AI &amp; Machine Learning</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">75%</div>
+                    <div class="metric-label">Data processed at edge by 2025</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">100x</div>
+                    <div class="metric-label">Faster inference at edge</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">90%</div>
+                    <div class="metric-label">Bandwidth reduction</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">$25B</div>
+                    <div class="metric-label">Edge AI market by 2025</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🧠 Edge AI Capabilities</h4>
+                    <ul>
+                        <li><strong>Computer Vision:</strong> Object detection, image classification</li>
+                        <li><strong>Natural Language Processing:</strong> Voice recognition, text analysis</li>
+                        <li><strong>Predictive Analytics:</strong> Anomaly detection, forecasting</li>
+                        <li><strong>Reinforcement Learning:</strong> Autonomous decision making</li>
+                        <li><strong>Federated Learning:</strong> Distributed model training</li>
+                        <li><strong>Transfer Learning:</strong> Pre-trained model adaptation</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>⚡ Edge AI Hardware</h4>
+                    <ul>
+                        <li><strong>Google Coral:</strong> Edge TPU development boards</li>
+                        <li><strong>NVIDIA Jetson:</strong> GPU-accelerated AI computing</li>
+                        <li><strong>Intel Movidius:</strong> Neural compute sticks</li>
+                        <li><strong>Qualcomm:</strong> AI Engine for mobile devices</li>
+                        <li><strong>Apple:</strong> Neural Engine in A-series chips</li>
+                        <li><strong>Huawei:</strong> Ascend AI processors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="implementation-box">
+                <h4>🛠️ Edge AI Implementation Example</h4>
+                <div class="code-example">
+                    <strong>Real-time Object Detection at Edge:</strong><br><br>
+                    
+                    <strong>Python Implementation (TensorFlow Lite):</strong><br><br>
+                    
+                    import tensorflow as tf<br>
+                    import cv2<br>
+                    import numpy as np<br><br>
+                    
+                    class EdgeAIDetector:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, model_path):<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.interpreter = tf.lite.Interpreter(model_path)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.interpreter.allocate_tensors()<br><br>
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;def detect_objects(self, frame):<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Preprocess image<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input_data = cv2.resize(frame, (320, 320))<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input_data = np.expand_dims(input_data, axis=0)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input_data = input_data.astype(np.float32) / 255.0<br><br>
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Run inference<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.interpreter.set_tensor(input_details[0]['index'], input_data)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.interpreter.invoke()<br><br>
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Get results<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output_data = self.interpreter.get_tensor(output_details[0]['index'])<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.post_process(output_data)
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🔄 Model Optimization</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Quantization (INT8, FP16)</li>
+                        <li>Pruning (remove redundant neurons)</li>
+                        <li>Knowledge Distillation</li>
+                        <li>Model Compression</li>
+                        <li>Hardware-specific optimization</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🎯 Inference Optimization</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Batch processing</li>
+                        <li>Pipeline parallelization</li>
+                        <li>Memory management</li>
+                        <li>Cache optimization</li>
+                        <li>Hardware acceleration</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🔄 Federated Learning</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Distributed model training</li>
+                        <li>Privacy-preserving learning</li>
+                        <li>Model aggregation</li>
+                        <li>Personalized models</li>
+                        <li>Differential privacy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: 5G and Edge Computing -->
+        <div class="slide">
+            <h2>📶 5G dan Multi-Access Edge Computing (MEC)</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">1ms</div>
+                    <div class="metric-label">5G ultra-low latency</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">20Gbps</div>
+                    <div class="metric-label">Peak data rates</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">1M</div>
+                    <div class="metric-label">Devices per km²</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">99.999%</div>
+                    <div class="metric-label">5G reliability</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🚀 5G Capabilities for Edge</h4>
+                    <ul>
+                        <li><strong>Ultra-Reliable Low Latency (URLLC):</strong> &lt;1ms</li>
+                        <li><strong>Enhanced Mobile Broadband (eMBB):</strong> High throughput</li>
+                        <li><strong>Massive IoT (mIoT):</strong> Million devices per km²</li>
+                        <li><strong>Network Slicing:</strong> Dedicated virtual networks</li>
+                        <li><strong>Edge Computing Integration:</strong> MEC platforms</li>
+                        <li><strong>Private Networks:</strong> Enterprise 5G deployment</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🏗️ MEC Architecture</h4>
+                    <ul>
+                        <li><strong>MEC Host:</strong> Edge computing platform at base station</li>
+                        <li><strong>MEC Platform:</strong> Runtime environment for apps</li>
+                        <li><strong>MEC Apps:</strong> Edge applications and services</li>
+                        <li><strong>MEC Orchestrator:</strong> Lifecycle management</li>
+                        <li><strong>UE App:</strong> User equipment applications</li>
+                        <li><strong>OSS/BSS:</strong> Operations support systems</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="use-case-grid">
+                <div class="use-case-item">
+                    <h5>🚗 Connected &amp; Autonomous Vehicles</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>V2X communication (Vehicle-to-Everything)</li>
+                        <li>Real-time traffic optimization</li>
+                        <li>Collision avoidance systems</li>
+                        <li>HD map updates</li>
+                        <li>Platooning coordination</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>🏭 Industry 4.0</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Private 5G networks for factories</li>
+                        <li>Wireless automation &amp; control</li>
+                        <li>AGV (Automated Guided Vehicles)</li>
+                        <li>Quality inspection with AR/VR</li>
+                        <li>Predictive maintenance</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>🎮 Immersive Experiences</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Cloud gaming with 5G edge</li>
+                        <li>AR/VR content streaming</li>
+                        <li>360° video broadcasting</li>
+                        <li>Holographic communications</li>
+                        <li>Interactive entertainment</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case-item">
+                    <h5>🏥 Remote Healthcare</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Remote surgery with haptic feedback</li>
+                        <li>Real-time patient monitoring</li>
+                        <li>Ambulance telemedicine</li>
+                        <li>AI-assisted diagnostics</li>
+                        <li>Medical device connectivity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4>🌐 5G MEC Deployment Scenario</h4>
+                <div class="code-example">
+                    <strong>Smart City Traffic Management with 5G MEC:</strong><br><br>
+                    
+                    <strong>Infrastructure Components:</strong><br>
+                    • 5G Base Stations with MEC capability<br>
+                    • Edge servers co-located with base stations<br>
+                    • Traffic cameras with 5G connectivity<br>
+                    • Connected vehicles with 5G modems<br>
+                    • Traffic light systems with edge controllers<br><br>
+                    
+                    <strong>Data Flow:</strong><br>
+                    1. Traffic cameras capture real-time video (4K@60fps)<br>
+                    2. Video processed locally at MEC host (object detection)<br>
+                    3. Traffic patterns analyzed with AI/ML models<br>
+                    4. Optimization decisions made in &lt;10ms<br>
+                    5. Traffic lights adjusted dynamically<br>
+                    6. Route recommendations sent to vehicles<br><br>
+                    
+                    <strong>Performance Metrics:</strong><br>
+                    • Latency: 5ms end-to-end<br>
+                    • Bandwidth: 1Gbps per intersection<br>
+                    • Processing: 1000 vehicles/intersection<br>
+                    • Availability: 99.99% uptime
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Security in Edge Computing -->
+        <div class="slide">
+            <h2>🔒 Security Challenges di Edge Computing</h2>
+            
+            <div class="content-grid">
+                <div class="content-box latency-box">
+                    <h4>🚨 Security Challenges</h4>
+                    <ul>
+                        <li><strong>Distributed Attack Surface:</strong> Multiple entry points</li>
+                        <li><strong>Physical Security:</strong> Device tampering, theft</li>
+                        <li><strong>Resource Constraints:</strong> Limited compute for security</li>
+                        <li><strong>Network Heterogeneity:</strong> Different protocols &amp; standards</li>
+                        <li><strong>Data Privacy:</strong> Sensitive data at edge</li>
+                        <li><strong>Update Management:</strong> Patching distributed devices</li>
+                    </ul>
+                </div>
+                <div class="content-box iot-box">
+                    <h4>🛡️ Security Solutions</h4>
+                    <ul>
+                        <li><strong>Zero Trust Architecture:</strong> Never trust, always verify</li>
+                        <li><strong>Hardware Security Module (HSM):</strong> Crypto processors</li>
+                        <li><strong>Secure Boot &amp; Attestation:</strong> Device integrity</li>
+                        <li><strong>End-to-End Encryption:</strong> Data protection in transit</li>
+                        <li><strong>Edge Firewall:</strong> Network security at edge</li>
+                        <li><strong>Blockchain:</strong> Distributed trust &amp; identity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🔐 Device Security</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Hardware Root of Trust</li>
+                        <li>Secure Element (SE)</li>
+                        <li>Trusted Platform Module (TPM)</li>
+                        <li>ARM TrustZone</li>
+                        <li>Intel SGX enclaves</li>
+                        <li>Device fingerprinting</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🌐 Network Security</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>VPN &amp; SD-WAN</li>
+                        <li>Network segmentation</li>
+                        <li>Intrusion detection (IDS/IPS)</li>
+                        <li>DDoS protection</li>
+                        <li>Certificate management</li>
+                        <li>Network access control</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🔒 Data Security</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Data encryption at rest</li>
+                        <li>Homomorphic encryption</li>
+                        <li>Differential privacy</li>
+                        <li>Secure multi-party computation</li>
+                        <li>Data loss prevention (DLP)</li>
+                        <li>Privacy-preserving ML</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="implementation-box">
+                <h4>🔧 Edge Security Implementation</h4>
+                <div class="code-example">
+                    <strong>Comprehensive Edge Security Stack:</strong><br><br>
+                    
+                    <strong>1. Device Level Security:</strong><br>
+                    # Secure boot configuration<br>
+                    sudo update-grub<br>
+                    sudo mokutil --sb-state  # Check Secure Boot status<br><br>
+                    
+                    # TPM setup for hardware security<br>
+                    sudo apt-get install tpm2-tools<br>
+                    tpm2_getrandom --hex 32  # Generate secure random<br><br>
+                    
+                    <strong>2. Container Security:</strong><br>
+                    # Docker security scanning<br>
+                    docker scan myapp:latest<br><br>
+                    
+                    # Kubernetes security policies<br>
+                    apiVersion: policy/v1beta1<br>
+                    kind: PodSecurityPolicy<br>
+                    metadata:<br>
+                    &nbsp;&nbsp;name: edge-security-policy<br>
+                    spec:<br>
+                    &nbsp;&nbsp;runAsNonRoot: true<br>
+                    &nbsp;&nbsp;readOnlyRootFilesystem: true<br><br>
+                    
+                    <strong>3. Network Security:</strong><br>
+                    # EdgeX security services<br>
+                    docker-compose -f docker-compose-security.yml up -d<br><br>
+                    
+                    # VPN setup for edge devices<br>
+                    sudo openvpn --config edge-client.ovpn
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Edge Computing Performance -->
+        <div class="slide">
+            <h2>📊 Performance Optimization di Edge</h2>
+            
+            <div class="performance-chart">
+                <div class="chart-bar">
+                    <div class="bar" style="height: 180px;"></div>
+                    <div class="bar-label">Cloud Only<br>180ms</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar" style="height: 120px;"></div>
+                    <div class="bar-label">CDN<br>120ms</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar" style="height: 50px;"></div>
+                    <div class="bar-label">Edge<br>50ms</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar" style="height: 15px;"></div>
+                    <div class="bar-label">Local<br>15ms</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar" style="height: 5px;"></div>
+                    <div class="bar-label">5G Edge<br>5ms</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>⚡ Performance Optimization Techniques</h4>
+                    <ul>
+                        <li><strong>Caching Strategies:</strong> Content delivery optimization</li>
+                        <li><strong>Load Balancing:</strong> Distribute workload across edge nodes</li>
+                        <li><strong>Resource Allocation:</strong> Dynamic CPU/memory management</li>
+                        <li><strong>Data Preprocessing:</strong> Filter &amp; aggregate at source</li>
+                        <li><strong>Protocol Optimization:</strong> Lightweight protocols (MQTT, CoAP)</li>
+                        <li><strong>Compression:</strong> Reduce data transfer overhead</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>📈 Performance Monitoring</h4>
+                    <ul>
+                        <li><strong>Latency Metrics:</strong> End-to-end response time</li>
+                        <li><strong>Throughput:</strong> Data processing rates</li>
+                        <li><strong>Resource Utilization:</strong> CPU, memory, network usage</li>
+                        <li><strong>Availability:</strong> System uptime &amp; reliability</li>
+                        <li><strong>Quality of Service (QoS):</strong> SLA compliance</li>
+                        <li><strong>Energy Efficiency:</strong> Power consumption optimization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🔧 Hardware Optimization</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>GPU acceleration for AI workloads</li>
+                        <li>FPGA for custom processing</li>
+                        <li>NVMe storage for low latency</li>
+                        <li>High-speed networking (10GbE+)</li>
+                        <li>Power-efficient processors</li>
+                        <li>Cooling optimization</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>💻 Software Optimization</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Containerization for efficiency</li>
+                        <li>Microservices architecture</li>
+                        <li>Event-driven processing</li>
+                        <li>Asynchronous operations</li>
+                        <li>Memory pool management</li>
+                        <li>Compiler optimizations</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>📡 Network Optimization</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Protocol selection (UDP vs TCP)</li>
+                        <li>Compression algorithms</li>
+                        <li>Traffic shaping &amp; QoS</li>
+                        <li>Connection pooling</li>
+                        <li>Edge-to-edge communication</li>
+                        <li>Bandwidth management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="simulation-section">
+                <h4>🧪 Performance Testing Lab</h4>
+                <div class="code-example">
+                    <strong>Edge Performance Benchmarking Script:</strong><br><br>
+                    
+                    #!/bin/bash<br>
+                    # Edge Computing Performance Test Suite<br><br>
+                    
+                    echo "=== Edge Computing Performance Test ==="<br><br>
+                    
+                    # Latency test<br>
+                    echo "Testing latency..."<br>
+                    ping -c 10 edge-server.local | grep avg<br><br>
+                    
+                    # Throughput test<br>
+                    echo "Testing throughput..."<br>
+                    iperf3 -c edge-server.local -t 30<br><br>
+                    
+                    # CPU benchmark<br>
+                    echo "CPU performance test..."<br>
+                    sysbench cpu --cpu-max-prime=20000 run<br><br>
+                    
+                    # Memory benchmark<br>
+                    echo "Memory performance test..."<br>
+                    sysbench memory --memory-total-size=10G run<br><br>
+                    
+                    # Storage I/O test<br>
+                    echo "Storage I/O test..."<br>
+                    fio --name=test --size=1G --rw=randread --bs=4k --numjobs=4<br><br>
+                    
+                    echo "Performance test completed!"
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Edge Computing Implementation -->
+        <div class="slide">
+            <h2>🛠️ Implementasi Edge Computing: Step-by-Step</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Phase 1 - Assessment &amp; Planning (2-4 weeks):</strong> Requirements analysis, use case definition, technology selection
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 2 - Infrastructure Setup (4-6 weeks):</strong> Hardware procurement, network configuration, security setup
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 3 - Application Development (6-8 weeks):</strong> Edge apps, data pipeline, ML models
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 4 - Testing &amp; Validation (2-3 weeks):</strong> Performance testing, security audit, load testing
+                </div>
+                <div class="timeline-item">
+                    <strong>Phase 5 - Deployment &amp; Monitoring (1-2 weeks):</strong> Production rollout, monitoring setup, documentation
+                </div>
+            </div>
+
+            <div class="implementation-box">
+                <h4>📋 Implementation Checklist</h4>
+                <div class="content-grid">
+                    <div>
+                        <h6 style="color: #ff5722;">Technical Requirements</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>✅ Latency requirements defined (&lt;5ms, &lt;10ms, etc.)</li>
+                            <li>✅ Bandwidth constraints identified</li>
+                            <li>✅ Security requirements documented</li>
+                            <li>✅ Scalability needs assessed</li>
+                            <li>✅ Integration points mapped</li>
+                            <li>✅ Monitoring strategy defined</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #ff5722;">Infrastructure Setup</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>✅ Edge hardware selected &amp; deployed</li>
+                            <li>✅ Network connectivity established</li>
+                            <li>✅ Security policies implemented</li>
+                            <li>✅ Container platform deployed</li>
+                            <li>✅ Monitoring tools configured</li>
+                            <li>✅ Backup &amp; recovery tested</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4>🏗️ Reference Implementation Architecture</h4>
+                <div class="code-example">
+                    <strong>Complete Edge Computing Stack Deployment:</strong><br><br>
+                    
+                    <strong>1. Hardware Layer:</strong><br>
+                    • Edge Devices: 4x NVIDIA Jetson Xavier NX<br>
+                    • Network: 5G/WiFi 6 connectivity<br>
+                    • Storage: NVMe SSD RAID configuration<br>
+                    • Sensors: Industrial IoT sensor network<br><br>
+                    
+                    <strong>2. System Layer (K3s Cluster):</strong><br>
+                    # K3s installation on edge nodes<br>
+                    curl -sfL https://get.k3s.io | sh -s - server<br>
+                    curl -sfL https://get.k3s.io | K3S_URL=https://master-node:6443 \<br>
+                    &nbsp;&nbsp;K3S_TOKEN=node-token sh -s - agent<br><br>
+                    
+                    <strong>3. Application Layer:</strong><br>
+                    apiVersion: apps/v1<br>
+                    kind: Deployment<br>
+                    metadata:<br>
+                    &nbsp;&nbsp;name: edge-analytics<br>
+                    spec:<br>
+                    &nbsp;&nbsp;replicas: 3<br>
+                    &nbsp;&nbsp;selector:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;matchLabels:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app: edge-analytics<br>
+                    &nbsp;&nbsp;template:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;spec:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containers:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: analytics-engine<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: tensorflow/tensorflow:latest-gpu<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resources:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requests:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nvidia.com/gpu: 1
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🎯 Success Metrics</h4>
+                <div class="metrics">
+                    <div class="metric-item">
+                        <div class="metric-number">95%</div>
+                        <div class="metric-label">Latency reduction achieved</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">60%</div>
+                        <div class="metric-label">Bandwidth savings</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">99.9%</div>
+                        <div class="metric-label">System availability</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">40%</div>
+                        <div class="metric-label">Cost optimization</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Case Study: Smart Factory -->
+        <div class="slide">
+            <h2>📚 Case Study: Smart Factory Edge Implementation</h2>
+            
+            <div class="case-study">
+                <h4>🏭 PT. Industri Pintar Indonesia</h4>
+                <p><strong>Challenge:</strong> Pabrik otomotif dengan 500+ mesin produksi membutuhkan predictive maintenance system untuk mengurangi downtime dan meningkatkan efisiensi produksi sebesar 25%.</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📊 Current State</h4>
+                    <ul>
+                        <li><strong>Machines:</strong> 500+ production machines</li>
+                        <li><strong>Downtime:</strong> 15% unplanned maintenance</li>
+                        <li><strong>Data Volume:</strong> 50TB/month sensor data</li>
+                        <li><strong>Response Time:</strong> 30+ minutes for alerts</li>
+                        <li><strong>Maintenance Cost:</strong> $2M annually</li>
+                        <li><strong>Efficiency:</strong> 75% overall equipment effectiveness</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🎯 Requirements</h4>
+                    <ul>
+                        <li><strong>Real-time Processing:</strong> &lt;5ms anomaly detection</li>
+                        <li><strong>Predictive Analytics:</strong> 24-48 hour failure prediction</li>
+                        <li><strong>Edge Deployment:</strong> On-premise data processing</li>
+                        <li><strong>Scalability:</strong> Support for 1000+ machines</li>
+                        <li><strong>Integration:</strong> Existing MES/ERP systems</li>
+                        <li><strong>ROI:</strong> 18-month payback period</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4>🏗️ Smart Factory Edge Architecture</h4>
+                <div class="code-example">
+                    <strong>Multi-Tier Edge Computing Solution:</strong><br><br>
+                    
+                    <strong>Tier 1 - Machine Edge (500 nodes):</strong><br>
+                    • Hardware: Industrial PCs with Intel Core i7<br>
+                    • Sensors: Vibration, temperature, pressure, acoustic<br>
+                    • Processing: Real-time data collection &amp; filtering<br>
+                    • Storage: 7-day local data buffer (SSD)<br>
+                    • Connectivity: Industrial Ethernet, OPC UA<br><br>
+                    
+                    <strong>Tier 2 - Area Edge (10 clusters):</strong><br>
+                    • Hardware: NVIDIA Jetson AGX Xavier clusters<br>
+                    • Processing: ML inference, anomaly detection<br>
+                    • Analytics: Statistical analysis, trend detection<br>
+                    • Storage: 30-day processed data (NVMe RAID)<br>
+                    • Networking: 10GbE backbone, WiFi 6<br><br>
+                    
+                    <strong>Tier 3 - Factory Edge (1 data center):</strong><br>
+                    • Hardware: Dell PowerEdge servers with GPU<br>
+                    • Processing: Predictive analytics, ML training<br>
+                    • Integration: MES, ERP, CMMS systems<br>
+                    • Storage: Distributed database cluster<br>
+                    • Management: Centralized orchestration
+                </div>
+            </div>
+
+            <div class="implementation-box">
+                <h4>📈 Implementation Results</h4>
+                <div class="metrics">
+                    <div class="metric-item">
+                        <div class="metric-number">85%</div>
+                        <div class="metric-label">Reduction in unplanned downtime</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">92%</div>
+                        <div class="metric-label">Predictive accuracy achieved</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">$1.5M</div>
+                        <div class="metric-label">Annual cost savings</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number">12</div>
+                        <div class="metric-label">Months actual payback period</div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div>
+                        <h6 style="color: #ff5722;">Technical Achievements</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>3ms average anomaly detection time</li>
+                            <li>48-hour failure prediction window</li>
+                            <li>99.7% system availability</li>
+                            <li>75% reduction in false positives</li>
+                            <li>Real-time dashboard for 500+ machines</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #ff5722;">Business Impact</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Overall Equipment Effectiveness: 75% → 91%</li>
+                            <li>Maintenance costs reduced by 45%</li>
+                            <li>Production efficiency increased by 28%</li>
+                            <li>Energy consumption reduced by 15%</li>
+                            <li>Quality defects reduced by 35%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Month 1-2:</strong> Pilot deployment on 50 critical machines, ML model development
+                </div>
+                <div class="timeline-item">
+                    <strong>Month 3-4:</strong> Edge infrastructure rollout, system integration testing
+                </div>
+                <div class="timeline-item">
+                    <strong>Month 5-6:</strong> Full production deployment, staff training, performance tuning
+                </div>
+                <div class="timeline-item">
+                    <strong>Month 7-12:</strong> Optimization, additional use cases, ROI measurement
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Assignment -->
+        <div class="slide">
+            <h2>📝 Assignment: Edge Computing Implementation Project</h2>
+            
+            <div class="case-study">
+                <h4>🎯 Project Brief: Smart Campus Edge Computing</h4>
+                <p><strong>Scenario:</strong> Universitas Tidar ingin mengimplementasikan smart campus system dengan edge computing untuk meningkatkan efisiensi energi, keamanan kampus, dan pengalaman mahasiswa melalui IoT sensors dan real-time analytics.</p>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>📋 Project Deliverables</h4>
+                    <ul>
+                        <li><strong>System Architecture (15 pages):</strong> Complete edge computing design</li>
+                        <li><strong>Implementation Plan (10 pages):</strong> Step-by-step deployment</li>
+                        <li><strong>Technology Selection (8 pages):</strong> Hardware &amp; software choices</li>
+                        <li><strong>Security Design (7 pages):</strong> Comprehensive security strategy</li>
+                        <li><strong>Performance Analysis (5 pages):</strong> Latency &amp; throughput optimization</li>
+                        <li><strong>Cost-Benefit Analysis (3 pages):</strong> ROI calculation</li>
+                        <li><strong>Risk Assessment (2 pages):</strong> Risk mitigation strategies</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🏆 Grading Criteria</h4>
+                    <ul>
+                        <li><strong>Technical Design (35%):</strong> Architecture quality &amp; feasibility</li>
+                        <li><strong>Implementation Strategy (25%):</strong> Practical deployment approach</li>
+                        <li><strong>Innovation (20%):</strong> Creative solutions &amp; emerging tech</li>
+                        <li><strong>Performance Optimization (10%):</strong> Latency &amp; efficiency focus</li>
+                        <li><strong>Presentation (10%):</strong> Professional delivery &amp; demo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🏫 Smart Campus Use Cases</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Energy management &amp; optimization</li>
+                        <li>Campus security &amp; surveillance</li>
+                        <li>Parking space management</li>
+                        <li>Air quality monitoring</li>
+                        <li>Classroom occupancy tracking</li>
+                        <li>Student attendance system</li>
+                        <li>Emergency response system</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>📊 Requirements</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>1000+ IoT sensors across campus</li>
+                        <li>&lt;10ms response time for critical alerts</li>
+                        <li>24/7 system availability</li>
+                        <li>Privacy-compliant data processing</li>
+                        <li>Integration with existing systems</li>
+                        <li>Scalable to 20,000+ students</li>
+                        <li>3-year technology roadmap</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🛠️ Technical Components</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Edge hardware selection</li>
+                        <li>IoT sensor network design</li>
+                        <li>Data pipeline architecture</li>
+                        <li>ML/AI model deployment</li>
+                        <li>Real-time analytics platform</li>
+                        <li>Mobile app for students</li>
+                        <li>Dashboard for administrators</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Week 1-2:</strong> Requirements analysis, use case definition, technology research
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 3-4:</strong> System architecture design, hardware selection, security planning
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 5-6:</strong> Implementation planning, cost analysis, risk assessment
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 7:</strong> Prototype development, testing, documentation finalization
+                </div>
+                <div class="timeline-item">
+                    <strong>Week 8:</strong> Final presentation &amp; demonstration (30 minutes per team)
+                </div>
+            </div>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>👥 Team</h5>
+                    <p>4-5 students per team<br>Multidisciplinary roles</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📊 Deliverable</h5>
+                    <p>Technical report + Working prototype<br>Live demonstration</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🎯 Focus</h5>
+                    <p>Real implementation feasibility<br>Performance optimization</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Future of Edge Computing -->
+        <div class="slide">
+            <h2>🔮 Future of Edge Computing</h2>
+            
+            <div class="metrics">
+                <div class="metric-item">
+                    <div class="metric-number">$274B</div>
+                    <div class="metric-label">Edge computing market by 2025</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">75%</div>
+                    <div class="metric-label">Data processed at edge by 2025</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">29B</div>
+                    <div class="metric-label">Connected IoT devices by 2030</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">6G</div>
+                    <div class="metric-label">Next generation connectivity</div>
+                </div>
+            </div>
+
+            <div class="three-column">
+                <div class="detail-box">
+                    <h5>🤖 AI-Native Edge</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Neuromorphic computing chips</li>
+                        <li>Quantum edge processors</li>
+                        <li>Brain-computer interfaces</li>
+                        <li>Autonomous ML model optimization</li>
+                        <li>Self-healing edge systems</li>
+                        <li>Cognitive edge computing</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🌐 Distributed Edge</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>Satellite edge computing</li>
+                        <li>Drone-based edge nodes</li>
+                        <li>Vehicle-to-everything (V2X)</li>
+                        <li>Mesh edge networks</li>
+                        <li>Underwater edge computing</li>
+                        <li>Space-based processing</li>
+                    </ul>
+                </div>
+                <div class="detail-box">
+                    <h5>🔬 Emerging Technologies</h5>
+                    <ul style="font-size: 1rem;">
+                        <li>6G ultra-low latency networks</li>
+                        <li>Holographic data storage</li>
+                        <li>Photonic computing</li>
+                        <li>DNA data storage</li>
+                        <li>Molecular computing</li>
+                        <li>Biocomputing integration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>🌱 Green Edge</h5>
+                    <p>Carbon-neutral edge computing with renewable energy</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🔗 Web3 Edge</h5>
+                    <p>Decentralized edge networks with blockchain</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🎮 Metaverse Edge</h5>
+                    <p>Ultra-low latency for immersive experiences</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🏥 Healthcare Edge</h5>
+                    <p>Medical-grade edge computing for patient care</p>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🚀 Vision 2030: Ubiquitous Edge Computing</h4>
+                <p>By 2030, edge computing will be seamlessly integrated into every aspect of our digital infrastructure. From smart cities processing billions of sensor readings in real-time to autonomous vehicles making life-critical decisions in microseconds, edge computing will enable a truly connected, intelligent world.</p>
+                
+                <div class="content-grid">
+                    <div>
+                        <h6 style="color: #667eea;">Technology Trends</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Sub-millisecond latency everywhere</li>
+                            <li>Trillion-device connectivity</li>
+                            <li>Autonomous edge orchestration</li>
+                            <li>Quantum-secured communications</li>
+                            <li>Energy-neutral computing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 style="color: #764ba2;">Societal Impact</h6>
+                        <ul style="font-size: 1rem;">
+                            <li>Fully autonomous transportation</li>
+                            <li>Personalized healthcare delivery</li>
+                            <li>Sustainable smart cities</li>
+                            <li>Immersive remote work/education</li>
+                            <li>Real-time climate monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Conclusion -->
+        <div class="slide">
+            <h2>🎯 Kesimpulan dan Key Takeaways</h2>
+            
+            <div class="content-grid">
+                <div class="content-box">
+                    <h4>🔑 Key Principles</h4>
+                    <ul>
+                        <li>Edge computing adalah <span class="highlight">game changer</span> untuk real-time applications</li>
+                        <li>Latency reduction drives new possibilities</li>
+                        <li>Security must be built-in from the start</li>
+                        <li>Hybrid edge-cloud is the optimal approach</li>
+                        <li>Performance optimization is continuous</li>
+                        <li>Implementation requires careful planning</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h4>🚀 Strategic Recommendations</h4>
+                    <ul>
+                        <li><strong>Start Small:</strong> Begin with pilot projects</li>
+                        <li><strong>Focus on Use Cases:</strong> Identify high-value applications</li>
+                        <li><strong>Invest in Skills:</strong> Build edge computing expertise</li>
+                        <li><strong>Plan for Scale:</strong> Design for future growth</li>
+                        <li><strong>Security First:</strong> Implement comprehensive security</li>
+                        <li><strong>Monitor Everything:</strong> Continuous performance optimization</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <h4>💡 The Edge Computing Imperative</h4>
+                <p style="font-size: 1.4rem; text-align: center; font-style: italic;">
+                    "Edge computing is not just about moving compute closer to data - it's about enabling a new generation of applications that were previously impossible. The edge is where innovation happens in real-time."
+                </p>
+            </div>
+            
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>📚 Continue Learning</h5>
+                    <p>Edge AI, 5G MEC, IoT integration, hands-on projects</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🏃 Next Actions</h5>
+                    <p>Start team project, build prototype, measure performance</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📖 Resources</h5>
+                    <p>Edge computing platforms, case studies, best practices</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <h3 style="color: #FFD700;">🙏 Questions &amp; Discussion</h3>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">Ready to build the intelligent edge?</p>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="prevSlide()">⬅️ Previous</button>
+            <button class="control-btn" onclick="nextSlide()">Next ➡️</button>
+            <button class="control-btn" onclick="scrollToTop()">⬆️ Top</button>
+            <button class="control-btn" onclick="scrollToBottom()">⬇️ Bottom</button>
+            <button class="control-btn" onclick="toggleFullscreen()">🔳 Fullscreen</button>
+        </div>
+        
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">16</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            const progressWidth = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progressWidth + '%';
+        }
+        
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+        
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        function scrollToTop() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        function scrollToBottom() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: activeSlide.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Demo functions
+        function simulateLatency() {
+            const result = document.getElementById('demoResult');
+            result.innerHTML = `
+                <div style="text-align: left;">
+                    <h4 style="color: #FFD700;">Latency Comparison Test</h4>
+                    <p>🌩️ Cloud Processing: <span style="color: #e74c3c;">127ms</span></p>
+                    <p>⚡ Edge Processing: <span style="color: #2ecc71;">8ms</span></p>
+                    <p>📈 <strong>Performance Improvement: 93% faster</strong></p>
+                </div>
+            `;
+        }
+        
+        function simulateDataFlow() {
+            const result = document.getElementById('demoResult');
+            result.innerHTML = `
+                <div style="text-align: left;">
+                    <h4 style="color: #FFD700;">Data Flow Simulation</h4>
+                    <p>📊 Sensor Data: 1,000 readings/sec</p>
+                    <p>🔄 Edge Processing: Real-time filtering</p>
+                    <p>☁️ Cloud Sync: 10 aggregated points/min</p>
+                    <p>📉 <strong>Bandwidth Reduction: 99.8%</strong></p>
+                </div>
+            `;
+        }
+        
+        function simulateFailover() {
+            const result = document.getElementById('demoResult');
+            result.innerHTML = `
+                <div style="text-align: left;">
+                    <h4 style="color: #FFD700;">Failover Test Results</h4>
+                    <p>⚠️ Primary edge node failure detected</p>
+                    <p>🔄 Automatic failover initiated</p>
+                    <p>✅ Backup node active in 0.3 seconds</p>
+                    <p>📊 <strong>99.99% availability maintained</strong></p>
+                </div>
+            `;
+        }
+        
+        function simulateScaling() {
+            const result = document.getElementById('demoResult');
+            result.innerHTML = `
+                <div style="text-align: left;">
+                    <h4 style="color: #FFD700;">Auto-Scaling Simulation</h4>
+                    <p>📈 Load increased to 85% CPU usage</p>
+                    <p>🚀 Scaling trigger activated</p>
+                    <p>➕ Additional edge nodes deployed</p>
+                    <p>📊 <strong>Load distributed: 45% average CPU</strong></p>
+                </div>
+            `;
+        }
+        
+        function resetDemo() {
+            const result = document.getElementById('demoResult');
+            result.innerHTML = 'Click any button above to run edge computing simulations';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const activeSlide = document.querySelector('.slide.active');
+            
+            switch(event.key) {
+                case 'ArrowRight':
+                case 'PageDown':
+                    event.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                    event.preventDefault();
+                    prevSlide();
+                    break;
+                case ' ':
+                    if (!event.shiftKey) {
+                        event.preventDefault();
+                        nextSlide();
+                    }
+                    break;
+                case 'ArrowUp':
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: -100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'ArrowDown':
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'Home':
+                    if (event.ctrlKey) {
+                        currentSlideIndex = 0;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'End':
+                    if (event.ctrlKey) {
+                        currentSlideIndex = totalSlides - 1;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: activeSlide.scrollHeight,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+            }
+        });
+        
+        // Touch/swipe support
+        let startX = null;
+        document.addEventListener('touchstart', function(event) {
+            startX = event.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', function(event) {
+            if (startX === null) return;
+            
+            let endX = event.changedTouches[0].clientX;
+            let diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            
+            startX = null;
+        });
+        
+        // Initialize
+        showSlide(0);
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

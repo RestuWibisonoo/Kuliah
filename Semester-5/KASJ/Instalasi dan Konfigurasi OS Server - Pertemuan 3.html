@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<!-- saved from url=(0120)https://class.tiflab.my.id/storage/lessons/materials/1756602621_3.%20KASJ%20-%20Instalasi%20Konfurasi%20OS%20Server.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalasi dan Konfigurasi OS Server - Pertemuan 3</title>
+    <link rel="stylesheet" href="./Instalasi dan Konfigurasi OS Server - Pertemuan 3_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #3498db;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #3498db;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #3498db;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #3498db;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            color: #3498db;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+            overflow-x: auto;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .os-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 15px;
+            vertical-align: middle;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 784px; top: 504px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 6.25%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 16</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+    
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Instalasi dan Konfigurasi OS Server - Pertemuan 3_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Instalasi dan Konfigurasi OS Server</div>
+                <div class="slide-subtitle">Konfigurasi dan Administrasi Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-server icon"></i>
+                    Pertemuan 3
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu menginstal dan konfigurasi dasar sistem operasi server</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>2 x 50 menit</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="list-item">
+                    <i class="fas fa-download icon"></i>
+                    <strong>Melakukan instalasi OS server</strong><br>
+                    Windows Server dan Linux Server
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-network-wired icon"></i>
+                    <strong>Mengkonfigurasi network settings</strong><br>
+                    IP Address, DNS, Gateway
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-desktop icon"></i>
+                    <strong>Setup remote access</strong><br>
+                    RDP, SSH, Web Management
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-file-alt icon"></i>
+                    <strong>Membuat dokumentasi instalasi</strong><br>
+                    Step-by-step procedures
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db; margin-bottom: 20px;">Persiapan &amp; Instalasi</h3>
+                        <div class="list-item">
+                            <i class="fas fa-cog icon"></i>
+                            Persiapan Instalasi
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-compact-disc icon"></i>
+                            Windows Server Installation
+                        </div>
+                        <div class="list-item">
+                            <i class="fab fa-linux icon"></i>
+                            Linux Server Installation
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db; margin-bottom: 20px;">Konfigurasi &amp; Management</h3>
+                        <div class="list-item">
+                            <i class="fas fa-ethernet icon"></i>
+                            Network Configuration
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            Security Settings
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-satellite-dish icon"></i>
+                            Remote Management
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Server OS Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Server Operating Systems</div>
+                <div class="slide-subtitle">Pilihan Platform Server</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db; text-align: center;">
+                            <i class="fab fa-windows" style="color: #0078d4;"></i> Windows Server
+                        </h3>
+                        <div class="list-item">
+                            <strong>Windows Server 2022</strong><br>
+                            <small>Latest features, enhanced security</small>
+                        </div>
+                        <div class="list-item">
+                            <strong>Windows Server 2019</strong><br>
+                            <small>Stable, widely supported</small>
+                        </div>
+                        <div class="list-item">
+                            <strong>Windows Server Core</strong><br>
+                            <small>Minimal GUI, better performance</small>
+                        </div>
+                        <div class="warning-box">
+                            <strong>Licensing:</strong> Requires valid license key
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db; text-align: center;">
+                            <i class="fab fa-linux" style="color: #333;"></i> Linux Server
+                        </h3>
+                        <div class="list-item">
+                            <strong>Ubuntu Server LTS</strong><br>
+                            <small>User-friendly, extensive documentation</small>
+                        </div>
+                        <div class="list-item">
+                            <strong>CentOS / RHEL</strong><br>
+                            <small>Enterprise-grade, stable</small>
+                        </div>
+                        <div class="list-item">
+                            <strong>Debian Server</strong><br>
+                            <small>Lightweight, highly customizable</small>
+                        </div>
+                        <div class="success-box">
+                            <strong>Open Source:</strong> Free to use and modify
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Pre-Installation Checklist -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Persiapan Instalasi</div>
+                <div class="slide-subtitle">Pre-Installation Checklist</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #3498db;">Hardware Requirements</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>CPU:</strong> Min 1.4 GHz 64-bit
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>RAM:</strong> Min 2GB (4GB recommended)
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Storage:</strong> Min 32GB free space
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Installation Media</h3>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>ISO File:</strong> Download from official source
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>USB/DVD:</strong> Bootable installation media
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>Validation:</strong> Check MD5/SHA checksums
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Network Planning</h3>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>IP Address:</strong> Static IP planning
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">8</div>
+                            <strong>DNS:</strong> Primary &amp; secondary DNS
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">9</div>
+                            <strong>Gateway:</strong> Default gateway address
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Windows Server Installation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Windows Server Installation</div>
+                <div class="slide-subtitle">Step-by-Step Process</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Installation Steps</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Boot from Media</strong><br>
+                            Configure BIOS/UEFI boot order
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Language &amp; Region</strong><br>
+                            Select installation language
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Edition Selection</strong><br>
+                            Standard vs Datacenter
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Installation Type</strong><br>
+                            Custom installation (clean)
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Configuration</h3>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>Disk Partitioning</strong><br>
+                            Create system partitions
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>Administrator Password</strong><br>
+                            Set strong password policy
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>Initial Login</strong><br>
+                            First-time setup wizard
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">8</div>
+                            <strong>Windows Updates</strong><br>
+                            Download and install updates
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Linux Server Installation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Linux Server Installation</div>
+                <div class="slide-subtitle">Ubuntu Server Example</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Installation Process</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Boot &amp; Language</strong><br>
+                            Select installer language
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Keyboard Layout</strong><br>
+                            Configure input method
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Network Configuration</strong><br>
+                            Configure during installation
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Storage Configuration</strong><br>
+                            Guided or manual partitioning
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">User &amp; Services</h3>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>User Account</strong><br>
+                            Create initial user account
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>SSH Setup</strong><br>
+                            Enable OpenSSH server
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>Package Selection</strong><br>
+                            Choose server roles/services
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">8</div>
+                            <strong>Installation Complete</strong><br>
+                            Reboot and verify
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Network Interface Configuration -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Network Interface Configuration</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Windows Server</h3>
+                        <div class="code-block">
+# PowerShell Commands
+New-NetIPAddress -InterfaceIndex 12 `
+  -IPAddress "192.168.1.100" `
+  -PrefixLength 24 `
+  -DefaultGateway "192.168.1.1"
+
+Set-DnsClientServerAddress `
+  -InterfaceIndex 12 `
+  -ServerAddresses "8.8.8.8","8.8.4.4"
+                        </div>
+                        <div class="warning-box">
+                            <strong>GUI Method:</strong><br>
+                            Network and Sharing Center → Change adapter settings
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Linux Server</h3>
+                        <div class="code-block">
+<pre># Ubuntu Netplan Configuration
+# /etc/netplan/00-installer-config.yaml
+
+network:
+&nbsp;&nbsp;&nbsp;&nbsp;version: 2
+&nbsp;&nbsp;&nbsp;&nbsp;ethernets:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ens33:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dhcp4: false
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addresses:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 192.168.1.100/24
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gateway4: 192.168.1.1
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nameservers:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addresses: [8.8.8.8, 8.8.4.4]</pre>
+                        </div>
+                        <div class="code-block">
+sudo netplan apply
+sudo systemctl restart networking
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Initial Security Settings -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Initial Security Settings</div>
+                <div class="slide-subtitle">Baseline Security Configuration</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #3498db;">User Account</h3>
+                        <div class="list-item">
+                            <i class="fas fa-user-shield icon"></i>
+                            <strong>Password Policy</strong><br>
+                            Complex passwords, regular changes
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-users-cog icon"></i>
+                            <strong>User Groups</strong><br>
+                            Principle of least privilege
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-user-times icon"></i>
+                            <strong>Disable Unused Accounts</strong><br>
+                            Remove or disable default accounts
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Firewall</h3>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            <strong>Windows Firewall</strong><br>
+                            Enable and configure rules
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-fire icon"></i>
+                            <strong>UFW (Ubuntu)</strong><br>
+                            sudo ufw enable
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-lock icon"></i>
+                            <strong>Port Management</strong><br>
+                            Close unnecessary ports
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">System Updates</h3>
+                        <div class="list-item">
+                            <i class="fas fa-download icon"></i>
+                            <strong>Automatic Updates</strong><br>
+                            Configure update policies
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-clock icon"></i>
+                            <strong>Update Schedule</strong><br>
+                            Regular maintenance windows
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-bug icon"></i>
+                            <strong>Security Patches</strong><br>
+                            Priority security updates
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Remote Management Setup -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Remote Management Setup</div>
+                <div class="slide-subtitle">RDP, SSH, and Web Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Windows Server - RDP</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Enable RDP</strong><br>
+                            System Properties → Remote settings
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Firewall Rule</strong><br>
+                            Allow RDP through Windows Firewall
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>User Permissions</strong><br>
+                            Add users to Remote Desktop Users group
+                        </div>
+                        <div class="code-block" style="font-size: 16px;">
+# PowerShell Command
+Enable-PSRemoting -Force
+Set-NetFirewallRule -DisplayName 
+  "Windows Remote Management (HTTP-In)" 
+  -Enabled True
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Linux Server - SSH</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Install OpenSSH</strong><br>
+                            Usually pre-installed on server
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Configure SSH</strong><br>
+                            Edit /etc/ssh/sshd_config
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Start Service</strong><br>
+                            Enable SSH daemon
+                        </div>
+                        <div class="code-block" style="font-size: 16px;">
+# SSH Configuration
+sudo systemctl enable ssh
+sudo systemctl start ssh
+sudo ufw allow ssh
+
+# Key-based authentication
+ssh-keygen -t rsa -b 4096
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Web Management Interfaces -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Web Management Interfaces</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Windows Admin Center</h3>
+                        <div class="list-item">
+                            <i class="fas fa-globe icon"></i>
+                            <strong>Modern Web Interface</strong><br>
+                            Browser-based server management
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-chart-bar icon"></i>
+                            <strong>Performance Monitoring</strong><br>
+                            Real-time system metrics
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-cogs icon"></i>
+                            <strong>Role Management</strong><br>
+                            Install and configure server roles
+                        </div>
+                        <div class="code-block">
+# Installation
+Download from Microsoft
+Install on management machine
+Access via https://localhost:6516
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Linux Web Management</h3>
+                        <div class="list-item">
+                            <i class="fas fa-terminal icon"></i>
+                            <strong>Cockpit</strong><br>
+                            Red Hat's web console
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-desktop icon"></i>
+                            <strong>Webmin</strong><br>
+                            Comprehensive web interface
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-server icon"></i>
+                            <strong>Portainer</strong><br>
+                            Container management interface
+                        </div>
+                        <div class="code-block">
+# Install Cockpit (Ubuntu)
+sudo apt update
+sudo apt install cockpit
+sudo systemctl enable cockpit
+Access via https://server-ip:9090
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Documentation Best Practices -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Documentation Best Practices</div>
+                <div class="slide-subtitle">Membuat Dokumentasi Instalasi</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Documentation Structure</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Executive Summary</strong><br>
+                            Overview of installation project
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>System Requirements</strong><br>
+                            Hardware and software prerequisites
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Step-by-Step Process</strong><br>
+                            Detailed installation procedures
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Configuration Details</strong><br>
+                            Network, security, and service configs
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Documentation Tools</h3>
+                        <div class="list-item">
+                            <i class="fas fa-file-word icon"></i>
+                            <strong>Microsoft Word</strong><br>
+                            Traditional documentation format
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-markdown icon"></i>
+                            <strong>Markdown</strong><br>
+                            Version-controlled documentation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-book icon"></i>
+                            <strong>Wiki Systems</strong><br>
+                            Collaborative documentation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-camera icon"></i>
+                            <strong>Screenshots</strong><br>
+                            Visual step-by-step guides
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Troubleshooting Common Issues -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Common Installation Issues</div>
+                <div class="slide-subtitle">Troubleshooting &amp; Solutions</div>
+            </div>
+            <div class="slide-content">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Symptoms</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Boot Failure</strong></td>
+                            <td>System won't boot from installation media</td>
+                            <td>Check BIOS/UEFI settings, verify media integrity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Issues</strong></td>
+                            <td>No network connectivity after installation</td>
+                            <td>Check cable, driver installation, IP configuration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Driver Problems</strong></td>
+                            <td>Hardware not recognized</td>
+                            <td>Download latest drivers from manufacturer</td>
+                        </tr>
+                        <tr>
+                            <td><strong>License Issues</strong></td>
+                            <td>Activation failures (Windows)</td>
+                            <td>Verify license key, check internet connectivity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disk Space</strong></td>
+                            <td>Installation fails due to insufficient space</td>
+                            <td>Free up space, use different partition</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 14: Post-Installation Checklist -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Post-Installation Checklist</div>
+                <div class="slide-subtitle">Verification &amp; Testing</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #3498db;">System Verification</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            System boots properly
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            All hardware recognized
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            Windows activation (if applicable)
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            System updates installed
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Network Testing</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            IP configuration correct
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            DNS resolution working
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            Internet connectivity
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            Internal network access
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Security &amp; Access</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            Firewall configured
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            Remote access working
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            User accounts created
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            Documentation complete
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Summary & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ringkasan &amp; Langkah Selanjutnya</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Key Takeaways</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Persiapan yang matang menentukan kesuksesan instalasi
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Network configuration adalah langkah kritis
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Security setup harus dilakukan sejak awal
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Remote management memudahkan administrasi
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Dokumentasi penting untuk maintenance
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db;">Praktik Selanjutnya</h3>
+                        <div class="list-item">
+                            <i class="fas fa-laptop-code icon"></i>
+                            <strong>Lab Session:</strong><br>
+                            Hands-on installation practice
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-file-alt icon"></i>
+                            <strong>Assignment:</strong><br>
+                            Create installation documentation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-network-wired icon"></i>
+                            <strong>Next Topic:</strong><br>
+                            Network services configuration
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-book icon"></i>
+                            <strong>Reading:</strong><br>
+                            Server administration best practices
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box animation-bounce" style="margin-top: 30px;">
+                    <i class="fas fa-question-circle icon"></i>
+                    Terima kasih! Ada pertanyaan tentang instalasi server?
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Terima Kasih</div>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="margin-bottom: 2rem; font-size: 2rem; color: #3498db;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h1 style="color: #3498db; margin-bottom: 2rem;">Terima Kasih!</h1>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle icon" style="color: #27ae60;"></i>
+                    <strong>Semoga materi Instalasi dan Konfigurasi OS Server ini bermanfaat!</strong>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-user icon"></i>
+                    <strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong><br>
+                    Program Studi Teknologi Informasi, Universitas Tidar Magelang
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <div style="font-size: 3rem; color: #3498db;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Perkenalan materi instalasi dan konfigurasi OS server</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">02:32</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Perkenalan materi instalasi dan konfigurasi OS server. Tekankan pentingnya proper installation untuk keamanan dan performance server.",
+            "Slide 2: Jelaskan learning outcomes yang konkret dan measurable. Siswa harus bisa melakukan instalasi end-to-end dan mendokumentasikannya.",
+            "Slide 3: Overview agenda yang akan mencakup teori dan praktik. Alokasi waktu 2x50 menit harus dimanfaatkan optimal untuk hands-on.",
+            "Slide 4: Perbandingan Windows Server vs Linux. Diskusikan licensing cost, learning curve, dan use cases untuk masing-masing platform.",
+            "Slide 5: Checklist persiapan instalasi yang detail. Tekankan bahwa persiapan yang baik menentukan 80% kesuksesan instalasi.",
+            "Slide 6: Windows Server installation process. Demonstrasikan langkah-langkah key seperti edition selection dan partitioning.",
+            "Slide 7: Linux installation menggunakan Ubuntu Server sebagai contoh. Jelaskan perbedaan dengan desktop installation.",
+            "Slide 8: Network configuration - bagian paling kritis. Tunjukkan command line dan GUI methods untuk kedua platform.",
+            "Slide 9: Initial security settings yang harus dikonfigurasi immediately post-installation. Principle of least privilege.",
+            "Slide 10: Remote management setup. Demonstrasi RDP dan SSH connections. Diskusikan security implications.",
+            "Slide 11: Web management interfaces sebagai alternative. Tunjukkan demo Windows Admin Center dan Cockpit jika memungkinkan.",
+            "Slide 12: Documentation best practices. Tekankan bahwa documentation adalah deliverable yang akan dinilai.",
+            "Slide 13: Common troubleshooting issues. Share real-world experiences dan how to avoid common pitfalls.",
+            "Slide 14: Post-installation verification checklist. Systematic approach untuk memastikan installation success.",
+            "Slide 15: Summary dan preparation untuk lab session. Preview assignment requirements dan next week's topic."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+                case 'p':
+                case 'P':
+                    togglePresenterMode();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        setTimeout(showHelpText, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1); // Swipe left = next slide
+                } else {
+                    changeSlide(-1); // Swipe right = previous slide
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Auto-hide cursor after inactivity
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

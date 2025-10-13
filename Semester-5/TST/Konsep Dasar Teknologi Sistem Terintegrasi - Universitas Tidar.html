@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<!-- saved from url=(0107)https://class.tiflab.my.id/storage/lessons/materials/1756648017_1.%20Presentasi%20Konsep%20Dasar%20TST.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsep Dasar Teknologi Sistem Terintegrasi - Universitas Tidar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            min-height: 100vh;
+            max-height: 100vh;
+            display: none;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 40px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #667eea rgba(0, 0, 0, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .slide-header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .slide-header h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 15px;
+            animation: fadeInDown 1.2s ease;
+        }
+
+        .university-info {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.8s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card li:before {
+            content: "▶";
+            color: #667eea;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .card li:hover:before {
+            transform: scale(1.2);
+        }
+
+        .architecture-diagram {
+            text-align: center;
+            margin: 40px 0;
+            animation: zoomIn 1s ease;
+        }
+
+        .layer {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            position: relative;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .layer:nth-child(even) {
+            animation: slideInRight 0.8s ease;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            animation: fadeIn 1s ease;
+        }
+
+        .example-box h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            animation: typewriter 2s steps(40, end);
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #2c3e50;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #667eea;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .integration-flow {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            margin: 10px;
+            position: relative;
+            animation: bounce 2s infinite;
+            animation-delay: var(--delay);
+        }
+
+        .flow-arrow {
+            font-size: 24px;
+            color: #667eea;
+            margin: 0 20px;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 0;
+            border-left: 3px solid #667eea;
+            margin-left: 20px;
+            padding-left: 40px;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+
+        .quiz-section {
+            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            animation: pulse 2s infinite;
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .slide { padding: 20px; }
+            .slide-header h1 { font-size: 2em; }
+            .slide-header h2 { font-size: 1.5em; }
+            .content-grid { grid-template-columns: 1fr; }
+            .navigation { bottom: 15px; right: 15px; }
+            .slide-counter { bottom: 15px; left: 15px; }
+        }
+
+        .chapter-intro {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            margin: 30px 0;
+            animation: zoomIn 1s ease;
+        }
+
+        .chapter-intro h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .chapter-intro p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .transaction-step {
+            animation: fadeInSlide 0.6s ease-in-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Smooth scrolling for slide content */
+        .slide {
+            scroll-behavior: smooth;
+        }
+
+        /* Better mobile responsive for transaction flow */
+        @media (max-width: 768px) {
+            #transactionFlow {
+                font-size: 10px !important;
+                padding: 15px !important;
+                min-height: 350px !important;
+            }
+            
+            .transaction-step div[style*="display: flex"] {
+                flex-direction: column !important;
+                gap: 15px;
+            }
+            
+            .transaction-step div[style*="flex: 1"] {
+                flex: none !important;
+            }
+            
+            .nav-btn {
+                font-size: 10px !important;
+                padding: 8px 12px !important;
+            }
+        }
+    </style>
+</head>
+<body style="font-size: 18px;" data-new-gr-c-s-check-loaded="14.1122.0" data-gr-ext-installed="">
+    <div class="floating-elements">
+        <div class="floating-element" style="left: 10%; top: 20%; width: 60px; height: 60px; animation-delay: 0s;"></div>
+        <div class="floating-element" style="left: 80%; top: 30%; width: 40px; height: 40px; animation-delay: 2s;"></div>
+        <div class="floating-element" style="left: 60%; top: 60%; width: 80px; height: 80px; animation-delay: 4s;"></div>
+        <div class="floating-element" style="left: 20%; top: 70%; width: 50px; height: 50px; animation-delay: 1s;"></div>
+    </div>
+
+    <div class="progress-bar" id="progressBar" style="width: 5.55556%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 18</div>
+
+    <div class="container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" id="slide1">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
+                    <img src="./Konsep Dasar Teknologi Sistem Terintegrasi - Universitas Tidar_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 60px; margin-right: 20px;">
+                    <div style="text-align: left;">
+                        <div style="font-size: 16px; font-weight: bold; color: #2c3e50;">Universitas Tidar Magelang</div>
+                        <div style="font-size: 14px; color: #7f8c8d;">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <h1>Konsep Dasar Teknologi Sistem Terintegrasi</h1>
+                <div class="university-info">
+                    <p>Pertemuan 1 - Durasi: 170 menit</p>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h3>CPMK</h3>
+                    <p>Mahasiswa memahami konsep dasar teknologi sistem terintegrasi dan hubungan antar komponen</p>
+                </div>
+                <div class="card" style="transform: translateY(-5px) scale(1.02);">
+                    <h3>Metode</h3>
+                    <p>Ceramah, diskusi, dan studi kasus interaktif</p>
+                </div>
+                <div class="card">
+                    <h3>Topik Utama</h3>
+                    <ul>
+                        <li>Kontrak Perkuliahan &amp; RPS</li>
+                        <li>Konsep Dasar TST</li>
+                        <li>Arsitektur Sistem</li>
+                        <li>Hubungan Antar Komponen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Course Contract -->
+        <div class="slide" id="slide2">
+            <div class="chapter-intro">
+                <h2>I. KONTRAK PERKULIAHAN &amp; RPS</h2>
+                <p>25 menit</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>Deskripsi Mata Kuliah</h3>
+                    <p>Mata kuliah yang mengintegrasikan <strong>IoT</strong>, <strong>infrastruktur jaringan</strong>, dan <strong>cloud computing</strong> untuk menciptakan sistem yang saling berkomunikasi dan memberikan informasi sesuai kebutuhan.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>CPL yang Terkait</h3>
+                    <ul>
+                        <li><strong>CPL 08:</strong> Merancang produk/layanan berbasis IoT</li>
+                        <li><strong>CPL 09:</strong> Merancang infrastruktur keamanan jaringan</li>
+                        <li><strong>CPL 10:</strong> Merancang aplikasi berbasis platform terdistribusi</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>CPMK yang Akan Dicapai</h3>
+                    <ul>
+                        <li><strong>CPMK 0801:</strong> Mengonsepkan pemrograman IoT sistematis</li>
+                        <li><strong>CPMK 0901:</strong> Menganalisis infrastruktur dan keamanan jaringan</li>
+                        <li><strong>CPMK 1001:</strong> Mengimplementasikan algoritma penyelesaian masalah</li>
+                        <li><strong>CPMK 1005:</strong> Mengimplementasikan Cloud Computing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Basic Concepts Introduction -->
+        <div class="slide" id="slide3">
+            <div class="chapter-intro">
+                <h2>II. KONSEP DASAR TST</h2>
+                <p>45 menit</p>
+            </div>
+
+            <div class="card">
+                <h3>Definisi Sistem Terintegrasi</h3>
+                <p>Sistem yang menggabungkan berbagai komponen teknologi untuk bekerja sebagai <strong>satu kesatuan</strong> dengan kemampuan:</p>
+                <ul>
+                    <li>Berbagi data, sumber daya, dan fungsi antar subsistem</li>
+                    <li>Interoperabilitas dan komunikasi seamless</li>
+                    <li>Sinkronisasi real-time antar komponen</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4>🏙️ Contoh: Smart City Jakarta</h4>
+                <p>Integrasi sistem transportasi (TransJakarta, MRT), sistem keamanan (CCTV terpusat), sistem lingkungan (monitoring kualitas udara), dan sistem energi (smart lighting).</p>
+            </div>
+
+            <div class="example-box">
+                <h4>🏥 Contoh: Smart Hospital</h4>
+                <p>Integrasi sistem informasi pasien (medical records), peralatan medis IoT (monitoring vital signs), dan sistem manajemen (scheduling, billing).</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Characteristics -->
+        <div class="slide" id="slide4">
+            <div class="slide-header">
+                <h2>Karakteristik Sistem Terintegrasi</h2>
+            </div>
+
+            <div class="integration-flow">
+                <div class="flow-item" style="--delay: 0s;">
+                    <strong>Interkonektivitas</strong><br>
+                    <small>Komponen saling terhubung</small>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item" style="--delay: 0.5s;">
+                    <strong>Interoperabilitas</strong><br>
+                    <small>Pertukaran informasi</small>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item" style="--delay: 1s;">
+                    <strong>Skalabilitas</strong><br>
+                    <small>Mengakomodasi pertumbuhan</small>
+                </div>
+            </div>
+
+            <div class="integration-flow">
+                <div class="flow-item" style="--delay: 1.5s;">
+                    <strong>Reliability</strong><br>
+                    <small>Keandalan operasional</small>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item" style="--delay: 2s;">
+                    <strong>Security</strong><br>
+                    <small>Keamanan data &amp; komunikasi</small>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4>💰 Contoh Praktis: E-commerce Platform</h4>
+                <p>Tokopedia mengintegrasikan sistem inventory, payment gateway (GoPay, OVO, Bank), logistik (GoSend, JNE), dan CRM untuk memberikan pengalaman berbelanja yang seamless.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Evolution -->
+        <div class="slide" id="slide5">
+            <div class="slide-header">
+                <h2>Evolusi Menuju Sistem Terintegrasi</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Era 1.0: Isolated Systems</h3>
+                    <p>Sistem terpisah tanpa komunikasi. Contoh: Komputer standalone, database lokal terpisah.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Era 2.0: Connected Systems</h3>
+                    <p>Sistem mulai terhubung melalui jaringan. Contoh: Email, file sharing, database terdistribusi.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Era 3.0: Integrated Systems</h3>
+                    <p>Sistem terintegrasi dengan API dan middleware. Contoh: ERP systems, web services.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Era 4.0: Intelligent Integrated Systems</h3>
+                    <p>Sistem cerdas dengan AI/ML dan IoT. Contoh: Smart cities, autonomous vehicles, Industry 4.0.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Architecture Introduction -->
+        <div class="slide" id="slide6">
+            <div class="chapter-intro">
+                <h2>III. ARSITEKTUR SISTEM TERINTEGRASI</h2>
+                <p>40 menit</p>
+            </div>
+
+            <div class="architecture-diagram">
+                <div class="layer">
+                    <h3>Layer Presentasi</h3>
+                    <p>User Interface (Web, Mobile, Desktop) • Dashboard • API Endpoints</p>
+                </div>
+                <div class="layer">
+                    <h3>Layer Aplikasi</h3>
+                    <p>Business Logic • Workflow Management • Service Orchestration</p>
+                </div>
+                <div class="layer">
+                    <h3>Layer Data</h3>
+                    <p>Database Systems • Data Warehouses • Real-time Streaming</p>
+                </div>
+                <div class="layer">
+                    <h3>Layer Infrastruktur</h3>
+                    <p>Network Infrastructure • Cloud Platforms • Security Frameworks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Architecture Patterns -->
+        <div class="slide" id="slide7">
+            <div class="slide-header">
+                <h2>Pola Arsitektur Umum</h2>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>🏗️ Layered Architecture</h3>
+                    <p>Pemisahan fungsi berdasarkan layer</p>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Aplikasi web 3-tier
+                        <ul>
+                            <li>Presentation Layer: React/Vue.js</li>
+                            <li>Business Layer: Node.js/Spring</li>
+                            <li>Data Layer: MySQL/MongoDB</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔧 Service-Oriented Architecture</h3>
+                    <p>Komponen sebagai layanan independen</p>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Microservices Grab
+                        <ul>
+                            <li>User Service</li>
+                            <li>Payment Service</li>
+                            <li>Driver Service</li>
+                            <li>Mapping Service</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>⚡ Event-Driven Architecture</h3>
+                    <p>Komunikasi berbasis event dan message</p>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Notifikasi real-time
+                        <ul>
+                            <li>Order placed → Inventory update</li>
+                            <li>Payment success → Shipping trigger</li>
+                            <li>Delivery complete → Review request</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Banking Case Study -->
+        <div class="slide" id="slide8">
+            <div class="slide-header">
+                <h2>Studi Kasus: Sistem Perbankan Digital</h2>
+            </div>
+
+            <div class="architecture-diagram">
+                <div style="text-align: center; font-family: monospace; font-size: 14px; line-height: 1.8;">
+                    <div>┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐</div>
+                    <div>│   Mobile App    │────│   API Gateway    │────│  Core Banking   │</div>
+                    <div>└─────────────────┘    └──────────────────┘    └─────────────────┘</div>
+                    <div>                              │                          │</div>
+                    <div>┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐</div>
+                    <div>│   Web Portal    │────│  Authentication  │────│   Database      │</div>
+                    <div>└─────────────────┘    └──────────────────┘    └─────────────────┘</div>
+                    <div>                              │</div>
+                    <div>                     ┌──────────────────┐</div>
+                    <div>                     │   Analytics &amp;    │</div>
+                    <div>                     │   Reporting      │</div>
+                    <div>                     └──────────────────┘</div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4>💳 Contoh: Aplikasi Mobile Banking</h4>
+                <p>Integrasi mobile app, internet banking, ATM network, core banking system, dan payment gateway untuk memberikan layanan perbankan 24/7.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Component Relationships -->
+        <div class="slide" id="slide9">
+            <div class="chapter-intro">
+                <h2>IV. HUBUNGAN ANTAR KOMPONEN</h2>
+                <p>35 menit</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>🔄 Data Integration</h3>
+                    <ul>
+                        <li>ETL (Extract, Transform, Load) processes</li>
+                        <li>Real-time data synchronization</li>
+                        <li>Master data management</li>
+                    </ul>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Integrasi data customer dari berbagai channel (online, offline, mobile) ke dalam sistem CRM terpusat.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔗 Application Integration</h3>
+                    <ul>
+                        <li>API-based integration</li>
+                        <li>Message queuing systems</li>
+                        <li>Event streaming platforms</li>
+                    </ul>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Integrasi sistem CRM dengan inventory untuk update stok real-time ketika ada penjualan.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>⚙️ Process Integration</h3>
+                    <ul>
+                        <li>Workflow automation</li>
+                        <li>Business process management (BPM)</li>
+                        <li>Robotic process automation (RPA)</li>
+                    </ul>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Otomatisasi proses approval multi-level dalam sistem procurement perusahaan.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Integration Technologies -->
+        <div class="slide" id="slide10">
+            <div class="slide-header">
+                <h2>Teknologi Pendukung Integrasi</h2>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>🌐 API Technologies</h3>
+                    <ul>
+                        <li><strong>RESTful APIs:</strong> Komunikasi web services</li>
+                        <li><strong>GraphQL:</strong> Query data yang fleksibel</li>
+                        <li><strong>WebSocket:</strong> Komunikasi real-time</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📨 Message Brokers</h3>
+                    <ul>
+                        <li><strong>Apache Kafka:</strong> Streaming data</li>
+                        <li><strong>RabbitMQ:</strong> Message queuing</li>
+                        <li><strong>Redis:</strong> Caching dan pub/sub</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🔧 Integration Platforms</h3>
+                    <ul>
+                        <li><strong>ESB:</strong> Enterprise Service Bus</li>
+                        <li><strong>iPaaS:</strong> Integration Platform as a Service</li>
+                        <li><strong>API Management:</strong> Platform manajemen API</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-block">{
+  "endpoint": "/api/v1/orders",
+  "method": "POST",
+  "payload": {
+    "customer_id": "12345",
+    "products": [
+      {"id": "P001", "quantity": 2},
+      {"id": "P002", "quantity": 1}
+    ]
+  },
+  "integration_points": [
+    "inventory_system",
+    "payment_gateway", 
+    "logistics_system"
+  ]
+}</div>
+        </div>
+
+        <!-- Slide 11: Case Studies & Discussion -->
+        <div class="slide" id="slide11">
+            <div class="chapter-intro">
+                <h2>V. STUDI KASUS &amp; DISKUSI</h2>
+                <p>20 menit</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>🏫 Kasus 1: Smart Campus Universitas Tidar</h3>
+                    <p><strong>Komponen yang Diintegrasikan:</strong></p>
+                    <ul>
+                        <li>Sistem Informasi Akademik (SIAKAD)</li>
+                        <li>Sistem Perpustakaan Digital</li>
+                        <li>Sistem Keuangan dan Pembayaran</li>
+                        <li>Sistem Keamanan dan Access Control</li>
+                        <li>Learning Management System (LMS)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🛒 Kasus 2: E-commerce Terintegrasi</h3>
+                    <p><strong>Komponen:</strong></p>
+                    <ul>
+                        <li>Frontend (Web &amp; Mobile App)</li>
+                        <li>User Management System</li>
+                        <li>Product Catalog &amp; Inventory</li>
+                        <li>Order &amp; Payment Processing</li>
+                        <li>Logistics &amp; Analytics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quiz-section">
+                <div class="quiz-question">
+                    💡 Diskusi: Bagaimana menangani traffic tinggi saat flash sale di e-commerce?
+                </div>
+                <div class="quiz-question">
+                    💡 Diskusi: Bagaimana menjamin konsistensi data inventory real-time?
+                </div>
+                <div class="quiz-question">
+                    💡 Diskusi: Bagaimana mengintegrasikan multiple payment providers?
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Microservices Introduction -->
+        <div class="slide" id="slide12">
+            <div class="chapter-intro">
+                <h2>PENGENALAN MICROSERVICES</h2>
+                <p>Pendekatan Modern untuk Sistem Terintegrasi</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>🔧 Apa itu Microservices?</h3>
+                    <p>Arsitektur yang memecah aplikasi besar menjadi <strong>layanan-layanan kecil</strong> yang independen, dapat dikembangkan, di-deploy, dan diskalakan secara terpisah.</p>
+                    <ul>
+                        <li>Setiap service memiliki database sendiri</li>
+                        <li>Komunikasi melalui API (REST/GraphQL)</li>
+                        <li>Dapat menggunakan teknologi yang berbeda</li>
+                        <li>Tim development yang independen</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>⚡ Keuntungan Microservices</h3>
+                    <ul>
+                        <li><strong>Scalability:</strong> Scale individual services</li>
+                        <li><strong>Technology Diversity:</strong> Gunakan tech stack terbaik per service</li>
+                        <li><strong>Fault Isolation:</strong> Error di satu service tidak crash semua</li>
+                        <li><strong>Faster Development:</strong> Tim parallel development</li>
+                        <li><strong>Easy Deployment:</strong> Deploy service secara independent</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>⚠️ Tantangan Microservices</h3>
+                    <ul>
+                        <li><strong>Network Latency:</strong> Inter-service communication overhead</li>
+                        <li><strong>Data Consistency:</strong> Distributed transaction complexity</li>
+                        <li><strong>Service Discovery:</strong> How services find each other</li>
+                        <li><strong>Monitoring:</strong> Debugging distributed systems</li>
+                        <li><strong>Security:</strong> Secure communication antar services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Microservices vs Monolith -->
+        <div class="slide" id="slide13">
+            <div class="slide-header">
+                <h2>Microservices vs Monolith Architecture</h2>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>🏢 Monolith Architecture</h3>
+                    <div style="text-align: center; margin: 20px 0; font-family: monospace; background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                        <div style="border: 2px solid #6c757d; padding: 20px; border-radius: 8px;">
+                            <div><strong>Single Application</strong></div>
+                            <div style="margin: 10px 0;">┌─────────────────┐</div>
+                            <div>│   User Interface    │</div>
+                            <div>├─────────────────┤</div>
+                            <div>│   Business Logic    │</div>
+                            <div>├─────────────────┤</div>
+                            <div>│   Data Access      │</div>
+                            <div>└─────────────────┘</div>
+                            <div style="margin-top: 10px;">Single Database</div>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Aplikasi e-commerce tradisional dengan semua fitur (user management, inventory, payment, shipping) dalam satu codebase.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔗 Microservices Architecture</h3>
+                    <div style="text-align: center; margin: 20px 0; font-family: monospace; background: #f8f9fa; padding: 20px; border-radius: 8px; font-size: 12px;">
+                        <div>┌──────────┐ ┌──────────┐ ┌──────────┐</div>
+                        <div>│User Svc  │ │Order Svc │ │Pay Svc   │</div>
+                        <div>└──────────┘ └──────────┘ └──────────┘</div>
+                        <div>     │             │             │</div>
+                        <div>┌──────────┐ ┌──────────┐ ┌──────────┐</div>
+                        <div>│User DB   │ │Order DB  │ │Pay DB    │</div>
+                        <div>└──────────┘ └──────────┘ └──────────┘</div>
+                        <div style="margin-top: 15px;">┌──────────┐ ┌──────────┐</div>
+                        <div>│Notif Svc │ │Analytics │</div>
+                        <div>└──────────┘ └──────────┘</div>
+                        <div>     │             │</div>
+                        <div>┌──────────┐ ┌──────────┐</div>
+                        <div>│Notif DB  │ │Stats DB  │</div>
+                        <div>└──────────┘ └──────────┘</div>
+                    </div>
+                    <div class="example-box">
+                        <strong>Contoh:</strong> Setiap fungsi (user, order, payment, notification, analytics) adalah service terpisah dengan database masing-masing.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Data Transaction Flow -->
+        <div class="slide" id="slide14">
+            <div class="slide-header">
+                <h2>Alur Transaksi Data dalam Microservices</h2>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>🔄 Skenario: Proses Order E-commerce</h3>
+                <p>Klik tombol-tombol di bawah untuk melihat alur data step-by-step:</p>
+                
+                <div style="text-align: center; margin: 15px 0;">
+                    <button class="nav-btn" onclick="showTransactionStep(1)" style="margin: 5px; font-size: 12px;">Step 1: Place Order</button>
+                    <button class="nav-btn" onclick="showTransactionStep(2)" style="margin: 5px; font-size: 12px;">Step 2: Validate</button>
+                    <button class="nav-btn" onclick="showTransactionStep(3)" style="margin: 5px; font-size: 12px;">Step 3: Payment</button>
+                    <button class="nav-btn" onclick="showTransactionStep(4)" style="margin: 5px; font-size: 12px;">Step 4: Update</button>
+                    <button class="nav-btn" onclick="showTransactionStep(0)" style="margin: 5px; font-size: 12px; background: #28a745;">Show All</button>
+                </div>
+            </div>
+
+            <div id="transactionFlow" style="background: #2d3748; color: #e2e8f0; padding: 20px; border-radius: 10px; font-family: monospace; font-size: 12px; line-height: 1.5; min-height: 400px; position: relative;">
+                <!-- Step 1: Initial Flow -->
+                <div class="transaction-step" id="step1" style="display: none;">
+                    <div style="color: #ffd700; margin-bottom: 10px; text-align: center;"><strong>STEP 1: Customer Places Order</strong></div>
+                    <div style="text-align: center;">
+                        <div>📱 Mobile App</div>
+                        <div style="color: #98fb98;">     │ [POST /api/orders]</div>
+                        <div>     ▼</div>
+                        <div>🚪 API Gateway</div>
+                        <div style="color: #98fb98;">     │ [Route to Order Service]</div>
+                        <div>     ▼</div>
+                        <div>📦 Order Service</div>
+                        <div style="color: #87ceeb; margin-top: 15px;">✅ Request received and validated</div>
+                        <div style="color: #87ceeb;">✅ Generate Order ID: ORD-2024-001</div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Validation -->
+                <div class="transaction-step" id="step2" style="display: none;">
+                    <div style="color: #98fb98; margin-bottom: 10px; text-align: center;"><strong>STEP 2: Parallel Validation &amp; Checking</strong></div>
+                    <div style="display: flex; justify-content: space-around; text-align: center;">
+                        <div style="flex: 1;">
+                            <div>👤 User Service</div>
+                            <div style="color: #ffd700; margin: 10px 0;">│ [Validate Customer]</div>
+                            <div>│ ID: 12345</div>
+                            <div>│ Status: Active</div>
+                            <div style="color: #28a745;">✅ Valid Customer</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div>📦 Inventory Service</div>
+                            <div style="color: #ffd700; margin: 10px 0;">│ [Check Stock]</div>
+                            <div>│ Product: iPhone 15</div>
+                            <div>│ Qty Available: 25</div>
+                            <div style="color: #28a745;">✅ Stock Available</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div>💰 Price Service</div>
+                            <div style="color: #ffd700; margin: 10px 0;">│ [Calculate Total]</div>
+                            <div>│ Base: $999</div>
+                            <div>│ Tax: $79.92</div>
+                            <div style="color: #28a745;">✅ Total: $1,078.92</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment -->
+                <div class="transaction-step" id="step3" style="display: none;">
+                    <div style="color: #87ceeb; margin-bottom: 10px; text-align: center;"><strong>STEP 3: Process Payment</strong></div>
+                    <div style="text-align: center;">
+                        <div>💳 Payment Service</div>
+                        <div style="color: #ffd700; margin: 10px 0;">│ [Process Payment]</div>
+                        <div>│ Amount: $1,078.92</div>
+                        <div>│ Method: Credit Card</div>
+                        <div>│ Card: ****-****-****-1234</div>
+                        <div style="margin: 15px 0;">     ▼</div>
+                        <div>🏦 Payment Gateway</div>
+                        <div style="color: #ffd700; margin: 10px 0;">│ [Bank Authorization]</div>
+                        <div>     ▼</div>
+                        <div style="color: #28a745; margin: 15px 0;">✅ Payment Successful</div>
+                        <div style="color: #28a745;">✅ Transaction ID: TXN-2024-7891</div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Update & Notify -->
+                <div class="transaction-step" id="step4" style="display: none;">
+                    <div style="color: #dda0dd; margin-bottom: 10px; text-align: center;"><strong>STEP 4: Update Systems &amp; Notify</strong></div>
+                    <div style="display: flex; justify-content: space-around; text-align: center;">
+                        <div style="flex: 1;">
+                            <div>📦 Inventory Update</div>
+                            <div style="color: #ffd700; margin: 10px 0;">│ [Reduce Stock]</div>
+                            <div>│ iPhone 15: 25→24</div>
+                            <div style="color: #28a745;">✅ Stock Updated</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div>📋 Order Update</div>
+                            <div style="color: #ffd700; margin: 10px 0;">│ [Update Status]</div>
+                            <div>│ Status: PAID</div>
+                            <div style="color: #28a745;">✅ Order Confirmed</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div>📧 Notification</div>
+                            <div style="color: #ffd700; margin: 10px 0;">│ [Send Alerts]</div>
+                            <div>│ Email to Customer</div>
+                            <div>│ SMS Confirmation</div>
+                            <div style="color: #28a745;">✅ Notifications Sent</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px; color: #98fb98;">
+                        <strong>🎉 Order Processing Complete!</strong><br>
+                        <small>Total Time: 2.3 seconds</small>
+                    </div>
+                </div>
+
+                <!-- Show All Steps -->
+                <div class="transaction-step" id="stepAll" style="display: block;">
+                    <div style="text-align: center; color: #ffd700; margin-bottom: 20px;">
+                        <strong>📊 COMPLETE MICROSERVICES TRANSACTION FLOW</strong>
+                    </div>
+                    <div style="font-size: 11px; line-height: 1.4;">
+                        <div style="background: rgba(255,215,0,0.1); padding: 10px; margin: 5px 0; border-radius: 5px;">
+                            <strong style="color: #ffd700;">STEP 1:</strong> Mobile App → API Gateway → Order Service (Order Created)
+                        </div>
+                        <div style="background: rgba(152,251,152,0.1); padding: 10px; margin: 5px 0; border-radius: 5px;">
+                            <strong style="color: #98fb98;">STEP 2:</strong> Order Service → [User Service + Inventory Service + Price Service] (Parallel Validation)
+                        </div>
+                        <div style="background: rgba(135,206,235,0.1); padding: 10px; margin: 5px 0; border-radius: 5px;">
+                            <strong style="color: #87ceeb;">STEP 3:</strong> Payment Service → Payment Gateway → Bank Authorization (Payment Processing)
+                        </div>
+                        <div style="background: rgba(221,160,221,0.1); padding: 10px; margin: 5px 0; border-radius: 5px;">
+                            <strong style="color: #dda0dd;">STEP 4:</strong> Update [Inventory + Order Status + Notifications] (Final Updates)
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 15px; padding: 10px; background: rgba(40,167,69,0.2); border-radius: 5px;">
+                        <div style="color: #28a745; font-size: 14px;"><strong>✅ Transaction Completed Successfully</strong></div>
+                        <div style="color: #e2e8f0; font-size: 10px; margin-top: 5px;">
+                            Order ID: ORD-2024-001 | Transaction ID: TXN-2024-7891 | Processing Time: 2.3s
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box" style="margin-top: 20px;">
+                <h4>🔍 Key Benefits dari Microservices Pattern:</h4>
+                <ul style="font-size: 14px;">
+                    <li><strong>Parallel Processing:</strong> User validation, inventory check, dan price calculation berjalan bersamaan</li>
+                    <li><strong>Fault Isolation:</strong> Jika satu service gagal, yang lain tetap berjalan</li>
+                    <li><strong>Independent Scaling:</strong> Payment service bisa di-scale terpisah saat traffic tinggi</li>
+                    <li><strong>Technology Flexibility:</strong> Setiap service bisa menggunakan database dan bahasa pemrograman yang berbeda</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 15: Event-Driven Communication -->
+        <div class="slide" id="slide15">
+            <div class="slide-header">
+                <h2>Event-Driven Communication Pattern</h2>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>📨 Asynchronous Message Flow</h3>
+                <p>Untuk mengurangi coupling antar services, gunakan event-driven pattern dengan message broker. Klik tombol untuk melihat alur event:</p>
+                
+                <div style="text-align: center; margin: 15px 0;">
+                    <button class="nav-btn" onclick="showEventFlow(&#39;publish&#39;)" style="margin: 5px; font-size: 12px;">📤 Publish Events</button>
+                    <button class="nav-btn" onclick="showEventFlow(&#39;consume&#39;)" style="margin: 5px; font-size: 12px;">📥 Consume Events</button>
+                    <button class="nav-btn" onclick="showEventFlow(&#39;cascade&#39;)" style="margin: 5px; font-size: 12px;">🔄 Cascade Events</button>
+                    <button class="nav-btn" onclick="showEventFlow(&#39;complete&#39;)" style="margin: 5px; font-size: 12px; background: #28a745;">🎯 Complete Flow</button>
+                </div>
+            </div>
+
+            <div id="eventFlowContainer" style="background: #1a202c; color: #e2e8f0; padding: 20px; border-radius: 10px; font-family: monospace; font-size: 11px; line-height: 1.4; min-height: 350px; position: relative;">
+                
+                <!-- Publish Events Phase -->
+                <div class="event-phase" id="publishPhase" style="display: none;">
+                    <div style="color: #ffd700; margin-bottom: 15px; text-align: center;"><strong>PHASE 1: PUBLISH EVENTS</strong></div>
+                    <div style="text-align: center;">
+                        <div style="background: rgba(255,215,0,0.2); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <div style="color: #98fb98;">🎬 ORDER SERVICE - EVENT PUBLISHER</div>
+                            <div style="margin: 10px 0;">┌─────────────────────────────────┐</div>
+                            <div>│  Order Processing Complete      │</div>
+                            <div>│  ─────────────────────────────  │</div>
+                            <div>│  📋 Order ID: ORD-2024-001     │</div>
+                            <div>│  👤 Customer: john@email.com   │</div>
+                            <div>│  🛍️  Items: iPhone 15 (1x)      │</div>
+                            <div>│  💰 Total: $1,078.92           │</div>
+                            <div>│  📅 Timestamp: 2024-01-15T10:30 │</div>
+                            <div>└─────────────────────────────────┘</div>
+                        </div>
+                        
+                        <div style="color: #ffd700; margin: 15px 0;">▼ [PUBLISH EVENT: OrderCreated]</div>
+                        
+                        <div style="background: rgba(102,126,234,0.3); padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <div style="color: #87ceeb;">🚀 MESSAGE BROKER (Apache Kafka)</div>
+                            <div style="margin: 10px 0;">┌─────────────────────────────────┐</div>
+                            <div>│  Topic: order-events            │</div>
+                            <div>│  Partition: 0                   │</div>
+                            <div>│  Offset: 12345                  │</div>
+                            <div>│  Key: customer-12345            │</div>
+                            <div>│  Status: ✅ Event Published      │</div>
+                            <div>└─────────────────────────────────┘</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consume Events Phase -->
+                <div class="event-phase" id="consumePhase" style="display: none;">
+                    <div style="color: #98fb98; margin-bottom: 15px; text-align: center;"><strong>PHASE 2: CONSUME EVENTS (PARALLEL)</strong></div>
+                    <div style="display: flex; justify-content: space-around; gap: 10px;">
+                        <div style="flex: 1; background: rgba(40,167,69,0.2); padding: 12px; border-radius: 8px;">
+                            <div style="color: #28a745; text-align: center;">💳 PAYMENT SERVICE</div>
+                            <div style="margin: 8px 0; font-size: 10px;">
+                                <div>📥 Subscribed to: order-events</div>
+                                <div>🎯 Consumer Group: payment-group</div>
+                                <div>⚡ Action: Process Payment</div>
+                                <div>⏱️  Processing Time: 1.2s</div>
+                                <div style="color: #28a745;">✅ Payment Successful</div>
+                            </div>
+                        </div>
+                        
+                        <div style="flex: 1; background: rgba(255,193,7,0.2); padding: 12px; border-radius: 8px;">
+                            <div style="color: #ffc107; text-align: center;">📦 INVENTORY SERVICE</div>
+                            <div style="margin: 8px 0; font-size: 10px;">
+                                <div>📥 Subscribed to: order-events</div>
+                                <div>🎯 Consumer Group: inventory-group</div>
+                                <div>⚡ Action: Update Stock</div>
+                                <div>⏱️  Processing Time: 0.8s</div>
+                                <div style="color: #28a745;">✅ Stock Updated: 24 units</div>
+                            </div>
+                        </div>
+                        
+                        <div style="flex: 1; background: rgba(220,53,69,0.2); padding: 12px; border-radius: 8px;">
+                            <div style="color: #dc3545; text-align: center;">📧 EMAIL SERVICE</div>
+                            <div style="margin: 8px 0; font-size: 10px;">
+                                <div>📥 Subscribed to: order-events</div>
+                                <div>🎯 Consumer Group: notification-group</div>
+                                <div>⚡ Action: Send Confirmation</div>
+                                <div>⏱️  Processing Time: 0.5s</div>
+                                <div style="color: #28a745;">✅ Email Sent</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cascade Events Phase -->
+                <div class="event-phase" id="cascadePhase" style="display: none;">
+                    <div style="color: #87ceeb; margin-bottom: 15px; text-align: center;"><strong>PHASE 3: CASCADE EVENTS</strong></div>
+                    <div style="text-align: center;">
+                        <div style="color: #87ceeb; margin: 15px 0;">Services publish new events setelah processing:</div>
+                        
+                        <div style="display: flex; justify-content: space-around; gap: 15px; margin: 20px 0;">
+                            <div style="flex: 1;">
+                                <div style="background: rgba(40,167,69,0.2); padding: 10px; border-radius: 6px;">
+                                    <div>💳 Payment Service</div>
+                                    <div style="color: #ffd700; margin: 5px 0;">▼ Publishes</div>
+                                    <div style="font-size: 10px;">[PaymentProcessed]</div>
+                                    <div style="font-size: 10px;">Topic: payment-events</div>
+                                </div>
+                            </div>
+                            
+                            <div style="flex: 1;">
+                                <div style="background: rgba(255,193,7,0.2); padding: 10px; border-radius: 6px;">
+                                    <div>📦 Inventory Service</div>
+                                    <div style="color: #ffd700; margin: 5px 0;">▼ Publishes</div>
+                                    <div style="font-size: 10px;">[StockUpdated]</div>
+                                    <div style="font-size: 10px;">Topic: inventory-events</div>
+                                </div>
+                            </div>
+                            
+                            <div style="flex: 1;">
+                                <div style="background: rgba(220,53,69,0.2); padding: 10px; border-radius: 6px;">
+                                    <div>📧 Email Service</div>
+                                    <div style="color: #ffd700; margin: 5px 0;">▼ Publishes</div>
+                                    <div style="font-size: 10px;">[NotificationSent]</div>
+                                    <div style="font-size: 10px;">Topic: notification-events</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(123,104,238,0.2); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                            <div style="color: #7b68ee;">📊 ANALYTICS SERVICE</div>
+                            <div style="margin: 10px 0; font-size: 10px;">
+                                <div>📥 Subscribed to ALL event topics</div>
+                                <div>⚡ Aggregates data for business intelligence</div>
+                                <div>📈 Updates dashboards and reports</div>
+                                <div style="color: #28a745;">✅ Analytics Updated</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complete Flow Phase -->
+                <div class="event-phase" id="completePhase" style="display: block;">
+                    <div style="color: #ffd700; margin-bottom: 15px; text-align: center;"><strong>🎯 COMPLETE EVENT-DRIVEN FLOW OVERVIEW</strong></div>
+                    <div style="font-size: 10px; line-height: 1.3;">
+                        <div style="background: rgba(255,215,0,0.1); padding: 8px; margin: 4px 0; border-radius: 4px; border-left: 4px solid #ffd700;">
+                            <strong>STEP 1: EVENT PUBLISHING</strong><br>
+                            Order Service → Kafka Topic (order-events) → Event stored with metadata
+                        </div>
+                        <div style="background: rgba(152,251,152,0.1); padding: 8px; margin: 4px 0; border-radius: 4px; border-left: 4px solid #98fb98;">
+                            <strong>STEP 2: PARALLEL CONSUMPTION</strong><br>
+                            3 Services consume simultaneously → Payment + Inventory + Email processing
+                        </div>
+                        <div style="background: rgba(135,206,235,0.1); padding: 8px; margin: 4px 0; border-radius: 4px; border-left: 4px solid #87ceeb;">
+                            <strong>STEP 3: CASCADE EVENTS</strong><br>
+                            Each service publishes completion events → New events trigger other services
+                        </div>
+                        <div style="background: rgba(221,160,221,0.1); padding: 8px; margin: 4px 0; border-radius: 4px; border-left: 4px solid #dda0dd;">
+                            <strong>STEP 4: ANALYTICS AGGREGATION</strong><br>
+                            Analytics Service → Consumes all events → Business intelligence updates
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 15px; padding: 8px; background: rgba(40,167,69,0.2); border-radius: 5px;">
+                        <div style="color: #28a745; font-size: 12px;"><strong>🚀 Event-Driven Architecture Benefits</strong></div>
+                        <div style="font-size: 9px; margin-top: 3px; display: flex; justify-content: space-around;">
+                            <span>🔄 Loose Coupling</span>
+                            <span>📈 High Scalability</span>
+                            <span>🛡️ Fault Tolerance</span>
+                            <span>📊 Full Auditability</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box" style="margin-top: 20px; text-align: center;">
+                <h4>📋 Konsep dan Teknologi Event-Driven Architecture</h4>
+                <p>Untuk melihat detail lengkap tentang benefits, technologies, design considerations, dan comparison, silakan lanjut ke <strong>slide berikutnya</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Key Concepts & Technologies -->
+        <div class="slide" id="slide16">
+            <div class="slide-header">
+                <h2>📋 Key Concepts &amp; Technologies Event-Driven Architecture</h2>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>🎯 Explore Event-Driven Architecture Components</h3>
+                <p>Klik kategori di bawah untuk melihat detail lengkap tentang setiap aspek Event-Driven Architecture:</p>
+                
+                <div style="text-align: center; margin: 15px 0;">
+                    <button class="nav-btn" onclick="showEventConcept(&#39;benefits&#39;)" style="margin: 5px; font-size: 12px;">✅ Benefits</button>
+                    <button class="nav-btn" onclick="showEventConcept(&#39;technologies&#39;)" style="margin: 5px; font-size: 12px;">🛠️ Technologies</button>
+                    <button class="nav-btn" onclick="showEventConcept(&#39;considerations&#39;)" style="margin: 5px; font-size: 12px;">⚠️ Design Tips</button>
+                    <button class="nav-btn" onclick="showEventConcept(&#39;comparison&#39;)" style="margin: 5px; font-size: 12px;">📊 Comparison</button>
+                </div>
+            </div>
+
+            <div id="eventConceptContainer" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 15px; min-height: 400px;">
+                
+                <!-- Benefits Section -->
+                <div class="concept-section" id="benefitsSection" style="display: block;">
+                    <h4 style="color: #28a745; margin-bottom: 15px; text-align: center;">✅ Keuntungan Event-Driven Pattern</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #28a745;">
+                            <h5 style="color: #28a745; margin-bottom: 8px;">🔄 Loose Decoupling</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Services tidak perlu tahu consumer mana yang akan memproses event mereka.</p>
+                            <div style="background: #e8f5e8; padding: 8px; border-radius: 4px; font-size: 12px;">
+                                <strong>Contoh:</strong> Order Service publish event tanpa tahu apakah Payment, Email, atau Analytics Service yang akan consume.
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;">
+                            <h5 style="color: #007bff; margin-bottom: 8px;">📈 High Scalability</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Tambah consumer baru tanpa mengubah producer. Scale horizontal dengan mudah.</p>
+                            <div style="background: #e3f2fd; padding: 8px; border-radius: 4px; font-size: 12px;">
+                                <strong>Contoh:</strong> Tambah 5 instance Email Service untuk handle volume tinggi tanpa touch Order Service.
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
+                            <h5 style="color: #ffc107; margin-bottom: 8px;">🛡️ Resilience &amp; Fault Tolerance</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Message persist di broker, automatic retry jika consumer gagal.</p>
+                            <div style="background: #fff8e1; padding: 8px; border-radius: 4px; font-size: 12px;">
+                                <strong>Contoh:</strong> Email Service down? Event tetap di Kafka, otomatis retry setelah service recovery.
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545;">
+                            <h5 style="color: #dc3545; margin-bottom: 8px;">⚡ Near Real-time Processing</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Event processing dapat dilakukan dalam milliseconds setelah publish.</p>
+                            <div style="background: #ffebee; padding: 8px; border-radius: 4px; font-size: 12px;">
+                                <strong>Contoh:</strong> Order event → Payment processing → Email notification dalam &lt; 2 detik.
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #6f42c1;">
+                            <h5 style="color: #6f42c1; margin-bottom: 8px;">📋 Complete Audit Trail</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Semua event tersimpan permanen untuk compliance, debugging, dan analytics.</p>
+                            <div style="background: #f3e5f5; padding: 8px; border-radius: 4px; font-size: 12px;">
+                                <strong>Contoh:</strong> Track seluruh customer journey dari order sampai delivery untuk business analysis.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technologies Section -->
+                <div class="concept-section" id="technologiesSection" style="display: none;">
+                    <h4 style="color: #007bff; margin-bottom: 15px; text-align: center;">🛠️ Message Broker Technologies</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #ff6b35;">
+                            <h5 style="color: #ff6b35; margin-bottom: 8px;">⚡ Apache Kafka</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;"><strong>High-throughput, distributed streaming platform</strong></p>
+                            <div style="background: #fff5f5; padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px;">
+                                <strong>Digunakan oleh:</strong> Netflix (1 trillion events/day), Uber (real-time analytics), LinkedIn (activity feeds)
+                            </div>
+                            <div style="font-size: 11px; color: #666;">
+                                ✅ Horizontal scaling<br>
+                                ✅ Durability dengan replication<br>
+                                ✅ Stream processing dengan Kafka Streams
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #ff9500;">
+                            <h5 style="color: #ff9500; margin-bottom: 8px;">🐰 RabbitMQ</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;"><strong>Feature-rich message broker, easy setup</strong></p>
+                            <div style="background: #fff8e1; padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px;">
+                                <strong>Digunakan oleh:</strong> WhatsApp (message delivery), Reddit (notification system), Mozilla (telemetry)
+                            </div>
+                            <div style="font-size: 11px; color: #666;">
+                                ✅ Multiple messaging patterns<br>
+                                ✅ Built-in management UI<br>
+                                ✅ Plugin ecosystem
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #dc382d;">
+                            <h5 style="color: #dc382d; margin-bottom: 8px;">🚀 Redis Pub/Sub</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;"><strong>Lightweight, in-memory messaging</strong></p>
+                            <div style="background: #ffebee; padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px;">
+                                <strong>Digunakan oleh:</strong> GitHub (real-time updates), Stack Overflow (notification), Twitter (timeline updates)
+                            </div>
+                            <div style="font-size: 11px; color: #666;">
+                                ✅ Ultra-low latency<br>
+                                ✅ Simple setup<br>
+                                ✅ Pattern-based subscriptions
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #ff9900;">
+                            <h5 style="color: #ff9900; margin-bottom: 8px;">☁️ AWS EventBridge</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;"><strong>Managed, serverless event bus</strong></p>
+                            <div style="background: #fff8e1; padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px;">
+                                <strong>Digunakan oleh:</strong> Amazon internal systems, Shopify (webhook processing), Capital One (event-driven architecture)
+                            </div>
+                            <div style="font-size: 11px; color: #666;">
+                                ✅ No infrastructure management<br>
+                                ✅ Built-in AWS integrations<br>
+                                ✅ Schema registry
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #4285f4;">
+                            <h5 style="color: #4285f4; margin-bottom: 8px;">🔵 Google Pub/Sub</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;"><strong>Fully managed, global scale messaging</strong></p>
+                            <div style="background: #e3f2fd; padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px;">
+                                <strong>Digunakan oleh:</strong> Spotify (music streaming events), Pokemon Go (real-time gameplay), PayPal (transaction processing)
+                            </div>
+                            <div style="font-size: 11px; color: #666;">
+                                ✅ Global message ordering<br>
+                                ✅ Automatic scaling<br>
+                                ✅ Dead letter queues
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Considerations Section -->
+                <div class="concept-section" id="considerationsSection" style="display: none;">
+                    <h4 style="color: #dc3545; margin-bottom: 15px; text-align: center;">⚠️ Design Considerations &amp; Best Practices</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #17a2b8;">
+                            <h5 style="color: #17a2b8; margin-bottom: 8px;">📝 Event Schema Design</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Definisikan structure event yang konsisten dan versionable.</p>
+                            <div style="background: #e1f7fa; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                <strong>Best Practice:</strong><br>
+                                • Gunakan JSON Schema atau Avro<br>
+                                • Include event version (v1, v2)<br>
+                                • Backward compatibility wajib<br>
+                                • Standardisasi timestamp format
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #28a745;">
+                            <h5 style="color: #28a745; margin-bottom: 8px;">📊 Event Ordering</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Pertimbangkan apakah urutan event penting untuk business logic.</p>
+                            <div style="background: #e8f5e8; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                <strong>Considerations:</strong><br>
+                                • Partition key untuk ordering<br>
+                                • Single partition = bottleneck<br>
+                                • Event timestamp vs processing time<br>
+                                • Out-of-order handling strategy
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
+                            <h5 style="color: #ffc107; margin-bottom: 8px;">🔄 Idempotency</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Pastikan consumer dapat handle duplicate events dengan aman.</p>
+                            <div style="background: #fff8e1; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                <strong>Implementation:</strong><br>
+                                • Event ID untuk deduplication<br>
+                                • Database unique constraints<br>
+                                • Idempotent operations only<br>
+                                • State checks before processing
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545;">
+                            <h5 style="color: #dc3545; margin-bottom: 8px;">❌ Error Handling</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Strategy untuk menangani failed events dan poison messages.</p>
+                            <div style="background: #ffebee; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                <strong>Strategies:</strong><br>
+                                • Exponential backoff retry<br>
+                                • Dead Letter Queue (DLQ)<br>
+                                • Circuit breaker pattern<br>
+                                • Manual intervention alerts
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #6f42c1;">
+                            <h5 style="color: #6f42c1; margin-bottom: 8px;">📈 Monitoring &amp; Observability</h5>
+                            <p style="font-size: 13px; margin-bottom: 8px;">Track event flow, consumer lag, dan system health.</p>
+                            <div style="background: #f3e5f5; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                <strong>Key Metrics:</strong><br>
+                                • Consumer lag monitoring<br>
+                                • Event processing rate<br>
+                                • Error rate dan DLQ size<br>
+                                • End-to-end latency tracking
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Section -->
+                <div class="concept-section" id="comparisonSection" style="display: none;">
+                    <h4 style="color: #6f42c1; margin-bottom: 15px; text-align: center;">📊 Event-Driven vs Traditional Architecture</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 2px solid #28a745;">
+                            <h5 style="color: #28a745; text-align: center; margin-bottom: 15px;">✅ Event-Driven Architecture</h5>
+                            <div style="font-size: 13px;">
+                                <div style="margin: 8px 0; padding: 6px; background: #e8f5e8; border-radius: 4px;">
+                                    <strong>🔄 Loose Coupling:</strong> Services independent
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #e8f5e8; border-radius: 4px;">
+                                    <strong>📈 Scalability:</strong> Scale consumers independently
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #e8f5e8; border-radius: 4px;">
+                                    <strong>🛡️ Resilience:</strong> Fault tolerance dengan message persistence
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #e8f5e8; border-radius: 4px;">
+                                    <strong>⚡ Performance:</strong> Asynchronous, non-blocking
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #fff3cd; border-radius: 4px;">
+                                    <strong>⚠️ Complexity:</strong> Event ordering, debugging distributed flow
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 2px solid #dc3545;">
+                            <h5 style="color: #dc3545; text-align: center; margin-bottom: 15px;">⚠️ Traditional Synchronous</h5>
+                            <div style="font-size: 13px;">
+                                <div style="margin: 8px 0; padding: 6px; background: #f8d7da; border-radius: 4px;">
+                                    <strong>🔗 Tight Coupling:</strong> Direct service dependencies
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #f8d7da; border-radius: 4px;">
+                                    <strong>📉 Limited Scale:</strong> Bottlenecks di slowest service
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #f8d7da; border-radius: 4px;">
+                                    <strong>💥 Cascade Failures:</strong> One service down = all fail
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #f8d7da; border-radius: 4px;">
+                                    <strong>⏳ Blocking:</strong> Synchronous calls, longer response time
+                                </div>
+                                <div style="margin: 8px 0; padding: 6px; background: #d1ecf1; border-radius: 4px;">
+                                    <strong>✅ Simplicity:</strong> Easier debugging, direct flow
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                        <h5 style="color: #1976d2; margin-bottom: 10px;">🎯 When to Use Event-Driven Architecture?</h5>
+                        <div style="font-size: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+                            <div>✅ High-volume applications</div>
+                            <div>✅ Microservices architecture</div>
+                            <div>✅ Real-time requirements</div>
+                            <div>✅ Complex business workflows</div>
+                            <div>✅ Multiple system integrations</div>
+                            <div>✅ Audit trail requirements</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Interactive Demo -->
+        <div class="slide" id="slide17">
+            <div class="slide-header">
+                <h2>Demo Interaktif: Microservices Flow</h2>
+            </div>
+
+            <div class="card">
+                <h3>🎮 Simulasi Live: Order Processing</h3>
+                <p>Klik tombol-tombol di bawah untuk melihat alur data real-time dalam arsitektur microservices:</p>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <div id="demoArea" style="min-height: 300px; background: #f8f9fa; border-radius: 10px; padding: 20px; position: relative;">
+                    <div id="demoServices" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                        <div class="demo-service" id="orderSvc" style="background: #6c757d; color: white; padding: 15px; border-radius: 8px; min-width: 120px;">
+                            <strong>Order Service</strong>
+                            <div class="service-status">Idle</div>
+                        </div>
+                        <div class="demo-service" id="userSvc" style="background: #6c757d; color: white; padding: 15px; border-radius: 8px; min-width: 120px;">
+                            <strong>User Service</strong>
+                            <div class="service-status">Idle</div>
+                        </div>
+                        <div class="demo-service" id="inventorySvc" style="background: #6c757d; color: white; padding: 15px; border-radius: 8px; min-width: 120px;">
+                            <strong>Inventory Service</strong>
+                            <div class="service-status">Idle</div>
+                        </div>
+                        <div class="demo-service" id="paymentSvc" style="background: #6c757d; color: white; padding: 15px; border-radius: 8px; min-width: 120px;">
+                            <strong>Payment Service</strong>
+                            <div class="service-status">Idle</div>
+                        </div>
+                    </div>
+                    
+                    <div id="messageFlow" style="margin-top: 30px; min-height: 100px; background: white; border-radius: 8px; padding: 15px;">
+                        <strong>Message Flow Log:</strong>
+                        <div id="messageLog" style="height: 80px; overflow-y: auto; font-family: monospace; font-size: 12px; margin-top: 10px;">
+                            Ready to process order...
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button class="nav-btn" onclick="simulateOrder()" style="margin: 5px;">🛒 Start Order</button>
+                    <button class="nav-btn" onclick="clearDemo()" style="margin: 5px;">🔄 Reset</button>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4>📋 Yang Terjadi dalam Simulasi:</h4>
+                <ol>
+                    <li><strong>Order Service</strong> menerima request dan memvalidasi data</li>
+                    <li><strong>User Service</strong> memverifikasi identitas customer</li>
+                    <li><strong>Inventory Service</strong> mengecek ketersediaan barang</li>
+                    <li><strong>Payment Service</strong> memproses pembayaran</li>
+                    <li>Semua services memberikan response secara asynchronous</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 18: Conclusion -->
+        <div class="slide" id="slide18">
+            <div class="chapter-intro">
+                <h2>VI. KESIMPULAN &amp; TINDAK LANJUT</h2>
+                <p>5 menit</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>📋 Rangkuman Materi</h3>
+                    <ul>
+                        <li>TST menggabungkan IoT, infrastruktur jaringan, dan cloud computing</li>
+                        <li>Arsitektur berlapis memungkinkan separation of concerns</li>
+                        <li>Integrasi data, aplikasi, dan proses adalah kunci kesuksesan</li>
+                        <li>Tantangan teknis dan organisasi memerlukan perencanaan matang</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📚 Persiapan Pertemuan Selanjutnya</h3>
+                    <ul>
+                        <li><strong>CPMK:</strong> Mahasiswa dapat menganalisis kebutuhan sistem terintegrasi untuk aplikasi industri</li>
+                        <li><strong>Topik:</strong> "Analisis Kebutuhan dan Desain Sistem Terintegrasi"</li>
+                        <li><strong>English:</strong> "System Design and Requirements Analysis"</li>
+                        <li><strong>Reading:</strong> Requirements engineering untuk sistem terintegrasi</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>❓ Quick Assessment</h3>
+                    <ul>
+                        <li>Sebutkan 3 karakteristik utama sistem terintegrasi</li>
+                        <li>Jelaskan perbedaan data integration dan application integration</li>
+                        <li>Berikan contoh implementasi TST dalam kehidupan sehari-hari</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; padding: 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 15px;">
+                <h2>Terima Kasih!</h2>
+                <p>Pertanyaan dan Diskusi</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled="">◀ Prev</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+        <button class="nav-btn" onclick="scrollToTop()" title="Scroll to Top">⬆ Top</button>
+        <button class="nav-btn" onclick="scrollToBottom()" title="Scroll to Bottom">⬇ Bottom</button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen (F)">⛶ Full</button>
+        <button class="nav-btn" onclick="showHelp()" title="Help">❓ Help</button>
+    </div>
+
+    <div class="slide-counter">
+        <span id="currentSlideNum">1</span> / <span id="totalSlideNum">18</span>
+    </div>
+
+    <!-- Help Overlay -->
+    <div id="helpOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000;">
+        <div style="background: white; color: black; padding: 30px; border-radius: 15px; max-width: 500px; text-align: center;">
+            <h2>🎮 Kontrol Presentasi</h2>
+            <div style="text-align: left; margin: 20px 0;">
+                <p><strong>Keyboard Controls:</strong></p>
+                <ul>
+                    <li><strong>→ / Space / Enter:</strong> Next slide</li>
+                    <li><strong>← / Backspace:</strong> Previous slide</li>
+                    <li><strong>↑ / ↓ / Page Up/Down:</strong> Navigate slides</li>
+                    <li><strong>F / F11:</strong> Toggle fullscreen</li>
+                    <li><strong>Esc:</strong> Exit fullscreen</li>
+                    <li><strong>Home / End:</strong> First/Last slide</li>
+                    <li><strong>1-9:</strong> Jump to slide number</li>
+                </ul>
+                <p><strong>Remote Control:</strong></p>
+                <ul>
+                    <li>Arrow buttons: Next/Previous slide</li>
+                    <li>Laser pointer button: Next slide (Space)</li>
+                    <li>Page Up/Down: Navigate slides</li>
+                    <li>Click left 30% / right 70%: Navigate</li>
+                </ul>
+                <p><strong>Touch/Mouse:</strong></p>
+                <ul>
+                    <li>Click left side of screen: Previous slide</li>
+                    <li>Click right side of screen: Next slide</li>
+                </ul>
+            </div>
+            <button class="nav-btn" onclick="hideHelp()" style="margin-top: 20px;">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 18;
+
+        function updateSlideCounter() {
+            document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            // Update slide counter
+            document.getElementById('currentSlideNum').textContent = currentSlide;
+            
+            updateSlideCounter();
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
+
+        // Enhanced Keyboard and Remote Controls
+        document.addEventListener('keydown', function(event) {
+            // Prevent default for all presenter remote keys
+            const remoteKeys = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', ' ', 'Enter'];
+            if (remoteKeys.includes(event.key)) {
+                event.preventDefault();
+            }
+
+            switch(event.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case 'PageDown':
+                case ' ':
+                case 'Enter':
+                    if (currentSlide < totalSlides) {
+                        changeSlide(1);
+                    }
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                case 'PageUp':
+                case 'Backspace':
+                    if (currentSlide > 1) {
+                        changeSlide(-1);
+                    }
+                    break;
+                case 'Home':
+                    currentSlide = 1;
+                    showSlide(currentSlide);
+                    break;
+                case 'End':
+                    currentSlide = totalSlides;
+                    showSlide(currentSlide);
+                    break;
+                case 'f':
+                case 'F':
+                case 'F11':
+                    event.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (document.getElementById('helpOverlay').style.display === 'flex') {
+                        hideHelp();
+                    } else if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+                case 'h':
+                case 'H':
+                    if (document.getElementById('helpOverlay').style.display === 'flex') {
+                        hideHelp();
+                    } else {
+                        showHelp();
+                    }
+                    break;
+                // Support for numeric keys to jump to slides
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    const slideNum = parseInt(event.key);
+                    if (slideNum <= totalSlides) {
+                        currentSlide = slideNum;
+                        showSlide(currentSlide);
+                    }
+                    break;
+            }
+        });
+
+        // Fullscreen toggle function
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log('Error attempting to enable fullscreen:', err);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+        
+        // Scroll functions
+        function scrollToTop() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        function scrollToBottom() {
+            const activeSlide = document.querySelector('.slide.active');
+            if (activeSlide) {
+                activeSlide.scrollTo({
+                    top: activeSlide.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Help functions
+        function showHelp() {
+            document.getElementById('helpOverlay').style.display = 'flex';
+        }
+
+        function hideHelp() {
+            document.getElementById('helpOverlay').style.display = 'none';
+        }
+
+        // Enhanced mouse/touch support for remote pointers
+        document.addEventListener('click', function(event) {
+            // Check if click is on interactive elements
+            if (event.target.closest('button') || 
+                event.target.closest('.nav-btn') || 
+                event.target.closest('a') ||
+                event.target.closest('[onclick]')) {
+                return; // Don't interfere with interactive elements
+            }
+            
+            // Click on right side = next slide, left side = previous slide
+            const clickX = event.clientX;
+            const screenWidth = window.innerWidth;
+            
+            if (clickX > screenWidth * 0.7) {
+                if (currentSlide < totalSlides) {
+                    changeSlide(1);
+                }
+            } else if (clickX < screenWidth * 0.3) {
+                if (currentSlide > 1) {
+                    changeSlide(-1);
+                }
+            }
+        });
+
+        // Handle fullscreen changes
+        document.addEventListener('fullscreenchange', function() {
+            // Auto-hide cursor in fullscreen after inactivity
+            if (document.fullscreenElement) {
+                let cursorTimeout;
+                function resetCursorTimeout() {
+                    clearTimeout(cursorTimeout);
+                    document.body.style.cursor = 'default';
+                    cursorTimeout = setTimeout(() => {
+                        document.body.style.cursor = 'none';
+                    }, 3000);
+                }
+                document.addEventListener('mousemove', resetCursorTimeout);
+                resetCursorTimeout();
+            } else {
+                document.body.style.cursor = 'default';
+            }
+        });
+
+        // Prevent context menu on right click to avoid interference
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+        // Mouse wheel navigation - only for large scrolls, avoid accidental navigation
+        let wheelTimeout;
+        let accumulatedDelta = 0;
+        document.addEventListener('wheel', function(e) {
+            // Check if we're scrolling within a slide content
+            const activeSlide = document.querySelector('.slide.active');
+            const slideHeight = activeSlide.scrollHeight;
+            const slideClientHeight = activeSlide.clientHeight;
+            
+            // If slide content is scrollable, allow normal scrolling
+            if (slideHeight > slideClientHeight) {
+                accumulatedDelta += e.deltaY;
+                
+                // Only change slides on significant scroll accumulation
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(() => {
+                    if (Math.abs(accumulatedDelta) > 300) {
+                        if (accumulatedDelta > 0 && currentSlide < totalSlides) {
+                            changeSlide(1);
+                        } else if (accumulatedDelta < 0 && currentSlide > 1) {
+                            changeSlide(-1);
+                        }
+                        accumulatedDelta = 0;
+                    }
+                }, 150);
+            } else {
+                // For non-scrollable slides, allow immediate navigation
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(() => {
+                    if (e.deltaY > 0 && currentSlide < totalSlides) {
+                        changeSlide(1);
+                    } else if (e.deltaY < 0 && currentSlide > 1) {
+                        changeSlide(-1);
+                    }
+                }, 100);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && currentSlide < totalSlides) {
+                    changeSlide(1);
+                } else if (diff < 0 && currentSlide > 1) {
+                    changeSlide(-1);
+                }
+            }
+        }
+
+        // Initialize
+        showSlide(1);
+
+        // Microservices Demo Functions
+        function simulateOrder() {
+            const orderSvc = document.getElementById('orderSvc');
+            const userSvc = document.getElementById('userSvc');
+            const inventorySvc = document.getElementById('inventorySvc');
+            const paymentSvc = document.getElementById('paymentSvc');
+            const messageLog = document.getElementById('messageLog');
+            
+            // Clear previous demo
+            clearDemo();
+            
+            // Step 1: Order Service receives request
+            setTimeout(() => {
+                orderSvc.style.background = '#007bff';
+                orderSvc.querySelector('.service-status').textContent = 'Processing...';
+                appendLog('📦 Order Service: Received new order request');
+            }, 500);
+            
+            // Step 2: Validate user
+            setTimeout(() => {
+                userSvc.style.background = '#28a745';
+                userSvc.querySelector('.service-status').textContent = 'Validating...';
+                appendLog('👤 User Service: Validating customer ID: 12345');
+            }, 1500);
+            
+            // Step 3: Check inventory
+            setTimeout(() => {
+                inventorySvc.style.background = '#ffc107';
+                inventorySvc.querySelector('.service-status').textContent = 'Checking...';
+                appendLog('📦 Inventory Service: Checking product availability');
+            }, 2500);
+            
+            // Step 4: User validation complete
+            setTimeout(() => {
+                userSvc.style.background = '#28a745';
+                userSvc.querySelector('.service-status').textContent = 'Valid ✓';
+                appendLog('✅ User Service: Customer validated successfully');
+            }, 3000);
+            
+            // Step 5: Inventory check complete
+            setTimeout(() => {
+                inventorySvc.style.background = '#28a745';
+                inventorySvc.querySelector('.service-status').textContent = 'Available ✓';
+                appendLog('✅ Inventory Service: Products available, stock reserved');
+            }, 3500);
+            
+            // Step 6: Process payment
+            setTimeout(() => {
+                paymentSvc.style.background = '#dc3545';
+                paymentSvc.querySelector('.service-status').textContent = 'Processing...';
+                appendLog('💳 Payment Service: Processing payment $125.00');
+            }, 4000);
+            
+            // Step 7: Payment complete
+            setTimeout(() => {
+                paymentSvc.style.background = '#28a745';
+                paymentSvc.querySelector('.service-status').textContent = 'Paid ✓';
+                appendLog('✅ Payment Service: Payment successful, transaction ID: TXN123');
+            }, 5500);
+            
+            // Step 8: Order confirmed
+            setTimeout(() => {
+                orderSvc.style.background = '#28a745';
+                orderSvc.querySelector('.service-status').textContent = 'Completed ✓';
+                appendLog('🎉 Order Service: Order confirmed, sending notifications');
+                appendLog('📧 Notification Service: Email sent to customer');
+                appendLog('📊 Analytics Service: Order data logged for reporting');
+            }, 6500);
+        }
+
+        function clearDemo() {
+            const services = document.querySelectorAll('.demo-service');
+            services.forEach(service => {
+                service.style.background = '#6c757d';
+                service.querySelector('.service-status').textContent = 'Idle';
+            });
+            
+            const messageLog = document.getElementById('messageLog');
+            messageLog.innerHTML = 'Ready to process order...';
+        }
+
+        function appendLog(message) {
+            const messageLog = document.getElementById('messageLog');
+            const timestamp = new Date().toLocaleTimeString();
+            messageLog.innerHTML += `\n[${timestamp}] ${message}`;
+            messageLog.scrollTop = messageLog.scrollHeight;
+        }
+
+        // Transaction Flow Step-by-Step Function
+        function showTransactionStep(step) {
+            // Hide all steps first
+            const allSteps = document.querySelectorAll('.transaction-step');
+            allSteps.forEach(stepDiv => {
+                stepDiv.style.display = 'none';
+            });
+
+            // Show specific step or all steps
+            if (step === 0) {
+                document.getElementById('stepAll').style.display = 'block';
+            } else {
+                document.getElementById('step' + step).style.display = 'block';
+            }
+
+            // Add visual feedback to button
+            const buttons = document.querySelectorAll('#transactionFlow').parentElement.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.style.background = '#667eea';
+            });
+            
+            // Highlight active button
+            if (step === 0) {
+                buttons[4].style.background = '#28a745'; // Show All button
+            } else {
+                buttons[step - 1].style.background = '#ffc107';
+            }
+        }
+
+        // Event Flow Step-by-Step Function
+        function showEventFlow(phase) {
+            // Hide all phases first
+            const allPhases = document.querySelectorAll('.event-phase');
+            allPhases.forEach(phaseDiv => {
+                phaseDiv.style.display = 'none';
+            });
+
+            // Show specific phase
+            if (phase === 'publish') {
+                document.getElementById('publishPhase').style.display = 'block';
+            } else if (phase === 'consume') {
+                document.getElementById('consumePhase').style.display = 'block';
+            } else if (phase === 'cascade') {
+                document.getElementById('cascadePhase').style.display = 'block';
+            } else if (phase === 'complete') {
+                document.getElementById('completePhase').style.display = 'block';
+            }
+
+            // Add visual feedback to buttons
+            const eventButtons = document.querySelectorAll('#eventFlowContainer').parentElement.querySelectorAll('button');
+            eventButtons.forEach(btn => {
+                btn.style.background = '#667eea';
+            });
+            
+            // Highlight active button
+            if (phase === 'publish') {
+                eventButtons[0].style.background = '#ffc107';
+            } else if (phase === 'consume') {
+                eventButtons[1].style.background = '#ffc107';
+            } else if (phase === 'cascade') {
+                eventButtons[2].style.background = '#ffc107';
+            } else if (phase === 'complete') {
+                eventButtons[3].style.background = '#28a745';
+            }
+        }
+
+        // Event Concept Navigation Function
+        function showEventConcept(concept) {
+            // Hide all concept sections first
+            const allSections = document.querySelectorAll('.concept-section');
+            allSections.forEach(sectionDiv => {
+                sectionDiv.style.display = 'none';
+            });
+
+            // Show specific concept section
+            if (concept === 'benefits') {
+                document.getElementById('benefitsSection').style.display = 'block';
+            } else if (concept === 'technologies') {
+                document.getElementById('technologiesSection').style.display = 'block';
+            } else if (concept === 'considerations') {
+                document.getElementById('considerationsSection').style.display = 'block';
+            } else if (concept === 'comparison') {
+                document.getElementById('comparisonSection').style.display = 'block';
+            }
+
+            // Add visual feedback to buttons
+            const conceptButtons = document.querySelectorAll('#eventConceptContainer').parentElement.querySelectorAll('button');
+            conceptButtons.forEach(btn => {
+                btn.style.background = '#667eea';
+            });
+            
+            // Highlight active button
+            if (concept === 'benefits') {
+                conceptButtons[0].style.background = '#28a745';
+            } else if (concept === 'technologies') {
+                conceptButtons[1].style.background = '#007bff';
+            } else if (concept === 'considerations') {
+                conceptButtons[2].style.background = '#dc3545';
+            } else if (concept === 'comparison') {
+                conceptButtons[3].style.background = '#6f42c1';
+            }
+        }
+
+        // Auto-resize text for better mobile experience
+        function adjustFontSize() {
+            const slides = document.querySelectorAll('.slide');
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth < 768) {
+                document.body.style.fontSize = '14px';
+            } else if (screenWidth < 1024) {
+                document.body.style.fontSize = '16px';
+            } else {
+                document.body.style.fontSize = '18px';
+            }
+        }
+
+        window.addEventListener('resize', adjustFontSize);
+        adjustFontSize();
+
+        // Add some interactivity to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
