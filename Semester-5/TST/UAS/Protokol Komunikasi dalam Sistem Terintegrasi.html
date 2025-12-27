@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<!-- saved from url=(0117)https://class.tiflab.my.id/storage/lessons/materials/1762135517_11-Protokol-Komunikasi-dalam-Sistem-Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protokol Komunikasi dalam Sistem Terintegrasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #8B5CF6 rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #FFA500;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #FFEAA7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #DDD;
+        }
+
+        ul {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "📡";
+            position: absolute;
+            left: -2rem;
+            top: 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-box h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+
+        .content-box ul {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .protocol-box {
+            background: rgba(139, 92, 246, 0.2);
+            border-left: 4px solid #8B5CF6;
+        }
+
+        .network-box {
+            background: rgba(124, 58, 237, 0.2);
+            border-left: 4px solid #7C3AED;
+        }
+
+        .iot-box {
+            background: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid #2ecc71;
+        }
+
+        .security-box {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid #e74c3c;
+        }
+
+        .case-study {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-study h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .protocol-diagram {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            backdrop-filter: blur(10px);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .control-btn {
+            padding: 15px 25px;
+            background: linear-gradient(45deg, #8B5CF6, #7C3AED);
+            border: 2px solid #FFD700;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .control-btn:hover {
+            background: linear-gradient(45deg, #7C3AED, #6D28D9);
+            border-color: #FFA500;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .control-btn:active {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(45deg, #8B5CF6, #7C3AED);
+            border: 2px solid #FFD700;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            z-index: 9999;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B5CF6, #7C3AED);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .protocol-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .protocol-layer {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem 2rem;
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 300px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .protocol-layer:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #FFD700;
+            transform: scale(1.05);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            border-left: 4px solid #8B5CF6;
+            overflow-x: auto;
+        }
+
+        .simulation-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #7C3AED;
+        }
+
+        .simulation-box h5 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: #FFEAA7;
+            margin-top: 0.5rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .comparison-table th {
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .protocol-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .protocol-step {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            margin: 0.5rem;
+            border: 2px solid #8B5CF6;
+        }
+
+        .arrow {
+            font-size: 2rem;
+            color: #FFD700;
+            margin: 0 1rem;
+        }
+
+        .lab-exercise {
+            background: rgba(46, 204, 113, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .lab-exercise h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar" style="width: 5.26316%;"></div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 120px; height: 120px; margin-right: 2rem; animation: fadeIn 1s ease;">
+                <div>
+                    <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Protokol Komunikasi dalam<br>Sistem Terintegrasi</h1>
+                    <div class="subtitle">Communication Protocols in Integrated Systems</div>
+                </div>
+            </div>
+
+            <div class="university-info">
+                <div class="university-name">Universitas Tidar Magelang</div>
+                <div class="faculty-info">Fakultas Teknik - Program Studi Teknologi Informasi</div>
+                <div class="course-info">Teknologi Sistem Terintegrasi - Pertemuan 11</div>
+                <div style="margin-top: 1rem; font-size: 1.1rem; color: #FFEAA7;">Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>🎯 CPMK yang Dicapai</h4>
+                    <ul>
+                        <li>CPMK 0801: Protokol IoT dan komunikasi device</li>
+                        <li>CPMK 0901: Network protocols dan infrastruktur</li>
+                        <li>CPMK 1001: Algoritma komunikasi dan routing</li>
+                        <li>CPMK 1005: Cloud communication protocols</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>📊 Detail Pertemuan</h4>
+                    <ul>
+                        <li>Durasi: 170 menit (3 SKS)</li>
+                        <li>Metode: Ceramah, praktik simulasi</li>
+                        <li>Target: Implementasi protokol komunikasi</li>
+                        <li>Penilaian: Ketepatan implementasi protokol</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Prinsip Dasar Komunikasi -->
+        <div class="slide">
+            <h2>Prinsip Dasar Komunikasi dalam Sistem Terintegrasi</h2>
+
+            <h3>Fundamental Communication Concepts</h3>
+            <div class="case-study">
+                <p style="font-size: 1.3rem; line-height: 1.6; text-align: justify;">Komunikasi dalam sistem terintegrasi melibatkan pertukaran data antar komponen yang heterogen. Protokol komunikasi menentukan bagaimana <strong>IoT devices</strong>, <strong>network infrastructure</strong>, dan <strong>cloud services</strong> berinteraksi secara reliable dan efficient.</p>
+            </div>
+
+            <div class="protocol-flow">
+                <div class="protocol-step">
+                    <h5>Sender</h5>
+                    <p>IoT Device<br>Application</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="protocol-step">
+                    <h5>Encoding</h5>
+                    <p>Data Serialization<br>Protocol Headers</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="protocol-step">
+                    <h5>Transmission</h5>
+                    <p>Network Layer<br>Physical Medium</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="protocol-step">
+                    <h5>Decoding</h5>
+                    <p>Data Parsing<br>Protocol Processing</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="protocol-step">
+                    <h5>Receiver</h5>
+                    <p>Cloud Service<br>Application</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>📋 Communication Requirements</h4>
+                    <ul>
+                        <li><strong>Reliability:</strong> Guaranteed message delivery</li>
+                        <li><strong>Scalability:</strong> Handle increasing device count</li>
+                        <li><strong>Latency:</strong> Real-time response requirements</li>
+                        <li><strong>Bandwidth:</strong> Efficient data transmission</li>
+                        <li><strong>Security:</strong> Secure communication channels</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>⚡ Communication Challenges</h4>
+                    <ul>
+                        <li><strong>Heterogeneity:</strong> Different device capabilities</li>
+                        <li><strong>Mobility:</strong> Dynamic network topology</li>
+                        <li><strong>Resource Constraints:</strong> Limited power dan bandwidth</li>
+                        <li><strong>Quality of Service:</strong> Variable network conditions</li>
+                        <li><strong>Interoperability:</strong> Cross-platform compatibility</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: OSI Model untuk Sistem Terintegrasi -->
+        <div class="slide">
+            <h2>OSI Model dalam Konteks Sistem Terintegrasi</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>7-Layer Communication Stack</h3>
+
+            <div class="protocol-stack">
+                <div class="protocol-layer" style="background: rgba(231, 76, 60, 0.2); border-color: #e74c3c;">
+                    <h5>7. Application Layer</h5>
+                    <p>HTTP/HTTPS, MQTT, CoAP, WebSocket</p>
+                </div>
+                <div class="protocol-layer" style="background: rgba(243, 156, 18, 0.2); border-color: #f39c12;">
+                    <h5>6. Presentation Layer</h5>
+                    <p>JSON, XML, Protocol Buffers, CBOR</p>
+                </div>
+                <div class="protocol-layer" style="background: rgba(241, 196, 15, 0.2); border-color: #f1c40f;">
+                    <h5>5. Session Layer</h5>
+                    <p>TLS/SSL, OAuth, JWT, Session Management</p>
+                </div>
+                <div class="protocol-layer" style="background: rgba(46, 204, 113, 0.2); border-color: #2ecc71;">
+                    <h5>4. Transport Layer</h5>
+                    <p>TCP, UDP, QUIC, SCTP</p>
+                </div>
+                <div class="protocol-layer" style="background: rgba(52, 152, 219, 0.2); border-color: #3498db;">
+                    <h5>3. Network Layer</h5>
+                    <p>IPv4, IPv6, ICMP, Routing Protocols</p>
+                </div>
+                <div class="protocol-layer" style="background: rgba(155, 89, 182, 0.2); border-color: #9b59b6;">
+                    <h5>2. Data Link Layer</h5>
+                    <p>Ethernet, WiFi, Bluetooth, LoRaWAN</p>
+                </div>
+                <div class="protocol-layer" style="background: rgba(139, 92, 246, 0.2); border-color: #8B5CF6;">
+                    <h5>1. Physical Layer</h5>
+                    <p>Radio Waves, Optical Fiber, Copper Wire</p>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔍 IoT Communication Example</h4>
+                <div class="protocol-diagram">
+                    Temperature Sensor → MQTT (App) → JSON (Presentation) → TLS (Session)<br>
+                    ↓<br>
+                    TCP (Transport) → IPv6 (Network) → WiFi (Data Link) → 2.4GHz (Physical)<br>
+                    ↓<br>
+                    Gateway → Cloud Platform → Analytics Dashboard
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: IoT Communication Protocols (CPMK 0801) -->
+        <div class="slide">
+            <h2>IoT Communication Protocols</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 0801: Protokol IoT dan Device Communication</h3>
+
+            <div class="content-grid">
+                <div class="content-box iot-box">
+                    <h4>📡 MQTT (Message Queuing Telemetry Transport)</h4>
+                    <ul>
+                        <li><strong>Lightweight:</strong> Minimal protocol overhead</li>
+                        <li><strong>Publish/Subscribe:</strong> Decoupled communication</li>
+                        <li><strong>QoS Levels:</strong> 0, 1, 2 delivery guarantees</li>
+                        <li><strong>Retained Messages:</strong> Last known good value</li>
+                        <li><strong>Will Messages:</strong> Device disconnection handling</li>
+                    </ul>
+                </div>
+                <div class="content-box protocol-box">
+                    <h4>🌐 CoAP (Constrained Application Protocol)</h4>
+                    <ul>
+                        <li><strong>RESTful:</strong> HTTP-like request/response</li>
+                        <li><strong>UDP-based:</strong> Lower overhead than TCP</li>
+                        <li><strong>Observing:</strong> Asynchronous notifications</li>
+                        <li><strong>Block Transfer:</strong> Large payload handling</li>
+                        <li><strong>DTLS Security:</strong> Encrypted communication</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: MQTT Implementation</h4>
+                <div class="code-block">
+// MQTT Publisher Example (Node.js)<br>
+const mqtt = require('mqtt');<br>
+const client = mqtt.connect('mqtt://broker.hivemq.com');<br><br>
+
+client.on('connect', function () {<br>
+&nbsp;&nbsp;console.log('Connected to MQTT broker');<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;// Publish sensor data every 5 seconds<br>
+&nbsp;&nbsp;setInterval(() =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const sensorData = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deviceId: 'sensor-001',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temperature: 20 + Math.random() * 15,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;humidity: 40 + Math.random() * 30,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp: new Date().toISOString()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;client.publish('sensors/temperature', JSON.stringify(sensorData), {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qos: 1, // At least once delivery<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retain: true // Store last message<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;}, 5000);<br>
+});<br><br>
+
+// MQTT Subscriber Example<br>
+client.on('message', function (topic, message) {<br>
+&nbsp;&nbsp;console.log(`Received on ${topic}: ${message.toString()}`);<br>
+&nbsp;&nbsp;const data = JSON.parse(message.toString());<br>
+&nbsp;&nbsp;processRealtimeData(data);<br>
+});
+                </div>
+            </div>
+
+            <table class="comparison-table">
+                <tbody><tr>
+                    <th>Protocol</th>
+                    <th>Transport</th>
+                    <th>Message Size</th>
+                    <th>Power Usage</th>
+                    <th>Use Case</th>
+                </tr>
+                <tr>
+                    <td>MQTT</td>
+                    <td>TCP</td>
+                    <td>2 bytes overhead</td>
+                    <td>Low</td>
+                    <td>Real-time telemetry</td>
+                </tr>
+                <tr>
+                    <td>CoAP</td>
+                    <td>UDP</td>
+                    <td>4 bytes overhead</td>
+                    <td>Very Low</td>
+                    <td>Constrained devices</td>
+                </tr>
+                <tr>
+                    <td>HTTP</td>
+                    <td>TCP</td>
+                    <td>High overhead</td>
+                    <td>High</td>
+                    <td>Web services</td>
+                </tr>
+                <tr>
+                    <td>WebSocket</td>
+                    <td>TCP</td>
+                    <td>2 bytes overhead</td>
+                    <td>Medium</td>
+                    <td>Real-time web apps</td>
+                </tr>
+            </tbody></table>
+        </div>
+
+        <!-- Slide 5: Network Layer Protocols (CPMK 0901) -->
+        <div class="slide">
+            <h2>Network Layer Communication Protocols</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 0901: Network Protocols dan Infrastructure</h3>
+
+            <div class="content-grid">
+                <div class="content-box network-box">
+                    <h4>🌐 Industrial Ethernet Protocols</h4>
+                    <ul>
+                        <li><strong>Profinet:</strong> Siemens industrial networking</li>
+                        <li><strong>EtherNet/IP:</strong> Rockwell Automation protocol</li>
+                        <li><strong>EtherCAT:</strong> Real-time Ethernet for automation</li>
+                        <li><strong>Modbus TCP:</strong> Industrial Modbus over Ethernet</li>
+                        <li><strong>OPC UA:</strong> Machine-to-machine communication</li>
+                    </ul>
+                </div>
+                <div class="content-box security-box">
+                    <h4>🔐 Security Protocols</h4>
+                    <ul>
+                        <li><strong>TLS/SSL:</strong> Transport layer security</li>
+                        <li><strong>IPSec:</strong> Network layer encryption</li>
+                        <li><strong>DTLS:</strong> Datagram transport layer security</li>
+                        <li><strong>WPA3:</strong> WiFi security protocol</li>
+                        <li><strong>OAuth 2.0:</strong> Authorization framework</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🏭 Industrial Network Architecture</h4>
+                <div class="protocol-diagram">
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                    ENTERPRISE NETWORK                   │<br>
+                    │            ERP | MES | Database Servers               │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │ (Ethernet/IP)<br>
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                    CONTROL NETWORK                      │<br>
+                    │          PLCs | HMIs | SCADA Systems                  │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │ (Profinet/EtherCAT)<br>
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                    DEVICE NETWORK                       │<br>
+                    │       Field Devices | Sensors | Actuators             │<br>
+                    └─────────────────────────────────────────────────────────┘
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: OPC UA Communication</h4>
+                <div class="code-block">
+// OPC UA Client Implementation (Python)<br>
+from opcua import Client<br>
+import time<br><br>
+
+class OPCUAClient:<br>
+&nbsp;&nbsp;def __init__(self, server_url):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.client = Client(server_url)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.connected = False<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def connect(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.client.connect()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.connected = True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Connected to OPC UA server")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;except Exception as e:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Connection failed: {e}")<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def read_sensor_data(self, node_id):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.connected:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node = self.client.get_node(node_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = node.get_value()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return None<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def write_control_signal(self, node_id, value):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if self.connected:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node = self.client.get_node(node_id)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node.set_value(value)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Written {value} to {node_id}")<br><br>
+
+// Usage example<br>
+client = OPCUAClient("opc.tcp://192.168.1.100:4840")<br>
+client.connect()<br><br>
+
+// Read temperature sensor<br>
+temp = client.read_sensor_data("ns=2;i=1001")<br>
+print(f"Temperature: {temp}°C")<br><br>
+
+// Write control output<br>
+client.write_control_signal("ns=2;i=2001", True)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Communication Algorithms (CPMK 1001) -->
+        <div class="slide">
+            <h2>Algoritma Komunikasi dan Routing</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 1001: Algoritma Komunikasi dan Routing</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>🔀 Routing Algorithms</h4>
+                    <ul>
+                        <li><strong>Distance Vector:</strong> RIP, EIGRP untuk local networks</li>
+                        <li><strong>Link State:</strong> OSPF untuk enterprise networks</li>
+                        <li><strong>Ad-Hoc Routing:</strong> AODV untuk wireless sensor networks</li>
+                        <li><strong>Geographic Routing:</strong> GPSR untuk location-based routing</li>
+                        <li><strong>Cluster-based:</strong> LEACH untuk energy-efficient routing</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>⚖️ Load Balancing Algorithms</h4>
+                    <ul>
+                        <li><strong>Round Robin:</strong> Equal distribution of requests</li>
+                        <li><strong>Weighted Round Robin:</strong> Capacity-based distribution</li>
+                        <li><strong>Least Connections:</strong> Server load consideration</li>
+                        <li><strong>IP Hash:</strong> Session persistence</li>
+                        <li><strong>Geographic:</strong> Location-based routing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: Adaptive Routing Algorithm</h4>
+                <div class="code-block">
+// Adaptive Routing Algorithm Implementation<br>
+class AdaptiveRouter {<br>
+&nbsp;&nbsp;constructor() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.routingTable = new Map();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.networkMetrics = new Map();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.updateInterval = 30000; // 30 seconds<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;// Calculate route based on multiple metrics<br>
+&nbsp;&nbsp;calculateBestRoute(destination, metrics) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const routes = this.getAllRoutes(destination);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let bestRoute = null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let bestScore = Infinity;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;routes.forEach(route =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const score = this.calculateRouteScore(route, metrics);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (score &lt; bestScore) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bestScore = score;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bestRoute = route;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return bestRoute;<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;calculateRouteScore(route, metrics) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Multi-criteria decision making<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const weights = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;latency: 0.4,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bandwidth: 0.3,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reliability: 0.2,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;energy: 0.1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let score = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;score += metrics.latency * weights.latency;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;score += (1 / metrics.bandwidth) * weights.bandwidth;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;score += (1 - metrics.reliability) * weights.reliability;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;score += metrics.energyCost * weights.energy;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return score;<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Routing Performance Comparison</h4>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">15ms</div>
+                        <div class="metric-label">Adaptive Routing Latency</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">25ms</div>
+                        <div class="metric-label">Static Routing Latency</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">95%</div>
+                        <div class="metric-label">Network Utilization</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">99.9%</div>
+                        <div class="metric-label">Message Delivery Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Cloud Communication Protocols (CPMK 1005) -->
+        <div class="slide">
+            <h2>Cloud Communication Protocols</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 1005: Cloud Communication Protocols</h3>
+
+            <div class="content-grid">
+                <div class="content-box iot-box">
+                    <h4>☁️ Cloud Native Protocols</h4>
+                    <ul>
+                        <li><strong>gRPC:</strong> High-performance RPC framework</li>
+                        <li><strong>GraphQL:</strong> Flexible API query language</li>
+                        <li><strong>WebRTC:</strong> Real-time peer-to-peer communication</li>
+                        <li><strong>Server-Sent Events:</strong> One-way real-time updates</li>
+                        <li><strong>Apache Kafka:</strong> Distributed streaming platform</li>
+                    </ul>
+                </div>
+                <div class="content-box security-box">
+                    <h4>🔄 Message Queue Protocols</h4>
+                    <ul>
+                        <li><strong>AMQP:</strong> Advanced Message Queuing Protocol</li>
+                        <li><strong>STOMP:</strong> Simple Text Oriented Messaging Protocol</li>
+                        <li><strong>JMS:</strong> Java Message Service</li>
+                        <li><strong>Redis Pub/Sub:</strong> In-memory message broker</li>
+                        <li><strong>Amazon SQS:</strong> Cloud message queuing service</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: gRPC Implementation</h4>
+                <div class="code-block">
+// gRPC Service Definition (Protocol Buffers)<br>
+syntax = "proto3";<br><br>
+
+package sensorservice;<br><br>
+
+service SensorService {<br>
+&nbsp;&nbsp;rpc GetSensorData(SensorRequest) returns (SensorResponse);<br>
+&nbsp;&nbsp;rpc StreamSensorData(SensorRequest) returns (stream SensorResponse);<br>
+&nbsp;&nbsp;rpc UpdateSensorConfig(ConfigRequest) returns (ConfigResponse);<br>
+}<br><br>
+
+message SensorRequest {<br>
+&nbsp;&nbsp;string device_id = 1;<br>
+&nbsp;&nbsp;repeated string sensor_types = 2;<br>
+}<br><br>
+
+message SensorResponse {<br>
+&nbsp;&nbsp;string device_id = 1;<br>
+&nbsp;&nbsp;double temperature = 2;<br>
+&nbsp;&nbsp;double humidity = 3;<br>
+&nbsp;&nbsp;int64 timestamp = 4;<br>
+&nbsp;&nbsp;string status = 5;<br>
+}<br><br>
+
+// gRPC Server Implementation (Node.js)<br>
+const grpc = require('@grpc/grpc-js');<br>
+const protoLoader = require('@grpc/proto-loader');<br><br>
+
+const packageDefinition = protoLoader.loadSync('sensor.proto');<br>
+const sensorProto = grpc.loadPackageDefinition(packageDefinition).sensorservice;<br><br>
+
+function getSensorData(call, callback) {<br>
+&nbsp;&nbsp;const deviceId = call.request.device_id;<br>
+&nbsp;&nbsp;const sensorData = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device_id: deviceId,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;temperature: 25.5,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;humidity: 60.2,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timestamp: Date.now(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status: 'active'<br>
+&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;callback(null, sensorData);<br>
+}
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📈 Cloud Protocol Performance</h4>
+                <table class="comparison-table">
+                    <tbody><tr>
+                        <th>Protocol</th>
+                        <th>Latency</th>
+                        <th>Throughput</th>
+                        <th>CPU Usage</th>
+                        <th>Use Case</th>
+                    </tr>
+                    <tr>
+                        <td>gRPC</td>
+                        <td>1-5ms</td>
+                        <td>Very High</td>
+                        <td>Low</td>
+                        <td>Microservices</td>
+                    </tr>
+                    <tr>
+                        <td>REST/HTTP</td>
+                        <td>10-50ms</td>
+                        <td>Medium</td>
+                        <td>Medium</td>
+                        <td>Web APIs</td>
+                    </tr>
+                    <tr>
+                        <td>GraphQL</td>
+                        <td>5-20ms</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                        <td>Flexible queries</td>
+                    </tr>
+                    <tr>
+                        <td>WebSocket</td>
+                        <td>1-3ms</td>
+                        <td>High</td>
+                        <td>Low</td>
+                        <td>Real-time apps</td>
+                    </tr>
+                </tbody></table>
+            </div>
+        </div>
+
+        <!-- Slide 8: Protocol Simulation Lab -->
+        <div class="slide">
+            <h2>Protocol Simulation Laboratory</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Hands-on Protocol Implementation (30 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>🛠️ Simulation Tools</h4>
+                    <ul>
+                        <li>Wireshark untuk protocol analysis</li>
+                        <li>Packet Tracer untuk network simulation</li>
+                        <li>Node-RED untuk visual flow programming</li>
+                        <li>MQTT.fx untuk MQTT testing</li>
+                        <li>Postman untuk API testing</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>🧪 Lab Scenarios</h4>
+                    <ul>
+                        <li>IoT sensor network dengan MQTT</li>
+                        <li>Industrial automation dengan OPC UA</li>
+                        <li>Real-time data streaming dengan WebSocket</li>
+                        <li>Microservices communication dengan gRPC</li>
+                        <li>Secure communication dengan TLS</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Lab 1: MQTT Broker Setup dan Testing (10 menit)</h5>
+                <div class="code-block">
+# Setup MQTT Broker dengan Docker<br>
+docker run -it -p 1883:1883 -p 9001:9001 \<br>
+&nbsp;&nbsp;--name mosquitto \<br>
+&nbsp;&nbsp;eclipse-mosquitto:latest<br><br>
+
+# MQTT Publisher Script<br>
+mosquitto_pub -h localhost -t "sensors/temperature" \<br>
+&nbsp;&nbsp;-m '{"deviceId":"temp001","value":25.3,"timestamp":"2024-01-15T10:30:00Z"}'<br><br>
+
+# MQTT Subscriber Script<br>
+mosquitto_sub -h localhost -t "sensors/+"
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Lab 2: WebSocket Real-time Communication (10 menit)</h5>
+                <div class="code-block">
+// WebSocket Server (Node.js)<br>
+const WebSocket = require('ws');<br>
+const wss = new WebSocket.Server({ port: 8080 });<br><br>
+
+wss.on('connection', function connection(ws) {<br>
+&nbsp;&nbsp;console.log('Client connected');<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;// Send real-time sensor data<br>
+&nbsp;&nbsp;const interval = setInterval(() =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const data = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp: new Date().toISOString(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temperature: 20 + Math.random() * 10,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;humidity: 40 + Math.random() * 20<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ws.send(JSON.stringify(data));<br>
+&nbsp;&nbsp;}, 1000);<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;ws.on('close', () =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;clearInterval(interval);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log('Client disconnected');<br>
+&nbsp;&nbsp;});<br>
+});
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Lab 3: Protocol Performance Analysis (10 menit)</h5>
+                <ul>
+                    <li>Capture network traffic dengan Wireshark</li>
+                    <li>Analyze protocol overhead dan efficiency</li>
+                    <li>Compare latency antara different protocols</li>
+                    <li>Measure throughput dan packet loss</li>
+                    <li>Generate performance reports</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Network Security Protocols -->
+        <div class="slide">
+            <h2>Network Security Protocols</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Secure Communication Implementation</h3>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🔐 Encryption Protocols</h4>
+                    <ul>
+                        <li><strong>TLS 1.3:</strong> Latest transport layer security</li>
+                        <li><strong>DTLS:</strong> Datagram transport layer security</li>
+                        <li><strong>IPSec:</strong> Network layer encryption</li>
+                        <li><strong>WireGuard:</strong> Modern VPN protocol</li>
+                        <li><strong>Signal Protocol:</strong> End-to-end encryption</li>
+                    </ul>
+                </div>
+                <div class="content-box protocol-box">
+                    <h4>🛡️ Authentication Protocols</h4>
+                    <ul>
+                        <li><strong>Kerberos:</strong> Network authentication protocol</li>
+                        <li><strong>SAML:</strong> Security assertion markup language</li>
+                        <li><strong>OAuth 2.0:</strong> Authorization framework</li>
+                        <li><strong>OpenID Connect:</strong> Identity layer on OAuth 2.0</li>
+                        <li><strong>FIDO2:</strong> Passwordless authentication</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: TLS Implementation</h4>
+                <div class="code-block">
+// TLS Server Setup (Node.js)<br>
+const https = require('https');<br>
+const fs = require('fs');<br><br>
+
+const options = {<br>
+&nbsp;&nbsp;key: fs.readFileSync('private-key.pem'),<br>
+&nbsp;&nbsp;cert: fs.readFileSync('certificate.pem'),<br>
+&nbsp;&nbsp;// Enable TLS 1.3<br>
+&nbsp;&nbsp;secureProtocol: 'TLSv1_3_method',<br>
+&nbsp;&nbsp;// Strong cipher suites<br>
+&nbsp;&nbsp;ciphers: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'TLS_AES_256_GCM_SHA384',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'TLS_CHACHA20_POLY1305_SHA256',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'TLS_AES_128_GCM_SHA256'<br>
+&nbsp;&nbsp;].join(':'),<br>
+&nbsp;&nbsp;honorCipherOrder: true<br>
+};<br><br>
+
+const server = https.createServer(options, (req, res) =&gt; {<br>
+&nbsp;&nbsp;// Secure headers<br>
+&nbsp;&nbsp;res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');<br>
+&nbsp;&nbsp;res.setHeader('X-Content-Type-Options', 'nosniff');<br>
+&nbsp;&nbsp;res.setHeader('X-Frame-Options', 'DENY');<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;if (req.url === '/api/sensors') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Verify client certificate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const cert = req.connection.getPeerCertificate();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (cert &amp;&amp; cert.subject) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const sensorData = generateSecureResponse();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.writeHead(200, {'Content-Type': 'application/json'});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.end(JSON.stringify(sensorData));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.writeHead(401, {'Content-Type': 'text/plain'});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.end('Unauthorized');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+});
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔒 Security Protocol Comparison</h4>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">256-bit</div>
+                        <div class="metric-label">AES Encryption</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">2048-bit</div>
+                        <div class="metric-label">RSA Key Size</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">99.99%</div>
+                        <div class="metric-label">Security Effectiveness</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">&lt; 5ms</div>
+                        <div class="metric-label">Encryption Overhead</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Protocol Optimization -->
+        <div class="slide">
+            <h2>Protocol Optimization Techniques</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Performance Optimization Strategies</h3>
+
+            <div class="content-grid">
+                <div class="content-box iot-box">
+                    <h4>⚡ Bandwidth Optimization</h4>
+                    <ul>
+                        <li><strong>Data Compression:</strong> gzip, LZ4, Brotli</li>
+                        <li><strong>Protocol Buffers:</strong> Binary serialization</li>
+                        <li><strong>Message Batching:</strong> Reduce overhead</li>
+                        <li><strong>Delta Encoding:</strong> Send only changes</li>
+                        <li><strong>Adaptive Quality:</strong> Dynamic quality adjustment</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>🚀 Latency Optimization</h4>
+                    <ul>
+                        <li><strong>Connection Pooling:</strong> Reuse connections</li>
+                        <li><strong>Keep-Alive:</strong> Persistent connections</li>
+                        <li><strong>Multiplexing:</strong> Multiple streams per connection</li>
+                        <li><strong>Edge Computing:</strong> Process data closer to source</li>
+                        <li><strong>Caching:</strong> Local data storage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: Protocol Buffer Implementation</h4>
+                <div class="code-block">
+// Protocol Buffer Definition<br>
+syntax = "proto3";<br><br>
+
+message SensorReading {<br>
+&nbsp;&nbsp;string device_id = 1;<br>
+&nbsp;&nbsp;int64 timestamp = 2;<br>
+&nbsp;&nbsp;float temperature = 3;<br>
+&nbsp;&nbsp;float humidity = 4;<br>
+&nbsp;&nbsp;float pressure = 5;<br>
+&nbsp;&nbsp;enum Status {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;UNKNOWN = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ACTIVE = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;INACTIVE = 2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ERROR = 3;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;Status status = 6;<br>
+}<br><br>
+
+// JavaScript Implementation<br>
+const protobuf = require('protobufjs');<br><br>
+
+// Load protocol buffer definition<br>
+protobuf.load("sensor.proto", function(err, root) {<br>
+&nbsp;&nbsp;if (err) throw err;<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;const SensorReading = root.lookupType("SensorReading");<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;// Create a new sensor reading<br>
+&nbsp;&nbsp;const reading = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;deviceId: "sensor-001",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timestamp: Date.now(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;temperature: 25.5,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;humidity: 60.2,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pressure: 1013.25,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status: 1 // ACTIVE<br>
+&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;// Encode to binary<br>
+&nbsp;&nbsp;const message = SensorReading.create(reading);<br>
+&nbsp;&nbsp;const buffer = SensorReading.encode(message).finish();<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;console.log(`JSON size: ${JSON.stringify(reading).length} bytes`);<br>
+&nbsp;&nbsp;console.log(`Protobuf size: ${buffer.length} bytes`);<br>
+&nbsp;&nbsp;console.log(`Compression ratio: ${(1 - buffer.length / JSON.stringify(reading).length) * 100}%`);<br>
+});
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Optimization Results</h4>
+                <table class="comparison-table">
+                    <tbody><tr>
+                        <th>Optimization</th>
+                        <th>Bandwidth Savings</th>
+                        <th>Latency Reduction</th>
+                        <th>CPU Overhead</th>
+                    </tr>
+                    <tr>
+                        <td>Protocol Buffers</td>
+                        <td>60-80%</td>
+                        <td>20-30%</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr>
+                        <td>gzip Compression</td>
+                        <td>40-70%</td>
+                        <td>10-15%</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td>Connection Pooling</td>
+                        <td>5-15%</td>
+                        <td>50-70%</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr>
+                        <td>Message Batching</td>
+                        <td>30-50%</td>
+                        <td>Variable</td>
+                        <td>Low</td>
+                    </tr>
+                </tbody></table>
+            </div>
+        </div>
+
+        <!-- Slide 11: Quality of Service (QoS) -->
+        <div class="slide">
+            <h2>Quality of Service (QoS) dalam Komunikasi</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Managing Communication Quality</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>📊 QoS Parameters</h4>
+                    <ul>
+                        <li><strong>Bandwidth:</strong> Data transmission rate</li>
+                        <li><strong>Latency:</strong> End-to-end delay</li>
+                        <li><strong>Jitter:</strong> Variation in latency</li>
+                        <li><strong>Packet Loss:</strong> Lost data packets</li>
+                        <li><strong>Availability:</strong> Service uptime</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>🎛️ QoS Mechanisms</h4>
+                    <ul>
+                        <li><strong>Traffic Shaping:</strong> Control data rate</li>
+                        <li><strong>Priority Queuing:</strong> Prioritize important traffic</li>
+                        <li><strong>Load Balancing:</strong> Distribute traffic load</li>
+                        <li><strong>Admission Control:</strong> Limit new connections</li>
+                        <li><strong>Resource Reservation:</strong> Guarantee bandwidth</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: QoS Implementation</h4>
+                <div class="code-block">
+// QoS Manager Implementation<br>
+class QoSManager {<br>
+&nbsp;&nbsp;constructor() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.priorityQueues = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;critical: [],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;high: [],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normal: [],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;low: []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.bandwidthLimits = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;critical: 0.4, // 40% of bandwidth<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;high: 0.3,     // 30% of bandwidth<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normal: 0.2,   // 20% of bandwidth<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;low: 0.1       // 10% of bandwidth<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;// Classify message priority<br>
+&nbsp;&nbsp;classifyMessage(message) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (message.type === 'emergency' || message.type === 'alarm') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 'critical';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} else if (message.type === 'control' || message.type === 'command') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 'high';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} else if (message.type === 'sensor_data') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 'normal';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 'low';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;// Add message to appropriate queue<br>
+&nbsp;&nbsp;enqueueMessage(message) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const priority = this.classifyMessage(message);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const timestamp = Date.now();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.priorityQueues[priority].push({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...message,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enqueuedAt: timestamp,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;priority: priority<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📈 QoS Performance Metrics</h4>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">99.9%</div>
+                        <div class="metric-label">Critical Message Delivery</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">&lt; 1ms</div>
+                        <div class="metric-label">Critical Message Latency</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">95%</div>
+                        <div class="metric-label">Bandwidth Utilization</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">0.01%</div>
+                        <div class="metric-label">Packet Loss Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Real-world Case Study -->
+        <div class="slide">
+            <h2>Case Study: Smart Factory Communication</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>PT. Industri Digital Nusantara - Communication Protocol Implementation</h3>
+
+            <div class="case-study">
+                <h4>🏭 Business Context</h4>
+                <p><strong>Challenge:</strong> Implementasi protokol komunikasi untuk smart factory dengan 500+ devices, real-time control systems, dan cloud integration untuk monitoring dan analytics.</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>📊 Communication Requirements</h4>
+                    <ul>
+                        <li><strong>Real-time Control:</strong> &lt; 1ms latency untuk safety systems</li>
+                        <li><strong>Sensor Data:</strong> 10,000+ messages/second</li>
+                        <li><strong>Reliability:</strong> 99.99% uptime requirement</li>
+                        <li><strong>Security:</strong> Industrial-grade encryption</li>
+                        <li><strong>Scalability:</strong> Support untuk expansion</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>🔧 Protocol Selection</h4>
+                    <ul>
+                        <li><strong>OPC UA:</strong> Machine-to-machine communication</li>
+                        <li><strong>MQTT:</strong> Sensor data telemetry</li>
+                        <li><strong>EtherCAT:</strong> Real-time control network</li>
+                        <li><strong>HTTPS/gRPC:</strong> Cloud integration</li>
+                        <li><strong>TLS 1.3:</strong> Security layer</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="protocol-diagram">
+                <h4>🏗️ Communication Architecture</h4>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                    CLOUD PLATFORM                       │<br>
+                │         Analytics | Dashboards | APIs                 │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                                    │ (HTTPS/gRPC + TLS)<br>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                   EDGE GATEWAY                          │<br>
+                │      Protocol Translation | Data Aggregation          │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                         │ (MQTT)              │ (OPC UA)<br>
+                ┌─────────────────────┐ ┌─────────────────────────────────┐<br>
+                │   SENSOR NETWORK    │ │        CONTROL NETWORK          │<br>
+                │  IoT Sensors | RF   │ │   PLCs | HMIs | SCADA          │<br>
+                └─────────────────────┘ └─────────────────────────────────┘<br>
+                                    │ (EtherCAT)<br>
+                             ┌─────────────────────┐<br>
+                             │   FIELD DEVICES     │<br>
+                             │ Motors | Actuators  │<br>
+                             └─────────────────────┘
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">0.5ms</div>
+                    <div class="metric-label">Control Loop Latency</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">15K</div>
+                    <div class="metric-label">Messages/Second</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99.99%</div>
+                    <div class="metric-label">System Availability</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">25%</div>
+                    <div class="metric-label">Efficiency Improvement</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Troubleshooting Communication Issues -->
+        <div class="slide">
+            <h2>Troubleshooting Communication Issues</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Common Problems dan Solutions</h3>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🚨 Common Issues</h4>
+                    <ul>
+                        <li><strong>Connection Timeouts:</strong> Network congestion atau configuration</li>
+                        <li><strong>Message Loss:</strong> Buffer overflow atau QoS issues</li>
+                        <li><strong>High Latency:</strong> Network hops atau processing delays</li>
+                        <li><strong>Protocol Mismatch:</strong> Version compatibility issues</li>
+                        <li><strong>Security Failures:</strong> Certificate atau authentication issues</li>
+                    </ul>
+                </div>
+                <div class="content-box iot-box">
+                    <h4>🔧 Diagnostic Tools</h4>
+                    <ul>
+                        <li><strong>Wireshark:</strong> Network packet analysis</li>
+                        <li><strong>tcpdump:</strong> Command-line packet capture</li>
+                        <li><strong>netstat:</strong> Network connection status</li>
+                        <li><strong>ping/traceroute:</strong> Network connectivity testing</li>
+                        <li><strong>OpenSSL:</strong> TLS/SSL certificate testing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab-exercise">
+                <h4>🔬 Lab Exercise: Network Troubleshooting</h4>
+                <div class="code-block">
+// Network Diagnostics Script<br>
+class NetworkDiagnostics {<br>
+&nbsp;&nbsp;constructor(targetHost, targetPort) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.host = targetHost;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.port = targetPort;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.results = {};<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;// Test basic connectivity<br>
+&nbsp;&nbsp;async testConnectivity() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const net = require('net');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return new Promise((resolve) =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const socket = new net.Socket();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const timeout = setTimeout(() =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.destroy();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resolve({connected: false, error: 'Timeout'});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, 5000);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.connect(this.port, this.host, () =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(timeout);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.destroy();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resolve({connected: true});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.on('error', (err) =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(timeout);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resolve({connected: false, error: err.message});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;// Generate diagnostic report<br>
+&nbsp;&nbsp;async generateReport() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(`Diagnosing connection to ${this.host}:${this.port}`);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const connectivity = await this.testConnectivity();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log('Connectivity:', connectivity);<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Troubleshooting Checklist:</h5>
+                <ul>
+                    <li>✅ Verify network connectivity (ping, telnet)</li>
+                    <li>✅ Check protocol configuration dan compatibility</li>
+                    <li>✅ Validate security certificates dan authentication</li>
+                    <li>✅ Monitor bandwidth utilization dan QoS metrics</li>
+                    <li>✅ Analyze packet loss dan retransmission rates</li>
+                    <li>✅ Review error logs dan event history</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 14: Protocol Testing Lab -->
+        <div class="slide">
+            <h2>Comprehensive Protocol Testing Lab</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Hands-on Protocol Testing dan Validation (40 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>🧪 Test Scenarios</h4>
+                    <ul>
+                        <li>Multi-protocol integration testing</li>
+                        <li>Performance benchmarking</li>
+                        <li>Security vulnerability assessment</li>
+                        <li>Failure recovery testing</li>
+                        <li>Scalability stress testing</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>📊 Test Metrics</h4>
+                    <ul>
+                        <li>Throughput (messages/second)</li>
+                        <li>Latency (round-trip time)</li>
+                        <li>Packet loss percentage</li>
+                        <li>Connection establishment time</li>
+                        <li>Resource utilization (CPU, memory)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Lab Exercise 1: Protocol Performance Testing (15 menit)</h5>
+                <div class="code-block">
+// Performance Testing Framework<br>
+class ProtocolPerformanceTester {<br>
+&nbsp;&nbsp;constructor(protocol, endpoint) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.protocol = protocol;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.endpoint = endpoint;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.metrics = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messagesSent: 0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messagesReceived: 0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;latencies: [],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errors: 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;async runLoadTest(duration, messagesPerSecond) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const startTime = Date.now();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const interval = 1000 / messagesPerSecond;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const testInterval = setInterval(async () =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const messageStart = Date.now();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await this.sendTestMessage();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.metrics.messagesSent++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.metrics.messagesReceived++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.metrics.latencies.push(Date.now() - messageStart);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (error) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.metrics.errors++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}, interval);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Stop test after duration<br>
+&nbsp;&nbsp;&nbsp;&nbsp;setTimeout(() =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clearInterval(testInterval);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.generateReport();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}, duration);<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Lab Exercise 2: Security Protocol Testing (15 menit)</h5>
+                <ul>
+                    <li>TLS certificate validation testing</li>
+                    <li>Authentication mechanism testing</li>
+                    <li>Encryption strength verification</li>
+                    <li>Man-in-the-middle attack simulation</li>
+                    <li>Penetration testing dengan security tools</li>
+                </ul>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Lab Exercise 3: Interoperability Testing (10 menit)</h5>
+                <ul>
+                    <li>Cross-platform protocol compatibility</li>
+                    <li>Version compatibility testing</li>
+                    <li>Multi-vendor device integration</li>
+                    <li>Protocol conversion dan bridging</li>
+                    <li>Standards compliance verification</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 15: Project Assignment -->
+        <div class="slide">
+            <h2>Project Assignment: Protocol Implementation</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Comprehensive Communication Protocol Project</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>🎯 Project Scenarios</h4>
+                    <ul>
+                        <li><strong>Smart Building:</strong> HVAC, lighting, security systems communication</li>
+                        <li><strong>Industrial Automation:</strong> Factory floor communication protocols</li>
+                        <li><strong>Healthcare IoT:</strong> Medical device communication dan monitoring</li>
+                        <li><strong>Autonomous Vehicles:</strong> V2V dan V2I communication protocols</li>
+                        <li><strong>Smart Grid:</strong> Energy distribution communication systems</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>📋 Deliverables (2 minggu)</h4>
+                    <ul>
+                        <li><strong>Protocol Design Document:</strong> Specifications dan architecture</li>
+                        <li><strong>Implementation Code:</strong> Working protocol implementation</li>
+                        <li><strong>Testing Report:</strong> Performance dan security validation</li>
+                        <li><strong>Simulation Demo:</strong> Live protocol demonstration</li>
+                        <li><strong>Documentation:</strong> User manual dan API documentation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Evaluation Criteria</h4>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">30%</div>
+                        <div class="metric-label">Protocol Implementation</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">25%</div>
+                        <div class="metric-label">CPMK Integration</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">20%</div>
+                        <div class="metric-label">Performance &amp; Security</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">15%</div>
+                        <div class="metric-label">Testing &amp; Validation</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">10%</div>
+                        <div class="metric-label">Documentation &amp; Demo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>Project Requirements:</h5>
+                <ul>
+                    <li>Implement minimum 2 different communication protocols</li>
+                    <li>Include security mechanisms (encryption, authentication)</li>
+                    <li>Demonstrate protocol optimization techniques</li>
+                    <li>Provide comprehensive testing dan performance analysis</li>
+                    <li>Show integration with all 4 CPMK components</li>
+                    <li>Create working simulation atau real hardware implementation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 16: Future Trends -->
+        <div class="slide">
+            <h2>Future Trends dalam Communication Protocols</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Emerging Technologies dan Standards</h3>
+
+            <div class="content-grid">
+                <div class="content-box iot-box">
+                    <h4>🚀 Next-Generation Protocols</h4>
+                    <ul>
+                        <li><strong>HTTP/3 (QUIC):</strong> Improved web communication</li>
+                        <li><strong>Matter (Thread):</strong> Unified IoT communication</li>
+                        <li><strong>6G Networks:</strong> Ultra-low latency communication</li>
+                        <li><strong>Quantum Communication:</strong> Quantum-safe cryptography</li>
+                        <li><strong>AI-Driven Protocols:</strong> Adaptive communication</li>
+                    </ul>
+                </div>
+                <div class="content-box security-box">
+                    <h4>🔮 Emerging Trends</h4>
+                    <ul>
+                        <li><strong>Edge-Native Protocols:</strong> Optimized for edge computing</li>
+                        <li><strong>Blockchain Integration:</strong> Decentralized communication</li>
+                        <li><strong>Zero-Trust Networking:</strong> Security-first approach</li>
+                        <li><strong>Protocol Virtualization:</strong> Software-defined networking</li>
+                        <li><strong>Energy-Efficient Protocols:</strong> Green communication</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🌟 Industry Impact</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Industry 5.0:</h5>
+                        <ul>
+                            <li>Human-machine collaboration protocols</li>
+                            <li>Sustainable communication frameworks</li>
+                            <li>Personalized manufacturing communication</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Smart Cities:</h5>
+                        <ul>
+                            <li>Citywide communication infrastructure</li>
+                            <li>Inter-city protocol standardization</li>
+                            <li>Citizen-centric communication services</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Healthcare 4.0:</h5>
+                        <ul>
+                            <li>Real-time patient monitoring protocols</li>
+                            <li>Telemedicine communication standards</li>
+                            <li>Privacy-preserving health data exchange</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Autonomous Systems:</h5>
+                        <ul>
+                            <li>Vehicle-to-everything (V2X) protocols</li>
+                            <li>Drone swarm communication</li>
+                            <li>Robotic fleet coordination</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Interactive Discussion -->
+        <div class="slide">
+            <h2>Interactive Discussion &amp; Q&amp;A</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Diskusi Interaktif (20 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>💬 Discussion Topics</h4>
+                    <ul>
+                        <li>Protocol selection criteria untuk different use cases</li>
+                        <li>Trade-offs between performance dan security</li>
+                        <li>Challenges dalam protocol standardization</li>
+                        <li>Future of communication protocols</li>
+                        <li>Career opportunities dalam protocol development</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>❓ Q&amp;A Session</h4>
+                    <ul>
+                        <li>Technical implementation questions</li>
+                        <li>CPMK achievement clarification</li>
+                        <li>Project guidance dan troubleshooting</li>
+                        <li>Industry application examples</li>
+                        <li>Protocol optimization strategies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="simulation-box">
+                <h5>🔍 Deep Dive Questions</h5>
+                <div class="content-grid">
+                    <div>
+                        <h6>1. Protocol Selection:</h6>
+                        <p>How would you choose between MQTT dan CoAP for a constrained IoT environment?</p>
+                    </div>
+                    <div>
+                        <h6>2. Security vs Performance:</h6>
+                        <p>What trade-offs would you make when implementing security in real-time control systems?</p>
+                    </div>
+                    <div>
+                        <h6>3. Scalability Challenges:</h6>
+                        <p>How can protocols adapt to handle exponential growth dalam IoT devices?</p>
+                    </div>
+                    <div>
+                        <h6>4. Interoperability:</h6>
+                        <p>What strategies ensure compatibility across multi-vendor environments?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Assessment Methods -->
+        <div class="slide">
+            <h2>Assessment Methods &amp; Criteria</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Comprehensive Assessment Framework</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>📝 Assessment Components</h4>
+                    <ul>
+                        <li><strong>Protocol Implementation (40%):</strong> Working communication system</li>
+                        <li><strong>Performance Testing (25%):</strong> Benchmarking dan optimization</li>
+                        <li><strong>Security Implementation (15%):</strong> Encryption dan authentication</li>
+                        <li><strong>Documentation (10%):</strong> Technical specifications</li>
+                        <li><strong>Presentation (10%):</strong> Demo dan explanation</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>🎯 CPMK Assessment Mapping</h4>
+                    <ul>
+                        <li><strong>CPMK 0801 (25%):</strong> IoT protocol implementation</li>
+                        <li><strong>CPMK 0901 (25%):</strong> Network infrastructure design</li>
+                        <li><strong>CPMK 1001 (25%):</strong> Communication algorithms</li>
+                        <li><strong>CPMK 1005 (25%):</strong> Cloud protocol integration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Grading Rubric</h4>
+                <table class="comparison-table">
+                    <tbody><tr>
+                        <th>Criteria</th>
+                        <th>Excellent (A)</th>
+                        <th>Good (B)</th>
+                        <th>Satisfactory (C)</th>
+                    </tr>
+                    <tr>
+                        <td>Protocol Accuracy</td>
+                        <td>Perfect implementation, optimal performance</td>
+                        <td>Good implementation, minor issues</td>
+                        <td>Basic implementation, some problems</td>
+                    </tr>
+                    <tr>
+                        <td>Security Implementation</td>
+                        <td>Comprehensive security measures</td>
+                        <td>Good security practices</td>
+                        <td>Basic security implementation</td>
+                    </tr>
+                    <tr>
+                        <td>Performance Optimization</td>
+                        <td>Highly optimized, benchmarked</td>
+                        <td>Well optimized</td>
+                        <td>Basic optimization</td>
+                    </tr>
+                    <tr>
+                        <td>Testing &amp; Validation</td>
+                        <td>Comprehensive testing suite</td>
+                        <td>Good test coverage</td>
+                        <td>Basic testing</td>
+                    </tr>
+                </tbody></table>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">A</div>
+                    <div class="metric-label">Excellent (85-100)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">B</div>
+                    <div class="metric-label">Good (70-84)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">C</div>
+                    <div class="metric-label">Satisfactory (60-69)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">D</div>
+                    <div class="metric-label">Needs Improvement (&lt;60)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Next Meeting Preview -->
+        <div class="slide">
+            <h2>Preview Pertemuan Selanjutnya</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Protokol Komunikasi dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Pertemuan 12: Monitoring dan Maintenance Sistem Terintegrasi</h3>
+
+            <div class="content-grid">
+                <div class="content-box protocol-box">
+                    <h4>🛠️ Topics yang Akan Dibahas</h4>
+                    <ul>
+                        <li>System monitoring strategies dan tools</li>
+                        <li>Predictive maintenance implementation</li>
+                        <li>Performance monitoring dan alerting</li>
+                        <li>Log management dan analysis</li>
+                        <li>Automated incident response systems</li>
+                    </ul>
+                </div>
+                <div class="content-box network-box">
+                    <h4>📋 Preparation Required</h4>
+                    <ul>
+                        <li>Complete protocol implementation project</li>
+                        <li>Setup monitoring tools (Prometheus, Grafana)</li>
+                        <li>Prepare system logs dan metrics data</li>
+                        <li>Review monitoring best practices</li>
+                        <li>Install necessary monitoring agents</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📚 Reading Assignment</h4>
+                <ul>
+                    <li>"Site Reliability Engineering" - Google SRE Book</li>
+                    <li>"Monitoring Distributed Systems" - Best Practices Guide</li>
+                    <li>"Predictive Maintenance in Industry 4.0" - IEEE Paper</li>
+                    <li>"Observability Engineering" - O'Reilly Media</li>
+                </ul>
+            </div>
+
+            <div class="simulation-box">
+                <h5>🎯 Learning Objectives untuk Pertemuan 12:</h5>
+                <ul>
+                    <li>Understand comprehensive monitoring strategies</li>
+                    <li>Implement automated monitoring systems</li>
+                    <li>Design predictive maintenance algorithms</li>
+                    <li>Create effective alerting dan notification systems</li>
+                    <li>Develop incident response procedures</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3 style="color: #FFD700;">Terima Kasih!</h3>
+                <p style="font-size: 1.2rem; color: #FFEAA7; margin-top: 1rem;">
+                    Questions? Contact: ikhwan.alfath@untidar.ac.id
+                </p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="controls" style="display: flex;">
+            <button class="control-btn" onclick="prevSlide()">← Previous</button>
+            <button class="control-btn" onclick="nextSlide()">Next →</button>
+            <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
+        </div>
+
+        <div class="slide-counter" style="display: block;">
+            <span id="currentSlide">1</span> / <span id="totalSlides">19</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+
+            // Update progress bar
+            const progress = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F11') {
+                e.preventDefault();
+                toggleFullscreen();
+            } else if (e.key === 'Escape') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        // Initialize
+        console.log('Total slides found:', totalSlides);
+        console.log('Navigation controls loaded');
+        showSlide(0);
+
+        // Ensure controls are visible
+        setTimeout(() => {
+            const controls = document.querySelector('.controls');
+            const counter = document.querySelector('.slide-counter');
+            if (controls) {
+                console.log('Controls element found:', controls);
+                controls.style.display = 'flex';
+            }
+            if (counter) {
+                console.log('Counter element found:', counter);
+                counter.style.display = 'block';
+            }
+        }, 100);
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

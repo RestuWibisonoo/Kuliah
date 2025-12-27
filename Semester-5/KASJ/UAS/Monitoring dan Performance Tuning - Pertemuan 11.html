@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<!-- saved from url=(0105)https://class.tiflab.my.id/storage/lessons/materials/1762220562_11-Monitoring-dan-Performance-Tuning.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring dan Performance Tuning - Pertemuan 11</title>
+    <link rel="stylesheet" href="./Monitoring dan Performance Tuning - Pertemuan 11_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #8e44ad;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #3498db;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #8e44ad;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #8e44ad;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #8e44ad;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #8e44ad;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #8e44ad;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #8e44ad;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            color: #8e44ad;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #8e44ad;
+            overflow-x: auto;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #8e44ad;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #8e44ad;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .info-box {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #8e44ad;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #8e44ad;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #8e44ad;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 16px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tool-icon {
+            font-size: 64px;
+            color: #8e44ad;
+            margin-bottom: 20px;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 147px; top: 390px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 12.5%;"></div>
+    <div class="slide-counter" id="slideCounter">2 / 16</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+    
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Monitoring dan Performance Tuning - Pertemuan 11_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Monitoring dan Performance Tuning</div>
+                <div class="slide-subtitle">Konfigurasi dan Administrasi Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-chart-line icon"></i>
+                    Pertemuan 11
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu melakukan monitoring dan performance tuning sistem</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>2 x 50 menit</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="list-item">
+                    <i class="fas fa-desktop icon"></i>
+                    <strong>Setup monitoring tools</strong><br>
+                    Implementasi dan konfigurasi sistem monitoring
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-chart-bar icon"></i>
+                    <strong>Analisis performance metrics</strong><br>
+                    Memahami dan menginterpretasi metrik kinerja sistem
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-search icon"></i>
+                    <strong>Identifikasi bottlenecks</strong><br>
+                    Menemukan dan menganalisis hambatan kinerja sistem
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-tools icon"></i>
+                    <strong>Implementasi optimizations</strong><br>
+                    Menerapkan teknik optimasi untuk peningkatan kinerja
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad; margin-bottom: 20px;">Theory &amp; Concepts</h3>
+                        <div class="list-item">
+                            <i class="fas fa-eye icon"></i>
+                            System Monitoring Fundamentals
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-tachometer-alt icon"></i>
+                            Performance Counters &amp; Metrics
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-chart-pie icon"></i>
+                            Capacity Planning Strategies
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad; margin-bottom: 20px;">Practical Implementation</h3>
+                        <div class="list-item">
+                            <i class="fas fa-wrench icon"></i>
+                            Monitoring Tools Setup
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-bug icon"></i>
+                            Bottleneck Identification
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-rocket icon"></i>
+                            Optimization Techniques
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: System Monitoring Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">System Monitoring Overview</div>
+                <div class="slide-subtitle">Mengapa Monitoring Penting?</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 style="color: #8e44ad; text-align: center;">Proactive Management</h3>
+                        <div class="list-item">
+                            <strong>Early Detection</strong><br>
+                            <small>Deteksi masalah sebelum user terdampak</small>
+                        </div>
+                        <div class="list-item">
+                            <strong>Preventive Actions</strong><br>
+                            <small>Tindakan pencegahan berdasarkan trend</small>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                        <h3 style="color: #8e44ad; text-align: center;">Performance Insights</h3>
+                        <div class="list-item">
+                            <strong>Resource Utilization</strong><br>
+                            <small>Monitoring CPU, Memory, Storage, Network</small>
+                        </div>
+                        <div class="list-item">
+                            <strong>Application Performance</strong><br>
+                            <small>Response time, throughput, error rates</small>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-business-time"></i>
+                        </div>
+                        <h3 style="color: #8e44ad; text-align: center;">Business Value</h3>
+                        <div class="list-item">
+                            <strong>SLA Compliance</strong><br>
+                            <small>Memastikan service level agreement</small>
+                        </div>
+                        <div class="list-item">
+                            <strong>Cost Optimization</strong><br>
+                            <small>Optimasi resource dan biaya operasional</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Monitoring Tools -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">System Monitoring Tools</div>
+                <div class="slide-subtitle">Popular Monitoring Solutions</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Windows Monitoring</h3>
+                        <div class="step-card">
+                            <i class="fab fa-microsoft" style="color: #0078d4; font-size: 24px;"></i>
+                            <strong>Performance Monitor (PerfMon)</strong><br>
+                            <small>Built-in Windows monitoring tool</small>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-chart-line" style="color: #8e44ad; font-size: 24px;"></i>
+                            <strong>Windows Admin Center</strong><br>
+                            <small>Modern web-based monitoring interface</small>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-terminal" style="color: #2980b9; font-size: 24px;"></i>
+                            <strong>PowerShell Monitoring</strong><br>
+                            <small>Script-based monitoring and automation</small>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Linux Monitoring</h3>
+                        <div class="step-card">
+                            <i class="fab fa-linux" style="color: #333; font-size: 24px;"></i>
+                            <strong>htop / top</strong><br>
+                            <small>Real-time process and resource monitoring</small>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-chart-bar" style="color: #e74c3c; font-size: 24px;"></i>
+                            <strong>Nagios</strong><br>
+                            <small>Enterprise monitoring and alerting</small>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-fire" style="color: #f39c12; font-size: 24px;"></i>
+                            <strong>Prometheus + Grafana</strong><br>
+                            <small>Modern metrics collection and visualization</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Performance Metrics -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Key Performance Metrics</div>
+                <div class="slide-subtitle">What to Monitor</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">System Resources</h3>
+                        <div class="metric-card">
+                            <i class="fas fa-microchip" style="color: #e74c3c; font-size: 32px;"></i>
+                            <div class="metric-label">CPU Utilization</div>
+                            <div class="metric-value">&lt; 80%</div>
+                            <small>Average CPU usage should remain below 80%</small>
+                        </div>
+                        <div class="metric-card">
+                            <i class="fas fa-memory" style="color: #27ae60; font-size: 32px;"></i>
+                            <div class="metric-label">Memory Usage</div>
+                            <div class="metric-value">&lt; 85%</div>
+                            <small>RAM utilization threshold for optimal performance</small>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">I/O &amp; Network</h3>
+                        <div class="metric-card">
+                            <i class="fas fa-hdd" style="color: #3498db; font-size: 32px;"></i>
+                            <div class="metric-label">Disk I/O</div>
+                            <div class="metric-value">&lt; 100</div>
+                            <small>Disk queue length should be low</small>
+                        </div>
+                        <div class="metric-card">
+                            <i class="fas fa-network-wired" style="color: #9b59b6; font-size: 32px;"></i>
+                            <div class="metric-label">Network Latency</div>
+                            <div class="metric-value">&lt; 50ms</div>
+                            <small>Network response time for local services</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Windows Performance Monitoring -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Windows Performance Monitoring</div>
+                <div class="slide-subtitle">Using Built-in Tools</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Performance Monitor (PerfMon)</h3>
+                        <div class="code-block">
+<pre># Launch Performance Monitor
+perfmon.exe
+
+# Key Performance Counters:
+&nbsp;&nbsp;&nbsp;&nbsp;- Processor(_Total)\% Processor Time
+&nbsp;&nbsp;&nbsp;&nbsp;- Memory\Available MBytes  
+&nbsp;&nbsp;&nbsp;&nbsp;- PhysicalDisk(_Total)\Avg. Disk Queue Length
+&nbsp;&nbsp;&nbsp;&nbsp;- Network Interface\Bytes Total/sec</pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Pro Tip:</strong> Create custom Data Collector Sets for automated monitoring and logging
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">PowerShell Monitoring</h3>
+                        <div class="code-block">
+<pre># Get CPU Usage
+Get-Counter "\Processor(_Total)\% Processor Time"
+
+# Memory Information
+Get-WmiObject -Class Win32_OperatingSystem |
+&nbsp;&nbsp;&nbsp;&nbsp;Select TotalVisibleMemorySize, FreePhysicalMemory
+
+# Disk Space
+Get-WmiObject -Class Win32_LogicalDisk |
+&nbsp;&nbsp;&nbsp;&nbsp;Where-Object {$_.DriveType -eq 3} |
+&nbsp;&nbsp;&nbsp;&nbsp;Select DeviceID, Size, FreeSpace</pre>
+                        </div>
+                        <div class="success-box">
+                            <strong>Automation:</strong> Schedule PowerShell scripts for regular monitoring reports
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Linux Performance Monitoring -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Linux Performance Monitoring</div>
+                <div class="slide-subtitle">Command Line Tools</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Essential Commands</h3>
+                        <div class="code-block">
+<pre># System Overview
+htop
+top
+
+# CPU Information
+cat /proc/cpuinfo
+lscpu
+
+# Memory Usage
+free -h
+cat /proc/meminfo
+
+# Disk Usage
+df -h
+du -sh /path/to/directory
+
+# Network Statistics
+netstat -tuln
+ss -tuln</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Advanced Monitoring</h3>
+                        <div class="code-block">
+<pre># I/O Statistics
+iostat -x 1
+
+# Network Interface Statistics
+iftop
+netstat -i
+
+# Process Monitoring
+ps aux --sort=-%cpu | head
+ps aux --sort=-%mem | head
+
+# System Load
+uptime
+w
+
+# Real-time System Calls
+strace -p PID</pre>
+                        </div>
+                        <div class="warning-box">
+                            <strong>Note:</strong> Some tools may need installation: apt-get install htop iotop iftop
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Capacity Planning -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Capacity Planning</div>
+                <div class="slide-subtitle">Proactive Resource Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Current State Analysis</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Baseline Establishment</strong><br>
+                            Mengumpulkan data historis performance
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Peak Usage Identification</strong><br>
+                            Mengidentifikasi waktu dan kondisi puncak
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Resource Utilization Trends</strong><br>
+                            Analisis tren penggunaan resource
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Future Projections</h3>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Growth Forecasting</strong><br>
+                            Prediksi pertumbuhan berdasarkan historical data
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>Business Requirements</strong><br>
+                            Mempertimbangkan rencana bisnis dan ekspansi
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>Scalability Planning</strong><br>
+                            Merencanakan strategi scaling horizontal/vertikal
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Implementation Strategy</h3>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>Budget Allocation</strong><br>
+                            Perencanaan anggaran untuk upgrade hardware
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">8</div>
+                            <strong>Timeline Planning</strong><br>
+                            Jadwal implementasi upgrade dan optimasi
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">9</div>
+                            <strong>Risk Assessment</strong><br>
+                            Evaluasi risiko dan rencana mitigasi
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Common Performance Bottlenecks -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Common Performance Bottlenecks</div>
+                <div class="slide-subtitle">Identification and Analysis</div>
+            </div>
+            <div class="slide-content">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Bottleneck Type</th>
+                            <th>Symptoms</th>
+                            <th>Monitoring Tools</th>
+                            <th>Quick Solutions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CPU Bottleneck</strong></td>
+                            <td>High CPU usage (&gt;80%), slow response times</td>
+                            <td>PerfMon, htop, Task Manager</td>
+                            <td>Process optimization, CPU upgrade, load balancing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory Bottleneck</strong></td>
+                            <td>High memory usage, excessive paging</td>
+                            <td>Memory counters, free command</td>
+                            <td>Memory upgrade, application optimization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disk I/O Bottleneck</strong></td>
+                            <td>High disk queue length, slow file operations</td>
+                            <td>iostat, Disk Performance counters</td>
+                            <td>SSD upgrade, disk optimization, RAID</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Bottleneck</strong></td>
+                            <td>High network utilization, packet loss</td>
+                            <td>netstat, Network Monitor, iftop</td>
+                            <td>Bandwidth upgrade, network optimization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Application Bottleneck</strong></td>
+                            <td>Slow queries, memory leaks, inefficient code</td>
+                            <td>Application-specific tools, profilers</td>
+                            <td>Code optimization, database tuning</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 11: Optimization Techniques -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">System Optimization Techniques</div>
+                <div class="slide-subtitle">Performance Tuning Strategies</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Hardware Optimization</h3>
+                        <div class="list-item">
+                            <i class="fas fa-microchip icon"></i>
+                            <strong>CPU Optimization</strong><br>
+                            Power management, CPU affinity, process prioritization
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-memory icon"></i>
+                            <strong>Memory Optimization</strong><br>
+                            Virtual memory tuning, page file optimization
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-hdd icon"></i>
+                            <strong>Storage Optimization</strong><br>
+                            Disk defragmentation, SSD optimization, cache tuning
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-network-wired icon"></i>
+                            <strong>Network Optimization</strong><br>
+                            TCP/IP tuning, buffer sizes, compression
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Software Optimization</h3>
+                        <div class="list-item">
+                            <i class="fas fa-cogs icon"></i>
+                            <strong>OS Configuration</strong><br>
+                            Service optimization, startup programs, registry tuning
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-database icon"></i>
+                            <strong>Database Tuning</strong><br>
+                            Query optimization, indexing, connection pooling
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-code icon"></i>
+                            <strong>Application Tuning</strong><br>
+                            Code optimization, caching strategies, load balancing
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            <strong>Security vs Performance</strong><br>
+                            Balanced security settings, efficient antivirus config
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Monitoring Implementation Lab -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Hands-on Lab: Monitoring Setup</div>
+                <div class="slide-subtitle">Practical Implementation</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Windows Lab Tasks</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Setup Performance Monitor</strong><br>
+                            Create custom performance counters and data collector sets
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Configure Alerts</strong><br>
+                            Set up threshold-based alerts for critical metrics
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Generate Performance Reports</strong><br>
+                            Create automated performance reports
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Baseline Documentation</strong><br>
+                            Document normal performance baseline
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Linux Lab Tasks</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Install Monitoring Tools</strong><br>
+                            Setup htop, iotop, iftop, and system monitoring utilities
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Create Monitoring Scripts</strong><br>
+                            Develop bash scripts for automated monitoring
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Setup Log Analysis</strong><br>
+                            Configure log rotation and analysis tools
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Performance Benchmarking</strong><br>
+                            Run stress tests and document results
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Best Practices -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Monitoring Best Practices</div>
+                <div class="slide-subtitle">Guidelines for Effective Monitoring</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Monitoring Strategy</h3>
+                        <div class="list-item">
+                            <i class="fas fa-target icon"></i>
+                            <strong>Define Clear Objectives</strong><br>
+                            Tentukan tujuan monitoring yang spesifik
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-chart-line icon"></i>
+                            <strong>Establish Baselines</strong><br>
+                            Buat baseline performance untuk referensi
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-bell icon"></i>
+                            <strong>Set Meaningful Alerts</strong><br>
+                            Hindari alert fatigue dengan threshold yang tepat
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Data Management</h3>
+                        <div class="list-item">
+                            <i class="fas fa-archive icon"></i>
+                            <strong>Data Retention Policy</strong><br>
+                            Tentukan berapa lama data monitoring disimpan
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-compress-arrows-alt icon"></i>
+                            <strong>Data Aggregation</strong><br>
+                            Agregasi data untuk efisiensi storage dan analisis
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-shield-alt icon"></i>
+                            <strong>Security Considerations</strong><br>
+                            Amankan data monitoring dan akses dashboard
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Continuous Improvement</h3>
+                        <div class="list-item">
+                            <i class="fas fa-sync icon"></i>
+                            <strong>Regular Review</strong><br>
+                            Review dan update monitoring configuration berkala
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-graduation-cap icon"></i>
+                            <strong>Team Training</strong><br>
+                            Pastikan team memahami tools dan prosedur
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-book icon"></i>
+                            <strong>Documentation</strong><br>
+                            Dokumentasikan konfigurasi dan prosedur
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Case Study -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Case Study: Performance Problem Solving</div>
+                <div class="slide-subtitle">Real-world Scenario Analysis</div>
+            </div>
+            <div class="slide-content">
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Scenario: E-commerce Website Slowdown</h4>
+                    <p>Sebuah website e-commerce mengalami perlambatan significant selama jam sibuk (19:00-22:00). Customer complain response time lambat dan beberapa transaksi gagal.</p>
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Investigation Steps</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Data Collection</strong><br>
+                            Kumpulkan metrics: CPU, Memory, Disk I/O, Network, Application logs
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Pattern Analysis</strong><br>
+                            Analisis pola: Kapan masalah terjadi? Resource mana yang bottleneck?
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Root Cause Analysis</strong><br>
+                            Identifikasi penyebab: Database query lambat, insufficient memory
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Solution Implementation</h3>
+                        <div class="success-box">
+                            <h4><i class="fas fa-lightbulb"></i> Solutions Applied</h4>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li><strong>Database Optimization:</strong> Index optimization, query tuning</li>
+                                <li><strong>Caching Implementation:</strong> Redis cache for frequently accessed data</li>
+                                <li><strong>Load Balancing:</strong> Distribute traffic across multiple servers</li>
+                                <li><strong>Resource Scaling:</strong> Increase memory and CPU capacity</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <h4><i class="fas fa-chart-bar"></i> Results</h4>
+                            <p><strong>Response Time:</strong> Improved from 8s to 2s<br>
+                            <strong>Success Rate:</strong> Increased from 85% to 99.5%<br>
+                            <strong>User Satisfaction:</strong> Significant improvement in user experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Summary & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ringkasan &amp; Evaluasi</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #8e44ad;">Key Takeaways</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Monitoring adalah kunci untuk sistem yang reliable
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Performance tuning memerlukan data-driven approach
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Proactive monitoring lebih baik dari reactive troubleshooting
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Capacity planning mencegah performance problems
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Documentation dan baseline penting untuk optimization
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #8e44ad;">Assessment Criteria</h3>
+                        <div class="list-item">
+                            <i class="fas fa-tools icon"></i>
+                            <strong>Monitoring Tools:</strong><br>
+                            Setup dan konfigurasi monitoring tools dengan benar
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-chart-bar icon"></i>
+                            <strong>Performance Analysis:</strong><br>
+                            Analisis metrics dan identifikasi bottlenecks
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-rocket icon"></i>
+                            <strong>Optimization Implementation:</strong><br>
+                            Implementasi optimizations yang terukur hasilnya
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-file-alt icon"></i>
+                            <strong>Documentation:</strong><br>
+                            Dokumentasi lengkap proses monitoring dan optimization
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box animation-bounce" style="margin-top: 30px;">
+                    <i class="fas fa-graduation-cap icon"></i>
+                    "Monitoring berfungsi, optimasi terukur" - Target Pembelajaran Tercapai!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Terima Kasih</div>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="margin-bottom: 2rem; font-size: 2rem; color: #8e44ad;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h1 style="color: #8e44ad; margin-bottom: 2rem;">Terima Kasih!</h1>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle icon" style="color: #27ae60;"></i>
+                    <strong>Semoga materi Monitoring dan Performance Tuning ini bermanfaat!</strong>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-user icon"></i>
+                    <strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong><br>
+                    Program Studi Teknologi Informasi, Universitas Tidar Magelang
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <div style="font-size: 3rem; color: #8e44ad;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Perkenalan materi monitoring dan performance tuning sistem</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">01:28</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Perkenalan materi monitoring dan performance tuning. Tekankan pentingnya monitoring proaktif untuk sistem yang reliable.",
+            "Slide 2: Jelaskan learning outcomes yang konkret. Mahasiswa harus bisa setup monitoring, analisis metrics, identifikasi bottlenecks, dan implementasi optimization.",
+            "Slide 3: Overview agenda yang mencakup theory dan praktik. Alokasi waktu 2x50 menit untuk hands-on lab dan case study analysis.",
+            "Slide 4: Fundamental monitoring concepts. Diskusikan mengapa monitoring penting: proactive vs reactive management, business value dari monitoring.",
+            "Slide 5: Overview tools monitoring populer. Bandingkan Windows vs Linux tools, kelebihan dan kekurangan masing-masing platform.",
+            "Slide 6: Key performance metrics yang harus dimonitor. Jelaskan threshold values dan pentingnya establishing baseline performance.",
+            "Slide 7: Windows monitoring tools demonstration. Tunjukkan Performance Monitor, PowerShell monitoring scripts, dan Windows Admin Center.",
+            "Slide 8: Linux monitoring commands dan tools. Demonstrasi htop, iostat, netstat, dan advanced monitoring techniques.",
+            "Slide 9: Capacity planning strategies. Explain current state analysis, future projections, dan implementation planning untuk scaling.",
+            "Slide 10: Common bottlenecks identification. Diskusikan symptoms, monitoring tools, dan quick solutions untuk berbagai jenis bottlenecks.",
+            "Slide 11: System optimization techniques. Jelaskan hardware optimization vs software optimization approaches dan best practices.",
+            "Slide 12: Hands-on lab instructions. Guide mahasiswa untuk setup monitoring tools dan create performance baselines di Windows dan Linux.",
+            "Slide 13: Best practices untuk effective monitoring. Diskusikan monitoring strategy, data management, dan continuous improvement approaches.",
+            "Slide 14: Real-world case study analysis. Walk through problem-solving methodology dan solution implementation untuk performance issues.",
+            "Slide 15: Summary dan assessment criteria. Review key learnings dan explain evaluation criteria untuk assignment monitoring dan optimization.",
+            "Slide 16: Closing slide - terima kasih kepada mahasiswa. Encourage untuk practice monitoring dan optimization di environment sendiri."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+                case 'p':
+                case 'P':
+                    togglePresenterMode();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        setTimeout(showHelpText, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1); // Swipe left = next slide
+                } else {
+                    changeSlide(-1); // Swipe right = previous slide
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Auto-hide cursor after inactivity
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

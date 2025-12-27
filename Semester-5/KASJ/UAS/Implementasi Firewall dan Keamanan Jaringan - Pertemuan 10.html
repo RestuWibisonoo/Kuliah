@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<!-- saved from url=(0102)https://class.tiflab.my.id/storage/lessons/materials/1761608781_10-Implementasi-Firewall-Keamanan.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementasi Firewall dan Keamanan Jaringan - Pertemuan 10</title>
+    <link rel="stylesheet" href="./Implementasi Firewall dan Keamanan Jaringan - Pertemuan 10_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #3498db;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+            gap: 15px;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .icon {
+            color: #3498db;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .info-box {
+            background: #f8f9ff;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #3498db;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            margin: 15px 0;
+            border-left: 5px solid #3498db;
+            overflow-x: auto;
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .security-concept {
+            background: #fff5f5;
+            border: 2px solid #fc8181;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .security-concept h4 {
+            color: #c53030;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .firewall-rule {
+            background: #f0fff4;
+            border: 2px solid #68d391;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .threat-level {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .threat-high {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .threat-medium {
+            background: #feebc8;
+            color: #dd6b20;
+        }
+
+        .threat-low {
+            background: #c6f6d5;
+            color: #38a169;
+        }
+
+        .monitoring-panel {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid #667eea;
+        }
+
+        .monitoring-panel h4 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #3498db;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #3498db;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .university-info {
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+                width: 98vw;
+                height: 95vh;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="custom-pointer" id="customPointer" style="left: 33px; top: 298px; opacity: 0;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 6.25%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 16</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+    
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen | P: Presenter</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Implementasi Firewall dan Keamanan Jaringan - Pertemuan 10_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Implementasi Firewall dan Keamanan Jaringan</div>
+                <div class="slide-subtitle">Pertemuan 10 - Firewall Configuration dan Security Monitoring</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-shield-alt icon"></i>
+                    Pertemuan 10
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu mengimplementasikan firewall dan keamanan jaringan</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>Semester Ganjil 2024/2025</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Tujuan Pembelajaran -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Capaian Pembelajaran Mata Kuliah (CPMK)</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-bullseye icon"></i>
+                    Learning Objectives
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-shield-alt" style="color: #3498db;"></i> Firewall Implementation</strong><br>
+                            Mahasiswa mampu mengkonfigurasi dan mengelola firewall untuk keamanan jaringan
+                        </div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-lock" style="color: #3498db;"></i> Access Control</strong><br>
+                            Mengimplementasikan access control lists dan security policies yang efektif
+                        </div>
+                    </div>
+                    <div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-search" style="color: #3498db;"></i> Intrusion Detection</strong><br>
+                            Memahami dan menerapkan sistem deteksi intrusi untuk monitoring keamanan
+                        </div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-chart-bar" style="color: #3498db;"></i> Security Monitoring</strong><br>
+                            Melakukan monitoring dan analisis security events secara real-time
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h3 style="color: white; margin-bottom: 15px;">
+                        <i class="fas fa-graduation-cap"></i> Kompetensi yang Dicapai
+                    </h3>
+                    <p><strong>CPMK:</strong> Mahasiswa mampu mengimplementasikan firewall dan sistem keamanan jaringan dengan konfigurasi yang tepat dan monitoring yang efektif</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda Pertemuan -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-list-alt icon"></i>
+                    Jadwal Kegiatan (2x50 menit)
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <strong>Konsep Firewall dan Access Control (25 menit)</strong><br>
+                    • Firewall fundamentals dan types<br>
+                    • Access control mechanisms<br>
+                    • Network security policies
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <strong>Konfigurasi Firewall (35 menit)</strong><br>
+                    • Windows Firewall configuration<br>
+                    • Linux iptables/firewalld setup<br>
+                    • Rule management dan testing
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <strong>Intrusion Detection Systems (20 menit)</strong><br>
+                    • IDS/IPS concepts<br>
+                    • Detection methods<br>
+                    • Alert configuration
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <strong>Security Monitoring &amp; Assessment (20 menit)</strong><br>
+                    • Event monitoring tools<br>
+                    • Log analysis<br>
+                    • Incident response procedures
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Firewall Concepts -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Konsep Firewall dan Access Control</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <div class="security-concept">
+                            <h4><i class="fas fa-shield-alt"></i> Apa itu Firewall?</h4>
+                            <p>Network security system yang mengontrol traffic berdasarkan predetermined security rules</p>
+                        </div>
+                        
+                        <h3 style="color: #3498db; margin-bottom: 20px;">Jenis Firewall</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Packet Filtering</strong><br>
+                            Inspects packets berdasarkan IP, port, protocol
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Stateful Inspection</strong><br>
+                            Tracks connection state dan context
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Application Layer</strong><br>
+                            Deep packet inspection pada application data
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Next-Gen Firewall</strong><br>
+                            Combines traditional firewall dengan advanced features
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db; margin-bottom: 20px;">Security Policies</h3>
+                        <div class="security-concept">
+                            <h4><i class="fas fa-ban"></i> Default Deny Policy</h4>
+                            <p>Block semua traffic kecuali yang explicitly allowed</p>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-check-circle"></i> Least Privilege</h4>
+                            <p>Grant minimum access yang diperlukan untuk operasi</p>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-layer-group"></i> Defense in Depth</h4>
+                            <p>Multiple layers of security controls</p>
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-lightbulb"></i> Best Practices</h4>
+                            <p>• Regular rule review dan cleanup</p>
+                            <p>• Logging dan monitoring semua activities</p>
+                            <p>• Change management process</p>
+                            <p>• Regular security assessments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Windows Firewall Configuration -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Konfigurasi Windows Firewall</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <h3><i class="fas fa-windows"></i> Praktik: Windows Firewall with Advanced Security</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Basic Configuration</h3>
+                        <div class="code-block">
+# Enable Windows Firewall (PowerShell)
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+
+# Check firewall status
+Get-NetFirewallProfile
+
+# View existing rules
+Get-NetFirewallRule | Where-Object {$_.Enabled -eq 'True'}
+
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Access Advanced Security</strong><br>
+                            Windows + R → wf.msc → Advanced Settings
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Configure Profiles</strong><br>
+                            Domain, Private, Public network profiles
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Firewall Rules</h3>
+                        <div class="firewall-rule">
+<strong>Inbound Rule Example:</strong>
+Rule Name: Allow HTTP
+Action: Allow
+Protocol: TCP
+Local Port: 80
+Remote Address: Any
+Scope: All Profiles
+                        </div>
+
+                        <div class="code-block">
+# Create firewall rule (PowerShell)
+New-NetFirewallRule -DisplayName "Allow SSH" `
+    -Direction Inbound `
+    -Protocol TCP `
+    -LocalPort 22 `
+    -Action Allow
+
+# Block specific IP
+New-NetFirewallRule -DisplayName "Block Malicious IP" `
+    -Direction Inbound `
+    -RemoteAddress 192.168.1.100 `
+    -Action Block
+
+                        </div>
+
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Security Notes</h4>
+                            <p>• Test rules sebelum production deployment</p>
+                            <p>• Document semua custom rules</p>
+                            <p>• Regular audit dan cleanup unused rules</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Linux iptables Configuration -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Konfigurasi Linux iptables</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <h3><i class="fas fa-linux"></i> Praktik: iptables Firewall Setup</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Basic iptables Commands</h3>
+                        <div class="code-block">
+<pre># View current rules
+sudo iptables -L -n -v
+
+# Flush all rules
+sudo iptables -F
+
+# Set default policies
+sudo iptables -P INPUT DROP
+sudo iptables -P FORWARD DROP
+sudo iptables -P OUTPUT ACCEPT
+
+# Allow loopback
+sudo iptables -A INPUT -i lo -j ACCEPT
+sudo iptables -A OUTPUT -o lo -j ACCEPT
+</pre>
+                        </div>
+
+                        <div class="firewall-rule">
+<strong>Common Rules:</strong>
+# Allow SSH
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Allow HTTP/HTTPS
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Allow established connections
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Advanced iptables Rules</h3>
+                        <div class="code-block">
+<pre># Rate limiting (DDoS protection)
+iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+
+# Block specific countries (using GeoIP)
+iptables -A INPUT -m geoip --src-cc CN,RU -j DROP
+
+# Log dropped packets
+iptables -A INPUT -j LOG --log-prefix "DROPPED: "
+iptables -A INPUT -j DROP
+
+# Save rules (Ubuntu/Debian)
+sudo iptables-save &gt; /etc/iptables/rules.v4
+</pre>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-fire"></i> firewalld (CentOS/RHEL)</h4>
+                            <div class="code-block">
+<pre># Basic firewalld commands
+sudo firewall-cmd --get-active-zones
+sudo firewall-cmd --list-all
+
+# Add service
+sudo firewall-cmd --add-service=http --permanent
+sudo firewall-cmd --reload
+
+# Add port
+sudo firewall-cmd --add-port=8080/tcp --permanent
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Access Control Lists -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Access Control Lists (ACLs)</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Network ACL Concepts</h3>
+                        <div class="security-concept">
+                            <h4><i class="fas fa-list"></i> Standard ACLs</h4>
+                            <p>Filter berdasarkan source IP address only</p>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-list-alt"></i> Extended ACLs</h4>
+                            <p>Filter berdasarkan source/destination IP, ports, protocols</p>
+                        </div>
+
+                        <div class="firewall-rule">
+<strong>Cisco Router ACL Example:</strong>
+# Standard ACL
+access-list 10 permit 192.168.1.0 0.0.0.255
+access-list 10 deny any
+
+# Extended ACL
+access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80
+access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 443
+access-list 100 deny ip any any
+
+# Apply to interface
+interface FastEthernet0/1
+ip access-group 100 in
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Linux ACL Implementation</h3>
+                        <div class="code-block">
+<pre># Install ACL tools
+sudo apt-get install acl
+
+# Set file ACL
+setfacl -m u:username:rwx /path/to/file
+setfacl -m g:groupname:r-x /path/to/directory
+
+# View ACLs
+getfacl /path/to/file
+
+# Remove ACLs
+setfacl -x u:username /path/to/file
+setfacl -b /path/to/file  # Remove all ACLs
+</pre>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-network-wired"></i> Network Segmentation</h4>
+                            <p>Gunakan ACLs untuk:</p>
+                            <p>• Isolate sensitive networks</p>
+                            <p>• Control inter-VLAN communication</p>
+                            <p>• Implement DMZ policies</p>
+                            <p>• Restrict administrative access</p>
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-check-circle"></i> ACL Best Practices</h4>
+                            <p>• Place extended ACLs close to source</p>
+                            <p>• Place standard ACLs close to destination</p>
+                            <p>• Use descriptive names/comments</p>
+                            <p>• Regular review dan cleanup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Intrusion Detection Systems -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Intrusion Detection Systems (IDS)</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <h3><i class="fas fa-search"></i> IDS/IPS Implementation &amp; Management</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">IDS vs IPS</h3>
+                        <div class="security-concept">
+                            <h4><i class="fas fa-eye"></i> IDS (Detection)</h4>
+                            <p>• Monitors dan alerts on suspicious activities</p>
+                            <p>• Passive monitoring (out-of-band)</p>
+                            <p>• Historical analysis capabilities</p>
+                            <p>• No impact on network performance</p>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-shield-alt"></i> IPS (Prevention)</h4>
+                            <p>• Active blocking of malicious traffic</p>
+                            <p>• Inline deployment (in-band)</p>
+                            <p>• Real-time threat mitigation</p>
+                            <p>• Potential performance impact</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Network-based IDS/IPS</strong><br>
+                            Monitors network traffic dan protocols
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Host-based IDS/IPS</strong><br>
+                            Monitors individual host activities
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Detection Methods</h3>
+                        <div class="security-concept">
+                            <h4><i class="fas fa-signature"></i> Signature-based Detection</h4>
+                            <p>• Matches known attack patterns</p>
+                            <p>• Low false positives</p>
+                            <p>• Cannot detect zero-day attacks</p>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-chart-line"></i> Anomaly-based Detection</h4>
+                            <p>• Detects deviations from normal behavior</p>
+                            <p>• Can detect unknown attacks</p>
+                            <p>• Higher false positive rates</p>
+                        </div>
+
+                        <div class="monitoring-panel">
+                            <h4><i class="fas fa-bell"></i> Common IDS Alerts</h4>
+                            <div class="threat-level threat-high">PORT SCAN DETECTED</div>
+                            <div class="threat-level threat-high">SQL INJECTION ATTEMPT</div>
+                            <div class="threat-level threat-medium">UNUSUAL TRAFFIC PATTERN</div>
+                            <div class="threat-level threat-medium">FAILED LOGIN ATTEMPTS</div>
+                            <div class="threat-level threat-low">POLICY VIOLATION</div>
+                        </div>
+
+                        <div class="code-block">
+<pre># Snort IDS Configuration Example
+# /etc/snort/snort.conf
+var HOME_NET 192.168.1.0/24
+var EXTERNAL_NET !$HOME_NET
+
+# Sample rule
+alert tcp $EXTERNAL_NET any -&gt; $HOME_NET 22 (msg:"SSH Connection Attempt"; sid:1000001;)
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Security Monitoring Tools -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Security Monitoring &amp; Event Analysis</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Windows Security Monitoring</h3>
+                        <div class="code-block">
+<pre># PowerShell Event Log Analysis
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625} | Select-Object -First 10
+
+# Failed logon attempts
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625} | 
+  Group-Object {$_.Properties[5].Value} | Sort-Object Count -Descending
+
+# Firewall logs
+Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Windows Firewall'}
+</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Event Viewer</strong><br>
+                            Security, System, Application logs analysis
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Performance Monitor</strong><br>
+                            Real-time system performance metrics
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Windows Defender</strong><br>
+                            Integrated threat protection dan monitoring
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Linux Security Monitoring</h3>
+                        <div class="code-block">
+<pre># System logs analysis
+sudo tail -f /var/log/auth.log    # Authentication logs
+sudo tail -f /var/log/syslog      # System logs
+
+# Failed SSH attempts
+sudo grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c
+
+# Network connections
+sudo netstat -tulpn
+sudo ss -tulpn
+
+# Real-time monitoring
+sudo iftop    # Network traffic
+sudo htop     # System resources
+</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Key Security Metrics</strong><br>
+                            • Failed authentication attempts<br>
+                            • Unusual network connections<br>
+                            • Privilege escalation events<br>
+                            • File system modifications
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>Monitoring Tools</strong><br>
+                            • <strong>OSSEC:</strong> Host IDS<br>
+                            • <strong>Fail2ban:</strong> Brute force protection<br>
+                            • <strong>Tripwire:</strong> File integrity<br>
+                            • <strong>Nagios:</strong> Network monitoring
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Log Analysis & SIEM -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Log Analysis &amp; SIEM Integration</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <h3><i class="fas fa-chart-line"></i> Security Information &amp; Event Management</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Log Centralization</h3>
+                        <div class="code-block">
+<pre># rsyslog configuration
+# /etc/rsyslog.conf
+
+# Forward logs to central server
+*.* @@192.168.1.100:514
+
+# Receive logs from clients
+$ModLoad imudp
+$UDPServerRun 514
+$UDPServerAddress 0.0.0.0
+
+# Template untuk log format
+$template RemoteLogs,"/var/log/remote/%HOSTNAME%/%PROGRAMNAME%.log"
+*.* ?RemoteLogs
+</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Log Collection</strong><br>
+                            Centralize logs dari multiple sources
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Log Normalization</strong><br>
+                            Standardize log formats untuk analysis
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Event Correlation</strong><br>
+                            Identify patterns dan anomalies
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">ELK Stack Implementation</h3>
+                        <div class="code-block">
+<pre># Elasticsearch, Logstash, Kibana
+# Docker Compose example
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:7.9.0
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+
+  logstash:
+    image: logstash:7.9.0
+    ports:
+      - "5044:5044"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+
+  kibana:
+    image: kibana:7.9.0
+    ports:
+      - "5601:5601"
+</pre>
+                        </div>
+
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>SIEM Feature</th>
+                                    <th>Benefit</th>
+                                    <th>Implementation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Real-time Analysis</td>
+                                    <td>Immediate threat detection</td>
+                                    <td>Stream processing</td>
+                                </tr>
+                                <tr>
+                                    <td>Historical Analysis</td>
+                                    <td>Forensic investigation</td>
+                                    <td>Data warehouse</td>
+                                </tr>
+                                <tr>
+                                    <td>Alerting</td>
+                                    <td>Automated response</td>
+                                    <td>Rule engines</td>
+                                </tr>
+                                <tr>
+                                    <td>Dashboards</td>
+                                    <td>Security visibility</td>
+                                    <td>Visualization tools</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Incident Response -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Incident Response Procedures</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Incident Response Lifecycle</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Preparation</strong><br>
+                            • Incident response team formation<br>
+                            • Tools dan procedures preparation<br>
+                            • Training dan tabletop exercises
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Identification</strong><br>
+                            • Security event detection<br>
+                            • Initial assessment<br>
+                            • Incident classification
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Containment</strong><br>
+                            • Immediate threat isolation<br>
+                            • Evidence preservation<br>
+                            • Impact limitation
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Eradication</strong><br>
+                            • Root cause elimination<br>
+                            • System hardening<br>
+                            • Vulnerability patching
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Response Actions</h3>
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Security Incident Detected</h4>
+                            <p><strong>Immediate Actions:</strong></p>
+                            <p>1. Document timestamp dan initial observations</p>
+                            <p>2. Notify incident response team</p>
+                            <p>3. Preserve evidence (logs, memory dumps)</p>
+                            <p>4. Implement containment measures</p>
+                        </div>
+
+                        <div class="code-block">
+<pre># Evidence Collection Commands
+# Network connections
+sudo netstat -an &gt; network_connections.txt
+
+# Running processes
+sudo ps aux &gt; running_processes.txt
+
+# Memory dump (Linux)
+sudo dd if=/proc/kcore of=memory_dump.img
+
+# System information
+sudo uname -a &gt; system_info.txt
+sudo lsmod &gt; loaded_modules.txt
+
+# Log preservation
+sudo cp /var/log/auth.log evidence/
+sudo cp /var/log/syslog evidence/
+</pre>
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-clipboard-check"></i> Recovery &amp; Lessons Learned</h4>
+                            <p>• System restoration from clean backups</p>
+                            <p>• Security control improvements</p>
+                            <p>• Post-incident review dan documentation</p>
+                            <p>• Process dan procedure updates</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Security Assessment -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Security Assessment &amp; Vulnerability Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <h3><i class="fas fa-search-plus"></i> Vulnerability Assessment &amp; Penetration Testing</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Vulnerability Scanning</h3>
+                        <div class="code-block">
+<pre># Nmap network discovery
+nmap -sn 192.168.1.0/24          # Host discovery
+nmap -sS -O 192.168.1.100        # TCP SYN scan with OS detection
+nmap -sU 192.168.1.100           # UDP scan
+nmap -A 192.168.1.100            # Aggressive scan
+
+# OpenVAS vulnerability scanner
+sudo openvas-setup
+sudo openvas-start
+# Access via web interface: https://localhost:9392
+</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Asset Discovery</strong><br>
+                            Identify all network assets dan services
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Vulnerability Identification</strong><br>
+                            Scan untuk known vulnerabilities
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Risk Assessment</strong><br>
+                            Prioritize vulnerabilities berdasarkan risk
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Remediation</strong><br>
+                            Patch atau mitigate identified issues
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Security Testing Tools</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Tool</th>
+                                    <th>Purpose</th>
+                                    <th>Target</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nmap</td>
+                                    <td>Network scanning</td>
+                                    <td>Network services</td>
+                                </tr>
+                                <tr>
+                                    <td>OpenVAS</td>
+                                    <td>Vulnerability scanning</td>
+                                    <td>System vulnerabilities</td>
+                                </tr>
+                                <tr>
+                                    <td>Metasploit</td>
+                                    <td>Penetration testing</td>
+                                    <td>Exploit verification</td>
+                                </tr>
+                                <tr>
+                                    <td>Wireshark</td>
+                                    <td>Network analysis</td>
+                                    <td>Traffic inspection</td>
+                                </tr>
+                                <tr>
+                                    <td>Lynis</td>
+                                    <td>System auditing</td>
+                                    <td>Security hardening</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-circle"></i> Vulnerability Severity</h4>
+                            <div class="threat-level threat-high">CRITICAL (9.0-10.0)</div>
+                            <div class="threat-level threat-high">HIGH (7.0-8.9)</div>
+                            <div class="threat-level threat-medium">MEDIUM (4.0-6.9)</div>
+                            <div class="threat-level threat-low">LOW (0.1-3.9)</div>
+                        </div>
+
+                        <div class="code-block">
+<pre># Lynis security audit
+sudo lynis audit system
+
+# Generate report
+sudo lynis show report
+
+# Check specific category
+sudo lynis audit system --check-all --category security
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Network Security Best Practices -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Network Security Best Practices</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Security Hardening</h3>
+                        <div class="security-concept">
+                            <h4><i class="fas fa-lock"></i> System Hardening</h4>
+                            <p>• Disable unnecessary services</p>
+                            <p>• Apply security patches promptly</p>
+                            <p>• Configure secure authentication</p>
+                            <p>• Implement access controls</p>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-network-wired"></i> Network Segmentation</h4>
+                            <p>• Isolate critical systems</p>
+                            <p>• Implement DMZ architecture</p>
+                            <p>• Use VLANs untuk separation</p>
+                            <p>• Control inter-segment traffic</p>
+                        </div>
+
+                        <div class="security-concept">
+                            <h4><i class="fas fa-key"></i> Encryption</h4>
+                            <p>• Encrypt data in transit (TLS/VPN)</p>
+                            <p>• Encrypt data at rest</p>
+                            <p>• Use strong encryption algorithms</p>
+                            <p>• Proper key management</p>
+                        </div>
+
+                        <div class="code-block">
+<pre># SSH hardening example
+# /etc/ssh/sshd_config
+Protocol 2
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+AllowUsers admin
+Port 2222
+MaxAuthTries 3
+</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Continuous Security</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Regular Updates</strong><br>
+                            • Patch management program<br>
+                            • Vulnerability scanning<br>
+                            • Security control testing
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Monitoring &amp; Alerting</strong><br>
+                            • 24/7 security monitoring<br>
+                            • Automated alert systems<br>
+                            • Incident response procedures
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>User Education</strong><br>
+                            • Security awareness training<br>
+                            • Phishing simulation<br>
+                            • Security policy enforcement
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Backup &amp; Recovery</strong><br>
+                            • Regular backup testing<br>
+                            • Disaster recovery planning<br>
+                            • Business continuity procedures
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-shield-check"></i> Security Framework</h4>
+                            <p>• <strong>NIST Cybersecurity Framework</strong></p>
+                            <p>• <strong>ISO 27001/27002</strong></p>
+                            <p>• <strong>CIS Critical Security Controls</strong></p>
+                            <p>• <strong>OWASP Security Guidelines</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Hands-on Lab -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Lab Exercise: Firewall Configuration</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <h3><i class="fas fa-laptop-code"></i> Praktik: Complete Firewall Setup</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db;">Lab Scenario</h3>
+                        <div class="info-box">
+                            <h4>Network Environment</h4>
+                            <p>• Web Server: 192.168.1.10</p>
+                            <p>• Database Server: 192.168.1.20</p>
+                            <p>• Admin Workstation: 192.168.1.100</p>
+                            <p>• User Network: 192.168.2.0/24</p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Windows Firewall Setup</strong><br>
+                            Configure firewall rules untuk web server
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Linux iptables Configuration</strong><br>
+                            Setup database server protection
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>IDS Implementation</strong><br>
+                            Deploy intrusion detection system
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Security Monitoring</strong><br>
+                            Setup log analysis dan alerting
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #3498db;">Implementation Tasks</h3>
+                        <div class="firewall-rule">
+<strong>Required Rules:</strong>
+1. Allow HTTP/HTTPS to web server from users
+2. Allow SSH access to admin workstation only
+3. Block direct access to database server
+4. Allow database connection from web server
+5. Block all other traffic (default deny)
+                        </div>
+
+                        <div class="code-block">
+<pre># Lab validation commands
+# Test web server access
+curl -I http://192.168.1.10
+
+# Test SSH access
+ssh admin@192.168.1.10
+
+# Check firewall status
+sudo iptables -L -n -v
+netsh advfirewall show allprofiles
+
+# Monitor logs
+sudo tail -f /var/log/auth.log
+Get-WinEvent -LogName Security -MaxEvents 10
+</pre>
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-check-circle"></i> Lab Deliverables</h4>
+                            <p>• Firewall configuration screenshots</p>
+                            <p>• Rule documentation</p>
+                            <p>• Test results validation</p>
+                            <p>• Security assessment report</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Kesimpulan & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Implementasi Firewall dan Keamanan Jaringan - Pertemuan 10_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Kesimpulan &amp; Next Steps</div>
+                <div class="slide-subtitle">Firewall and Security Implementation Summary</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-trophy icon"></i>
+                    Materi Telah Diselesaikan!
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #3498db; margin-bottom: 20px;">Yang Telah Dipelajari</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Firewall Concepts:</strong> Types, policies, dan implementation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Windows/Linux Firewall:</strong> Configuration dan rule management
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Access Control Lists:</strong> Network dan file system ACLs
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Intrusion Detection:</strong> IDS/IPS concepts dan implementation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Security Monitoring:</strong> Log analysis, SIEM, incident response
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #3498db; margin-bottom: 20px;">Tugas Praktik</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Firewall Implementation</strong><br>
+                            Configure Windows/Linux firewall dengan comprehensive rules
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>IDS Deployment</strong><br>
+                            Setup intrusion detection system dengan custom rules
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Security Monitoring</strong><br>
+                            Implement log centralization dan alerting system
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Security Assessment</strong><br>
+                            Perform vulnerability scan dan security testing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: white; text-align: center;">
+                        <i class="fas fa-graduation-cap"></i> Pertemuan Selanjutnya
+                    </h3>
+                    <p style="text-align: center; font-size: 24px; margin-top: 15px;">
+                        <strong>Pertemuan 11:</strong> Network Troubleshooting dan Performance Optimization
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Implementasi Firewall dan Keamanan Jaringan - Pertemuan 10_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Terima Kasih</div>
+                <div class="slide-subtitle">Selesai Materi Implementasi Firewall dan Keamanan Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-shield-alt icon"></i>
+                    Terima Kasih!
+                </div>
+                
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: white; text-align: center;">
+                        <i class="fas fa-check-circle"></i> Materi Telah Selesai
+                    </h3>
+                    <p style="text-align: center; font-size: 20px; margin-top: 15px;">
+                        <strong>Semoga materi Implementasi Firewall dan Keamanan Jaringan ini bermanfaat!</strong>
+                    </p>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h4><i class="fas fa-user"></i> Kontak Dosen</h4>
+                    <p><strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong></p>
+                    <p>Program Studi Teknologi Informasi</p>
+                    <p>Universitas Tidar Magelang</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <div style="font-size: 4rem; color: #3498db;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes"><p>Slide 1: Pembukaan materi implementasi firewall dan keamanan jaringan dengan overview konsep dan tools</p></div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">01:41</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Pembukaan materi implementasi firewall dan keamanan jaringan dengan overview konsep dan tools",
+            "Slide 2: CPMK - focus pada implementasi firewall, access control, IDS, dan security monitoring", 
+            "Slide 3: Agenda pembelajaran 2x50 menit dengan breakdown waktu per topik security",
+            "Slide 4: Firewall concepts - explain different types dan security policies",
+            "Slide 5: Hands-on Windows Firewall configuration dengan PowerShell dan GUI",
+            "Slide 6: Linux iptables dan firewalld configuration - show rule examples",
+            "Slide 7: Access Control Lists - network dan file system ACL implementation",
+            "Slide 8: IDS/IPS concepts - detection methods dan alert management",
+            "Slide 9: Security monitoring tools untuk Windows dan Linux environments",
+            "Slide 10: Log analysis dan SIEM integration with ELK stack",
+            "Slide 11: Incident response procedures dan evidence collection",
+            "Slide 12: Security assessment tools dan vulnerability management",
+            "Slide 13: Network security best practices dan continuous security approach",
+            "Slide 14: Hands-on lab exercise dengan complete firewall implementation",
+            "Slide 15: Summary dan practical assignments untuk security implementation",
+            "Slide 16: Professional closing dengan kontak informasi"
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('progressBar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            
+            if (presenterNotes[currentSlide]) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons state
+            updateNavigationButtons();
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        // Add scroll event listener for active slide
+        function addScrollListeners() {
+            slides[currentSlide].addEventListener('scroll', updateScrollIndicators);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            document.body.style.marginRight = presenterModeActive ? '400px' : '0';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Timer functionality
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'f':
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    togglePresenterMode();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+            }
+        });
+
+        // Mouse events for custom pointer
+        document.addEventListener('mouseenter', () => {
+            customPointer.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            customPointer.style.opacity = '0';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-btn') || e.target.closest('.presenter-mode')) return;
+            
+            const rect = document.documentElement.getBoundingClientRect();
+            if (e.clientX > rect.width / 2) {
+                changeSlide(1);
+            } else {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Show help text on first load
+        setTimeout(showHelpText, 1000);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

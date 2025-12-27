@@ -1,0 +1,2463 @@
+<!DOCTYPE html>
+<!-- saved from url=(0108)https://class.tiflab.my.id/storage/lessons/materials/1764570139_14-Optimasi-Kinerja-Sistem-Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimasi Kinerja Sistem Terintegrasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Optimasi Kinerja Sistem Terintegrasi_files/css2" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: #e4e4e7;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            position: relative;
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 5px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #10b981, #059669);
+            border-radius: 5px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #059669, #047857);
+            background-clip: content-box;
+        }
+
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #10b981 rgba(15, 23, 42, 0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #34d399;
+            border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+            padding-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #34d399;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+
+        ul {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-left: 2rem;
+            font-weight: 400;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        li:hover {
+            transform: translateX(5px);
+            color: #34d399;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: -1.5rem;
+            top: 0;
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(148, 163, 184, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-box:hover::before {
+            opacity: 1;
+        }
+
+        .content-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .content-box ul {
+            font-size: 1.1rem;
+            margin-left: 1rem;
+        }
+
+        .content-box p {
+            font-size: 1.1rem;
+        }
+
+        .optimization-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 3px solid #10b981;
+            color: #10b981;
+        }
+
+        .optimization-box h4 {
+            color: #34d399;
+        }
+
+        .performance-box {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid #3b82f6;
+            color: #3b82f6;
+        }
+
+        .performance-box h4 {
+            color: #60a5fa;
+        }
+
+        .monitoring-box {
+            background: rgba(168, 85, 247, 0.08);
+            border-left: 3px solid #a855f7;
+            color: #a855f7;
+        }
+
+        .monitoring-box h4 {
+            color: #c084fc;
+        }
+
+        .scaling-box {
+            background: rgba(20, 184, 166, 0.08);
+            border-left: 3px solid #14b8a6;
+            color: #14b8a6;
+        }
+
+        .scaling-box h4 {
+            color: #2dd4bf;
+        }
+
+        .case-study {
+            background: rgba(100, 116, 139, 0.1);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .case-study:hover {
+            border-color: rgba(148, 163, 184, 0.4);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .case-study h4 {
+            color: #34d399;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 14px 24px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            color: #e4e4e7;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+        }
+
+        .control-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-btn:disabled:hover {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            backdrop-filter: blur(12px);
+            color: #34d399;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #10b981, #14b8a6, #06b6d4);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .code-block:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+
+        .code-block::before {
+            content: 'CODE';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .code-block pre {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .optimization-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-top: 3px solid #10b981;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(16, 185, 129, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-top-color: #34d399;
+            box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .metric-card:hover::after {
+            opacity: 1;
+        }
+
+        .metric-card h4 {
+            font-size: 1.3rem;
+            color: #34d399;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-card p {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 3px solid #ef4444;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #f87171;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .warning-box p {
+            color: #fca5a5;
+            font-size: 1.05rem;
+        }
+
+        .success-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 3px solid #10b981;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .success-box h4 {
+            color: #34d399;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .success-box p {
+            color: #6ee7b7;
+            font-size: 1.05rem;
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid #3b82f6;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h4 {
+            color: #60a5fa;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .info-box p {
+            color: #93c5fd;
+            font-size: 1.05rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .diagram-box {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            text-align: center;
+        }
+
+        .diagram-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="progress-bar" id="progressBar" style="width: 5%;"></div>
+
+    <div class="presentation-container">
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="./Optimasi Kinerja Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 150px; height: 150px; margin-bottom: 1.5rem; animation: fadeInUp 0.8s ease-out;">
+            </div>
+
+            <h1>Optimasi Kinerja Sistem Terintegrasi</h1>
+            <div class="subtitle">System Performance Optimization in Integrated Systems</div>
+
+            <div class="university-info" style="margin-top: 3rem;">
+                <div class="university-name">Universitas Tidar</div>
+                <div class="faculty-info">Fakultas Teknik - Program Studi Teknologi Informasi</div>
+                <div class="course-info">Teknologi Sistem Terintegrasi - Pertemuan 14</div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem; font-size: 1.3rem;">
+                <p>📚 Durasi: 3 x 50 menit</p>
+                <p>🎯 Target: Menganalisis dan Mengoptimalkan Performa Sistem</p>
+                <p>💻 Metode: Ceramah, Studi Kasus, Hands-on Practice</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Agenda -->
+        <div class="slide">
+            <h2>📋 Agenda Perkuliahan</h2>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>🎯 Sesi 1 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Konsep optimasi sistem terintegrasi</li>
+                        <li>Identifikasi bottleneck dan masalah kinerja</li>
+                        <li>Metrik dan KPI performa sistem</li>
+                        <li>Strategi optimasi multi-layer</li>
+                    </ul>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>💻 Sesi 2 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Teknik optimasi database dan query</li>
+                        <li>Caching strategies dan CDN</li>
+                        <li>Load balancing dan horizontal scaling</li>
+                        <li>Studi kasus: Google &amp; Amazon</li>
+                    </ul>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>🔍 Sesi 3 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Monitoring dan profiling aplikasi</li>
+                        <li>Code optimization best practices</li>
+                        <li>Hands-on: Performance testing</li>
+                        <li>Dokumentasi hasil optimasi</li>
+                    </ul>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>📊 Capaian Pembelajaran</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Mengidentifikasi bottleneck sistem</li>
+                        <li>Menerapkan teknik optimasi efektif</li>
+                        <li>Mengukur peningkatan performa</li>
+                        <li>Mendokumentasikan proses optimasi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Pengantar Optimasi -->
+        <div class="slide">
+            <h2>🚀 Pengantar Optimasi Kinerja Sistem Terintegrasi</h2>
+
+            <h3>Definisi dan Pentingnya Optimasi</h3>
+
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Optimasi kinerja sistem terintegrasi adalah <span class="highlight">proses berkelanjutan</span>
+                untuk meningkatkan efisiensi, kecepatan, dan skalabilitas sistem dengan mengidentifikasi
+                bottleneck, menerapkan best practices, dan memanfaatkan teknologi yang tepat untuk
+                memaksimalkan value dan meminimalkan resource consumption.
+            </p>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Dalam sistem terintegrasi modern yang kompleks, optimasi tidak hanya tentang membuat
+                sistem "lebih cepat", tetapi tentang menciptakan keseimbangan optimal antara performa,
+                biaya, skalabilitas, dan user experience. Sistem yang optimal adalah sistem yang dapat
+                memberikan layanan terbaik kepada pengguna dengan resource yang efisien.
+            </p>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>🎯 Tujuan Optimasi</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Meningkatkan response time dan throughput</li>
+                        <li>Mengurangi latency dan downtime sistem</li>
+                        <li>Mengoptimalkan penggunaan resource (CPU, RAM, Disk)</li>
+                        <li>Meningkatkan skalabilitas dan capacity planning</li>
+                        <li>Mengurangi biaya infrastruktur dan operasional</li>
+                        <li>Meningkatkan user experience dan satisfaction</li>
+                    </ul>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>✨ Manfaat Optimasi</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>User retention meningkat hingga 70%</li>
+                        <li>Conversion rate naik 25-35% untuk setiap 1s faster</li>
+                        <li>Biaya cloud infrastructure turun 30-50%</li>
+                        <li>SEO ranking meningkat (Core Web Vitals)</li>
+                        <li>Competitive advantage di pasar</li>
+                        <li>Better developer productivity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📊 Statistik Impact Optimasi Kinerja</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Berdasarkan riset Google dan Amazon (2024):<br><br>
+                    • <strong>53%</strong> pengguna mobile meninggalkan website jika loading &gt; 3 detik<br>
+                    • <strong>100ms</strong> penurunan latency = <strong>1%</strong> peningkatan revenue (Amazon data)<br>
+                    • <strong>0.5s</strong> faster = <strong>20%</strong> peningkatan traffic (Google data)<br>
+                    • <strong>70%</strong> perusahaan mengalami peningkatan revenue setelah optimasi performa<br>
+                    • <strong>$2.8 trillion</strong> kerugian global akibat poor application performance (2023)
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Identifikasi Bottleneck -->
+        <div class="slide">
+            <h2>🔍 Identifikasi Bottleneck dan Masalah Kinerja</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Bottleneck adalah titik dalam sistem yang membatasi keseluruhan performa.
+                Mengidentifikasi bottleneck adalah langkah pertama dalam optimasi yang efektif.
+            </p>
+
+            <h3>Common Performance Bottlenecks</h3>
+
+            <div class="optimization-card">
+                <div class="metric-card">
+                    <h4>🗄️ Database Bottleneck</h4>
+                    <p><strong>Gejala:</strong> Query lambat, high CPU/memory usage, connection pool exhausted</p>
+                    <p><strong>Penyebab:</strong> N+1 queries, missing indexes, unoptimized queries, large table scans</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🌐 Network Bottleneck</h4>
+                    <p><strong>Gejala:</strong> High latency, packet loss, timeout errors, slow API calls</p>
+                    <p><strong>Penyebab:</strong> Bandwidth limitations, network congestion, geographic distance, DNS issues</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>⚙️ Application Bottleneck</h4>
+                    <p><strong>Gejala:</strong> Slow processing, high CPU usage, memory leaks, blocking operations</p>
+                    <p><strong>Penyebab:</strong> Inefficient algorithms, synchronous blocking, lack of caching, poor code quality</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🖥️ Infrastructure Bottleneck</h4>
+                    <p><strong>Gejala:</strong> Resource exhaustion, throttling, disk I/O wait, swap usage</p>
+                    <p><strong>Penyebab:</strong> Insufficient resources, poor capacity planning, single point of failure</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🔗 Integration Bottleneck</h4>
+                    <p><strong>Gejala:</strong> API timeout, failed integrations, cascade failures, queue backlogs</p>
+                    <p><strong>Penyebab:</strong> External API slowness, synchronous dependencies, tight coupling</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>👥 Concurrency Bottleneck</h4>
+                    <p><strong>Gejala:</strong> Deadlocks, race conditions, thread starvation, context switching overhead</p>
+                    <p><strong>Penyebab:</strong> Poor thread management, shared resources, lock contention</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>💡 Profiling Tools untuk Identifikasi Bottleneck</h4>
+                <p>
+                    <strong>Application:</strong> New Relic APM, Datadog APM, AppDynamics, Dynatrace<br>
+                    <strong>Database:</strong> pgAdmin, MySQL Workbench, MongoDB Compass, Query Analyzer<br>
+                    <strong>Network:</strong> Wireshark, tcpdump, Pingdom, GTmetrix<br>
+                    <strong>Infrastructure:</strong> Prometheus + Grafana, CloudWatch, Azure Monitor, Google Cloud Monitoring
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Metrik dan KPI -->
+        <div class="slide">
+            <h2>📊 Metrik dan KPI Performa Sistem</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Untuk mengoptimalkan sistem, kita perlu mengukur performa dengan metrik yang tepat.
+                "You can't improve what you don't measure" - Peter Drucker
+            </p>
+
+            <h3>Key Performance Indicators (KPI)</h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Metrik</th>
+                        <th>Target Ideal</th>
+                        <th>Cara Pengukuran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Response Time</strong></td>
+                        <td>Time to First Byte (TTFB)</td>
+                        <td>&lt; 200ms</td>
+                        <td>Browser DevTools, WebPageTest</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Response Time</strong></td>
+                        <td>Page Load Time</td>
+                        <td>&lt; 2 seconds</td>
+                        <td>Lighthouse, GTmetrix</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Throughput</strong></td>
+                        <td>Requests per Second (RPS)</td>
+                        <td>Depends on SLA</td>
+                        <td>Load testing tools (JMeter, K6)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Throughput</strong></td>
+                        <td>Transactions per Second (TPS)</td>
+                        <td>High as possible</td>
+                        <td>APM tools, Database logs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Availability</strong></td>
+                        <td>Uptime Percentage</td>
+                        <td>&gt; 99.9% (SLA)</td>
+                        <td>Uptime monitoring (Pingdom)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resource Usage</strong></td>
+                        <td>CPU Utilization</td>
+                        <td>&lt; 70% average</td>
+                        <td>System monitoring tools</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resource Usage</strong></td>
+                        <td>Memory Utilization</td>
+                        <td>&lt; 80% average</td>
+                        <td>System monitoring tools</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Rate</strong></td>
+                        <td>Error Percentage</td>
+                        <td>&lt; 0.1%</td>
+                        <td>Application logs, APM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Database</strong></td>
+                        <td>Query Response Time</td>
+                        <td>&lt; 50ms (avg)</td>
+                        <td>Database profiling tools</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API</strong></td>
+                        <td>API Latency (p95)</td>
+                        <td>&lt; 500ms</td>
+                        <td>API monitoring tools</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="success-box" style="margin-top: 2rem;">
+                <h4>🎯 Core Web Vitals - Google's Performance Metrics</h4>
+                <p>
+                    <strong>LCP (Largest Contentful Paint):</strong> &lt; 2.5s - Mengukur loading performance<br>
+                    <strong>FID (First Input Delay):</strong> &lt; 100ms - Mengukur interactivity<br>
+                    <strong>CLS (Cumulative Layout Shift):</strong> &lt; 0.1 - Mengukur visual stability<br>
+                    <strong>INP (Interaction to Next Paint):</strong> &lt; 200ms - Mengukur responsiveness (new!)
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Strategi Optimasi Multi-Layer -->
+        <div class="slide">
+            <h2>🏗️ Strategi Optimasi Multi-Layer</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Optimasi harus dilakukan secara holistik di semua layer sistem - dari frontend hingga infrastructure.
+            </p>
+
+            <div style="background: rgba(30, 41, 59, 0.5); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
+                <div style="background: rgba(16, 185, 129, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #10b981;">
+                    <h5 style="color: #34d399; font-size: 1.4rem; margin-bottom: 1rem;">Layer 1: 🎨 Frontend Optimization</h5>
+                    <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                        <strong>Teknik:</strong><br>
+                        • Minification &amp; compression (Gzip, Brotli)<br>
+                        • Code splitting &amp; lazy loading<br>
+                        • Image optimization (WebP, AVIF, responsive images)<br>
+                        • Browser caching &amp; service workers<br>
+                        • Critical CSS &amp; async/defer JavaScript<br>
+                        • CDN untuk static assets<br>
+                        • HTTP/2 atau HTTP/3 untuk multiplexing
+                    </p>
+                </div>
+
+                <div style="background: rgba(59, 130, 246, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #3b82f6;">
+                    <h5 style="color: #60a5fa; font-size: 1.4rem; margin-bottom: 1rem;">Layer 2: 💻 Application Optimization</h5>
+                    <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                        <strong>Teknik:</strong><br>
+                        • Efficient algorithms &amp; data structures<br>
+                        • Asynchronous processing (async/await, promises)<br>
+                        • Connection pooling &amp; object pooling<br>
+                        • Memory management &amp; garbage collection tuning<br>
+                        • Caching strategies (in-memory, distributed)<br>
+                        • Background jobs &amp; queue processing<br>
+                        • API response optimization (pagination, field selection)
+                    </p>
+                </div>
+
+                <div style="background: rgba(168, 85, 247, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #a855f7;">
+                    <h5 style="color: #c084fc; font-size: 1.4rem; margin-bottom: 1rem;">Layer 3: 🗄️ Database Optimization</h5>
+                    <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                        <strong>Teknik:</strong><br>
+                        • Query optimization &amp; indexing strategy<br>
+                        • Database normalization vs denormalization<br>
+                        • Read replicas &amp; master-slave replication<br>
+                        • Database sharding &amp; partitioning<br>
+                        • Connection pooling &amp; prepared statements<br>
+                        • Query result caching (Redis, Memcached)<br>
+                        • EXPLAIN ANALYZE untuk query profiling
+                    </p>
+                </div>
+
+                <div style="background: rgba(20, 184, 166, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #14b8a6;">
+                    <h5 style="color: #2dd4bf; font-size: 1.4rem; margin-bottom: 1rem;">Layer 4: 🏢 Infrastructure Optimization</h5>
+                    <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                        <strong>Teknik:</strong><br>
+                        • Load balancing (Round Robin, Least Connections)<br>
+                        • Auto-scaling (horizontal &amp; vertical)<br>
+                        • Container optimization (Docker, Kubernetes)<br>
+                        • CDN untuk content delivery global<br>
+                        • Edge computing untuk latency reduction<br>
+                        • Resource right-sizing &amp; spot instances<br>
+                        • Network optimization (VPC peering, private links)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Database Optimization Deep Dive -->
+        <div class="slide">
+            <h2>🗄️ Teknik Optimasi Database</h2>
+
+            <h3>1. Query Optimization</h3>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box full-width">
+                    <h4>⚠️ N+1 Query Problem - Common Pitfall</h4>
+                    <div class="code-block">
+                        <pre>// ❌ BAD: N+1 Query Problem
+// Fetches 1 query for users, then N queries for each user's posts
+users = User.all()  // 1 query
+for user in users:
+    posts = user.posts.all()  // N queries (1 per user)
+
+// Total: 1 + N queries (e.g., 1 + 1000 = 1001 queries!)
+
+// ✅ GOOD: Eager Loading dengan JOIN
+users = User.all().prefetch_related('posts')  // 2 queries total
+for user in users:
+    posts = user.posts.all()  // No additional query!
+
+// Total: 2 queries only (users + posts)</pre>
+                    </div>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>📊 Indexing Strategy</h4>
+                    <div class="code-block">
+                        <pre>-- Create index on frequently queried columns
+CREATE INDEX idx_users_email
+ON users(email);
+
+CREATE INDEX idx_orders_user_date
+ON orders(user_id, created_at);
+
+-- Composite index for multiple columns
+CREATE INDEX idx_products_category_price
+ON products(category_id, price);
+
+-- Analyze query performance
+EXPLAIN ANALYZE
+SELECT * FROM orders
+WHERE user_id = 123
+  AND created_at &gt; '2024-01-01';</pre>
+                    </div>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>🎯 Query Optimization Tips</h4>
+                    <div class="code-block">
+                        <pre>-- ❌ BAD: SELECT *
+SELECT * FROM users WHERE active = true;
+
+-- ✅ GOOD: Select only needed columns
+SELECT id, name, email FROM users WHERE active = true;
+
+-- ❌ BAD: Subquery in WHERE
+SELECT * FROM orders WHERE user_id IN
+  (SELECT id FROM users WHERE country = 'ID');
+
+-- ✅ GOOD: JOIN instead
+SELECT o.* FROM orders o
+INNER JOIN users u ON o.user_id = u.id
+WHERE u.country = 'ID';</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>💡 Database Performance Best Practices</h4>
+                <p>
+                    1. <strong>Use indexes wisely</strong> - But don't over-index (slows down writes)<br>
+                    2. <strong>Avoid SELECT *</strong> - Fetch only columns you need<br>
+                    3. <strong>Use LIMIT</strong> - Pagination untuk large datasets<br>
+                    4. <strong>Connection pooling</strong> - Reuse database connections<br>
+                    5. <strong>Cache query results</strong> - Redis/Memcached untuk frequently accessed data<br>
+                    6. <strong>Regular VACUUM</strong> - Untuk PostgreSQL, clean up dead tuples<br>
+                    7. <strong>Monitor slow queries</strong> - Log queries &gt; 1 second for analysis
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Caching Strategies -->
+        <div class="slide">
+            <h2>⚡ Caching Strategies dan CDN</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Caching adalah salah satu teknik optimasi paling efektif - dapat meningkatkan performa
+                hingga 10-100x untuk data yang sering diakses.
+            </p>
+
+            <h3>Multi-Level Caching Architecture</h3>
+
+            <div class="optimization-card">
+                <div class="metric-card">
+                    <h4>🌐 Browser Cache (L1)</h4>
+                    <p><strong>Location:</strong> Client browser</p>
+                    <p><strong>TTL:</strong> Hours to days</p>
+                    <p><strong>Use case:</strong> Static assets (JS, CSS, images)</p>
+                    <p><strong>Headers:</strong> Cache-Control, ETag</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🔥 CDN Cache (L2)</h4>
+                    <p><strong>Location:</strong> Edge servers globally</p>
+                    <p><strong>TTL:</strong> Minutes to hours</p>
+                    <p><strong>Use case:</strong> Static content, API responses</p>
+                    <p><strong>Providers:</strong> CloudFlare, Akamai, CloudFront</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>💾 Application Cache (L3)</h4>
+                    <p><strong>Location:</strong> Application server memory</p>
+                    <p><strong>TTL:</strong> Seconds to minutes</p>
+                    <p><strong>Use case:</strong> Session data, computed results</p>
+                    <p><strong>Tools:</strong> Node-cache, functools.lru_cache</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🗄️ Distributed Cache (L4)</h4>
+                    <p><strong>Location:</strong> Dedicated cache servers</p>
+                    <p><strong>TTL:</strong> Minutes to hours</p>
+                    <p><strong>Use case:</strong> Shared data across instances</p>
+                    <p><strong>Tools:</strong> Redis, Memcached</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>💽 Database Query Cache (L5)</h4>
+                    <p><strong>Location:</strong> Database server</p>
+                    <p><strong>TTL:</strong> Until data changes</p>
+                    <p><strong>Use case:</strong> Frequent identical queries</p>
+                    <p><strong>Built-in:</strong> MySQL Query Cache, PgBouncer</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🔧 Object/ORM Cache (L6)</h4>
+                    <p><strong>Location:</strong> Application layer</p>
+                    <p><strong>TTL:</strong> Session-based or custom</p>
+                    <p><strong>Use case:</strong> Database objects, entities</p>
+                    <p><strong>Tools:</strong> Django cache, Hibernate 2nd level</p>
+                </div>
+            </div>
+
+            <div class="content-box optimization-box full-width" style="margin-top: 2rem;">
+                <h4>💻 Redis Caching Implementation Example</h4>
+                <div class="code-block">
+                    <pre>import redis
+import json
+from functools import wraps
+
+# Connect to Redis
+cache = redis.Redis(host='localhost', port=6379, decode_responses=True)
+
+def cache_result(ttl=300):
+    """Decorator untuk cache function results"""
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            # Create cache key
+            cache_key = f"{func.__name__}:{str(args)}:{str(kwargs)}"
+
+            # Try to get from cache
+            cached = cache.get(cache_key)
+            if cached:
+                print(f"✅ Cache HIT: {cache_key}")
+                return json.loads(cached)
+
+            # Cache MISS - execute function
+            print(f"❌ Cache MISS: {cache_key}")
+            result = func(*args, **kwargs)
+
+            # Store in cache with TTL
+            cache.setex(cache_key, ttl, json.dumps(result))
+            return result
+        return wrapper
+    return decorator
+
+@cache_result(ttl=600)  # Cache for 10 minutes
+def get_user_profile(user_id):
+    # Expensive database query
+    return database.query(f"SELECT * FROM users WHERE id = {user_id}")
+
+# First call - Cache MISS, hits database
+profile = get_user_profile(123)
+
+# Second call - Cache HIT, instant response!
+profile = get_user_profile(123)</pre>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 2rem;">
+                <h4>⚠️ Cache Invalidation - "One of the hardest problems in CS"</h4>
+                <p>
+                    <strong>Strategi Invalidation:</strong><br>
+                    1. <strong>TTL-based:</strong> Cache expires after time limit<br>
+                    2. <strong>Event-based:</strong> Invalidate on data update/delete<br>
+                    3. <strong>Manual:</strong> Explicit cache clear by admin<br>
+                    4. <strong>Version-based:</strong> Change cache key when data version changes<br>
+                    <br>
+                    <strong>Common pitfall:</strong> Stale data di cache saat database sudah update!
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Load Balancing -->
+        <div class="slide">
+            <h2>⚖️ Load Balancing dan Horizontal Scaling</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Load balancing mendistribusikan traffic ke multiple servers untuk meningkatkan
+                availability, scalability, dan fault tolerance.
+            </p>
+
+            <h3>Load Balancing Algorithms</h3>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>🔄 Round Robin</h4>
+                    <p><strong>Cara Kerja:</strong> Requests didistribusikan secara bergiliran ke setiap server</p>
+                    <p><strong>Pros:</strong> Simple, equal distribution</p>
+                    <p><strong>Cons:</strong> Tidak consider server load/capacity</p>
+                    <p><strong>Use case:</strong> Homogeneous servers dengan equal capacity</p>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>📊 Least Connections</h4>
+                    <p><strong>Cara Kerja:</strong> Request ke server dengan active connections paling sedikit</p>
+                    <p><strong>Pros:</strong> Better untuk long-lived connections</p>
+                    <p><strong>Cons:</strong> Slightly more complex</p>
+                    <p><strong>Use case:</strong> WebSocket, database connections</p>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>⚡ Least Response Time</h4>
+                    <p><strong>Cara Kerja:</strong> Request ke server dengan response time tercepat</p>
+                    <p><strong>Pros:</strong> Optimal performance</p>
+                    <p><strong>Cons:</strong> Requires monitoring</p>
+                    <p><strong>Use case:</strong> Mixed workloads</p>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>🎯 IP Hash</h4>
+                    <p><strong>Cara Kerja:</strong> Client IP di-hash untuk determine server</p>
+                    <p><strong>Pros:</strong> Session affinity/sticky sessions</p>
+                    <p><strong>Cons:</strong> Uneven distribution possible</p>
+                    <p><strong>Use case:</strong> Session-based applications</p>
+                </div>
+            </div>
+
+            <div class="content-box optimization-box full-width" style="margin-top: 2rem;">
+                <h4>🔧 Nginx Load Balancer Configuration</h4>
+                <div class="code-block">
+                    <pre># nginx.conf - Load Balancer Configuration
+
+upstream backend_servers {
+    # Load balancing method
+    least_conn;  # or: round_robin, ip_hash
+
+    # Backend servers
+    server app1.example.com:8001 weight=3;  # Higher weight = more requests
+    server app2.example.com:8002 weight=2;
+    server app3.example.com:8003 weight=1;
+    server app4.example.com:8004 backup;     # Backup server
+
+    # Health checks
+    server app5.example.com:8005 max_fails=3 fail_timeout=30s;
+
+    # Keepalive connections
+    keepalive 32;
+}
+
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass http://backend_servers;
+
+        # Headers
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        # Timeouts
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+
+        # Load balancing improvements
+        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
+        proxy_next_upstream_tries 2;
+    }
+
+    # Health check endpoint
+    location /health {
+        access_log off;
+        return 200 "healthy\n";
+    }
+}</pre>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 2rem;">
+                <h4>✅ Horizontal Scaling Best Practices</h4>
+                <p>
+                    1. <strong>Stateless applications</strong> - Store session di Redis/database, bukan memory<br>
+                    2. <strong>Shared storage</strong> - Use S3/NFS untuk uploaded files<br>
+                    3. <strong>Database connection pooling</strong> - Limit connections per instance<br>
+                    4. <strong>Auto-scaling rules</strong> - Scale based on CPU, memory, or request rate<br>
+                    5. <strong>Health checks</strong> - Remove unhealthy instances dari pool<br>
+                    6. <strong>Graceful shutdown</strong> - Drain connections sebelum shutdown
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Studi Kasus - Google -->
+        <div class="slide">
+            <h2>📚 Studi Kasus: Google Search Optimization</h2>
+
+            <div class="case-study">
+                <h4>🔍 Background</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Google Search melayani <strong>8.5 billion searches per day</strong> (99,000 per detik)
+                    dengan response time rata-rata <strong>&lt; 0.5 detik</strong>. Bagaimana Google
+                    mengoptimalkan sistem pada skala yang massive ini?
+                </p>
+            </div>
+
+            <h3>Strategi Optimasi Google</h3>
+
+            <div class="optimization-card">
+                <div class="metric-card">
+                    <h4>🗄️ Distributed Storage</h4>
+                    <p><strong>Teknologi:</strong> Bigtable, Spanner, Colossus</p>
+                    <p><strong>Strategy:</strong> Petabytes of data distributed across thousands of servers globally</p>
+                    <p><strong>Benefit:</strong> High availability, low latency access</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>⚡ Aggressive Caching</h4>
+                    <p><strong>Layers:</strong> Multi-tier caching (edge, regional, global)</p>
+                    <p><strong>Strategy:</strong> Popular queries cached at edge locations</p>
+                    <p><strong>Benefit:</strong> 80% queries served from cache</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🌐 Global CDN</h4>
+                    <p><strong>Infrastructure:</strong> 100+ edge locations worldwide</p>
+                    <p><strong>Strategy:</strong> Content served from nearest location</p>
+                    <p><strong>Benefit:</strong> Reduced latency by 50-70%</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🔍 Index Optimization</h4>
+                    <p><strong>Technology:</strong> Inverted index, compression</p>
+                    <p><strong>Strategy:</strong> Pre-computed rankings, parallel search</p>
+                    <p><strong>Benefit:</strong> Search billions of pages in milliseconds</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>📊 Machine Learning</h4>
+                    <p><strong>Use:</strong> Query understanding, ranking optimization</p>
+                    <p><strong>Strategy:</strong> RankBrain, BERT untuk relevance</p>
+                    <p><strong>Benefit:</strong> Better results, fewer re-searches</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>⚙️ Resource Optimization</h4>
+                    <p><strong>Approach:</strong> Custom hardware (TPUs), efficient algorithms</p>
+                    <p><strong>Strategy:</strong> Borg untuk resource management</p>
+                    <p><strong>Benefit:</strong> Maximum utilization, cost efficiency</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>📊 Performance Impact - Google's Own Research</h4>
+                <p style="font-size: 1.1rem;">
+                    <strong>Experiment:</strong> Google menambahkan 500ms delay ke search results<br>
+                    <strong>Result:</strong> 20% penurunan traffic dan 25% fewer searches<br>
+                    <br>
+                    <strong>Key Insight:</strong> "Speed is a feature" - Setiap 100ms improvement = measurable business impact<br>
+                    <br>
+                    Google's investment in optimization:<br>
+                    • Custom data centers dengan PUE &lt; 1.1 (industry avg: 1.6)<br>
+                    • Proprietary networking hardware (Jupiter, Andromeda)<br>
+                    • Continuous performance monitoring &amp; A/B testing<br>
+                    • Result: Billions of dollars saved, better user experience
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Studi Kasus - Amazon -->
+        <div class="slide">
+            <h2>📚 Studi Kasus: Amazon E-Commerce Optimization</h2>
+
+            <div class="case-study">
+                <h4>🛒 Background</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Amazon melayani <strong>millions of transactions per day</strong> dengan
+                    <strong>$1.3 trillion GMV annually</strong>. Optimasi performa adalah kunci
+                    competitive advantage Amazon - setiap 100ms faster = 1% revenue increase.
+                </p>
+            </div>
+
+            <h3>Amazon's Performance Optimization Strategy</h3>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>🏗️ Microservices Architecture</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Problem:</strong> Monolithic application bottleneck<br>
+                        <strong>Solution:</strong> 1000+ microservices, independent scaling<br>
+                        <strong>Benefit:</strong> Teams dapat optimize &amp; deploy independently<br>
+                        <strong>Result:</strong> 50% faster feature deployment
+                    </p>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>⚡ DynamoDB NoSQL</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Problem:</strong> Relational DB scaling limitations<br>
+                        <strong>Solution:</strong> Purpose-built DynamoDB untuk high-throughput<br>
+                        <strong>Benefit:</strong> Single-digit millisecond latency at scale<br>
+                        <strong>Result:</strong> Handle millions of requests/second
+                    </p>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>🌐 CloudFront CDN</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Problem:</strong> Global latency untuk static content<br>
+                        <strong>Solution:</strong> 400+ CloudFront edge locations<br>
+                        <strong>Benefit:</strong> Content served locally worldwide<br>
+                        <strong>Result:</strong> 60% reduction in page load time
+                    </p>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>📊 Personalization Engine</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Strategy:</strong> Real-time recommendation system<br>
+                        <strong>Technology:</strong> ML models, collaborative filtering<br>
+                        <strong>Optimization:</strong> Pre-computed recommendations, caching<br>
+                        <strong>Result:</strong> 35% of revenue dari recommendations
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-box optimization-box full-width" style="margin-top: 2rem;">
+                <h4>🔧 Amazon's Chaos Engineering - Testing at Scale</h4>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem;">
+                    Amazon developed <strong>GameDays</strong> dan <strong>Chaos Engineering</strong>
+                    untuk test system resilience dan identify bottlenecks sebelum production issues:
+                </p>
+                <ul style="font-size: 1.05rem;">
+                    <li><strong>Chaos Monkey:</strong> Randomly terminate instances untuk test fault tolerance</li>
+                    <li><strong>Latency Injection:</strong> Add artificial delays untuk simulate network issues</li>
+                    <li><strong>Load Testing:</strong> Simulate Prime Day traffic levels regularly</li>
+                    <li><strong>Failure Modes:</strong> Test every single point of failure scenario</li>
+                    <li><strong>Auto-remediation:</strong> Automated response to common issues</li>
+                </ul>
+            </div>
+
+            <div class="success-box" style="margin-top: 2rem;">
+                <h4>💰 Business Impact of Performance Optimization</h4>
+                <p style="font-size: 1.1rem;">
+                    <strong>Amazon's published data:</strong><br>
+                    • 100ms improvement = <strong>1% revenue increase</strong> (~$13B/year for Amazon!)<br>
+                    • Prime Day 2023: <strong>375 million items sold</strong> - possible karena optimization<br>
+                    • Infrastructure cost optimization: <strong>Billions saved</strong> through efficient resource usage<br>
+                    • Customer satisfaction: <strong>Higher NPS</strong> correlated dengan faster page loads<br>
+                    <br>
+                    <strong>Key Takeaway:</strong> Performance optimization = direct business value!
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Code Optimization Best Practices -->
+        <div class="slide">
+            <h2>💻 Code Optimization Best Practices</h2>
+
+            <h3>Algorithm &amp; Data Structure Optimization</h3>
+
+            <div class="content-box optimization-box full-width">
+                <h4>⚡ Big O Complexity - Choose Wisely!</h4>
+                <div class="code-block">
+                    <pre>// ❌ BAD: O(n²) - Nested loops
+function findDuplicates(arr) {
+    let duplicates = [];
+    for (let i = 0; i &lt; arr.length; i++) {
+        for (let j = i + 1; j &lt; arr.length; j++) {
+            if (arr[i] === arr[j]) {
+                duplicates.push(arr[i]);
+            }
+        }
+    }
+    return duplicates;
+}
+
+// ✅ GOOD: O(n) - Hash Set
+function findDuplicates(arr) {
+    let seen = new Set();
+    let duplicates = new Set();
+    for (let item of arr) {
+        if (seen.has(item)) {
+            duplicates.add(item);
+        }
+        seen.add(item);
+    }
+    return Array.from(duplicates);
+}
+
+// Performance: 1000 items = 1,000,000 ops vs 1,000 ops (1000x faster!)</pre>
+                </div>
+            </div>
+
+            <div class="content-grid" style="margin-top: 2rem;">
+                <div class="content-box performance-box">
+                    <h4>🔄 Avoid Unnecessary Iterations</h4>
+                    <div class="code-block">
+                        <pre>// ❌ BAD: Multiple iterations
+const users = getUsers();
+const activeUsers = users.filter(u =&gt; u.active);
+const userEmails = activeUsers.map(u =&gt; u.email);
+const upperEmails = userEmails.map(e =&gt; e.toUpperCase());
+
+// ✅ GOOD: Single iteration
+const userEmails = users
+  .filter(u =&gt; u.active)
+  .map(u =&gt; u.email.toUpperCase());
+
+// Even better: reduce for single pass
+const userEmails = users.reduce((acc, u) =&gt; {
+  if (u.active) acc.push(u.email.toUpperCase());
+  return acc;
+}, []);</pre>
+                    </div>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>📦 Lazy Evaluation &amp; Memoization</h4>
+                    <div class="code-block">
+                        <pre>// Memoization - Cache expensive calculations
+const memoize = (fn) =&gt; {
+  const cache = {};
+  return (...args) =&gt; {
+    const key = JSON.stringify(args);
+    if (cache[key]) return cache[key];
+    const result = fn(...args);
+    cache[key] = result;
+    return result;
+  };
+};
+
+// Expensive fibonacci calculation
+const fibonacci = memoize((n) =&gt; {
+  if (n &lt;= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+});
+
+// fibonacci(50) - instant with memoization!</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 2rem;">
+                <h4>⚠️ Common Performance Anti-Patterns</h4>
+                <p style="font-size: 1.05rem;">
+                    1. <strong>Premature Optimization:</strong> "Optimize what matters" - Profile first!<br>
+                    2. <strong>String Concatenation in Loops:</strong> Use StringBuilder/array join instead<br>
+                    3. <strong>DOM Manipulation in Loops:</strong> Batch DOM updates, use DocumentFragment<br>
+                    4. <strong>Synchronous Operations:</strong> Use async/await for I/O operations<br>
+                    5. <strong>Memory Leaks:</strong> Clear event listeners, close connections, release resources<br>
+                    6. <strong>Inefficient Regex:</strong> Avoid catastrophic backtracking<br>
+                    7. <strong>Deep Object Cloning:</strong> Expensive - use shallow copy when possible
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 13: Monitoring dan Profiling -->
+        <div class="slide">
+            <h2>📊 Monitoring dan Profiling Aplikasi</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                "You can't optimize what you don't measure" - Monitoring dan profiling adalah
+                fondasi dari continuous performance improvement.
+            </p>
+
+            <h3>Application Performance Monitoring (APM)</h3>
+
+            <div class="optimization-card">
+                <div class="metric-card">
+                    <h4>📈 New Relic</h4>
+                    <p><strong>Strength:</strong> Full-stack observability, AI-powered insights</p>
+                    <p><strong>Features:</strong> APM, Infrastructure, Logs, Distributed tracing</p>
+                    <p><strong>Best for:</strong> Enterprise applications, complex systems</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🐶 Datadog</h4>
+                    <p><strong>Strength:</strong> Infrastructure monitoring, dashboards</p>
+                    <p><strong>Features:</strong> Metrics, traces, logs, RUM (Real User Monitoring)</p>
+                    <p><strong>Best for:</strong> Cloud-native, microservices</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>📊 Grafana + Prometheus</h4>
+                    <p><strong>Strength:</strong> Open-source, highly customizable</p>
+                    <p><strong>Features:</strong> Time-series metrics, alerting, visualization</p>
+                    <p><strong>Best for:</strong> Self-hosted, Kubernetes environments</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>🔥 Firebase Performance</h4>
+                    <p><strong>Strength:</strong> Mobile &amp; web performance monitoring</p>
+                    <p><strong>Features:</strong> Automatic traces, custom traces, network monitoring</p>
+                    <p><strong>Best for:</strong> Mobile apps, Firebase ecosystem</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>⚡ Sentry</h4>
+                    <p><strong>Strength:</strong> Error tracking, performance monitoring</p>
+                    <p><strong>Features:</strong> Stack traces, release tracking, user feedback</p>
+                    <p><strong>Best for:</strong> Developer-focused, error debugging</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>☁️ Cloud Native (AWS/GCP/Azure)</h4>
+                    <p><strong>Tools:</strong> CloudWatch, Cloud Monitoring, Azure Monitor</p>
+                    <p><strong>Features:</strong> Integrated cloud metrics, logs, traces</p>
+                    <p><strong>Best for:</strong> Cloud provider integration</p>
+                </div>
+            </div>
+
+            <div class="content-box optimization-box full-width" style="margin-top: 2rem;">
+                <h4>🔧 Custom Performance Monitoring Implementation</h4>
+                <div class="code-block">
+                    <pre>// Performance monitoring decorator
+class PerformanceMonitor {
+    constructor() {
+        this.metrics = [];
+    }
+
+    // Measure function execution time
+    measure(name, fn) {
+        return async (...args) =&gt; {
+            const startTime = performance.now();
+            const startMemory = process.memoryUsage().heapUsed;
+
+            try {
+                const result = await fn(...args);
+                const endTime = performance.now();
+                const endMemory = process.memoryUsage().heapUsed;
+
+                this.recordMetric({
+                    name,
+                    duration: endTime - startTime,
+                    memory: endMemory - startMemory,
+                    timestamp: new Date(),
+                    status: 'success'
+                });
+
+                return result;
+            } catch (error) {
+                const endTime = performance.now();
+
+                this.recordMetric({
+                    name,
+                    duration: endTime - startTime,
+                    timestamp: new Date(),
+                    status: 'error',
+                    error: error.message
+                });
+
+                throw error;
+            }
+        };
+    }
+
+    recordMetric(metric) {
+        this.metrics.push(metric);
+
+        // Alert if slow
+        if (metric.duration &gt; 1000) {
+            console.warn(`⚠️ Slow operation: ${metric.name} took ${metric.duration}ms`);
+        }
+    }
+
+    // Get performance summary
+    getSummary(functionName) {
+        const funcMetrics = this.metrics.filter(m =&gt; m.name === functionName);
+        const durations = funcMetrics.map(m =&gt; m.duration);
+
+        return {
+            count: funcMetrics.length,
+            avgDuration: durations.reduce((a, b) =&gt; a + b, 0) / durations.length,
+            minDuration: Math.min(...durations),
+            maxDuration: Math.max(...durations),
+            p95: this.percentile(durations, 95),
+            p99: this.percentile(durations, 99)
+        };
+    }
+
+    percentile(arr, p) {
+        const sorted = arr.sort((a, b) =&gt; a - b);
+        const index = Math.ceil((p / 100) * sorted.length) - 1;
+        return sorted[index];
+    }
+}
+
+// Usage
+const monitor = new PerformanceMonitor();
+
+const getUserData = monitor.measure('getUserData', async (userId) =&gt; {
+    const user = await db.users.findById(userId);
+    const orders = await db.orders.findByUser(userId);
+    return { user, orders };
+});
+
+// Analyze performance
+console.log(monitor.getSummary('getUserData'));
+// { count: 100, avgDuration: 45ms, p95: 120ms, p99: 250ms }</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Performance Testing -->
+        <div class="slide">
+            <h2>🧪 Performance Testing - Hands-on Practice</h2>
+
+            <h3>Load Testing dengan K6</h3>
+
+            <div class="content-box optimization-box full-width">
+                <h4>📊 K6 Load Test Script</h4>
+                <div class="code-block">
+                    <pre>// load-test.js - K6 Performance Test
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+import { Rate, Trend } from 'k6/metrics';
+
+// Custom metrics
+const errorRate = new Rate('errors');
+const apiDuration = new Trend('api_duration');
+
+// Test configuration
+export const options = {
+    stages: [
+        { duration: '1m', target: 50 },   // Ramp up to 50 users
+        { duration: '3m', target: 50 },   // Stay at 50 users
+        { duration: '1m', target: 100 },  // Ramp up to 100 users
+        { duration: '3m', target: 100 },  // Stay at 100 users
+        { duration: '1m', target: 0 },    // Ramp down to 0
+    ],
+    thresholds: {
+        http_req_duration: ['p(95)&lt;500'],  // 95% requests &lt; 500ms
+        http_req_failed: ['rate&lt;0.01'],    // Error rate &lt; 1%
+        errors: ['rate&lt;0.1'],              // Custom error rate &lt; 10%
+    },
+};
+
+// Test scenario
+export default function() {
+    // Test 1: Homepage
+    let response = http.get('https://example.com/');
+    check(response, {
+        'homepage status 200': (r) =&gt; r.status === 200,
+        'homepage load &lt; 2s': (r) =&gt; r.timings.duration &lt; 2000,
+    });
+
+    // Test 2: API endpoint
+    response = http.get('https://api.example.com/users');
+    const success = check(response, {
+        'api status 200': (r) =&gt; r.status === 200,
+        'api response valid': (r) =&gt; r.json().length &gt; 0,
+    });
+
+    // Record metrics
+    errorRate.add(!success);
+    apiDuration.add(response.timings.duration);
+
+    // Test 3: POST request
+    const payload = JSON.stringify({
+        name: 'Test User',
+        email: 'test@example.com'
+    });
+
+    response = http.post('https://api.example.com/users', payload, {
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    check(response, {
+        'create user success': (r) =&gt; r.status === 201,
+    });
+
+    sleep(1); // Think time between requests
+}
+
+// Run: k6 run load-test.js</pre>
+                </div>
+            </div>
+
+            <div class="content-grid" style="margin-top: 2rem;">
+                <div class="content-box performance-box">
+                    <h4>⚡ Apache JMeter</h4>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Type:</strong> GUI-based load testing<br>
+                        <strong>Best for:</strong> Complex scenarios, record &amp; playback<br>
+                        <strong>Features:</strong> HTTP, Database, FTP, SOAP testing<br>
+                        <strong>Use case:</strong> Enterprise testing, Java ecosystem
+                    </p>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>🔥 Gatling</h4>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Type:</strong> Code-based (Scala)<br>
+                        <strong>Best for:</strong> High performance, detailed reports<br>
+                        <strong>Features:</strong> Real-time metrics, CI/CD integration<br>
+                        <strong>Use case:</strong> Microservices, API testing
+                    </p>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>📊 Locust</h4>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Type:</strong> Python-based<br>
+                        <strong>Best for:</strong> Distributed testing, custom scenarios<br>
+                        <strong>Features:</strong> Web UI, scriptable, hackable<br>
+                        <strong>Use case:</strong> Python stack, flexible testing
+                    </p>
+                </div>
+
+                <div class="content-box optimization-box">
+                    <h4>☁️ Cloud Load Testing</h4>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Tools:</strong> Loader.io, BlazeMeter, Load Impact<br>
+                        <strong>Best for:</strong> Global testing, no infrastructure<br>
+                        <strong>Features:</strong> Multiple regions, auto-scaling<br>
+                        <strong>Use case:</strong> Production-like testing
+                    </p>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>📋 Performance Testing Checklist</h4>
+                <p>
+                    ✅ <strong>Baseline Testing:</strong> Establish performance baseline sebelum changes<br>
+                    ✅ <strong>Load Testing:</strong> Expected load (normal traffic)<br>
+                    ✅ <strong>Stress Testing:</strong> Beyond capacity - find breaking point<br>
+                    ✅ <strong>Spike Testing:</strong> Sudden traffic spikes (viral event)<br>
+                    ✅ <strong>Soak Testing:</strong> Sustained load untuk detect memory leaks<br>
+                    ✅ <strong>Scalability Testing:</strong> How system scales with more resources<br>
+                    ✅ <strong>Regression Testing:</strong> Compare performance across releases
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Dokumentasi Hasil Optimasi -->
+        <div class="slide">
+            <h2>📝 Dokumentasi Hasil Optimasi</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Dokumentasi yang baik memastikan knowledge transfer, tracking progress,
+                dan membuktikan ROI dari optimization efforts.
+            </p>
+
+            <h3>Template Laporan Optimasi</h3>
+
+            <div class="content-box optimization-box full-width">
+                <h4>📊 Performance Optimization Report Template</h4>
+                <div style="background: rgba(15, 23, 42, 0.6); padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+                    <pre style="color: #cbd5e1; font-size: 1rem; line-height: 1.8;"><strong style="color: #34d399;">1. EXECUTIVE SUMMARY</strong>
+   • Project: [Nama Sistem]
+   • Period: [Tanggal Mulai - Selesai]
+   • Team: [Nama Team Members]
+   • Objective: [Tujuan optimasi]
+   • Overall Result: [% Improvement, ROI]
+
+<strong style="color: #34d399;">2. BASELINE METRICS (Before Optimization)</strong>
+   • Average Response Time: 2.5s
+   • 95th Percentile: 4.2s
+   • Error Rate: 1.2%
+   • Throughput: 500 req/s
+   • CPU Utilization: 85%
+   • Memory Usage: 78%
+   • Monthly Infrastructure Cost: $5,000
+
+<strong style="color: #34d399;">3. IDENTIFIED BOTTLENECKS</strong>
+   Bottleneck #1: Database Query Performance
+   • Severity: High
+   • Impact: 60% of total response time
+   • Root Cause: Missing indexes, N+1 queries
+   • Affected Users: All users
+
+   Bottleneck #2: Unoptimized Image Assets
+   • Severity: Medium
+   • Impact: 1.5s page load time
+   • Root Cause: Large PNG images, no compression
+   • Affected Users: Mobile users primarily
+
+<strong style="color: #34d399;">4. OPTIMIZATION ACTIONS TAKEN</strong>
+   Action #1: Database Index Optimization
+   • What: Created 5 composite indexes on frequently queried columns
+   • When: Week 1
+   • Effort: 8 hours
+   • Result: 70% reduction in query time
+
+   Action #2: Image Optimization &amp; CDN
+   • What: Converted to WebP, implemented CloudFlare CDN
+   • When: Week 2
+   • Effort: 12 hours
+   • Result: 60% reduction in image size, 80% faster delivery
+
+   Action #3: Implement Redis Caching
+   • What: Cache frequent DB queries &amp; API responses
+   • When: Week 2-3
+   • Effort: 16 hours
+   • Result: 90% cache hit rate, 5x faster response
+
+<strong style="color: #34d399;">5. POST-OPTIMIZATION METRICS (After)</strong>
+   • Average Response Time: 0.8s (-68% ✅)
+   • 95th Percentile: 1.5s (-64% ✅)
+   • Error Rate: 0.3% (-75% ✅)
+   • Throughput: 1,200 req/s (+140% ✅)
+   • CPU Utilization: 45% (-47% ✅)
+   • Memory Usage: 55% (-29% ✅)
+   • Monthly Infrastructure Cost: $3,200 (-36% ✅)
+
+<strong style="color: #34d399;">6. BUSINESS IMPACT</strong>
+   • User Satisfaction: NPS increased from 45 to 68 (+51%)
+   • Conversion Rate: Improved from 2.1% to 2.8% (+33%)
+   • Revenue Impact: +$25,000/month from better conversion
+   • Cost Savings: $1,800/month infrastructure cost reduction
+   • SEO: Google PageSpeed score 45 → 92 (Mobile)
+
+<strong style="color: #34d399;">7. LESSONS LEARNED</strong>
+   ✅ What Worked Well:
+   • Profiling first saved time (found real bottlenecks)
+   • Incremental approach allowed testing each change
+   • Redis caching had biggest impact for effort
+
+   ⚠️ Challenges:
+   • Cache invalidation complexity
+   • Required code refactoring for async operations
+   • Team learning curve for new tools
+
+<strong style="color: #34d399;">8. RECOMMENDATIONS</strong>
+   Short-term (1-3 months):
+   • Implement auto-scaling for traffic spikes
+   • Add monitoring alerts for performance degradation
+   • Optimize remaining slow queries (5 identified)
+
+   Long-term (6-12 months):
+   • Consider microservices for critical paths
+   • Implement GraphQL to reduce over-fetching
+   • Evaluate edge computing for global users
+
+<strong style="color: #34d399;">9. MONITORING &amp; MAINTENANCE</strong>
+   • Continuous monitoring: Datadog APM
+   • Weekly performance review meetings
+   • Monthly load testing to prevent regression
+   • Quarterly optimization sprints
+                    </pre>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 2rem;">
+                <h4>✅ Documentation Best Practices</h4>
+                <p>
+                    1. <strong>Quantify Everything:</strong> Use numbers &amp; percentages, not "faster" or "better"<br>
+                    2. <strong>Before/After Comparison:</strong> Visual charts showing improvement<br>
+                    3. <strong>Business Impact:</strong> Connect technical improvements ke business metrics<br>
+                    4. <strong>Reproducible:</strong> Document steps so others can reproduce<br>
+                    5. <strong>Lessons Learned:</strong> What worked, what didn't, why<br>
+                    6. <strong>Future Roadmap:</strong> Identified improvements for next iteration
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Best Practices Summary -->
+        <div class="slide">
+            <h2>✨ Best Practices Summary - Optimization Checklist</h2>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>🎯 Optimization Process</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Measure first, optimize second (profile!)</li>
+                        <li>Focus on biggest bottlenecks first (80/20 rule)</li>
+                        <li>Optimize for common case, not edge cases</li>
+                        <li>Test performance impact after each change</li>
+                        <li>Document baseline &amp; improvements</li>
+                        <li>Continuous monitoring &amp; iteration</li>
+                    </ul>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>⚡ Quick Wins</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Enable compression (Gzip/Brotli)</li>
+                        <li>Implement caching (Redis/Memcached)</li>
+                        <li>Use CDN for static assets</li>
+                        <li>Optimize images (WebP, lazy loading)</li>
+                        <li>Database indexing on foreign keys</li>
+                        <li>Connection pooling</li>
+                    </ul>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>📊 Monitoring Essentials</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>APM tool (New Relic, Datadog)</li>
+                        <li>Real User Monitoring (RUM)</li>
+                        <li>Error tracking (Sentry)</li>
+                        <li>Infrastructure metrics (Prometheus)</li>
+                        <li>Log aggregation (ELK stack)</li>
+                        <li>Alerting &amp; on-call rotation</li>
+                    </ul>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>🚀 Scalability</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Stateless applications</li>
+                        <li>Horizontal scaling over vertical</li>
+                        <li>Database read replicas</li>
+                        <li>Message queues for async tasks</li>
+                        <li>Microservices for critical paths</li>
+                        <li>Auto-scaling based on metrics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 2rem;">
+                <h4>⚠️ Common Optimization Mistakes</h4>
+                <p style="font-size: 1.05rem;">
+                    1. <strong>Premature Optimization:</strong> "Root of all evil" - Profile first!<br>
+                    2. <strong>Over-Engineering:</strong> KISS principle - Simple solutions often best<br>
+                    3. <strong>Ignoring User Experience:</strong> Technical metrics ≠ User satisfaction<br>
+                    4. <strong>No Baseline:</strong> Can't prove improvement without before/after data<br>
+                    5. <strong>Optimization in Isolation:</strong> Consider full user journey<br>
+                    6. <strong>Neglecting Monitoring:</strong> Performance degrades over time<br>
+                    7. <strong>Chasing Wrong Metrics:</strong> Focus on business-critical paths
+                </p>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>💡 Performance Culture</h4>
+                <p style="font-size: 1.05rem;">
+                    <strong>Make performance a feature, not an afterthought:</strong><br>
+                    • Include performance requirements in user stories<br>
+                    • Performance budgets for new features<br>
+                    • Regular performance reviews &amp; optimization sprints<br>
+                    • Share performance wins with team &amp; stakeholders<br>
+                    • Celebrate improvements &amp; learn from degradations<br>
+                    • Performance champions in each team<br>
+                    • Performance testing in CI/CD pipeline
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 17: Hands-on Assignment -->
+        <div class="slide">
+            <h2>🔨 Hands-on Assignment - Performance Optimization Project</h2>
+
+            <div class="case-study">
+                <h4>🎯 Objective</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Lakukan performance audit &amp; optimization pada aplikasi web (bisa project sendiri atau sample app).
+                    Dokumentasikan baseline, actions taken, dan hasil optimasi.
+                </p>
+            </div>
+
+            <h3>Assignment Requirements</h3>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>📊 Phase 1: Audit &amp; Baseline</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Run Lighthouse audit (Chrome DevTools)</li>
+                        <li>Measure page load time &amp; TTFB</li>
+                        <li>Check Core Web Vitals (LCP, FID, CLS)</li>
+                        <li>Identify top 5 bottlenecks</li>
+                        <li>Document baseline metrics</li>
+                        <li>Take screenshots/video of performance</li>
+                    </ul>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>⚡ Phase 2: Optimization</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Implement minimal 3 optimization techniques</li>
+                        <li>Options: caching, image optimization, code splitting, minification, etc.</li>
+                        <li>Test each change independently</li>
+                        <li>Measure improvement after each change</li>
+                        <li>Document challenges encountered</li>
+                    </ul>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>📈 Phase 3: Testing &amp; Validation</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Run Lighthouse audit lagi (after)</li>
+                        <li>Measure all metrics lagi</li>
+                        <li>Compare before/after dengan charts</li>
+                        <li>Load test dengan K6 atau JMeter</li>
+                        <li>Validate no functionality broken</li>
+                    </ul>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>📝 Phase 4: Documentation</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Write optimization report (template slide 15)</li>
+                        <li>Include before/after metrics</li>
+                        <li>Screenshots/charts showing improvements</li>
+                        <li>Code snippets of key changes</li>
+                        <li>Lessons learned &amp; recommendations</li>
+                        <li>Min 5 pages, max 10 pages</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 2rem;">
+                <h4>✅ Deliverables (Submit within 2 weeks)</h4>
+                <p style="font-size: 1.05rem;">
+                    1. <strong>Performance Optimization Report (PDF)</strong><br>
+                    &nbsp;&nbsp;&nbsp;• Baseline metrics, optimizations implemented, results<br>
+                    &nbsp;&nbsp;&nbsp;• Before/after comparison dengan visualisasi<br>
+                    <br>
+                    2. <strong>Code Repository (GitHub)</strong><br>
+                    &nbsp;&nbsp;&nbsp;• Original code (baseline branch)<br>
+                    &nbsp;&nbsp;&nbsp;• Optimized code (optimized branch)<br>
+                    &nbsp;&nbsp;&nbsp;• README dengan instructions<br>
+                    <br>
+                    3. <strong>Performance Test Results</strong><br>
+                    &nbsp;&nbsp;&nbsp;• Lighthouse reports (before &amp; after)<br>
+                    &nbsp;&nbsp;&nbsp;• Load test results (K6/JMeter output)<br>
+                    <br>
+                    <strong>Grading Criteria:</strong><br>
+                    • Thoroughness of analysis (30%)<br>
+                    • Effectiveness of optimizations (30%)<br>
+                    • Documentation quality (25%)<br>
+                    • Measurable improvements (15%)
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 18: Q&A dan Diskusi -->
+        <div class="slide">
+            <h2>💬 Discussion Topics &amp; Q&amp;A</h2>
+
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>🎯 Discussion Topic 1</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        <strong>Trade-offs dalam Optimasi</strong><br><br>
+                        Diskusikan trade-offs antara:<br>
+                        • Performance vs Maintainability<br>
+                        • Premature optimization vs Technical debt<br>
+                        • Cost vs Performance<br>
+                        • Complexity vs Simplicity<br>
+                        <br>
+                        Kapan worth it untuk optimize? Kapan tidak?
+                    </p>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>💡 Discussion Topic 2</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        <strong>Real-world Optimization Challenges</strong><br><br>
+                        Share pengalaman (jika ada):<br>
+                        • Bottleneck yang pernah dihadapi<br>
+                        • Solusi yang berhasil/gagal<br>
+                        • Lessons learned from optimization<br>
+                        • Tools yang paling helpful<br>
+                        <br>
+                        Atau discuss hypothetical scenarios!
+                    </p>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>🔍 Discussion Topic 3</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        <strong>Performance vs User Experience</strong><br><br>
+                        Pertanyaan:<br>
+                        • Metrik mana yang paling penting untuk UX?<br>
+                        • Bagaimana balance performa &amp; features?<br>
+                        • Apakah perceived performance berbeda dari actual?<br>
+                        • Progressive enhancement vs Graceful degradation?
+                    </p>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>🚀 Discussion Topic 4</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        <strong>Future of Performance Optimization</strong><br><br>
+                        Trends &amp; technologies:<br>
+                        • Edge computing impact?<br>
+                        • AI/ML untuk auto-optimization?<br>
+                        • HTTP/3 &amp; QUIC protocol?<br>
+                        • WebAssembly for performance?<br>
+                        • 5G impact on web performance?
+                    </p>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>❓ Common Questions</h4>
+                <p style="font-size: 1.05rem; line-height: 1.8;">
+                    <strong>Q: Kapan mulai optimize? Awal development atau setelah production?</strong><br>
+                    A: Best practice: Design untuk performance dari awal (choose right architecture),
+                    tapi detailed optimization setelah identify actual bottlenecks dengan real data.<br>
+                    <br>
+                    <strong>Q: Tools mana yang paling recommended untuk pemula?</strong><br>
+                    A: Start dengan Chrome DevTools (free, built-in), Lighthouse, dan WebPageTest.
+                    Upgrade ke APM tools (New Relic, Datadog) untuk production systems.<br>
+                    <br>
+                    <strong>Q: Berapa target ideal untuk page load time?</strong><br>
+                    A: General rule: &lt;2s untuk desktop, &lt;3s untuk mobile. Tapi depends on industry -
+                    e-commerce perlu faster (&lt;1s) untuk better conversion.<br>
+                    <br>
+                    <strong>Q: Apakah optimization sekali jalan atau continuous?</strong><br>
+                    A: Continuous! Performance degrades over time (more features, more data).
+                    Need regular monitoring &amp; periodic optimization sprints.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 19: Resources & References -->
+        <div class="slide">
+            <h2>📚 Resources &amp; Further Learning</h2>
+
+            <h3>Recommended Books</h3>
+            <div class="content-grid">
+                <div class="content-box optimization-box">
+                    <h4>📖 Essential Reading</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>High Performance Browser Networking</strong> - Ilya Grigorik</li>
+                        <li><strong>Designing Data-Intensive Applications</strong> - Martin Kleppmann</li>
+                        <li><strong>Web Performance in Action</strong> - Jeremy Wagner</li>
+                        <li><strong>Site Reliability Engineering</strong> - Google</li>
+                    </ul>
+                </div>
+
+                <div class="content-box performance-box">
+                    <h4>🌐 Online Resources</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>web.dev</strong> - Google's web performance guides</li>
+                        <li><strong>WebPageTest.org</strong> - Free performance testing</li>
+                        <li><strong>MDN Performance</strong> - Mozilla documentation</li>
+                        <li><strong>High Scalability</strong> - Real-world case studies</li>
+                    </ul>
+                </div>
+
+                <div class="content-box monitoring-box">
+                    <h4>🎓 Courses &amp; Tutorials</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>Frontend Masters:</strong> Web Performance</li>
+                        <li><strong>Udacity:</strong> Website Performance Optimization</li>
+                        <li><strong>LinkedIn Learning:</strong> Performance Testing</li>
+                        <li><strong>YouTube:</strong> Google Chrome Developers channel</li>
+                    </ul>
+                </div>
+
+                <div class="content-box scaling-box">
+                    <h4>🔧 Tools &amp; Frameworks</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>Lighthouse CI</strong> - Automated testing</li>
+                        <li><strong>Webpack Bundle Analyzer</strong> - Bundle optimization</li>
+                        <li><strong>Chrome DevTools</strong> - Performance profiling</li>
+                        <li><strong>K6, JMeter</strong> - Load testing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 2rem;">
+                <h4>🔗 Useful Links</h4>
+                <p style="font-size: 1.05rem;">
+                    <strong>Performance Testing:</strong><br>
+                    • WebPageTest: https://www.webpagetest.org<br>
+                    • GTmetrix: https://gtmetrix.com<br>
+                    • PageSpeed Insights: https://pagespeed.web.dev<br>
+                    <br>
+                    <strong>Learning Resources:</strong><br>
+                    • web.dev/learn: https://web.dev/learn/<br>
+                    • MDN Performance: https://developer.mozilla.org/en-US/docs/Web/Performance<br>
+                    • High Scalability: http://highscalability.com<br>
+                    <br>
+                    <strong>Monitoring Tools:</strong><br>
+                    • New Relic: https://newrelic.com<br>
+                    • Datadog: https://www.datadoghq.com<br>
+                    • Grafana: https://grafana.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 20: Summary & Conclusion -->
+        <div class="slide">
+            <h2>🎯 Summary &amp; Key Takeaways</h2>
+
+            <div class="case-study">
+                <h4>🌟 Pertemuan 14 - Optimasi Kinerja Sistem Terintegrasi</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Hari ini kita telah mempelajari pendekatan holistik untuk mengoptimalkan performa
+                    sistem terintegrasi - dari identifikasi bottleneck hingga implementasi dan dokumentasi.
+                </p>
+            </div>
+
+            <h3>🎓 Key Learnings</h3>
+
+            <div class="optimization-card">
+                <div class="metric-card">
+                    <h4>1️⃣ Measure First</h4>
+                    <p>"You can't improve what you don't measure" - Profiling dan monitoring adalah foundation dari semua optimization efforts</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>2️⃣ Multi-Layer Approach</h4>
+                    <p>Optimasi harus holistik - frontend, application, database, dan infrastructure semuanya penting</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>3️⃣ Quick Wins Matter</h4>
+                    <p>Caching, compression, CDN, dan indexing bisa memberikan 10-100x improvement dengan effort minimal</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>4️⃣ Business Impact</h4>
+                    <p>Performance optimization = business value. Faster systems = higher conversion, better UX, lower costs</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>5️⃣ Continuous Process</h4>
+                    <p>Optimization bukan one-time project - requires continuous monitoring, testing, dan iteration</p>
+                </div>
+
+                <div class="metric-card">
+                    <h4>6️⃣ Document Everything</h4>
+                    <p>Baseline, actions, results - documentation ensures knowledge transfer dan proves ROI</p>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 2rem;">
+                <h4>✅ Action Items - Mulai Sekarang!</h4>
+                <p style="font-size: 1.1rem;">
+                    1. <strong>Audit existing projects:</strong> Run Lighthouse, identify bottlenecks<br>
+                    2. <strong>Implement quick wins:</strong> Enable compression, add caching, optimize images<br>
+                    3. <strong>Set up monitoring:</strong> Free tier APM tools atau Google Analytics<br>
+                    4. <strong>Start assignment:</strong> Performance optimization project (due in 2 weeks)<br>
+                    5. <strong>Keep learning:</strong> Explore resources, follow performance blogs<br>
+                    6. <strong>Make it a habit:</strong> Performance reviews in every sprint/release
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(16, 185, 129, 0.1); border-radius: 16px;">
+                <h3 style="color: #34d399; font-size: 2rem; margin-bottom: 1rem;">
+                    "Performance is a Feature"
+                </h3>
+                <p style="font-size: 1.3rem; color: #cbd5e1; line-height: 1.8;">
+                    Investasi dalam optimasi performa selalu worth it - untuk users, untuk business, dan untuk developer experience.
+                </p>
+                <p style="font-size: 1.5rem; margin-top: 2rem; color: #34d399;">
+                    Terima kasih! 🚀
+                </p>
+                <p style="font-size: 1.1rem; margin-top: 1rem; color: #94a3b8;">
+                    Questions? Let's discuss! 💬
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled="">
+            ← Previous
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+            Next →
+        </button>
+    </div>
+
+    <div class="slide-counter" id="slideCounter">1 / 20</div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+
+            // Update counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            // Scroll to top
+            slides[currentSlide].scrollTop = 0;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'Home') showSlide(0);
+            if (e.key === 'End') showSlide(totalSlides - 1);
+        });
+
+        // Initialize
+        showSlide(0);
+
+        // Fullscreen toggle
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'f' || e.key === 'F') {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) changeSlide(1);  // Swipe left
+            if (touchEndX > touchStartX + 50) changeSlide(-1); // Swipe right
+        }
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

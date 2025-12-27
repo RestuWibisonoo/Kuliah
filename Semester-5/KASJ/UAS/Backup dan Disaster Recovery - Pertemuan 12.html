@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)https://class.tiflab.my.id/storage/lessons/materials/1762785052_12-Backup-dan-Disaster-Recovery.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup dan Disaster Recovery - Pertemuan 12</title>
+    <link rel="stylesheet" href="./Backup dan Disaster Recovery - Pertemuan 12_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #e74c3c;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #c0392b;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #e74c3c;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-size: 24px;
+            line-height: 1.5;
+            color: #333;
+            padding-top: 20px;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #e74c3c;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #e74c3c;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #e74c3c;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #e74c3c;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .list-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            color: #e74c3c;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+            overflow-x: auto;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #e74c3c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .info-box {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+        }
+
+        .danger-box {
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #c0392b;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .backup-strategy-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .backup-strategy-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .strategy-icon {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .rto-rpo-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .rto-rpo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 16px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            max-width: 100%;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .timeline-item::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .timeline-icon {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: #e74c3c;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            margin-right: 15px;
+            float: left;
+        }
+
+        .timeline-content {
+            overflow: hidden;
+            padding-left: 55px;
+            clear: both;
+        }
+
+        .timeline-content h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column, .three-column {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 39px; top: 405px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 5.88235%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 17</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+    
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Backup dan Disaster Recovery - Pertemuan 12_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Backup dan Disaster Recovery</div>
+                <div class="slide-subtitle">Konfigurasi dan Administrasi Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-shield-alt icon"></i>
+                    Pertemuan 12
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p><strong>Capaian Pembelajaran:</strong></p>
+                    <p>Mahasiswa mampu melakukan backup, recovery, dan disaster planning</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>2 x 50 menit</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="list-item">
+                    <i class="fas fa-save icon"></i>
+                    <strong>Setup automated backup</strong><br>
+                    Implementasi sistem backup otomatis yang reliable
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-undo icon"></i>
+                    <strong>Testing recovery procedures</strong><br>
+                    Menguji dan memvalidasi prosedur pemulihan data
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-clipboard-list icon"></i>
+                    <strong>Membuat DR plan</strong><br>
+                    Menyusun rencana disaster recovery yang komprehensif
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-exclamation-triangle icon"></i>
+                    <strong>Simulasi disaster scenario</strong><br>
+                    Melakukan simulasi berbagai skenario bencana
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #e74c3c; margin-bottom: 20px;">Theory &amp; Planning</h3>
+                        <div class="list-item">
+                            <i class="fas fa-book icon"></i>
+                            Backup Strategies &amp; Technologies
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-procedures icon"></i>
+                            Recovery Procedures
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-project-diagram icon"></i>
+                            Disaster Recovery Planning
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-building icon"></i>
+                            Business Continuity Concepts
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c; margin-bottom: 20px;">Simulation &amp; Workshop</h3>
+                        <div class="list-item">
+                            <i class="fas fa-cogs icon"></i>
+                            Automated Backup Setup
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-vial icon"></i>
+                            Recovery Testing Workshop
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-file-alt icon"></i>
+                            DR Plan Documentation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-fire icon"></i>
+                            Disaster Scenario Simulation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Why Backup & DR? -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Mengapa Backup &amp; Disaster Recovery?</div>
+                <div class="slide-subtitle">Business Impact of Data Loss</div>
+            </div>
+            <div class="slide-content">
+                <div class="danger-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Statistik Data Loss</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>93%</strong> perusahaan yang kehilangan data selama 10 hari akan bangkrut dalam setahun</li>
+                        <li><strong>50%</strong> perusahaan yang mengalami bencana besar akan tutup dalam 2 tahun</li>
+                        <li><strong>$300 billion</strong> kerugian global akibat data loss setiap tahunnya</li>
+                    </ul>
+                </div>
+                
+                <div class="three-column">
+                    <div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-virus"></i>
+                            </div>
+                            <h4>Cyber Threats</h4>
+                            <p>Ransomware, malware, cyber attacks yang dapat mengenkripsi atau menghapus data</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h4>Hardware Failures</h4>
+                            <p>Kerusakan disk, server failure, power outage yang dapat menyebabkan data loss</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-user-times"></i>
+                            </div>
+                            <h4>Human Errors</h4>
+                            <p>Kesalahan pengguna, accidental deletion, misconfiguration sistem</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Backup Strategies -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Backup Strategies</div>
+                <div class="slide-subtitle">Types and Approaches</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-copy"></i>
+                            </div>
+                            <h4>Full Backup</h4>
+                            <p><strong>Complete copy</strong> of all data</p>
+                            <hr style="margin: 10px 0;">
+                            <small>
+                                <strong>Pro:</strong> Complete protection, fast recovery<br>
+                                <strong>Con:</strong> Time consuming, large storage
+                            </small>
+                        </div>
+                        <div class="info-box" style="margin-top: 15px; font-size: 14px;">
+                            <strong>Best for:</strong> Weekly/monthly backups, critical systems
+                        </div>
+                    </div>
+                    <div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4>Incremental Backup</h4>
+                            <p><strong>Only changed files</strong> since last backup</p>
+                            <hr style="margin: 10px 0;">
+                            <small>
+                                <strong>Pro:</strong> Fast backup, less storage<br>
+                                <strong>Con:</strong> Complex recovery, dependency chain
+                            </small>
+                        </div>
+                        <div class="success-box" style="margin-top: 15px; font-size: 14px;">
+                            <strong>Best for:</strong> Daily backups, large datasets
+                        </div>
+                    </div>
+                    <div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-clone"></i>
+                            </div>
+                            <h4>Differential Backup</h4>
+                            <p><strong>Changed files</strong> since last full backup</p>
+                            <hr style="margin: 10px 0;">
+                            <small>
+                                <strong>Pro:</strong> Faster than full, easier recovery<br>
+                                <strong>Con:</strong> Growing size, moderate storage
+                            </small>
+                        </div>
+                        <div class="warning-box" style="margin-top: 15px; font-size: 14px;">
+                            <strong>Best for:</strong> Balanced approach, medium-size data
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: 3-2-1 Backup Rule -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">3-2-1 Backup Rule</div>
+                <div class="slide-subtitle">Industry Best Practice</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-shield-alt icon"></i>
+                    The Golden Rule of Backup
+                </div>
+                
+                <div class="three-column">
+                    <div>
+                        <div class="rto-rpo-card">
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">Copies</div>
+                            <hr style="margin: 15px 0;">
+                            <p>Keep <strong>3 copies</strong> of important data</p>
+                            <small>1 original + 2 backups</small>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="rto-rpo-card">
+                            <div class="metric-value">2</div>
+                            <div class="metric-label">Media Types</div>
+                            <hr style="margin: 15px 0;">
+                            <p>Store backups on <strong>2 different</strong> media types</p>
+                            <small>Local disk, tape, cloud, etc.</small>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="rto-rpo-card">
+                            <div class="metric-value">1</div>
+                            <div class="metric-label">Offsite Copy</div>
+                            <hr style="margin: 15px 0;">
+                            <p>Keep <strong>1 copy offsite</strong> or in cloud</p>
+                            <small>Protection from local disasters</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h4><i class="fas fa-lightbulb"></i> Modern 3-2-1-1 Rule</h4>
+                    <p>Add <strong>1 additional copy</strong> that is <strong>offline</strong> and <strong>immutable</strong> (air-gapped) for ransomware protection</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Backup Technologies -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Backup Technologies</div>
+                <div class="slide-subtitle">Tools and Solutions</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #e74c3c;">Windows Backup Solutions</h3>
+                        <div class="step-card">
+                            <i class="fab fa-microsoft" style="color: #0078d4; font-size: 24px; margin-right: 10px;"></i>
+                            <strong>Windows Server Backup</strong><br>
+                            <small>Built-in backup solution for Windows Server</small>
+                        </div>
+                        <div class="code-block">
+<pre># PowerShell Commands
+# Create backup policy
+$Policy = New-WBPolicy
+Add-WBVolume -Policy $Policy -Volume C:
+Add-WBBackupTarget -Policy $Policy -TargetPath "D:\Backup"
+Start-WBBackup -Policy $Policy</pre>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-database" style="color: #e74c3c; font-size: 24px; margin-right: 10px;"></i>
+                            <strong>Veeam Backup &amp; Replication</strong><br>
+                            <small>Enterprise backup solution for virtualized environments</small>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">Linux Backup Solutions</h3>
+                        <div class="step-card">
+                            <i class="fab fa-linux" style="color: #333; font-size: 24px; margin-right: 10px;"></i>
+                            <strong>rsync</strong><br>
+                            <small>Efficient file synchronization and backup tool</small>
+                        </div>
+                        <div class="code-block">
+<pre># Basic rsync backup
+rsync -avz --delete /source/ /destination/
+
+# Remote backup with SSH
+rsync -avz -e ssh /source/ user@remote:/backup/
+
+# Automated with cron
+0 2 * * * rsync -avz /home/ /backup/home/</pre>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-archive" style="color: #f39c12; font-size: 24px; margin-right: 10px;"></i>
+                            <strong>tar + compression</strong><br>
+                            <small>Traditional archive-based backup approach</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: RTO vs RPO -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">RTO vs RPO</div>
+                <div class="slide-subtitle">Key Recovery Metrics</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <div class="rto-rpo-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>RTO</h3>
+                            <h4>Recovery Time Objective</h4>
+                            <hr style="margin: 15px 0;">
+                            <p><strong>Berapa lama</strong> sistem boleh down sebelum berdampak serius pada bisnis</p>
+                            <div class="warning-box" style="margin: 15px 0; font-size: 14px;">
+                                <strong>Example:</strong> Email system harus recovery dalam 2 jam
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="rto-rpo-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>RPO</h3>
+                            <h4>Recovery Point Objective</h4>
+                            <hr style="margin: 15px 0;">
+                            <p><strong>Berapa banyak data</strong> yang boleh hilang sebelum berdampak serius pada bisnis</p>
+                            <div class="info-box" style="margin: 15px 0; font-size: 14px;">
+                                <strong>Example:</strong> Boleh kehilangan maksimal 15 menit data transaksi
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="comparison-table" style="margin-top: 30px;">
+                    <thead>
+                        <tr>
+                            <th>Business Criticality</th>
+                            <th>RTO Target</th>
+                            <th>RPO Target</th>
+                            <th>Backup Frequency</th>
+                            <th>Cost Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Critical</strong></td>
+                            <td>&lt; 1 hour</td>
+                            <td>&lt; 15 minutes</td>
+                            <td>Continuous/Real-time</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Important</strong></td>
+                            <td>&lt; 4 hours</td>
+                            <td>&lt; 1 hour</td>
+                            <td>Hourly</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Normal</strong></td>
+                            <td>&lt; 24 hours</td>
+                            <td>&lt; 8 hours</td>
+                            <td>Daily</td>
+                            <td>Low</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Low Priority</strong></td>
+                            <td>&lt; 72 hours</td>
+                            <td>&lt; 24 hours</td>
+                            <td>Weekly</td>
+                            <td>Very Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 9: Recovery Procedures -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Recovery Procedures</div>
+                <div class="slide-subtitle">Step-by-Step Recovery Process</div>
+            </div>
+            <div class="slide-content">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>1. Assess the Situation</h4>
+                            <p>Identify the scope of data loss, affected systems, and root cause of the incident</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>2. Isolate and Secure</h4>
+                            <p>Isolate affected systems to prevent further damage and secure the recovery environment</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>3. Prioritize Recovery</h4>
+                            <p>Identify critical systems and data based on business impact and recovery objectives (RTO/RPO)</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>4. Execute Recovery</h4>
+                            <p>Restore data from backups following documented procedures and verify integrity</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>5. Validate and Test</h4>
+                            <p>Test recovered systems, validate data integrity, and ensure full functionality</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>6. Document and Learn</h4>
+                            <p>Document the incident, recovery actions, and lessons learned for future improvements</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Disaster Recovery Planning -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Disaster Recovery Planning</div>
+                <div class="slide-subtitle">Comprehensive DR Strategy</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #e74c3c;">DR Plan Components</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Risk Assessment</strong><br>
+                            Identify potential threats and vulnerabilities
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Business Impact Analysis</strong><br>
+                            Analyze impact of system downtime on business
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Recovery Strategies</strong><br>
+                            Define backup sites, hot/warm/cold standby
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Emergency Procedures</strong><br>
+                            Step-by-step recovery procedures
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">DR Site Types</h3>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-fire" style="color: #e74c3c;"></i>
+                            </div>
+                            <h4>Hot Site</h4>
+                            <p><strong>RTO:</strong> Minutes to hours<br>
+                            <strong>Cost:</strong> High<br>
+                            Real-time replication, immediate failover</p>
+                        </div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-temperature-high" style="color: #f39c12;"></i>
+                            </div>
+                            <h4>Warm Site</h4>
+                            <p><strong>RTO:</strong> Hours to days<br>
+                            <strong>Cost:</strong> Medium<br>
+                            Partial setup, requires configuration</p>
+                        </div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-snowflake" style="color: #3498db;"></i>
+                            </div>
+                            <h4>Cold Site</h4>
+                            <p><strong>RTO:</strong> Days to weeks<br>
+                            <strong>Cost:</strong> Low<br>
+                            Basic facilities, full setup required</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Business Continuity -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Business Continuity Concepts</div>
+                <div class="slide-subtitle">Beyond Technical Recovery</div>
+            </div>
+            <div class="slide-content">
+                <div class="three-column">
+                    <div>
+                        <h3 style="color: #e74c3c;">People</h3>
+                        <div class="list-item">
+                            <i class="fas fa-users icon"></i>
+                            <strong>Emergency Response Team</strong><br>
+                            Designated personnel with clear roles
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-phone icon"></i>
+                            <strong>Communication Plan</strong><br>
+                            Employee notification and coordination
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-map-marked-alt icon"></i>
+                            <strong>Alternate Workspace</strong><br>
+                            Alternative work locations for staff
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">Process</h3>
+                        <div class="list-item">
+                            <i class="fas fa-clipboard-check icon"></i>
+                            <strong>Critical Functions</strong><br>
+                            Identify and prioritize essential processes
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-route icon"></i>
+                            <strong>Workarounds</strong><br>
+                            Manual processes during system downtime
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-handshake icon"></i>
+                            <strong>Vendor Relations</strong><br>
+                            Emergency supplier and service agreements
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">Technology</h3>
+                        <div class="list-item">
+                            <i class="fas fa-server icon"></i>
+                            <strong>Infrastructure</strong><br>
+                            Backup systems and network redundancy
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-mobile-alt icon"></i>
+                            <strong>Remote Access</strong><br>
+                            VPN, remote desktop, cloud services
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-sync-alt icon"></i>
+                            <strong>Data Synchronization</strong><br>
+                            Real-time data replication and backup
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h4><i class="fas fa-lightbulb"></i> Business Continuity vs Disaster Recovery</h4>
+                    <p><strong>DR:</strong> Technical recovery of IT systems and data<br>
+                    <strong>BC:</strong> Overall organizational resilience including people, processes, and technology</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Hands-on Lab Setup -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Hands-on Lab: Backup Implementation</div>
+                <div class="slide-subtitle">Practical Backup Setup</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #e74c3c;">Windows Backup Lab</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Configure Windows Server Backup</strong><br>
+                            Install and setup backup role/feature
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Create Backup Schedule</strong><br>
+                            Setup automated daily backup schedule
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Test Recovery Process</strong><br>
+                            Simulate data loss and perform recovery
+                        </div>
+                        <div class="code-block">
+<pre># PowerShell Script
+Import-Module WindowsServerBackup
+
+# Create backup policy
+$policy = New-WBPolicy
+Add-WBVolume -Policy $policy -Volume C:
+$target = New-WBBackupTarget -TargetPath "E:\Backup"
+Add-WBBackupTarget -Policy $policy -Target $target
+
+# Schedule backup
+Set-WBSchedule -Policy $policy -Schedule 02:00
+Set-WBPolicy -Policy $policy</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">Linux Backup Lab</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Setup rsync Backup</strong><br>
+                            Configure rsync for automated backup
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Create Backup Scripts</strong><br>
+                            Develop backup automation scripts
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Schedule with Cron</strong><br>
+                            Setup cron jobs for regular backups
+                        </div>
+                        <div class="code-block">
+<pre># Backup Script: backup.sh
+#!/bin/bash
+
+SOURCE="/home /etc /var/log"
+DESTINATION="/backup/$(date +%Y%m%d)"
+REMOTE_HOST="backup-server.local"
+
+# Create backup directory
+mkdir -p $DESTINATION
+
+# Perform backup
+for dir in $SOURCE; do
+    rsync -avz --delete $dir $DESTINATION/
+done
+
+# Remote backup
+rsync -avz $DESTINATION/ user@$REMOTE_HOST:/backups/
+
+# Add to crontab: 0 2 * * * /scripts/backup.sh</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: DR Plan Workshop -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DR Plan Workshop</div>
+                <div class="slide-subtitle">Creating Your Disaster Recovery Plan</div>
+            </div>
+            <div class="slide-content">
+                <div class="warning-box">
+                    <h4><i class="fas fa-clipboard-list"></i> Workshop Exercise</h4>
+                    <p>Buatlah DR Plan untuk skenario: <strong>"Small company dengan 50 karyawan, menggunakan email server, file server, dan database sistem inventory"</strong></p>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #e74c3c;">DR Plan Template</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Executive Summary</strong><br>
+                            Overview tujuan dan scope DR plan
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Risk Assessment</strong><br>
+                            Identifikasi threats dan vulnerabilities
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>System Inventory</strong><br>
+                            Daftar sistem critical dan dependencies
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Recovery Procedures</strong><br>
+                            Step-by-step recovery instructions
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>Contact Information</strong><br>
+                            Emergency contacts dan vendor support
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">Key Decisions</h3>
+                        <div class="info-box">
+                            <h4>RTO/RPO Targets</h4>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li>Email Server: RTO 4 hours, RPO 1 hour</li>
+                                <li>File Server: RTO 8 hours, RPO 4 hours</li>
+                                <li>Database: RTO 2 hours, RPO 30 minutes</li>
+                            </ul>
+                        </div>
+                        <div class="success-box">
+                            <h4>Backup Strategy</h4>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li>Daily incremental backups</li>
+                                <li>Weekly full backups</li>
+                                <li>Monthly offsite backup to cloud</li>
+                                <li>Quarterly DR testing</li>
+                            </ul>
+                        </div>
+                        <div class="danger-box">
+                            <h4>Emergency Actions</h4>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li>Activate emergency response team</li>
+                                <li>Notify stakeholders within 30 minutes</li>
+                                <li>Setup temporary communication</li>
+                                <li>Begin recovery procedures</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Disaster Simulation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Disaster Scenario Simulation</div>
+                <div class="slide-subtitle">Testing Your DR Plan</div>
+            </div>
+            <div class="slide-content">
+                <div class="danger-box">
+                    <h4><i class="fas fa-fire"></i> Simulation Scenario</h4>
+                    <p><strong>"Ransomware Attack"</strong> - Server terinfeksi ransomware jam 14:00, semua file di C: drive terenkripsi, database tidak dapat diakses, sistem email down.</p>
+                </div>
+
+                <div class="three-column">
+                    <div>
+                        <h4 style="color: #e74c3c;">Immediate Response (0-30 min)</h4>
+                        <div class="step-card">
+                            <i class="fas fa-power-off" style="color: #e74c3c; margin-right: 10px;"></i>
+                            <strong>Isolate Systems</strong><br>
+                            Disconnect infected server from network
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-phone" style="color: #e74c3c; margin-right: 10px;"></i>
+                            <strong>Activate DR Team</strong><br>
+                            Contact emergency response team
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-search" style="color: #e74c3c; margin-right: 10px;"></i>
+                            <strong>Assess Damage</strong><br>
+                            Identify scope of infection
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #e74c3c;">Recovery Phase (30 min - 4 hours)</h4>
+                        <div class="step-card">
+                            <i class="fas fa-server" style="color: #f39c12; margin-right: 10px;"></i>
+                            <strong>Setup Backup Server</strong><br>
+                            Prepare clean server for restoration
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-undo" style="color: #f39c12; margin-right: 10px;"></i>
+                            <strong>Restore from Backup</strong><br>
+                            Restore last clean backup (yesterday)
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-check-circle" style="color: #f39c12; margin-right: 10px;"></i>
+                            <strong>Validate Systems</strong><br>
+                            Test all critical functions
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #e74c3c;">Post-Recovery (4+ hours)</h4>
+                        <div class="step-card">
+                            <i class="fas fa-sync" style="color: #27ae60; margin-right: 10px;"></i>
+                            <strong>Data Reconciliation</strong><br>
+                            Recover any missing data
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-shield-alt" style="color: #27ae60; margin-right: 10px;"></i>
+                            <strong>Security Hardening</strong><br>
+                            Patch vulnerabilities, update security
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-clipboard-check" style="color: #27ae60; margin-right: 10px;"></i>
+                            <strong>Lessons Learned</strong><br>
+                            Document and improve DR plan
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <h4><i class="fas fa-clock"></i> Recovery Timeline</h4>
+                    <p><strong>Email Recovery:</strong> 2 hours (met RTO of 4 hours) | <strong>Data Loss:</strong> 8 hours (exceeded RPO of 1 hour)<br>
+                    <strong>Learning:</strong> Need more frequent backups for email system</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Best Practices & Testing -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">DR Best Practices &amp; Testing</div>
+                <div class="slide-subtitle">Ensuring DR Plan Effectiveness</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #e74c3c;">Best Practices</h3>
+                        <div class="list-item">
+                            <i class="fas fa-sync icon"></i>
+                            <strong>Regular Updates</strong><br>
+                            Update DR plan quarterly or after major changes
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-vial icon"></i>
+                            <strong>Regular Testing</strong><br>
+                            Test DR procedures at least twice yearly
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-graduation-cap icon"></i>
+                            <strong>Staff Training</strong><br>
+                            Train all DR team members on procedures
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-book icon"></i>
+                            <strong>Documentation</strong><br>
+                            Keep DR plan accessible and up-to-date
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-handshake icon"></i>
+                            <strong>Vendor Relationships</strong><br>
+                            Maintain emergency support contracts
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">Testing Types</h3>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-table"></i>
+                            </div>
+                            <h4>Tabletop Exercise</h4>
+                            <p>Discussion-based review of DR procedures without actual system testing</p>
+                        </div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <h4>Walkthrough Test</h4>
+                            <p>Step-by-step review of DR plan with minimal actual testing</p>
+                        </div>
+                        <div class="backup-strategy-card">
+                            <div class="strategy-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <h4>Full-Scale Test</h4>
+                            <p>Complete DR simulation with actual system failover and recovery</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h4><i class="fas fa-trophy"></i> Success Metrics</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 15px 0;">
+                        <div><strong>Backup Success Rate:</strong> &gt; 99%</div>
+                        <div><strong>RTO Achievement:</strong> Meet target 95% of time</div>
+                        <div><strong>RPO Achievement:</strong> Meet target 95% of time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Summary & Assessment -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ringkasan &amp; Evaluasi</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #e74c3c;">Key Takeaways</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Backup adalah pertahanan pertama terhadap data loss
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            3-2-1 backup rule menjadi standar industry
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            RTO dan RPO menentukan backup strategy
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            DR plan harus tested dan updated regularly
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check icon"></i>
+                            Business continuity meliputi people, process, dan technology
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #e74c3c;">Assessment Criteria</h3>
+                        <div class="list-item">
+                            <i class="fas fa-save icon"></i>
+                            <strong>Automated Backup Setup:</strong><br>
+                            Implementasi backup otomatis yang reliable
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-undo icon"></i>
+                            <strong>Recovery Testing:</strong><br>
+                            Validasi prosedur recovery dengan success
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-clipboard-list icon"></i>
+                            <strong>DR Plan Creation:</strong><br>
+                            DR plan yang komprehensif dan executable
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-fire icon"></i>
+                            <strong>Disaster Simulation:</strong><br>
+                            Response yang tepat pada simulasi disaster
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box animation-bounce" style="margin-top: 30px;">
+                    <i class="fas fa-shield-alt icon"></i>
+                    "Backup berhasil, recovery plan executable" - Target Pembelajaran Tercapai!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Terima Kasih</div>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="margin-bottom: 2rem; font-size: 2rem; color: #e74c3c;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h1 style="color: #e74c3c; margin-bottom: 2rem;">Terima Kasih!</h1>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-check-circle icon" style="color: #27ae60;"></i>
+                    <strong>Semoga materi Backup dan Disaster Recovery ini bermanfaat!</strong>
+                </div>
+                <div class="list-item">
+                    <i class="fas fa-user icon"></i>
+                    <strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong><br>
+                    Program Studi Teknologi Informasi, Universitas Tidar Magelang
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <div style="font-size: 3rem; color: #e74c3c;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Perkenalan materi backup dan disaster recovery</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">01:23</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Perkenalan materi backup dan disaster recovery. Tekankan pentingnya preparedness untuk melindungi data dan business continuity.",
+            "Slide 2: Jelaskan learning outcomes yang konkret. Mahasiswa harus bisa setup automated backup, test recovery, create DR plan, dan handle disaster simulation.",
+            "Slide 3: Overview agenda yang menggabungkan theory dan hands-on practice. Allocation time untuk simulation dan workshop activities.",
+            "Slide 4: Statistics yang mengejutkan tentang data loss impact. Diskusikan real-world examples dan pentingnya proactive approach.",
+            "Slide 5: Detailed backup strategies. Explain trade-offs antara full, incremental, dan differential backups. Show practical scenarios for each type.",
+            "Slide 6: Industry best practice 3-2-1 rule. Emphasize modern 3-2-1-1 rule dengan air-gapped backup untuk ransomware protection.",
+            "Slide 7: Hands-on backup technologies. Demonstrate Windows Server Backup dan Linux rsync. Show actual commands dan configurations.",
+            "Slide 8: Critical concept RTO vs RPO. Help students understand business impact dan how to set appropriate targets based on criticality.",
+            "Slide 9: Step-by-step recovery procedures. Emphasize importance of documentation dan regular testing. Show timeline-based approach.",
+            "Slide 10: Comprehensive DR planning beyond just backup. Discuss hot/warm/cold sites, cost implications, dan business considerations.",
+            "Slide 11: Business continuity broader than DR. Include people, process, technology aspects. Discuss organizational resilience.",
+            "Slide 12: Hands-on lab instructions. Guide students through actual backup setup di Windows dan Linux. Emphasize testing procedures.",
+            "Slide 13: DR plan workshop. Provide template dan guide students to create realistic DR plan untuk given scenario.",
+            "Slide 14: Interactive disaster simulation. Walk through ransomware scenario step-by-step. Discuss lessons learned dan improvements.",
+            "Slide 15: DR best practices dan testing methodologies. Emphasize regular testing dan continuous improvement approach.",
+            "Slide 16: Summary dan assessment criteria. Review key learnings dan explain evaluation criteria untuk backup dan DR implementation.",
+            "Slide 17: Closing slide - terima kasih kepada mahasiswa. Encourage untuk implement backup strategies di personal/professional environment."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                }
+            });
+
+            // Update slide counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // Update presenter notes
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+                case 'p':
+                case 'P':
+                    togglePresenterMode();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        setTimeout(showHelpText, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            // Minimum swipe distance
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1); // Swipe left = next slide
+                } else {
+                    changeSlide(-1); // Swipe right = previous slide
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Auto-hide cursor after inactivity
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

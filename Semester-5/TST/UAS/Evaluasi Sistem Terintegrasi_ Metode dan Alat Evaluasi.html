@@ -1,0 +1,3413 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)https://class.tiflab.my.id/storage/lessons/materials/1763430442_13-Evaluasi-Sistem-Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluasi Sistem Terintegrasi: Metode dan Alat Evaluasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Evaluasi Sistem Terintegrasi_ Metode dan Alat Evaluasi_files/css2" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: #e4e4e7;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            position: relative;
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 5px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #10b981, #059669);
+            border-radius: 5px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #059669, #047857);
+            background-clip: content-box;
+        }
+
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #10b981 rgba(15, 23, 42, 0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #34d399;
+            border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+            padding-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #34d399;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+
+        ul {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-left: 2rem;
+            font-weight: 400;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        li:hover {
+            transform: translateX(5px);
+            color: #34d399;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: -1.5rem;
+            top: 0;
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(148, 163, 184, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-box:hover::before {
+            opacity: 1;
+        }
+
+        .content-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .content-box ul {
+            font-size: 1.1rem;
+            margin-left: 1rem;
+        }
+
+        .content-box p {
+            font-size: 1.1rem;
+        }
+
+        .evaluation-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 3px solid #10b981;
+            color: #10b981;
+        }
+
+        .evaluation-box h4 {
+            color: #34d399;
+        }
+
+        .metrics-box {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid #3b82f6;
+            color: #3b82f6;
+        }
+
+        .metrics-box h4 {
+            color: #60a5fa;
+        }
+
+        .tools-box {
+            background: rgba(168, 85, 247, 0.08);
+            border-left: 3px solid #a855f7;
+            color: #a855f7;
+        }
+
+        .tools-box h4 {
+            color: #c084fc;
+        }
+
+        .method-box {
+            background: rgba(20, 184, 166, 0.08);
+            border-left: 3px solid #14b8a6;
+            color: #14b8a6;
+        }
+
+        .method-box h4 {
+            color: #2dd4bf;
+        }
+
+        .case-study {
+            background: rgba(100, 116, 139, 0.1);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .case-study:hover {
+            border-color: rgba(148, 163, 184, 0.4);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .case-study h4 {
+            color: #34d399;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 14px 24px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            color: #e4e4e7;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+        }
+
+        .control-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-btn:disabled:hover {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            backdrop-filter: blur(12px);
+            color: #34d399;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #10b981, #14b8a6, #06b6d4);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .code-block:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+
+        .code-block::before {
+            content: 'CODE';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .code-block pre {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .evaluation-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-top: 3px solid #10b981;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(16, 185, 129, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-top-color: #34d399;
+            box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .metric-card:hover::after {
+            opacity: 1;
+        }
+
+        .metric-card h5 {
+            color: #34d399;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-card p {
+            position: relative;
+            z-index: 1;
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: rgba(16, 185, 129, 0.15);
+            padding: 1.2rem;
+            text-align: left;
+            color: #34d399;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .comparison-table td {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 1rem;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight {
+            background: rgba(16, 185, 129, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            color: #34d399;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .demo-container {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .demo-btn {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .demo-btn:hover::before {
+            left: 100%;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .demo-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @keyframes clickPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        .click-effect {
+            animation: clickPulse 0.6s;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.8rem; }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .evaluation-card {
+                grid-template-columns: 1fr;
+            }
+            .slide {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="presentation-container">
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="./Evaluasi Sistem Terintegrasi_ Metode dan Alat Evaluasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 150px; height: 150px; margin-bottom: 1.5rem; animation: fadeInUp 0.8s ease-out;">
+            </div>
+
+            <h1>Evaluasi Sistem Terintegrasi</h1>
+            <h1>Metode dan Alat Evaluasi</h1>
+            <div class="subtitle">Integrated System Evaluation: Methods and Evaluation Tools</div>
+
+            <div class="university-info" style="margin-top: 3rem;">
+                <div class="university-name">Universitas Tidar</div>
+                <div class="faculty-info">Fakultas Teknik - Program Studi Teknologi Informasi</div>
+                <div class="course-info">Teknologi Sistem Terintegrasi - Pertemuan 13</div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem; font-size: 1.3rem;">
+                <p>📚 Durasi: 3 x 50 menit</p>
+                <p>🎯 Target: Menguasai Metode Evaluasi Sistem Terintegrasi</p>
+                <p>💻 Metode: Diskusi &amp; Interactive Demo</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Agenda -->
+        <div class="slide">
+            <h2>📋 Agenda Perkuliahan</h2>
+
+            <div class="content-grid">
+                <div class="content-box evaluation-box">
+                    <h4>🎯 Sesi 1 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Konsep evaluasi sistem terintegrasi</li>
+                        <li>Tujuan dan manfaat evaluasi</li>
+                        <li>Framework evaluasi sistem</li>
+                        <li>Kriteria dan indikator evaluasi</li>
+                    </ul>
+                </div>
+
+                <div class="content-box metrics-box">
+                    <h4>💻 Sesi 2 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Metode evaluasi (kualitatif &amp; kuantitatif)</li>
+                        <li>Alat dan tools evaluasi</li>
+                        <li>Metrics dan KPI sistem terintegrasi</li>
+                        <li>Studi kasus: Netflix &amp; Uber</li>
+                    </ul>
+                </div>
+
+                <div class="content-box tools-box">
+                    <h4>🔍 Sesi 3 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Interactive demo: Monitoring tools</li>
+                        <li>Analisis performa sistem</li>
+                        <li>Report dan dokumentasi evaluasi</li>
+                        <li>Best practices &amp; diskusi</li>
+                    </ul>
+                </div>
+
+                <div class="content-box method-box">
+                    <h4>📊 Capaian Pembelajaran</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Memahami konsep evaluasi sistem</li>
+                        <li>Menggunakan alat evaluasi</li>
+                        <li>Menganalisis hasil evaluasi</li>
+                        <li>Membuat laporan evaluasi akurat</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Pengantar Evaluasi -->
+        <div class="slide">
+            <h2>🎯 Pengantar Evaluasi Sistem Terintegrasi</h2>
+
+            <h3>Definisi dan Konteks</h3>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Evaluasi sistem terintegrasi adalah <span class="highlight">proses sistematis dan terstruktur</span> 
+                untuk menilai kinerja, efektivitas, dan efisiensi dari sistem yang menghubungkan berbagai komponen 
+                teknologi, proses bisnis, dan infrastruktur dalam sebuah ekosistem digital yang kompleks.
+            </p>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Dalam era digital transformation, sistem tidak lagi berdiri sendiri. Sistem modern terdiri dari 
+                berbagai layanan, aplikasi, database, API, dan infrastruktur cloud yang saling terhubung dan 
+                bergantung satu sama lain. Evaluasi yang efektif harus mampu mengukur tidak hanya performa 
+                individual komponen, tetapi juga bagaimana komponen-komponen tersebut bekerja bersama sebagai 
+                satu kesatuan yang kohesif.
+            </p>
+
+            <div class="content-grid">
+                <div class="content-box evaluation-box">
+                    <h4>🎯 Tujuan Evaluasi</h4>
+                    <p style="margin-bottom: 1rem;">Evaluasi sistem terintegrasi memiliki beberapa tujuan strategis:</p>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Mengukur kinerja sistem secara holistik dan komprehensif</li>
+                        <li>Mengidentifikasi bottleneck, masalah, dan area improvement</li>
+                        <li>Memvalidasi pencapaian tujuan bisnis dan technical objectives</li>
+                        <li>Mengoptimalkan alokasi resource dan infrastructure</li>
+                        <li>Memastikan compliance terhadap standar dan regulasi</li>
+                        <li>Menganalisis ROI dan business value dari investasi IT</li>
+                    </ul>
+                </div>
+
+                <div class="content-box metrics-box">
+                    <h4>✨ Manfaat Evaluasi</h4>
+                    <p style="margin-bottom: 1rem;">Implementasi evaluasi yang baik memberikan manfaat signifikan:</p>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Peningkatan kualitas layanan dan user experience</li>
+                        <li>Deteksi dini masalah sebelum berdampak ke production</li>
+                        <li>Pengambilan keputusan berbasis data yang akurat</li>
+                        <li>Optimasi biaya operasional dan infrastructure costs</li>
+                        <li>Peningkatan kepuasan pengguna dan stakeholder</li>
+                        <li>Continuous improvement dan innovation culture</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📊 Statistik dan Fakta Evaluasi Sistem</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Berdasarkan riset Gartner dan McKinsey tahun 2024:<br><br>
+                    • <strong>87%</strong> organisasi yang melakukan evaluasi rutin mengalami peningkatan performa sistem sebesar 35-45%<br>
+                    • <strong>65%</strong> masalah kritis dapat terdeteksi melalui monitoring proaktif sebelum berdampak ke users<br>
+                    • <strong>45%</strong> penghematan biaya operasional dapat dicapai dengan evaluasi dan optimasi berkala<br>
+                    • <strong>92%</strong> IT leaders menganggap evaluasi sistem sebagai prioritas tinggi dalam digital strategy<br>
+                    • <strong>78%</strong> perusahaan Fortune 500 menggunakan automated evaluation tools untuk real-time monitoring
+                </p>
+            </div>
+        </div>
+        <!-- Slide 4: Framework Evaluasi -->
+        <div class="slide">
+            <h2>🏗️ Framework Evaluasi Sistem Terintegrasi</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Framework evaluasi yang efektif harus bersifat <span class="highlight">holistik dan multi-layer</span>, 
+                mencakup seluruh aspek dari bisnis hingga infrastruktur. Pendekatan berlapis ini memastikan bahwa 
+                evaluasi tidak hanya fokus pada aspek teknis, tetapi juga mengukur alignment dengan tujuan bisnis 
+                dan memberikan value kepada end-users.
+            </p>
+
+            <h3>Model Evaluasi Holistik 4-Layer</h3>
+
+            <div style="background: rgba(30, 41, 59, 0.5); padding: 2rem; border-radius: 16px; margin: 2rem 0;">
+                <div style="text-align: left;">
+                    <div style="background: rgba(16, 185, 129, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #10b981;">
+                        <h5 style="color: #34d399; font-size: 1.4rem; margin-bottom: 1rem;">Layer 1: 📊 Business Layer</h5>
+                        <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                            <strong>Fokus:</strong> Alignment dengan business objectives<br>
+                            <strong>Metrics:</strong> ROI, Business value, Customer satisfaction (NPS, CSAT), 
+                            Time-to-market, Revenue impact, Cost savings<br>
+                            <strong>Pertanyaan Kunci:</strong> Apakah sistem mendukung pencapaian business goals? 
+                            Berapa nilai bisnis yang dihasilkan?
+                        </p>
+                    </div>
+                    <div style="font-size: 1.5rem; margin: 1rem 0; text-align: center; color: #34d399;">⬇️</div>
+                    <div style="background: rgba(59, 130, 246, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #3b82f6;">
+                        <h5 style="color: #60a5fa; font-size: 1.4rem; margin-bottom: 1rem;">Layer 2: 💻 Application Layer</h5>
+                        <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                            <strong>Fokus:</strong> Kualitas dan performa aplikasi<br>
+                            <strong>Metrics:</strong> Response time, Error rate, Uptime, Feature completeness, 
+                            Code quality, Security vulnerabilities, User experience metrics<br>
+                            <strong>Pertanyaan Kunci:</strong> Apakah aplikasi reliable, performant, dan aman? 
+                            Bagaimana user experience-nya?
+                        </p>
+                    </div>
+                    <div style="font-size: 1.5rem; margin: 1rem 0; text-align: center; color: #60a5fa;">⬇️</div>
+                    <div style="background: rgba(168, 85, 247, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #a855f7;">
+                        <h5 style="color: #c084fc; font-size: 1.4rem; margin-bottom: 1rem;">Layer 3: 🔧 Integration Layer</h5>
+                        <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                            <strong>Fokus:</strong> Kualitas integrasi antar sistem<br>
+                            <strong>Metrics:</strong> API response time, Integration success rate, Data consistency, 
+                            Message queue latency, Service dependency health<br>
+                            <strong>Pertanyaan Kunci:</strong> Apakah sistem-sistem terintegrasi dengan baik? 
+                            Bagaimana data flow antar services?
+                        </p>
+                    </div>
+                    <div style="font-size: 1.5rem; margin: 1rem 0; text-align: center; color: #c084fc;">⬇️</div>
+                    <div style="background: rgba(20, 184, 166, 0.2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border: 2px solid #14b8a6;">
+                        <h5 style="color: #2dd4bf; font-size: 1.4rem; margin-bottom: 1rem;">Layer 4: 🏢 Infrastructure Layer</h5>
+                        <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.7;">
+                            <strong>Fokus:</strong> Health dan kapasitas infrastruktur<br>
+                            <strong>Metrics:</strong> CPU/Memory/Disk utilization, Network throughput, 
+                            Database performance, Container/Pod health, Cloud costs<br>
+                            <strong>Pertanyaan Kunci:</strong> Apakah infrastruktur adequate dan efficient? 
+                            Bagaimana resource utilization?
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-top: 2rem;">
+                Setiap layer saling terkait dan mempengaruhi. Masalah di infrastructure layer akan berdampak 
+                ke application performance, yang kemudian mempengaruhi user experience dan akhirnya business outcomes. 
+                Evaluasi yang efektif harus mampu mengidentifikasi masalah di semua layer dan memahami cascading effects.
+            </p>
+        </div>
+
+        <!-- Slide 5: Kriteria Evaluasi Detail -->
+        <div class="slide">
+            <h2>📏 Kriteria dan Indikator Evaluasi</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Untuk melakukan evaluasi yang akurat dan comprehensive, kita perlu mendefinisikan 
+                <span class="highlight">kriteria evaluasi yang jelas</span> beserta indikator-indikator yang 
+                dapat diukur secara objektif. Berikut adalah 6 kriteria utama dalam evaluasi sistem terintegrasi:
+            </p>
+
+            <div class="evaluation-card">
+                <div class="metric-card">
+                    <h5>⚡ Performance (Kinerja)</h5>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Definisi:</strong> Kemampuan sistem untuk memproses requests dengan cepat dan efficient.<br><br>
+                        <strong>Indikator Utama:</strong><br>
+                        • Response Time: Average, P50, P95, P99 latency<br>
+                        • Throughput: Transactions/second, Requests/second<br>
+                        • Processing Time: Batch job duration, Query execution time<br>
+                        • Resource Utilization: CPU, Memory, Disk I/O efficiency<br>
+                        • Queue Depth: Message queue backlog size<br><br>
+                        <strong>Target:</strong> Response time &lt; 200ms (P95), Throughput &gt; 10K RPS
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <h5>✅ Reliability (Keandalan)</h5>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Definisi:</strong> Kemampuan sistem untuk beroperasi tanpa kegagalan dalam periode waktu tertentu.<br><br>
+                        <strong>Indikator Utama:</strong><br>
+                        • Uptime/Availability: 99.9% (Three Nines) - 99.999% (Five Nines)<br>
+                        • MTBF (Mean Time Between Failures): Durasi rata-rata antar kegagalan<br>
+                        • MTTR (Mean Time To Repair): Waktu rata-rata recovery dari failure<br>
+                        • Error Rate: Percentage of failed requests<br>
+                        • Data Consistency: Percentage of consistent transactions<br><br>
+                        <strong>Target:</strong> 99.95% uptime, MTTR &lt; 15 minutes
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <h5>📈 Scalability (Skalabilitas)</h5>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Definisi:</strong> Kemampuan sistem untuk menangani pertumbuhan beban tanpa degradasi performa.<br><br>
+                        <strong>Indikator Utama:</strong><br>
+                        • Horizontal Scaling: Kemampuan menambah instances/nodes<br>
+                        • Vertical Scaling: Kemampuan meningkatkan resource per instance<br>
+                        • Load Capacity: Maximum concurrent users/requests<br>
+                        • Auto-scaling Effectiveness: Response time scaling events<br>
+                        • Peak Load Performance: Degradation during high traffic<br><br>
+                        <strong>Target:</strong> Linear scalability up to 10x load
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <h5>🔒 Security (Keamanan)</h5>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Definisi:</strong> Kemampuan sistem untuk melindungi data dan mencegah unauthorized access.<br><br>
+                        <strong>Indikator Utama:</strong><br>
+                        • Vulnerability Count: Number of known security issues<br>
+                        • Security Incidents: Breaches, unauthorized access attempts<br>
+                        • Compliance Score: Adherence to standards (PCI-DSS, GDPR, etc.)<br>
+                        • Access Control Effectiveness: Failed authentication rate<br>
+                        • Encryption Coverage: Percentage of encrypted data<br><br>
+                        <strong>Target:</strong> Zero critical vulnerabilities, 100% encryption
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <h5>🔄 Interoperability (Interoperabilitas)</h5>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Definisi:</strong> Kemampuan sistem untuk berinteraksi dan bertukar data dengan sistem lain.<br><br>
+                        <strong>Indikator Utama:</strong><br>
+                        • API Integration Success Rate: Percentage of successful API calls<br>
+                        • Data Exchange Accuracy: Correctness of transferred data<br>
+                        • Protocol Compatibility: Support for industry standards<br>
+                        • System Compatibility: Integration with third-party systems<br>
+                        • Standard Compliance: Adherence to API/data standards<br><br>
+                        <strong>Target:</strong> 99.9% API success rate, &lt; 0.01% data errors
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <h5>💰 Cost Efficiency (Efisiensi Biaya)</h5>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Definisi:</strong> Rasio antara value yang dihasilkan dengan biaya yang dikeluarkan.<br><br>
+                        <strong>Indikator Utama:</strong><br>
+                        • TCO (Total Cost of Ownership): Infrastructure + operational costs<br>
+                        • Resource Optimization: Unused capacity percentage<br>
+                        • Operational Costs: Monthly cloud/infrastructure spend<br>
+                        • Cost per Transaction: Average cost per business transaction<br>
+                        • ROI: Return on investment dari system modernization<br><br>
+                        <strong>Target:</strong> ROI &gt; 150%, Cost per transaction reduction 30%
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 6: Metode Evaluasi -->
+        <div class="slide">
+            <h2>🔬 Metode Evaluasi Sistem</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Terdapat berbagai metode evaluasi yang dapat digunakan, masing-masing dengan kelebihan dan 
+                use case yang berbeda. Pemilihan metode yang tepat bergantung pada tujuan evaluasi, kompleksitas 
+                sistem, dan resource yang tersedia.
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Metode</th>
+                        <th style="width: 30%;">Deskripsi</th>
+                        <th style="width: 25%;">Kegunaan</th>
+                        <th style="width: 25%;">Tools</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Performance Testing</strong></td>
+                        <td>Mengukur kecepatan, stabilitas, dan skalabilitas sistem under various load conditions</td>
+                        <td>Load testing, Stress testing, Spike testing, Endurance testing</td>
+                        <td>Apache JMeter, Gatling, k6, Locust, Artillery</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monitoring &amp; Observability</strong></td>
+                        <td>Pengawasan real-time kondisi sistem dengan metrics, logs, dan distributed tracing</td>
+                        <td>Real-time monitoring, Alerting, Troubleshooting, Capacity planning</td>
+                        <td>Prometheus, Grafana, ELK Stack, Datadog, New Relic</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security Assessment</strong></td>
+                        <td>Evaluasi keamanan sistem dan identifikasi vulnerabilities</td>
+                        <td>Penetration testing, Vulnerability scanning, Security audit</td>
+                        <td>OWASP ZAP, Burp Suite, Nessus, Qualys, Rapid7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quality Assessment</strong></td>
+                        <td>Evaluasi kualitas kode, architecture, dan technical debt</td>
+                        <td>Code review, Static analysis, Complexity analysis, Coverage</td>
+                        <td>SonarQube, CodeClimate, ESLint, Checkmarx, Coverity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Testing</strong></td>
+                        <td>Evaluasi dari perspektif end-user experience dan usability</td>
+                        <td>Usability testing, UAT, A/B testing, User surveys</td>
+                        <td>UserTesting, Hotjar, Google Analytics, Mixpanel, Amplitude</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Capacity Planning</strong></td>
+                        <td>Evaluasi kapasitas current dan forecasting future needs</td>
+                        <td>Resource forecasting, Trend analysis, Growth modeling</td>
+                        <td>CloudWatch, Azure Monitor, Google Cloud Ops, Capacity Planner</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📚 Best Practice: Kombinasi Metode</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Evaluasi yang comprehensive biasanya menggunakan <span class="highlight">kombinasi beberapa metode</span>:
+                    <br><br>
+                    <strong>1. Continuous Monitoring</strong> (24/7) untuk deteksi issue real-time<br>
+                    <strong>2. Periodic Performance Testing</strong> (weekly/monthly) untuk validate scalability<br>
+                    <strong>3. Quarterly Security Assessment</strong> untuk ensure compliance<br>
+                    <strong>4. Code Quality Checks</strong> di CI/CD pipeline setiap deployment<br>
+                    <strong>5. User Feedback Collection</strong> secara ongoing melalui surveys dan analytics
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Tools Evaluasi Detail -->
+        <div class="slide">
+            <h2>🛠️ Alat Evaluasi: Deep Dive</h2>
+
+            <h3>1. Prometheus + Grafana (Monitoring &amp; Observability)</h3>
+            <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                <strong>Prometheus</strong> adalah open-source monitoring system yang menggunakan time-series database 
+                untuk menyimpan metrics. Dikombinasikan dengan <strong>Grafana</strong> untuk visualisasi, ini menjadi 
+                stack monitoring paling populer untuk sistem modern.
+            </p>
+
+            <div class="content-grid">
+                <div class="content-box evaluation-box">
+                    <h4>✨ Key Features</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Multi-dimensional data model dengan labels</li>
+                        <li>Powerful query language (PromQL)</li>
+                        <li>Pull-based metrics collection</li>
+                        <li>Service discovery untuk dynamic environments</li>
+                        <li>Alerting dengan Alertmanager</li>
+                        <li>Integration dengan Kubernetes, Docker, Cloud platforms</li>
+                    </ul>
+                </div>
+
+                <div class="content-box metrics-box">
+                    <h4>📊 Metrics yang Dapat Dikumpulkan</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Application metrics: Request rate, latency, errors</li>
+                        <li>System metrics: CPU, memory, disk, network</li>
+                        <li>Database metrics: Query performance, connections</li>
+                        <li>Custom business metrics: Transactions, conversions</li>
+                        <li>Infrastructure metrics: Container, pod health</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <pre># Example Prometheus Query (PromQL)
+# Average response time untuk API endpoint
+rate(http_request_duration_seconds_sum[5m]) 
+  / 
+rate(http_request_duration_seconds_count[5m])
+
+# Request rate per service
+sum(rate(http_requests_total[5m])) by (service)
+
+# Error rate percentage
+sum(rate(http_requests_total{status=~"5.."}[5m])) 
+  / 
+sum(rate(http_requests_total[5m])) * 100
+
+# 95th percentile latency
+histogram_quantile(0.95, 
+  rate(http_request_duration_seconds_bucket[5m])
+)
+                </pre>
+            </div>
+
+            <h3 style="margin-top: 2rem;">2. ELK Stack (Logging &amp; Analysis)</h3>
+            <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                ELK Stack (Elasticsearch, Logstash, Kibana) adalah solusi powerful untuk centralized logging, 
+                search, dan analysis. Sangat berguna untuk troubleshooting, security analysis, dan business intelligence.
+            </p>
+
+            <div class="content-grid">
+                <div class="content-box tools-box">
+                    <h4>🔍 Komponselesai</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>Elasticsearch:</strong> Search &amp; analytics engine</li>
+                        <li><strong>Logstash:</strong> Data processing pipeline</li>
+                        <li><strong>Kibana:</strong> Visualization &amp; exploration UI</li>
+                        <li><strong>Beats:</strong> Lightweight data shippers</li>
+                    </ul>
+                </div>
+
+                <div class="content-box method-box">
+                    <h4>💡 Use Cases</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li>Centralized logging dari multiple services</li>
+                        <li>Real-time log analysis dan search</li>
+                        <li>Security event monitoring (SIEM)</li>
+                        <li>Application performance monitoring (APM)</li>
+                        <li>Business intelligence dari log data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Studi Kasus - Netflix -->
+        <div class="slide">
+            <h2>📚 Studi Kasus: Netflix - Chaos Engineering</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Netflix adalah pioneer dalam pendekatan <span class="highlight">Chaos Engineering</span> untuk 
+                evaluasi dan improvement reliability sistem. Dengan 200+ million subscribers dan streaming billions 
+                of hours per month, Netflix membutuhkan sistem yang extremely reliable.
+            </p>
+
+            <h3>Background &amp; Challenge</h3>
+            <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Netflix beroperasi di AWS dengan arsitektur microservices yang terdiri dari ratusan services. 
+                Setiap service dapat mengalami failure, dan dalam sistem distributed, partial failures adalah 
+                normal condition, bukan exception. Challenge utama adalah: <strong>bagaimana memastikan sistem 
+                tetap available meskipun individual components fail?</strong>
+            </p>
+
+            <div class="case-study">
+                <h4>🔧 Solusi: Chaos Monkey &amp; Simian Army</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    Netflix mengembangkan suite tools untuk <strong>intentionally cause failures</strong> di 
+                    production environment untuk test resilience:
+                </p>
+                <ul style="font-size: 1.1rem; margin-top: 1rem;">
+                    <li><strong>Chaos Monkey:</strong> Randomly terminates instances di production</li>
+                    <li><strong>Chaos Gorilla:</strong> Simulates entire AWS availability zone failure</li>
+                    <li><strong>Latency Monkey:</strong> Introduces artificial delays dalam service calls</li>
+                    <li><strong>Conformity Monkey:</strong> Finds instances yang tidak comply dengan best practices</li>
+                    <li><strong>Security Monkey:</strong> Finds security vulnerabilities dan misconfigurations</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Metode Evaluasi Netflix</h3>
+            <div class="content-grid">
+                <div class="content-box evaluation-box">
+                    <h4>📊 Metrics yang Dimonitor</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>SPS (Streams Per Second):</strong> Stream starts per second</li>
+                        <li><strong>Success Rate:</strong> Percentage of successful plays</li>
+                        <li><strong>Startup Time:</strong> Time to first frame</li>
+                        <li><strong>Rebuffer Rate:</strong> Buffering incidents per hour</li>
+                        <li><strong>Video Quality:</strong> Bitrate distribution</li>
+                        <li><strong>Error Rates:</strong> API errors, playback errors</li>
+                    </ul>
+                </div>
+
+                <div class="content-box metrics-box">
+                    <h4>🎯 Evaluation Approach</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>Continuous Monitoring:</strong> Real-time dashboards untuk semua metrics</li>
+                        <li><strong>A/B Testing:</strong> Constant experimentation dengan new features</li>
+                        <li><strong>Chaos Engineering:</strong> Regular chaos experiments</li>
+                        <li><strong>Load Testing:</strong> Simulating peak traffic scenarios</li>
+                        <li><strong>Canary Deployments:</strong> Gradual rollouts dengan monitoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📈 Results &amp; Impact</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    <strong>Hasil dari Chaos Engineering approach:</strong><br><br>
+                    • <strong>99.99% availability</strong> meskipun ratusan instances fail setiap hari<br>
+                    • <strong>70% reduction</strong> dalam customer-impacting incidents<br>
+                    • <strong>Faster recovery time:</strong> MTTR berkurang dari hours ke minutes<br>
+                    • <strong>Improved confidence:</strong> Engineers lebih confident dalam deployments<br>
+                    • <strong>Cultural shift:</strong> Failure menjadi expected dan didesain untuk resilience
+                </p>
+            </div>
+
+            <div class="case-study" style="margin-top: 1.5rem; background: rgba(16, 185, 129, 0.1);">
+                <h4>💡 Key Learnings</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    <strong>1. Design for Failure:</strong> Assume everything will fail, design resilience from start<br>
+                    <strong>2. Test in Production:</strong> Staging environment never perfectly mimics production<br>
+                    <strong>3. Automate Everything:</strong> Manual processes don't scale<br>
+                    <strong>4. Monitor Relentlessly:</strong> You can't improve what you don't measure<br>
+                    <strong>5. Build Safety Nets:</strong> Circuit breakers, fallbacks, graceful degradation
+                </p>
+            </div>
+        </div>
+        <!-- Slide 9: Studi Kasus - Uber -->
+        <div class="slide">
+            <h2>📚 Studi Kasus: Uber - Real-time Evaluation at Scale</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Uber menangani <span class="highlight">15+ million trips per day</span> across 10,000+ cities dengan 
+                requirements ultra-low latency dan high reliability. Sistem evaluasi mereka harus real-time dan 
+                dapat mendeteksi issues sebelum berdampak ke millions of users.
+            </p>
+
+            <h3>Architecture &amp; Scale</h3>
+            <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Uber mengoperasikan <strong>4,000+ microservices</strong> yang saling berkomunikasi untuk handling 
+                trip requests. Setiap trip melibatkan puluhan service calls: user authentication, pricing calculation, 
+                driver matching, routing, payment processing, dan notifications. Latency di salah satu service dapat 
+                berdampak ke seluruh user experience.
+            </p>
+
+            <div class="case-study">
+                <h4>🎯 Challenge Utama</h4>
+                <ul style="font-size: 1.1rem; line-height: 1.8;">
+                    <li><strong>Real-time Monitoring:</strong> Detect issues dalam seconds, bukan minutes</li>
+                    <li><strong>Scale:</strong> Monitor 1 billion+ events per minute</li>
+                    <li><strong>Distributed System:</strong> Correlate events across thousands of services</li>
+                    <li><strong>Multi-region:</strong> Consistent evaluation across global data centers</li>
+                    <li><strong>Rapid Growth:</strong> System doubles every 6-12 months</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Solusi: M3 - Uber's Metrics Platform</h3>
+            <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Uber mengembangkan <strong>M3</strong>, custom metrics platform yang dapat handle massive scale dengan 
+                low latency. M3 dapat ingest, store, dan query billions of timeseries data points per minute.
+            </p>
+
+            <div class="content-grid">
+                <div class="content-box evaluation-box">
+                    <h4>🔧 M3 Architecture</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>M3DB:</strong> Distributed timeseries database</li>
+                        <li><strong>M3 Coordinator:</strong> Query engine dan API</li>
+                        <li><strong>M3 Aggregator:</strong> Stream aggregation service</li>
+                        <li><strong>M3 Collector:</strong> Metrics collection agent</li>
+                        <li><strong>Compression:</strong> 10x data compression</li>
+                    </ul>
+                </div>
+
+                <div class="content-box metrics-box">
+                    <h4>📊 Key Metrics yang Dimonitor</h4>
+                    <ul style="font-size: 1.05rem;">
+                        <li><strong>Trip Metrics:</strong> Request rate, success rate, ETA accuracy</li>
+                        <li><strong>Latency Metrics:</strong> P50, P95, P99, P999 latencies</li>
+                        <li><strong>Error Metrics:</strong> Error rates per service, error types</li>
+                        <li><strong>Business Metrics:</strong> Revenue, bookings, cancellations</li>
+                        <li><strong>Infrastructure:</strong> Resource utilization, costs</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Evaluation Strategy</h3>
+            <div class="content-grid">
+                <div class="content-box tools-box">
+                    <h4>1️⃣ Anomaly Detection</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        Uber menggunakan <strong>machine learning models</strong> untuk detect anomalies dalam metrics:
+                        <br><br>
+                        • Time-series forecasting untuk predict expected values<br>
+                        • Statistical analysis untuk detect deviations<br>
+                        • Automated alerting ketika metrics exceed thresholds<br>
+                        • False positive reduction dengan contextual analysis
+                    </p>
+                </div>
+
+                <div class="content-box method-box">
+                    <h4>2️⃣ Distributed Tracing</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        Untuk debug distributed system issues:
+                        <br><br>
+                        • <strong>Jaeger:</strong> Distributed tracing system<br>
+                        • Trace setiap request through all microservices<br>
+                        • Identify bottlenecks dan failure points<br>
+                        • Sampling strategy: 1% of all requests traced
+                    </p>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📈 Impact &amp; Results</h4>
+                <p style="font-size: 1.15rem; line-height: 1.9;">
+                    <strong>Dengan comprehensive evaluation system:</strong><br><br>
+                    • <strong>50% reduction</strong> dalam mean time to detection (MTTD)<br>
+                    • <strong>60% reduction</strong> dalam mean time to resolution (MTTR)<br>
+                    • <strong>99.99% availability</strong> untuk critical services<br>
+                    • <strong>Sub-second latency</strong> untuk 99% of requests<br>
+                    • <strong>$100M+ savings</strong> through infrastructure optimization<br>
+                    • <strong>Proactive issue detection:</strong> 80% of issues caught before user impact
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Interactive Demo - Monitoring Dashboard -->
+        <div class="slide">
+            <h2>🎮 Interactive Demo: System Monitoring Dashboard</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Mari kita explore bagaimana monitoring dashboard bekerja dalam praktek. Demo ini mensimulasikan
+                <span class="highlight">real-time monitoring</span> dari sebuah e-commerce platform.
+            </p>
+
+            <div class="demo-container">
+                <button class="demo-btn" onclick="simulateNormalLoad()" style="background: linear-gradient(135deg, #10b981, #14b8a6);">
+                    ✅ Normal Load
+                </button>
+                <button class="demo-btn" onclick="simulateHighLoad()" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+                    ⚠️ High Load
+                </button>
+                <button class="demo-btn" onclick="simulateSystemFailure()" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                    ❌ System Failure
+                </button>
+                <button class="demo-btn" onclick="simulateSlowQuery()" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                    🐌 Slow Query
+                </button>
+                <button class="demo-btn" onclick="resetDashboard()" style="background: linear-gradient(135deg, #64748b, #475569);">
+                    🔄 Reset
+                </button>
+            </div>
+
+            <div id="monitoring-dashboard" style="margin-top: 2rem; background: #1e293b; padding: 2rem; border-radius: 12px; color: white;">
+                <h3 style="color: #10b981; margin-bottom: 1.5rem; text-align: center;">📊 Real-Time Monitoring Dashboard</h3>
+
+                <div class="grid-container" style="grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                    <div class="metric-card" id="latency-card">
+                        <div class="metric-label">Response Time (P95)</div>
+                        <div class="metric-value" id="latency-value">120ms</div>
+                        <div class="metric-status" id="latency-status">✅ Healthy</div>
+                    </div>
+
+                    <div class="metric-card" id="throughput-card">
+                        <div class="metric-label">Throughput</div>
+                        <div class="metric-value" id="throughput-value">1,250 req/s</div>
+                        <div class="metric-status" id="throughput-status">✅ Normal</div>
+                    </div>
+
+                    <div class="metric-card" id="error-card">
+                        <div class="metric-label">Error Rate</div>
+                        <div class="metric-value" id="error-value">0.05%</div>
+                        <div class="metric-status" id="error-status">✅ Low</div>
+                    </div>
+
+                    <div class="metric-card" id="cpu-card">
+                        <div class="metric-label">CPU Usage</div>
+                        <div class="metric-value" id="cpu-value">45%</div>
+                        <div class="metric-status" id="cpu-status">✅ Normal</div>
+                    </div>
+                </div>
+
+                <div id="alert-log" style="background: #0f172a; padding: 1.5rem; border-radius: 8px; min-height: 150px; max-height: 200px; overflow-y: auto;">
+                    <h4 style="color: #14b8a6; margin-bottom: 1rem;">📋 Alert &amp; Event Log</h4>
+                    <div id="log-content" style="font-family: &#39;JetBrains Mono&#39;, monospace; font-size: 0.9rem; line-height: 1.8; color: #94a3b8;">
+                        <div>[2025-01-27 10:30:15] ℹ️  System initialized - All metrics nominal</div>
+                        <div>[2025-01-27 10:30:20] ✅ Health check passed - Response time: 120ms</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                        <strong style="color: #10b981;">💡 Tip:</strong> Observe bagaimana berbagai metrics saling berkorelasi.
+                        Contoh: High load → Increased latency → Higher CPU usage. Understanding correlation ini adalah key
+                        untuk effective troubleshooting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide-number">1</div>
+        </div>
+
+        <!-- Slide 11: KPI & Metrics Dashboard Design -->
+        <div class="slide">
+            <h2>📊 KPI dan Metrics Dashboard Design</h2>
+
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 2rem;">
+                Dashboard yang efektif harus menampilkan <span class="highlight">informasi yang tepat</span> 
+                dengan visualisasi yang intuitif. Berikut adalah best practices dalam designing evaluation dashboard.
+            </p>
+
+            <h3>Prinsip Dashboard Design</h3>
+            <div class="content-grid">
+                <div class="content-box evaluation-box">
+                    <h4>1. Information Hierarchy</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Top Level:</strong> Executive summary dengan KPI utama<br>
+                        <strong>Middle Level:</strong> Service-level metrics dan trends<br>
+                        <strong>Detail Level:</strong> Granular data untuk troubleshooting<br><br>
+                        User dapat drill-down dari high-level overview ke detailed diagnostics.
+                    </p>
+                </div>
+
+                <div class="content-box metrics-box">
+                    <h4>2. Visual Clarity</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Color Coding:</strong> Green (healthy), Yellow (warning), Red (critical)<br>
+                        <strong>Chart Selection:</strong> Line charts untuk trends, bar charts untuk comparisons<br>
+                        <strong>Avoid Clutter:</strong> Maximum 6-8 panels per screen<br><br>
+                        Visualisasi harus self-explanatory tanpa perlu training extensive.
+                    </p>
+                </div>
+
+                <div class="content-box tools-box">
+                    <h4>3. Actionable Insights</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Alerts:</strong> Automatic notifications untuk anomalies<br>
+                        <strong>Thresholds:</strong> Clear indicators untuk acceptable ranges<br>
+                        <strong>Recommendations:</strong> Suggested actions untuk issues<br><br>
+                        Dashboard bukan hanya menampilkan data, tapi guide user untuk action.
+                    </p>
+                </div>
+
+                <div class="content-box method-box">
+                    <h4>4. Real-time Updates</h4>
+                    <p style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Refresh Rate:</strong> 5-30 seconds untuk production systems<br>
+                        <strong>Live Alerts:</strong> Push notifications untuk critical events<br>
+                        <strong>Historical Data:</strong> Compare dengan previous periods<br><br>
+                        Balance between real-time visibility dan system overhead.
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Golden Signals (Google SRE)</h3>
+            <p style="font-size: 1.15rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Google's Site Reliability Engineering merekomendasikan fokus pada <strong>4 Golden Signals</strong> 
+                sebagai metrics utama untuk monitoring:
+            </p>
+
+            <div class="evaluation-card">
+                <div class="metric-card" style="border-top-color: #10b981;">
+                    <h5>1. Latency</h5>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Definisi:</strong> Waktu yang dibutuhkan untuk serve request<br>
+                        <strong>Metrics:</strong> P50, P95, P99 response time<br>
+                        <strong>Target:</strong> P95 &lt; 200ms, P99 &lt; 500ms<br>
+                        <strong>Alert:</strong> Jika P95 &gt; 500ms atau trending up significantly
+                    </p>
+                </div>
+
+                <div class="metric-card" style="border-top-color: #3b82f6;">
+                    <h5>2. Traffic</h5>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Definisi:</strong> Demand terhadap sistem<br>
+                        <strong>Metrics:</strong> Requests per second, transactions per minute<br>
+                        <strong>Target:</strong> Capacity for 2x normal peak traffic<br>
+                        <strong>Alert:</strong> Jika traffic &gt; 80% capacity atau sudden spike/drop
+                    </p>
+                </div>
+
+                <div class="metric-card" style="border-top-color: #ef4444;">
+                    <h5>3. Errors</h5>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Definisi:</strong> Rate dari failed requests<br>
+                        <strong>Metrics:</strong> Error rate percentage, error types<br>
+                        <strong>Target:</strong> Error rate &lt; 0.1%<br>
+                        <strong>Alert:</strong> Jika error rate &gt; 1% atau new error types appear
+                    </p>
+                </div>
+
+                <div class="metric-card" style="border-top-color: #a855f7;">
+                    <h5>4. Saturation</h5>
+                    <p style="font-size: 1.05rem;">
+                        <strong>Definisi:</strong> Resource utilization level<br>
+                        <strong>Metrics:</strong> CPU, memory, disk, network usage<br>
+                        <strong>Target:</strong> Average &lt; 70%, Peak &lt; 85%<br>
+                        <strong>Alert:</strong> Jika sustained usage &gt; 85% or trending towards capacity
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Tools Ecosystem -->
+        <section class="slide">
+            <h2>🛠️ Ekosistem Tools Monitoring dan Evaluasi Modern</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Dalam era sistem terintegrasi yang kompleks, <span class="highlight">kombinasi tools yang tepat</span> 
+                menjadi kunci keberhasilan evaluasi. Ekosistem modern menggunakan pendekatan <strong>observability stack</strong> 
+                yang terdiri dari tiga pilar utama: <strong>metrics</strong> (angka dan statistik), <strong>logs</strong> 
+                (catatan kejadian), dan <strong>traces</strong> (jejak request end-to-end).
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">📊 Metrics Stack</h3>
+                    <ul style="line-height: 2; font-size: 1.1rem;">
+                        <li><strong>Prometheus:</strong> Time-series database untuk metrics collection</li>
+                        <li><strong>Grafana:</strong> Visualization dan alerting platform</li>
+                        <li><strong>InfluxDB:</strong> Alternative time-series database</li>
+                        <li><strong>Datadog:</strong> Cloud-based monitoring (SaaS)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #14b8a6; margin-bottom: 1rem;">📝 Logs Stack</h3>
+                    <ul style="line-height: 2; font-size: 1.1rem;">
+                        <li><strong>Elasticsearch:</strong> Log storage dan search engine</li>
+                        <li><strong>Logstash/Fluentd:</strong> Log aggregation dan processing</li>
+                        <li><strong>Kibana:</strong> Log visualization dan analysis</li>
+                        <li><strong>Splunk:</strong> Enterprise log management</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #06b6d4; margin-bottom: 1rem;">🔍 Tracing Stack</h3>
+                    <ul style="line-height: 2; font-size: 1.1rem;">
+                        <li><strong>Jaeger:</strong> Distributed tracing untuk microservices</li>
+                        <li><strong>Zipkin:</strong> Alternative distributed tracing</li>
+                        <li><strong>OpenTelemetry:</strong> Standardized observability framework</li>
+                        <li><strong>AWS X-Ray:</strong> Cloud-native tracing</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #8b5cf6; margin-bottom: 1rem;">⚡ Performance Testing</h3>
+                    <ul style="line-height: 2; font-size: 1.1rem;">
+                        <li><strong>Apache JMeter:</strong> Load testing dan performance measurement</li>
+                        <li><strong>Gatling:</strong> Modern load testing framework</li>
+                        <li><strong>K6:</strong> Developer-friendly load testing</li>
+                        <li><strong>Locust:</strong> Python-based load testing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note-box" style="margin-top: 2rem;">
+                <strong>💡 Best Practice:</strong> Gunakan pendekatan <span class="highlight">"single pane of glass"</span> 
+                dimana semua metrics, logs, dan traces dapat diakses dari satu dashboard terpusat untuk mempercepat 
+                troubleshooting dan root cause analysis.
+            </div>
+
+            <div class="slide-number">2</div>
+        </section>
+
+        <!-- Slide 13: Performance Testing Deep Dive -->
+        <section class="slide">
+            <h2>⚡ Performance Testing: Metodologi dan Implementasi</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Performance testing adalah <span class="highlight">proses sistematis untuk mengevaluasi kecepatan, 
+                responsiveness, dan stabilitas sistem</span> di bawah berbagai kondisi workload. Tujuannya bukan hanya 
+                menemukan bottleneck, tetapi juga memvalidasi bahwa sistem dapat memenuhi SLA (Service Level Agreement) 
+                yang telah ditetapkan dalam berbagai skenario.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">🎯 Jenis-Jenis Performance Testing</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">1. Load Testing</h4>
+                        <p style="line-height: 1.8;">Menguji sistem dengan <strong>beban normal dan puncak yang diharapkan</strong>. 
+                        Contoh: Mensimulasikan 10,000 concurrent users untuk aplikasi e-commerce saat flash sale.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">2. Stress Testing</h4>
+                        <p style="line-height: 1.8;">Menguji sistem <strong>melebihi kapasitas normal</strong> hingga menemukan 
+                        breaking point. Contoh: Meningkatkan load secara bertahap dari 1,000 hingga 100,000 users untuk 
+                        menemukan titik kegagalan sistem.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">3. Spike Testing</h4>
+                        <p style="line-height: 1.8;">Menguji sistem dengan <strong>lonjakan traffic mendadak</strong>. 
+                        Contoh: Simulasi dari 1,000 users ke 50,000 users dalam 1 menit (seperti viral marketing campaign).</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">4. Soak Testing (Endurance Testing)</h4>
+                        <p style="line-height: 1.8;">Menguji sistem dengan <strong>beban berkelanjutan dalam waktu lama</strong> 
+                        untuk menemukan memory leaks atau degradasi performance. Contoh: Running test dengan 5,000 users 
+                        selama 24-72 jam.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #06b6d4; margin-bottom: 1rem;">📊 Key Performance Metrics</h3>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 1rem;">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                                <th style="padding: 1rem; text-align: left;">Metric</th>
+                                <th style="padding: 1rem; text-align: left;">Target Typical</th>
+                                <th style="padding: 1rem; text-align: left;">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 1rem;"><strong>Response Time (p95)</strong></td>
+                                <td style="padding: 1rem;">&lt; 200ms</td>
+                                <td style="padding: 1rem;">95% request harus &lt; 200ms</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 1rem;"><strong>Throughput</strong></td>
+                                <td style="padding: 1rem;">&gt; 1000 req/s</td>
+                                <td style="padding: 1rem;">Request per second yang dapat dihandle</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 1rem;"><strong>Error Rate</strong></td>
+                                <td style="padding: 1rem;">&lt; 0.1%</td>
+                                <td style="padding: 1rem;">Persentase request yang gagal</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 1rem;"><strong>Concurrent Users</strong></td>
+                                <td style="padding: 1rem;">&gt; 10,000</td>
+                                <td style="padding: 1rem;">Jumlah users simultan yang dapat dihandle</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem;"><strong>Resource Utilization</strong></td>
+                                <td style="padding: 1rem;">&lt; 70%</td>
+                                <td style="padding: 1rem;">CPU/Memory usage (beri headroom)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="slide-number">3</div>
+        </section>
+
+        <!-- Slide 14: Monitoring Implementation -->
+        <section class="slide">
+            <h2>📡 Implementasi Monitoring: From Theory to Practice</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Implementasi monitoring yang efektif memerlukan <span class="highlight">strategi yang terencana dan 
+                terstruktur</span>, bukan sekadar instalasi tools. Monitoring harus dirancang untuk memberikan visibility 
+                yang tepat pada setiap layer sistem, dengan balance antara detail dan noise reduction.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">🎯 7 Golden Rules of Monitoring Implementation</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">1. Monitor What Matters (Focus on SLIs)</h4>
+                        <p style="line-height: 1.8;">Jangan monitor everything. Fokus pada <strong>Service Level Indicators (SLIs)</strong> 
+                        yang benar-benar reflect user experience: availability, latency, throughput, error rate.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">2. Implement Multi-Layer Monitoring</h4>
+                        <p style="line-height: 1.8;">Monitor di semua layers: <strong>Infrastructure → Platform → Application → 
+                        Business Metrics</strong>. Contoh: CPU usage (infra) → Pod restarts (platform) → API latency (app) → 
+                        Conversion rate (business).</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">3. Design Actionable Alerts</h4>
+                        <p style="line-height: 1.8;">Alert harus <strong>actionable dan tidak noisy</strong>. Gunakan severity levels 
+                        (Critical → Warning → Info) dan avoid alert fatigue dengan proper thresholds.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">4. Enable Correlation and Context</h4>
+                        <p style="line-height: 1.8;">Metrics saja tidak cukup. Tambahkan <strong>labels/tags yang konsisten</strong> 
+                        untuk enable correlation: service, environment, region, version, team.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">5. Implement Distributed Tracing</h4>
+                        <p style="line-height: 1.8;">Untuk microservices, distributed tracing adalah <strong>mandatory</strong>. 
+                        Trace setiap request dari entry point hingga semua downstream services.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">6. Practice SRE Principles (SLO/SLA)</h4>
+                        <p style="line-height: 1.8;">Define <strong>Service Level Objectives (SLOs)</strong> dan monitor error budget. 
+                        Contoh SLO: "99.9% availability in 30 days" = 43.2 minutes downtime budget.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">7. Automate Response dan Remediation</h4>
+                        <p style="line-height: 1.8;">Combine monitoring dengan automation: <strong>auto-scaling, self-healing, 
+                        automated rollback</strong>. Contoh: CPU &gt; 80% → trigger auto-scale → send notification.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                    <h3 style="margin-bottom: 1rem;">💡 Real Example: E-Commerce Monitoring Stack</h3>
+                    <pre style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; overflow-x: auto; line-height: 1.6;"><strong>Infrastructure Layer:</strong>
+- Prometheus: Collect metrics dari Kubernetes nodes
+- Node Exporter: Server metrics (CPU, Memory, Disk, Network)
+- Alert: CPU &gt; 80% for 5 minutes → Scale nodes
+
+<strong>Application Layer:</strong>
+- APM (Datadog/New Relic): Application performance monitoring
+- Custom Metrics: /orders endpoint latency, /checkout success rate
+- Alert: Error rate &gt; 1% for 2 minutes → Page on-call engineer
+
+<strong>Business Layer:</strong>
+- Custom dashboards: Orders/minute, Revenue/hour, Conversion rate
+- Alert: Conversion rate drop &gt; 20% → Notify product team
+
+<strong>User Experience:</strong>
+- Synthetic monitoring: Simulate user journeys every 1 minute
+- Real User Monitoring (RUM): Track actual user experience
+- Alert: Page load time &gt; 3s for 50% users → Immediate investigation</pre>
+                </div>
+            </div>
+
+            <div class="slide-number">4</div>
+        </section>
+
+        <!-- Slide 15: Evaluation Reports and Documentation -->
+        <section class="slide">
+            <h2>📋 Evaluation Report: Struktur dan Best Practices</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Evaluation report yang efektif harus <span class="highlight">data-driven, actionable, dan komunikatif</span>. 
+                Report bukan hanya dokumentasi hasil testing, tetapi juga harus memberikan insights, recommendations, dan 
+                roadmap untuk improvement. Audience report mencakup technical teams, management, dan stakeholders, 
+                sehingga perlu balance antara technical details dan business implications.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">📄 Struktur Evaluation Report</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">1. Executive Summary</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Overall Health Score:</strong> Aggregated score (0-100) dari semua metrics</li>
+                            <li><strong>Key Findings:</strong> Top 3-5 critical findings yang perlu immediate attention</li>
+                            <li><strong>Compliance Status:</strong> Apakah sistem memenuhi SLA/SLO yang ditetapkan</li>
+                            <li><strong>Recommendations Summary:</strong> High-level action items dengan prioritas</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">2. Evaluation Methodology</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Evaluation Period:</strong> Timeframe dari evaluasi (e.g., "1-31 Januari 2025")</li>
+                            <li><strong>Tools Used:</strong> Daftar tools yang digunakan dan konfigurasinya</li>
+                            <li><strong>Test Scenarios:</strong> Deskripsi skenario testing (normal load, peak load, failure scenarios)</li>
+                            <li><strong>Baseline Metrics:</strong> Baseline untuk comparison (previous period atau industry standard)</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">3. Performance Analysis</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Response Time Analysis:</strong> P50, P95, P99 dengan trend charts</li>
+                            <li><strong>Throughput Analysis:</strong> Requests/second dengan peak analysis</li>
+                            <li><strong>Error Rate Analysis:</strong> Error types, frequencies, dan root causes</li>
+                            <li><strong>Resource Utilization:</strong> CPU, Memory, Disk, Network dengan heatmaps</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">4. Reliability and Availability</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Uptime Percentage:</strong> Actual uptime vs SLA target</li>
+                            <li><strong>Incident Analysis:</strong> Jumlah incidents, MTBF, MTTR</li>
+                            <li><strong>Failure Points:</strong> Components yang paling sering fail</li>
+                            <li><strong>Recovery Metrics:</strong> RTO (Recovery Time Objective) dan RPO (Recovery Point Objective)</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">5. Scalability Assessment</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Load Testing Results:</strong> Maximum capacity dan breaking point</li>
+                            <li><strong>Auto-scaling Effectiveness:</strong> Response time dan accuracy</li>
+                            <li><strong>Horizontal vs Vertical Scaling:</strong> Cost-benefit analysis</li>
+                            <li><strong>Capacity Planning:</strong> Projected growth dan infrastructure requirements</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">6. Security Evaluation</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Vulnerability Assessment:</strong> Critical, High, Medium, Low vulnerabilities</li>
+                            <li><strong>Compliance Check:</strong> GDPR, ISO27001, SOC2, atau standar lainnya</li>
+                            <li><strong>Security Incidents:</strong> Attempted breaches dan response effectiveness</li>
+                            <li><strong>Access Control Audit:</strong> IAM policies dan permission reviews</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">7. Cost Efficiency Analysis</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Infrastructure Costs:</strong> Breakdown per service/component</li>
+                            <li><strong>Cost per Transaction:</strong> Unit economics analysis</li>
+                            <li><strong>Optimization Opportunities:</strong> Reserved instances, rightsizing, etc.</li>
+                            <li><strong>ROI Calculation:</strong> Value delivered vs investment</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">8. Recommendations and Action Items</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Critical Actions:</strong> Must-fix issues (P0) dengan timeline</li>
+                            <li><strong>Short-term Improvements:</strong> Quick wins (1-3 bulan)</li>
+                            <li><strong>Long-term Roadmap:</strong> Strategic improvements (3-12 bulan)</li>
+                            <li><strong>Cost-Benefit Analysis:</strong> ROI estimasi untuk setiap recommendation</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">9. Appendices</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Raw Data:</strong> Detailed metrics dan logs</li>
+                            <li><strong>Test Scripts:</strong> Performance test scenarios dan configurations</li>
+                            <li><strong>Glossary:</strong> Technical terms untuk non-technical audience</li>
+                            <li><strong>References:</strong> Industry standards dan best practices yang digunakan</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <strong>💡 Pro Tip:</strong> Gunakan <span class="highlight">RAG (Red-Amber-Green) status indicators</span> 
+                    di setiap section untuk quick visual assessment. Red = Critical issues, Amber = Needs attention, 
+                    Green = Meeting targets.
+                </div>
+            </div>
+
+            <div class="slide-number">5</div>
+        </section>
+
+
+        <!-- Slide 16: Continuous Improvement Framework -->
+        <section class="slide">
+            <h2>🔄 Continuous Improvement: From Evaluation to Action</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Evaluasi sistem bukan aktivitas one-time, melainkan <span class="highlight">continuous cycle</span> yang 
+                terintegrasi dengan development dan operations lifecycle. Framework improvement yang efektif menggunakan 
+                metodologi <strong>Plan-Do-Check-Act (PDCA)</strong> atau <strong>OODA Loop (Observe-Orient-Decide-Act)</strong> 
+                untuk memastikan insights dari evaluasi ditranslasikan menjadi actionable improvements.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">📊 PDCA Cycle dalam System Evaluation</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6;">🎯 PLAN (Perencanaan)</h4>
+                        <ul style="line-height: 1.8; font-size: 1rem;">
+                            <li>Define evaluation objectives dan success metrics</li>
+                            <li>Establish baseline dan target KPIs</li>
+                            <li>Select tools dan metodologi yang sesuai</li>
+                            <li>Create evaluation schedule (weekly, monthly, quarterly)</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6;">⚙️ DO (Implementasi)</h4>
+                        <ul style="line-height: 1.8; font-size: 1rem;">
+                            <li>Deploy monitoring dan testing infrastructure</li>
+                            <li>Collect data across all layers (infra to business)</li>
+                            <li>Run performance tests dan security scans</li>
+                            <li>Document findings dan anomalies</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6;">✅ CHECK (Evaluasi)</h4>
+                        <ul style="line-height: 1.8; font-size: 1rem;">
+                            <li>Analyze data dan identify trends</li>
+                            <li>Compare actual vs target performance</li>
+                            <li>Root cause analysis untuk issues</li>
+                            <li>Generate evaluation report dengan recommendations</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: #14b8a6;">🚀 ACT (Improvement)</h4>
+                        <ul style="line-height: 1.8; font-size: 1rem;">
+                            <li>Implement recommendations dengan prioritas</li>
+                            <li>Update infrastructure atau architecture</li>
+                            <li>Adjust SLOs based on learnings</li>
+                            <li>Share knowledge dengan teams (blameless postmortems)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #06b6d4; margin-bottom: 1rem;">⚡ Continuous Evaluation Pipeline</h3>
+                    
+                    <div style="background: #1e293b; color: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <pre style="margin: 0; line-height: 1.8; font-size: 0.95rem;"><strong style="color: #10b981;">Daily Automated Checks:</strong>
+├─ Synthetic monitoring (every 1-5 minutes)
+├─ Health checks dan smoke tests
+├─ Security vulnerability scans
+└─ Cost anomaly detection
+
+<strong style="color: #14b8a6;">Weekly Performance Reviews:</strong>
+├─ Performance metrics analysis
+├─ Error rate trending
+├─ Capacity utilization review
+└─ Alert noise reduction
+
+<strong style="color: #06b6d4;">Monthly Deep Dives:</strong>
+├─ Comprehensive load testing
+├─ Security penetration testing
+├─ Disaster recovery drills
+└─ Cost optimization analysis
+
+<strong style="color: #8b5cf6;">Quarterly Strategic Reviews:</strong>
+├─ Architecture review dan modernization
+├─ Capacity planning untuk next quarter
+├─ SLO/SLA review dan adjustment
+└─ Technology stack evaluation</pre>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>💡 Key Principle:</strong> <span class="highlight">Shift-Left Testing</span> - 
+                        Integrate evaluation dan testing earlier dalam development cycle. Performance testing 
+                        di staging, security scanning di CI/CD, observability dari day-1.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem; background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                <h3 style="margin-bottom: 1rem;">🎯 Measuring Improvement Effectiveness</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid rgba(255,255,255,0.3);">
+                            <th style="padding: 0.75rem; text-align: left;">Metric</th>
+                            <th style="padding: 0.75rem; text-align: left;">Before</th>
+                            <th style="padding: 0.75rem; text-align: left;">After</th>
+                            <th style="padding: 0.75rem; text-align: left;">Improvement</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 0.95rem;">
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <td style="padding: 0.75rem;">Response Time (P95)</td>
+                            <td style="padding: 0.75rem;">850ms</td>
+                            <td style="padding: 0.75rem;">180ms</td>
+                            <td style="padding: 0.75rem;"><strong>78% ↓</strong></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <td style="padding: 0.75rem;">Error Rate</td>
+                            <td style="padding: 0.75rem;">2.3%</td>
+                            <td style="padding: 0.75rem;">0.08%</td>
+                            <td style="padding: 0.75rem;"><strong>96% ↓</strong></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <td style="padding: 0.75rem;">MTTR</td>
+                            <td style="padding: 0.75rem;">45 minutes</td>
+                            <td style="padding: 0.75rem;">12 minutes</td>
+                            <td style="padding: 0.75rem;"><strong>73% ↓</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.75rem;">Infrastructure Cost</td>
+                            <td style="padding: 0.75rem;">$45,000/month</td>
+                            <td style="padding: 0.75rem;">$28,000/month</td>
+                            <td style="padding: 0.75rem;"><strong>38% ↓</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="slide-number">6</div>
+        </section>
+
+        <!-- Slide 17: Common Pitfalls and Solutions -->
+        <section class="slide">
+            <h2>⚠️ Common Pitfalls dalam Evaluasi Sistem</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Banyak organisasi menghadapi <span class="highlight">challenges yang sama</span> dalam implementasi 
+                evaluasi sistem. Memahami pitfalls ini dan solusinya dapat menghemat waktu dan resources yang 
+                significant dalam journey menuju reliable dan performant integrated systems.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Pitfall 1: Monitoring Everything (Data Overload)</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Problem:</h4>
+                            <p style="line-height: 1.8;">Collecting terlalu banyak metrics tanpa fokus yang jelas, 
+                            resulting dalam high storage costs, slow queries, dan analysis paralysis. Teams drowning 
+                            in data tapi kekurangan actionable insights.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Solution:</h4>
+                            <p style="line-height: 1.8;"><strong>Focus on SLIs dan Golden Signals.</strong> Monitor 
+                            metrics yang directly impact user experience: latency, traffic, errors, saturation. 
+                            Use sampling untuk detailed traces (e.g., trace 1% of requests).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Pitfall 2: Alert Fatigue (Too Many Alerts)</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Problem:</h4>
+                            <p style="line-height: 1.8;">Setting alerts untuk every possible metric dengan low thresholds, 
+                            causing constant notifications. Teams start ignoring alerts (the "boy who cried wolf" effect), 
+                            missing critical issues.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Solution:</h4>
+                            <p style="line-height: 1.8;"><strong>Alert on symptoms, not causes.</strong> Alert hanya untuk 
+                            user-impacting issues. Use proper severity levels, aggregation windows, dan correlation. 
+                            Implement on-call rotation dengan clear escalation policies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Pitfall 3: Testing Only in Production</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Problem:</h4>
+                            <p style="line-height: 1.8;">Discovering performance issues, bugs, atau security vulnerabilities 
+                            only setelah deploy ke production, causing user-facing incidents dan revenue loss.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Solution:</h4>
+                            <p style="line-height: 1.8;"><strong>Shift-left testing dan staging environments.</strong> 
+                            Run load tests di staging dengan production-like data. Implement canary deployments dan 
+                            feature flags untuk gradual rollouts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Pitfall 4: Ignoring User Experience Metrics</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Problem:</h4>
+                            <p style="line-height: 1.8;">Focusing only pada technical metrics (CPU, memory) tanpa measuring 
+                            actual user experience. System metrics look good, tapi users experiencing slow page loads.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Solution:</h4>
+                            <p style="line-height: 1.8;"><strong>Implement Real User Monitoring (RUM).</strong> Track 
+                            Core Web Vitals (LCP, FID, CLS), actual page load times, dan user journey completion rates. 
+                            Combine synthetic monitoring dengan real user data.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Pitfall 5: Lack of Context in Metrics</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Problem:</h4>
+                            <p style="line-height: 1.8;">Metrics tanpa proper labels/tags, making it impossible to drill down 
+                            atau correlate issues. Example: "Error rate increased" tapi tidak tahu which service, endpoint, 
+                            atau region yang affected.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Solution:</h4>
+                            <p style="line-height: 1.8;"><strong>Consistent tagging strategy.</strong> Tag metrics dengan: 
+                            service, environment, region, version, team. Use distributed tracing untuk end-to-end visibility 
+                            across microservices.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Pitfall 6: No Automated Remediation</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Problem:</h4>
+                            <p style="line-height: 1.8;">Detecting issues quickly tapi requiring manual intervention untuk 
+                            every remediation, resulting dalam high MTTR dan frequent on-call wake-ups untuk routine issues.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Solution:</h4>
+                            <p style="line-height: 1.8;"><strong>Implement auto-remediation playbooks.</strong> Auto-scale 
+                            pada high load, auto-restart failed services, automated rollback pada high error rates. 
+                            Reserve manual intervention untuk novel issues.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #ef4444; margin-bottom: 1rem;">❌ Pitfall 7: Not Learning from Incidents</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc2626; margin-bottom: 0.5rem;">Problem:</h4>
+                            <p style="line-height: 1.8;">Resolving incidents tapi tidak conducting postmortems atau 
+                            implementing preventive measures, causing same issues to recur repeatedly.</p>
+                        </div>
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Solution:</h4>
+                            <p style="line-height: 1.8;"><strong>Blameless postmortems dan action items.</strong> After 
+                            every major incident, document timeline, root cause, dan corrective actions. Track action 
+                            items completion dan share learnings across organization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-number">7</div>
+        </section>
+
+        <!-- Slide 18: Best Practices Summary -->
+        <section class="slide">
+            <h2>✨ Best Practices: Evaluation System Excellence</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Achieving excellence dalam system evaluation memerlukan <span class="highlight">kombinasi dari technical 
+                expertise, tooling yang tepat, dan organizational culture</span> yang mendukung continuous improvement. 
+                Berikut adalah best practices yang proven effective dari top tech companies dan SRE practitioners.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                <div class="card" style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #6ee7b7;">🎯 1. Observability First</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #d1fae5;">
+                        <li><strong style="color: #a7f3d0;">Build in observability from day one</strong> - jangan treat sebagai afterthought</li>
+                        <li>Implement structured logging dengan consistent format (JSON)</li>
+                        <li>Use correlation IDs untuk trace requests across services</li>
+                        <li>Expose metrics endpoints (/metrics) dari semua services</li>
+                        <li>Invest in distributed tracing infrastructure early</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: rgba(20, 184, 166, 0.2); border: 2px solid #14b8a6; box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #5eead4;">📊 2. Define and Monitor SLOs</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #ccfbf1;">
+                        <li><strong style="color: #99f6e4;">Establish clear Service Level Objectives</strong> yang aligned dengan user expectations</li>
+                        <li>Track error budgets dan use untuk prioritization decisions</li>
+                        <li>Example SLO: "99.9% of requests complete in &lt; 200ms"</li>
+                        <li>Review dan adjust SLOs quarterly based on data</li>
+                        <li>Communicate SLOs clearly ke all stakeholders</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: rgba(6, 182, 212, 0.2); border: 2px solid #06b6d4; box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #67e8f9;">🔄 3. Automate Everything</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #cffafe;">
+                        <li><strong style="color: #a5f3fc;">Automate testing, deployment, dan monitoring</strong> untuk reduce human error</li>
+                        <li>CI/CD pipelines dengan automated performance tests</li>
+                        <li>Infrastructure as Code (Terraform, CloudFormation)</li>
+                        <li>Auto-remediation untuk common issues (restart, scale, rollback)</li>
+                        <li>Automated alerting dengan smart routing dan escalation</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: rgba(139, 92, 246, 0.2); border: 2px solid #8b5cf6; box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #c4b5fd;">🎭 4. Practice Chaos Engineering</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #ede9fe;">
+                        <li><strong style="color: #ddd6fe;">Proactively inject failures</strong> untuk test resilience (Netflix Chaos Monkey)</li>
+                        <li>Start dengan controlled experiments di non-production</li>
+                        <li>Gradually increase blast radius sebagai confidence builds</li>
+                        <li>Document learnings dan improve system resilience</li>
+                        <li>Make chaos engineering part of regular testing cycle</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: rgba(236, 72, 153, 0.2); border: 2px solid #ec4899; box-shadow: 0 8px 24px rgba(236, 72, 153, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #f9a8d4;">👥 5. Foster SRE Culture</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #fce7f3;">
+                        <li><strong style="color: #fbcfe8;">Blameless postmortems</strong> - focus on learning, not blame</li>
+                        <li>Share on-call responsibilities across teams</li>
+                        <li>Allocate 20-30% engineering time untuk reliability work</li>
+                        <li>Celebrate reducing toil dan automating manual work</li>
+                        <li>Knowledge sharing sessions tentang incidents dan learnings</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #fca5a5;">📈 6. Data-Driven Decisions</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #fee2e2;">
+                        <li><strong style="color: #fecaca;">Base decisions on metrics, not gut feelings</strong></li>
+                        <li>A/B testing untuk major changes (feature flags)</li>
+                        <li>Analyze trends over time, not just point-in-time snapshots</li>
+                        <li>Use data untuk prioritize improvements (ROI calculation)</li>
+                        <li>Regular data reviews dengan stakeholders</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: rgba(249, 115, 22, 0.2); border: 2px solid #f97316; box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #fdba74;">🔒 7. Security as Continuous Process</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #fed7aa;">
+                        <li><strong style="color: #fcd34d;">Integrate security scanning</strong> di CI/CD pipeline (shift-left security)</li>
+                        <li>Regular vulnerability assessments dan penetration testing</li>
+                        <li>Automated compliance checks (GDPR, SOC2, ISO27001)</li>
+                        <li>Security monitoring dan anomaly detection (SIEM)</li>
+                        <li>Incident response playbooks dengan regular drills</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: rgba(245, 158, 11, 0.2); border: 2px solid #f59e0b; box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #fbbf24;">💰 8. Cost Optimization</h3>
+                    <ul style="line-height: 1.9; font-size: 1rem; color: #fef3c7;">
+                        <li><strong style="color: #fde68a;">Monitor costs as first-class metric</strong> - track cost per transaction</li>
+                        <li>Implement tagging strategy untuk cost allocation</li>
+                        <li>Regular rightsizing reviews (remove unused resources)</li>
+                        <li>Use reserved instances atau savings plans untuk predictable workloads</li>
+                        <li>Set budgets dan alerts untuk cost anomalies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note-box" style="margin-top: 2rem; background: linear-gradient(135deg, #10b981, #06b6d4); color: white; border: none;">
+                <strong style="font-size: 1.2rem;">🏆 Golden Rule:</strong> 
+                <p style="font-size: 1.1rem; margin-top: 0.5rem; line-height: 1.8;">
+                    "You can't improve what you don't measure" - tapi juga "Don't measure everything, measure what matters". 
+                    Balance antara comprehensive monitoring dan actionable insights adalah key untuk successful evaluation.
+                </p>
+            </div>
+
+            <div class="slide-number">8</div>
+        </section>
+
+
+        <!-- Slide 19: Discussion Topics -->
+        <section class="slide">
+            <h2>💬 Discussion Topics: Collaborative Learning</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Mari kita <span class="highlight">diskusikan dan analyze</span> beberapa skenario real-world untuk 
+                memperdalam pemahaman tentang evaluasi sistem terintegrasi. Discussion ini akan membantu kita 
+                mengaplikasikan konsep-konsep yang telah dipelajari dalam konteks praktis.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">🤔 Topic 1: Trade-offs dalam Monitoring</h3>
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: #e4e4e7;">
+                            <strong style="color: #6ee7b7;">Scenario:</strong> Anda adalah SRE engineer di sebuah startup fintech dengan budget terbatas.
+                            Management ingin comprehensive monitoring, tapi infrastructure costs sudah tinggi.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #10b981; margin-bottom: 1rem;">
+                            <strong>Questions untuk diskusi:</strong>
+                        </p>
+                        <ul style="line-height: 1.9; font-size: 1rem; color: #d1d5db;">
+                            <li>Apa metrics yang absolutely essential vs nice-to-have untuk fintech application?</li>
+                            <li>Bagaimana balance antara observability depth dan cost efficiency?</li>
+                            <li>Apakah lebih baik invest di commercial tools (Datadog) atau open-source stack (Prometheus/Grafana)?</li>
+                            <li>Bagaimana approach monitoring untuk startup vs enterprise company?</li>
+                            <li>Apa strategy untuk scale monitoring infrastructure seiring growth?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #14b8a6; margin-bottom: 1rem;">🤔 Topic 2: SLO Definition dan Management</h3>
+                    <div style="background: rgba(20, 184, 166, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #14b8a6; border: 1px solid rgba(20, 184, 166, 0.3);">
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: #e4e4e7;">
+                            <strong style="color: #5eead4;">Scenario:</strong> Product team ingin commit "99.99% uptime" ke customers, tapi
+                            engineering team tahu ini akan sangat challenging dan expensive to maintain.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #14b8a6; margin-bottom: 1rem;">
+                            <strong>Questions untuk diskusi:</strong>
+                        </p>
+                        <ul style="line-height: 1.9; font-size: 1rem; color: #d1d5db;">
+                            <li>Apa difference antara 99.9% vs 99.99% uptime dalam terms of downtime dan cost?</li>
+                            <li>Bagaimana cara negotiate realistic SLOs antara business dan engineering?</li>
+                            <li>Apa yang termasuk dalam "downtime" - partial degradation vs complete outage?</li>
+                            <li>Bagaimana handle dependencies ke third-party services dalam SLO calculation?</li>
+                            <li>Apa consequences of missing SLOs - financial, reputational, operational?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #06b6d4; margin-bottom: 1rem;">🤔 Topic 3: Incident Response dan Postmortems</h3>
+                    <div style="background: rgba(6, 182, 212, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #06b6d4; border: 1px solid rgba(6, 182, 212, 0.3);">
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: #e4e4e7;">
+                            <strong style="color: #67e8f9;">Scenario:</strong> Terjadi major outage selama 2 jam yang affect 50% users. Root cause
+                            adalah human error dalam deployment. Bagaimana handle ini?
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #06b6d4; margin-bottom: 1rem;">
+                            <strong>Questions untuk diskusi:</strong>
+                        </p>
+                        <ul style="line-height: 1.9; font-size: 1rem; color: #d1d5db;">
+                            <li>Apa langkah-langkah immediate response saat outage detected?</li>
+                            <li>Bagaimana conduct blameless postmortem - apa yang harus dan tidak boleh dilakukan?</li>
+                            <li>Apa preventive measures untuk avoid human error dalam deployment?</li>
+                            <li>Bagaimana communicate incident ke customers, stakeholders, dan internally?</li>
+                            <li>Apa metrics untuk measure incident response effectiveness (MTTD, MTTR)?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #8b5cf6; margin-bottom: 1rem;">🤔 Topic 4: Microservices vs Monolith Evaluation</h3>
+                    <div style="background: rgba(139, 92, 246, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3);">
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: #e4e4e7;">
+                            <strong style="color: #c4b5fd;">Scenario:</strong> Company sedang consider migration dari monolith ke microservices.
+                            Bagaimana evaluation approach berbeda untuk kedua architectures?
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #a78bfa; margin-bottom: 1rem;">
+                            <strong>Questions untuk diskusi:</strong>
+                        </p>
+                        <ul style="line-height: 1.9; font-size: 1rem; color: #d1d5db;">
+                            <li>Apa challenges unique dalam monitoring microservices vs monolith?</li>
+                            <li>Bagaimana importance of distributed tracing untuk microservices architecture?</li>
+                            <li>Apa trade-offs dalam complexity, cost, dan operational overhead?</li>
+                            <li>Bagaimana measure "service health" ketika functionality spread across multiple services?</li>
+                            <li>Kapan microservices adalah right choice vs over-engineering?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #ec4899; margin-bottom: 1rem;">🤔 Topic 5: Chaos Engineering Implementation</h3>
+                    <div style="background: rgba(236, 72, 153, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ec4899; border: 1px solid rgba(236, 72, 153, 0.3);">
+                        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1rem; color: #e4e4e7;">
+                            <strong style="color: #f9a8d4;">Scenario:</strong> Engineering team ingin adopt Chaos Engineering, tapi concerns tentang
+                            risk of causing actual outages during experiments.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #f472b6; margin-bottom: 1rem;">
+                            <strong>Questions untuk diskusi:</strong>
+                        </p>
+                        <ul style="line-height: 1.9; font-size: 1rem; color: #d1d5db;">
+                            <li>Bagaimana start with Chaos Engineering safely - staging vs production?</li>
+                            <li>Apa types of failures yang worth simulating (network, compute, storage)?</li>
+                            <li>Bagaimana measure success of Chaos experiments?</li>
+                            <li>Apa prerequisites sebelum implement Chaos Engineering (monitoring, alerting, automation)?</li>
+                            <li>Bagaimana convince management dan stakeholders tentang value of intentional failures?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-box" style="margin-top: 2rem;">
+                <strong>💡 Discussion Guidelines:</strong> 
+                <ul style="margin-top: 0.5rem; line-height: 1.8;">
+                    <li>Think critically - tidak ada single "correct" answer untuk most scenarios</li>
+                    <li>Consider multiple perspectives: technical, business, user experience</li>
+                    <li>Share your own experiences atau case studies yang relevant</li>
+                    <li>Ask clarifying questions untuk dig deeper into topics</li>
+                </ul>
+            </div>
+
+            <div class="slide-number">9</div>
+        </section>
+
+        <!-- Slide 20: Tools Comparison Matrix -->
+        <section class="slide">
+            <h2>🔧 Tools Comparison: Choosing the Right Stack</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Memilih tools yang tepat adalah <span class="highlight">critical decision</span> yang akan impact 
+                long-term observability strategy. Berikut adalah comparison matrix untuk help you make informed decisions 
+                berdasarkan use case, budget, dan team expertise.
+            </p>
+
+            <div style="overflow-x: auto; margin-top: 2rem;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                            <th style="padding: 1rem; text-align: left; min-width: 150px;">Tool Category</th>
+                            <th style="padding: 1rem; text-align: left; min-width: 140px;">Open Source</th>
+                            <th style="padding: 1rem; text-align: left; min-width: 140px;">Commercial (SaaS)</th>
+                            <th style="padding: 1rem; text-align: left; min-width: 120px;">Best For</th>
+                            <th style="padding: 1rem; text-align: left; min-width: 100px;">Cost</th>
+                            <th style="padding: 1rem; text-align: left; min-width: 120px;">Learning Curve</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.08);">
+                            <td style="padding: 1rem; color: #d1fae5;"><strong style="color: #6ee7b7;">Metrics</strong></td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #34d399;">Prometheus</strong><br>
+                                + Powerful query language (PromQL)<br>
+                                + Great for Kubernetes<br>
+                                - Scaling challenges
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #5eead4;">Datadog</strong><br>
+                                + Easy setup<br>
+                                + Rich integrations<br>
+                                - Expensive at scale
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">Prometheus: K8s environments<br>Datadog: Fast setup</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: Free<br>SaaS: $15-31/host/mo</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: Medium<br>SaaS: Low</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); background: rgba(20, 41, 59, 0.3);">
+                            <td style="padding: 1rem; color: #e4e4e7;"><strong style="color: #a7f3d0;">Visualization</strong></td>
+                            <td style="padding: 1rem; color: #e4e4e7;">
+                                <strong style="color: #34d399;">Grafana</strong><br>
+                                + Beautiful dashboards<br>
+                                + Multi-source support<br>
+                                + Large community
+                            </td>
+                            <td style="padding: 1rem; color: #e4e4e7;">
+                                <strong style="color: #5eead4;">Grafana Cloud</strong><br>
+                                + Managed service<br>
+                                + Built-in alerting<br>
+                                + Scalable storage
+                            </td>
+                            <td style="padding: 1rem; color: #e4e4e7;">OSS: Custom dashboards<br>Cloud: Hassle-free</td>
+                            <td style="padding: 1rem; color: #e4e4e7;">OSS: Free<br>Cloud: Pay-per-use</td>
+                            <td style="padding: 1rem; color: #e4e4e7;">OSS: Low-Medium<br>Cloud: Low</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.08);">
+                            <td style="padding: 1rem; color: #d1fae5;"><strong style="color: #6ee7b7;">Logs</strong></td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #34d399;">ELK Stack</strong><br>
+                                + Powerful search (Elasticsearch)<br>
+                                + Flexible log processing<br>
+                                - Complex to operate
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #5eead4;">Splunk</strong><br>
+                                + Enterprise-grade<br>
+                                + ML-powered insights<br>
+                                - Very expensive
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">ELK: High volume logs<br>Splunk: Enterprise compliance</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: Free (infra)<br>SaaS: $150+/GB/mo</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: High<br>SaaS: Medium</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); background: rgba(20, 41, 59, 0.3);">
+                            <td style="padding: 1rem; color: #e4e4e7;"><strong style="color: #a7f3d0;">Tracing</strong></td>
+                            <td style="padding: 1rem; color: #e4e4e7;">
+                                <strong style="color: #34d399;">Jaeger</strong><br>
+                                + CNCF project<br>
+                                + OpenTelemetry support<br>
+                                + Lightweight
+                            </td>
+                            <td style="padding: 1rem; color: #e4e4e7;">
+                                <strong style="color: #5eead4;">Honeycomb</strong><br>
+                                + Advanced analytics<br>
+                                + Fast queries<br>
+                                + Great UX
+                            </td>
+                            <td style="padding: 1rem; color: #e4e4e7;">Jaeger: Microservices<br>Honeycomb: Deep analysis</td>
+                            <td style="padding: 1rem; color: #e4e4e7;">OSS: Free<br>SaaS: $0.5/GB</td>
+                            <td style="padding: 1rem; color: #e4e4e7;">OSS: Medium<br>SaaS: Low</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.08);">
+                            <td style="padding: 1rem; color: #d1fae5;"><strong style="color: #6ee7b7;">APM</strong></td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #34d399;">OpenTelemetry</strong><br>
+                                + Vendor-neutral<br>
+                                + Future-proof<br>
+                                - Requires integration work
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #5eead4;">New Relic</strong><br>
+                                + All-in-one solution<br>
+                                + Code-level insights<br>
+                                + Easy instrumentation
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">OTel: Flexibility<br>New Relic: Quick insights</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: Free<br>SaaS: $99-549/mo</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: High<br>SaaS: Low</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(16, 185, 129, 0.2); background: rgba(20, 41, 59, 0.3);">
+                            <td style="padding: 1rem; color: #e4e4e7;"><strong style="color: #a7f3d0;">Load Testing</strong></td>
+                            <td style="padding: 1rem; color: #e4e4e7;">
+                                <strong style="color: #34d399;">K6</strong><br>
+                                + JavaScript-based<br>
+                                + Developer-friendly<br>
+                                + Good documentation
+                            </td>
+                            <td style="padding: 1rem; color: #e4e4e7;">
+                                <strong style="color: #5eead4;">BlazeMeter</strong><br>
+                                + Large-scale tests<br>
+                                + Cloud-based<br>
+                                + CI/CD integration
+                            </td>
+                            <td style="padding: 1rem; color: #e4e4e7;">K6: Modern apps<br>BlazeMeter: Enterprise scale</td>
+                            <td style="padding: 1rem; color: #e4e4e7;">OSS: Free<br>SaaS: $99-899/mo</td>
+                            <td style="padding: 1rem; color: #e4e4e7;">OSS: Low<br>SaaS: Low</td>
+                        </tr>
+                        <tr style="background: rgba(16, 185, 129, 0.08);">
+                            <td style="padding: 1rem; color: #d1fae5;"><strong style="color: #6ee7b7;">Synthetic Monitoring</strong></td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #34d399;">Selenium</strong><br>
+                                + Browser automation<br>
+                                + Language flexibility<br>
+                                - Complex setup
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">
+                                <strong style="color: #5eead4;">Pingdom</strong><br>
+                                + Global checks<br>
+                                + Uptime monitoring<br>
+                                + Simple setup
+                            </td>
+                            <td style="padding: 1rem; color: #d1fae5;">Selenium: Complex flows<br>Pingdom: Uptime checks</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: Free<br>SaaS: $10-249/mo</td>
+                            <td style="padding: 1rem; color: #d1fae5;">OSS: High<br>SaaS: Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid-container" style="grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                <div class="card" style="background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                    <h3 style="margin-bottom: 1rem;">💰 For Startups</h3>
+                    <p style="line-height: 1.8; font-size: 0.95rem;">
+                        <strong>Recommendation:</strong> Start dengan open-source stack (Prometheus + Grafana + Jaeger + ELK). 
+                        Total cost: Infrastructure only (~$200-500/month). Scale to commercial tools when revenue grows.
+                    </p>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); color: white;">
+                    <h3 style="margin-bottom: 1rem;">🏢 For Enterprises</h3>
+                    <p style="line-height: 1.8; font-size: 0.95rem;">
+                        <strong>Recommendation:</strong> Invest in commercial platforms (Datadog/New Relic + Splunk). 
+                        Priority: Ease of use, support, compliance. Cost: $5K-50K+/month depending on scale.
+                    </p>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white;">
+                    <h3 style="margin-bottom: 1rem;">🔬 For Tech Companies</h3>
+                    <p style="line-height: 1.8; font-size: 0.95rem;">
+                        <strong>Recommendation:</strong> Hybrid approach - OSS for core (Prometheus/Grafana), commercial 
+                        for specific needs (APM, security). Build internal expertise. Cost: $2K-20K/month.
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide-number">10</div>
+        </section>
+
+
+        <!-- Slide 21: Interactive Demo - Full Implementation -->
+        <section class="slide">
+            <h2>🎮 Interactive Demo: System Performance Simulator</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Mari kita <span class="highlight">simulasikan berbagai skenario</span> system performance dan observe 
+                bagaimana metrics berubah dalam real-time. Demo ini menunjukkan konsep monitoring dan alerting dalam action.
+            </p>
+
+            <div class="demo-container">
+                <button class="demo-btn" onclick="simulateNormalLoad()" style="background: linear-gradient(135deg, #10b981, #14b8a6);">
+                    ✅ Normal Load
+                </button>
+                <button class="demo-btn" onclick="simulateHighLoad()" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+                    ⚠️ High Load
+                </button>
+                <button class="demo-btn" onclick="simulateSystemFailure()" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                    ❌ System Failure
+                </button>
+                <button class="demo-btn" onclick="simulateSlowQuery()" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                    🐌 Slow Database Query
+                </button>
+                <button class="demo-btn" onclick="resetDashboard()" style="background: linear-gradient(135deg, #64748b, #475569);">
+                    🔄 Reset Dashboard
+                </button>
+            </div>
+
+            <div id="monitoring-dashboard" style="margin-top: 2rem; background: #1e293b; padding: 2rem; border-radius: 12px; color: white;">
+                <h3 style="color: #10b981; margin-bottom: 1.5rem; text-align: center;">📊 Real-Time Monitoring Dashboard</h3>
+                
+                <div class="grid-container" style="grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                    <div class="metric-card" id="latency-card">
+                        <div class="metric-label">Response Time (P95)</div>
+                        <div class="metric-value" id="latency-value">120ms</div>
+                        <div class="metric-status" id="latency-status">✅ Healthy</div>
+                    </div>
+                    
+                    <div class="metric-card" id="throughput-card">
+                        <div class="metric-label">Throughput</div>
+                        <div class="metric-value" id="throughput-value">1,250 req/s</div>
+                        <div class="metric-status" id="throughput-status">✅ Normal</div>
+                    </div>
+                    
+                    <div class="metric-card" id="error-card">
+                        <div class="metric-label">Error Rate</div>
+                        <div class="metric-value" id="error-value">0.05%</div>
+                        <div class="metric-status" id="error-status">✅ Low</div>
+                    </div>
+                    
+                    <div class="metric-card" id="cpu-card">
+                        <div class="metric-label">CPU Usage</div>
+                        <div class="metric-value" id="cpu-value">45%</div>
+                        <div class="metric-status" id="cpu-status">✅ Normal</div>
+                    </div>
+                </div>
+
+                <div id="alert-log" style="background: #0f172a; padding: 1.5rem; border-radius: 8px; min-height: 150px; max-height: 200px; overflow-y: auto;">
+                    <h4 style="color: #14b8a6; margin-bottom: 1rem;">📋 Alert &amp; Event Log</h4>
+                    <div id="log-content" style="font-family: &#39;JetBrains Mono&#39;, monospace; font-size: 0.9rem; line-height: 1.8; color: #94a3b8;">
+                        <div>[2025-01-27 10:30:15] ℹ️  System initialized - All metrics nominal</div>
+                        <div>[2025-01-27 10:30:20] ✅ Health check passed - Response time: 120ms</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                        <strong style="color: #10b981;">💡 Tip:</strong> Observe bagaimana berbagai metrics saling berkorelasi. 
+                        Contoh: High load → Increased latency → Higher CPU usage. Understanding correlation ini adalah key 
+                        untuk effective troubleshooting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide-number">11</div>
+        </section>
+
+        <!-- Slide 22: Real-World Case Study - Tokopedia -->
+        <section class="slide">
+            <h2>📚 Studi Kasus: Tokopedia - E-Commerce Scale Evaluation</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Tokopedia adalah salah satu <span class="highlight">e-commerce terbesar di Indonesia</span> dengan challenges 
+                unik dalam scale, traffic spikes (flash sale, harbolnas), dan diverse user base. Mari kita analyze bagaimana 
+                mereka implement evaluation dan monitoring untuk maintain reliability di scale.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="card" style="background: linear-gradient(135deg, #059669, #047857); color: white;">
+                    <h3 style="margin-bottom: 1rem;">🎯 Scale Challenges</h3>
+                    <div class="grid-container" style="grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem;">Traffic Scale</h4>
+                            <ul style="line-height: 1.8; font-size: 0.95rem;">
+                                <li>100M+ monthly active users</li>
+                                <li>Peak: 3M concurrent users (flash sale)</li>
+                                <li>Normal: 100K+ concurrent users</li>
+                                <li>10M+ products di platform</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem;">Infrastructure Scale</h4>
+                            <ul style="line-height: 1.8; font-size: 0.95rem;">
+                                <li>1000+ microservices</li>
+                                <li>Multi-region deployment</li>
+                                <li>Hybrid cloud (on-prem + GCP)</li>
+                                <li>Kubernetes clusters</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem;">Business Challenges</h4>
+                            <ul style="line-height: 1.8; font-size: 0.95rem;">
+                                <li>Revenue loss: $10K+/minute downtime</li>
+                                <li>Flash sale events (10x normal traffic)</li>
+                                <li>Payment processing reliability</li>
+                                <li>Fraud detection real-time</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">🛠️ Evaluation &amp; Monitoring Strategy</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">1. Multi-Layer Monitoring</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Business Metrics:</strong> GMV (Gross Merchandise Value) per minute, conversion rate, 
+                            cart abandonment rate - tracked real-time untuk detect issues before users complain</li>
+                            <li><strong>Application Metrics:</strong> API latency per endpoint, database query time, 
+                            cache hit ratio, message queue lag</li>
+                            <li><strong>Infrastructure Metrics:</strong> Pod autoscaling events, node health, network throughput, 
+                            storage I/O</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">2. Comprehensive Testing Pipeline</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Pre-Flash Sale Load Testing:</strong> Simulate 5x expected peak load di staging environment 
+                            1 week before event. Run untuk 6-8 hours continuously.</li>
+                            <li><strong>Chaos Engineering:</strong> Regular chaos drills - kill random pods, simulate network 
+                            latency, database failover testing. Measure recovery time.</li>
+                            <li><strong>Canary Deployments:</strong> Deploy new version ke 1% traffic, monitor metrics selama 
+                            30 minutes. Auto-rollback jika error rate &gt; 0.5%.</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">3. Observability Stack</h4>
+                        <div style="background: rgba(16, 185, 129, 0.15); padding: 1rem; border-radius: 8px; border-left: 4px solid #10b981; border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <p style="line-height: 1.8; color: #d1fae5;">
+                                <strong style="color: #6ee7b7;">Metrics:</strong> Prometheus + Thanos (long-term storage)<br>
+                                <strong style="color: #6ee7b7;">Logs:</strong> ELK Stack with 30-day retention<br>
+                                <strong style="color: #6ee7b7;">Tracing:</strong> Jaeger untuk distributed tracing across 1000+ services<br>
+                                <strong style="color: #6ee7b7;">Dashboards:</strong> Grafana dengan 200+ custom dashboards<br>
+                                <strong style="color: #6ee7b7;">Alerting:</strong> PagerDuty integration dengan tiered on-call
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">4. SLO Management</h4>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Checkout Flow SLO:</strong> 99.95% success rate (allows 21.6 min/month downtime)</li>
+                            <li><strong>Search API SLO:</strong> P95 latency &lt; 300ms, P99 &lt; 800ms</li>
+                            <li><strong>Payment Processing SLO:</strong> 99.99% success rate (critical for revenue)</li>
+                            <li><strong>Error Budget:</strong> Tracked weekly. When 80% consumed → freeze feature releases, 
+                            focus on reliability.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                    <h3 style="margin-bottom: 1rem;">📊 Results &amp; Key Learnings</h3>
+                    <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                        <div>
+                            <h4 style="margin-bottom: 0.75rem;">Quantifiable Results:</h4>
+                            <ul style="line-height: 1.8; font-size: 0.95rem;">
+                                <li>✅ Reduced incident MTTR: 60 min → 15 min (75% improvement)</li>
+                                <li>✅ Successfully handled 12.12 mega sale: 3M concurrent users, zero downtime</li>
+                                <li>✅ Improved checkout conversion: 78% → 84% (better performance)</li>
+                                <li>✅ Infrastructure cost optimization: 30% reduction through rightsizing</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.75rem;">Key Learnings:</h4>
+                            <ul style="line-height: 1.8; font-size: 0.95rem;">
+                                <li>🎯 Business metrics as leading indicators (GMV drop = technical issue)</li>
+                                <li>🎯 Automated remediation reduced on-call burden by 60%</li>
+                                <li>🎯 Distributed tracing crucial untuk debugging microservices issues</li>
+                                <li>🎯 Regular chaos drills built confidence dan improved resilience</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-number">12</div>
+        </section>
+
+        <!-- Slide 23: Q&A and Open Discussion -->
+        <section class="slide">
+            <h2>❓ Q&amp;A Session: Mari Berdiskusi!</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Saatnya untuk <span class="highlight">bertanya, berdiskusi, dan sharing pengalaman</span>. 
+                Tidak ada pertanyaan yang "bodoh" - every question adalah kesempatan untuk belajar bersama.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                <div class="card" style="background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                    <h3 style="margin-bottom: 1rem;">💬 Suggested Discussion Areas</h3>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="margin-bottom: 0.5rem;">🔍 Technical Deep Dives</h4>
+                        <ul style="line-height: 1.8; font-size: 0.95rem;">
+                            <li>How distributed tracing actually works?</li>
+                            <li>PromQL query examples untuk common use cases</li>
+                            <li>Setting up your first Grafana dashboard</li>
+                            <li>Debugging slow API calls with tracing</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="margin-bottom: 0.5rem;">🏢 Implementation Challenges</h4>
+                        <ul style="line-height: 1.8; font-size: 0.95rem;">
+                            <li>How to convince management untuk invest in monitoring?</li>
+                            <li>Building observability culture dalam team</li>
+                            <li>Migration dari legacy monitoring ke modern stack</li>
+                            <li>Balancing observability costs vs benefits</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 0.5rem;">📊 Real-World Scenarios</h4>
+                        <ul style="line-height: 1.8; font-size: 0.95rem;">
+                            <li>Share your production incident war stories</li>
+                            <li>What metrics matter most untuk your projects?</li>
+                            <li>Tools yang sudah pernah dicoba - pros &amp; cons</li>
+                            <li>Lessons learned dari evaluating systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">🎓 Learning Resources</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">📚 Recommended Books</h4>
+                        <ul style="line-height: 1.8; font-size: 0.95rem;">
+                            <li><strong>Site Reliability Engineering</strong> by Google SRE Team - The SRE bible</li>
+                            <li><strong>The DevOps Handbook</strong> by Gene Kim et al. - DevOps best practices</li>
+                            <li><strong>Observability Engineering</strong> by Charity Majors - Modern observability</li>
+                            <li><strong>Release It!</strong> by Michael Nygard - Designing for reliability</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">🌐 Online Resources</h4>
+                        <ul style="line-height: 1.8; font-size: 0.95rem;">
+                            <li><strong>Prometheus Documentation:</strong> prometheus.io/docs</li>
+                            <li><strong>Grafana Tutorials:</strong> grafana.com/tutorials</li>
+                            <li><strong>Google SRE Books:</strong> sre.google/books (free online)</li>
+                            <li><strong>CNCF Landscape:</strong> landscape.cncf.io - Tool discovery</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">🎥 Video Learning</h4>
+                        <ul style="line-height: 1.8; font-size: 0.95rem;">
+                            <li><strong>KubeCon talks:</strong> Monitoring &amp; observability sessions</li>
+                            <li><strong>Grafana Labs YouTube:</strong> Dashboard tutorials</li>
+                            <li><strong>AWS re:Invent:</strong> Performance optimization talks</li>
+                            <li><strong>TechWorld with Nana:</strong> DevOps tool tutorials</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">🛠️ Hands-On Practice</h4>
+                        <ul style="line-height: 1.8; font-size: 0.95rem;">
+                            <li><strong>Play with Docker:</strong> labs.play-with-docker.com</li>
+                            <li><strong>Killercoda:</strong> killercoda.com - Interactive scenarios</li>
+                            <li><strong>GitHub Learning Lab:</strong> Automation &amp; CI/CD</li>
+                            <li><strong>Local setup:</strong> Install Prometheus + Grafana di laptop</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem; background: rgba(16, 185, 129, 0.15); border-left: 4px solid #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                <h3 style="color: #6ee7b7; margin-bottom: 1rem;">💡 Tips untuk Next Steps</h3>
+                <div class="grid-container" style="grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <div>
+                        <h4 style="color: #34d399; margin-bottom: 0.5rem;">🎯 Week 1-2</h4>
+                        <p style="line-height: 1.8; font-size: 0.95rem; color: #d1fae5;">
+                            Setup local environment dengan Prometheus + Grafana. Monitor simple application (Node.js/Python).
+                            Create your first dashboard.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="color: #34d399; margin-bottom: 0.5rem;">🎯 Week 3-4</h4>
+                        <p style="line-height: 1.8; font-size: 0.95rem; color: #d1fae5;">
+                            Add distributed tracing dengan Jaeger. Instrument application dengan OpenTelemetry.
+                            Understand trace visualization.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="color: #34d399; margin-bottom: 0.5rem;">🎯 Month 2+</h4>
+                        <p style="line-height: 1.8; font-size: 0.95rem; color: #d1fae5;">
+                            Run load tests dengan K6. Setup alerting rules. Practice chaos engineering dengan
+                            controlled experiments. Document learnings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-box" style="margin-top: 2rem; background: linear-gradient(135deg, #10b981, #14b8a6); color: white; border: none;">
+                <strong style="font-size: 1.2rem;">🗣️ Let's Discuss!</strong>
+                <p style="font-size: 1rem; margin-top: 0.5rem; line-height: 1.8;">
+                    Silahkan bertanya tentang concepts, tools, implementation, atau share pengalaman Anda 
+                    dengan monitoring dan evaluation. Mari belajar bersama! 🚀
+                </p>
+            </div>
+
+            <div class="slide-number">13</div>
+        </section>
+
+        <!-- Slide 24: Summary and Key Takeaways -->
+        <section class="slide">
+            <h2>📝 Summary: Key Takeaways</h2>
+            
+            <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                Mari kita <span class="highlight">recap key concepts</span> yang telah kita pelajari hari ini tentang 
+                evaluasi sistem terintegrasi. Ini adalah foundational knowledge yang akan berguna sepanjang karir Anda 
+                dalam software engineering dan DevOps.
+            </p>
+
+            <div class="grid-container" style="grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="card" style="background: linear-gradient(135deg, #10b981, #14b8a6); color: white;">
+                    <h3 style="margin-bottom: 1rem;">🎯 Core Concepts</h3>
+                    <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                        <div>
+                            <h4 style="margin-bottom: 0.75rem;">1️⃣ 4-Layer Evaluation Framework</h4>
+                            <p style="line-height: 1.8; font-size: 0.95rem;">
+                                Evaluate sistem dari multiple perspectives: <strong>Business, Application, Integration, 
+                                dan Infrastructure layers</strong>. Each layer memiliki metrics dan success criteria yang berbeda.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.75rem;">2️⃣ 6 Critical Evaluation Criteria</h4>
+                            <p style="line-height: 1.8; font-size: 0.95rem;">
+                                <strong>Performance, Reliability, Scalability, Security, Interoperability, Cost Efficiency</strong> - 
+                                Comprehensive evaluation harus cover semua aspek ini dengan measurable indicators.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.75rem;">3️⃣ Three Pillars of Observability</h4>
+                            <p style="line-height: 1.8; font-size: 0.95rem;">
+                                <strong>Metrics</strong> (what's happening), <strong>Logs</strong> (detailed events), 
+                                <strong>Traces</strong> (request journey). Kombinasi ketiga pillar ini memberikan 
+                                complete visibility.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.75rem;">4️⃣ Golden Signals</h4>
+                            <p style="line-height: 1.8; font-size: 0.95rem;">
+                                Google's proven approach: <strong>Latency, Traffic, Errors, Saturation</strong>. 
+                                Monitor these 4 signals to understand system health quickly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">🛠️ Practical Methodologies</h3>
+                    <div class="grid-container" style="grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                        <div>
+                            <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">Performance Testing</h4>
+                            <ul style="line-height: 1.7; font-size: 0.9rem;">
+                                <li>Load Testing (normal &amp; peak)</li>
+                                <li>Stress Testing (breaking point)</li>
+                                <li>Spike Testing (sudden traffic)</li>
+                                <li>Soak Testing (endurance)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">Monitoring Stack</h4>
+                            <ul style="line-height: 1.7; font-size: 0.9rem;">
+                                <li>Prometheus (metrics)</li>
+                                <li>Grafana (visualization)</li>
+                                <li>ELK/Splunk (logs)</li>
+                                <li>Jaeger (tracing)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">Reliability Practices</h4>
+                            <ul style="line-height: 1.7; font-size: 0.9rem;">
+                                <li>SLO/SLA management</li>
+                                <li>Error budget tracking</li>
+                                <li>Chaos Engineering</li>
+                                <li>Blameless postmortems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="color: #10b981; margin-bottom: 1rem;">📊 Real-World Insights</h3>
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">🏆 Netflix Chaos Engineering</h4>
+                        <p style="line-height: 1.8; font-size: 0.95rem;">
+                            Proactive failure injection dengan Chaos Monkey tools → <strong>99.99% availability, 
+                            70% reduction in incidents</strong>. Lesson: Don't wait for failures, test for them.
+                        </p>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">🏆 Uber M3 Platform</h4>
+                        <p style="line-height: 1.8; font-size: 0.95rem;">
+                            Custom metrics platform untuk handle 4,000+ microservices → <strong>50% reduction in MTTD, 
+                            60% reduction in MTTR</strong>. Lesson: Invest in observability infrastructure.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="color: #14b8a6; margin-bottom: 0.5rem;">🏆 Tokopedia E-Commerce</h4>
+                        <p style="line-height: 1.8; font-size: 0.95rem;">
+                            Multi-layer monitoring dengan business metrics as leading indicators → Successfully handled 
+                            <strong>3M concurrent users during mega sale, zero downtime</strong>. Lesson: Business metrics matter.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(245, 158, 11, 0.15); border-left: 4px solid #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">
+                    <h3 style="color: #fbbf24; margin-bottom: 1rem;">⚠️ Common Pitfalls to Avoid</h3>
+                    <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div>
+                            <ul style="line-height: 1.8; font-size: 0.95rem; color: #fde68a;">
+                                <li>❌ Monitoring everything (data overload)</li>
+                                <li>❌ Alert fatigue (too many alerts)</li>
+                                <li>❌ Testing only in production</li>
+                                <li>❌ Ignoring user experience metrics</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul style="line-height: 1.8; font-size: 0.95rem; color: #fde68a;">
+                                <li>❌ Metrics without context/labels</li>
+                                <li>❌ No automated remediation</li>
+                                <li>❌ Not learning from incidents</li>
+                                <li>❌ Lack of observability culture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, #06b6d4, #8b5cf6); color: white;">
+                    <h3 style="margin-bottom: 1rem;">✨ Best Practices Checklist</h3>
+                    <div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div>
+                            <ul style="line-height: 1.8; font-size: 0.95rem;">
+                                <li>✅ Build observability from day one</li>
+                                <li>✅ Define clear SLOs aligned with user needs</li>
+                                <li>✅ Automate testing, deployment, monitoring</li>
+                                <li>✅ Practice Chaos Engineering regularly</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul style="line-height: 1.8; font-size: 0.95rem;">
+                                <li>✅ Foster blameless postmortem culture</li>
+                                <li>✅ Make data-driven decisions</li>
+                                <li>✅ Integrate security in evaluation</li>
+                                <li>✅ Monitor costs as first-class metric</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-box" style="margin-top: 2rem; background: linear-gradient(135deg, #10b981, #14b8a6); color: white; border: none;">
+                <strong style="font-size: 1.3rem;">🎓 Remember:</strong>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem; line-height: 1.8;">
+                    Evaluation bukan one-time activity, melainkan <strong>continuous process</strong> yang integral dengan 
+                    development lifecycle. "You build it, you run it, you monitor it, you improve it" - DevOps mindset. 🚀
+                </p>
+            </div>
+
+            <div class="slide-number">14</div>
+        </section>
+
+
+        <!-- Slide 25: Thank You & Contact -->
+        <section class="slide">
+            <div style="text-align: center; padding: 3rem 2rem;">
+                <img src="./Evaluasi Sistem Terintegrasi_ Metode dan Alat Evaluasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 180px; height: 180px; margin-bottom: 2rem; animation: fadeInUp 0.8s ease-out;">
+                
+                <h1 style="font-size: 3.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, #10b981, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Terima Kasih!
+                </h1>
+                
+                <h2 style="font-size: 2rem; color: #64748b; margin-bottom: 2rem; font-weight: 400;">
+                    Thank You for Your Attention
+                </h2>
+
+                <div style="max-width: 800px; margin: 0 auto 3rem;">
+                    <p style="font-size: 1.3rem; line-height: 1.9; color: #475569; margin-bottom: 1.5rem;">
+                        Semoga materi tentang <span class="highlight">Evaluasi Sistem Terintegrasi</span> ini bermanfaat 
+                        untuk perjalanan Anda dalam dunia software engineering dan DevOps.
+                    </p>
+                    <p style="font-size: 1.2rem; line-height: 1.9; color: #475569;">
+                        Remember: <strong style="color: #10b981;">"Continuous learning, continuous improvement, continuous delivery"</strong> 🚀
+                    </p>
+                </div>
+
+                <div class="card" style="max-width: 700px; margin: 0 auto 2rem; background: linear-gradient(135deg, #10b981, #14b8a6); color: white; text-align: left;">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.8rem;">📧 Contact Information</h3>
+                    
+                    <div style="display: grid; gap: 1rem; font-size: 1.1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">👨‍🏫</span>
+                            <div>
+                                <strong>Dosen:</strong> Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">📧</span>
+                            <div>
+                                <strong>Email:</strong> ikhwan.alfath@untidar.ac.id
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">🏛️</span>
+                            <div>
+                                <strong>Institusi:</strong> Universitas Tidar
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">🎓</span>
+                            <div>
+                                <strong>Program Studi:</strong> Teknologi Informasi
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">📚</span>
+                            <div>
+                                <strong>Mata Kuliah:</strong> Teknologi Sistem Terintegrasi
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(20, 184, 166, 0.15)); padding: 2.5rem; border-radius: 16px; border: 2px solid rgba(16, 185, 129, 0.4); max-width: 700px; margin: 0 auto; box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3); position: relative; overflow: hidden; backdrop-filter: blur(10px);">
+                    <div style="position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: radial-gradient(circle, rgba(16, 185, 129, 0.25), transparent); border-radius: 50%; transform: translate(40%, -40%);"></div>
+                    <div style="position: absolute; bottom: 0; left: 0; width: 120px; height: 120px; background: radial-gradient(circle, rgba(20, 184, 166, 0.25), transparent); border-radius: 50%; transform: translate(-30%, 30%);"></div>
+
+                    <div style="position: relative; z-index: 1;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: linear-gradient(135deg, #10b981, #14b8a6); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">💡</div>
+                            <h3 style="color: #10b981; margin: 0; font-size: 1.6rem; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">Final Words of Wisdom</h3>
+                        </div>
+
+                        <p style="font-size: 1.15rem; line-height: 2; color: #f0fdf4; text-align: left; margin-bottom: 1.5rem; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                            Dalam dunia teknologi yang terus berkembang, kemampuan untuk <strong style="color: #6ee7b7;">evaluate, monitor, dan
+                            improve systems</strong> adalah skill yang invaluable. Start small, practice regularly, dan
+                            jangan takut untuk bereksperimen. Setiap incident adalah learning opportunity, setiap metric
+                            adalah insight untuk improvement.
+                        </p>
+
+                        <div style="background: rgba(16, 185, 129, 0.25); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #10b981; backdrop-filter: blur(5px);">
+                            <p style="font-size: 1.2rem; line-height: 1.9; color: #d1fae5; margin: 0; font-weight: 600; text-align: left; font-style: italic; text-shadow: 0 1px 3px rgba(0,0,0,0.4);">
+                                "The best time to start monitoring was when you deployed your first service. The second best time is now." 🎯
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; font-size: 1.2rem; color: #94a3b8;">
+                    <p>Sampai jumpa di pertemuan berikutnya! 👋</p>
+                    <p style="margin-top: 0.5rem;">Keep learning, keep building, keep improving! 🚀</p>
+                </div>
+            </div>
+
+            <div class="slide-number">15</div>
+        </section>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled="">
+            <span>←</span>
+            <span>Previous</span>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+            <span>Next</span>
+            <span>→</span>
+        </button>
+    </div>
+
+    <!-- Slide Counter -->
+    <div class="controls">
+        <div class="control-btn">
+            <span id="current-slide">1</span> / <span id="total-slides">25</span>
+        </div>
+    </div>
+
+    <!-- Additional CSS for metric cards -->
+    <style>
+        .metric-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-status {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+    </style>
+
+    <!-- JavaScript for Interactive Features (Inline) -->
+    <script>
+        // JavaScript for Interactive Demo Features
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let dashboardInterval = null;
+
+        // Update total slides display
+        document.getElementById('total-slides').textContent = totalSlides;
+        document.querySelectorAll('.slide-number').forEach((el, index) => {
+            const slideNum = index + 1;
+            el.textContent = `${slideNum}`;
+        });
+
+        // Navigation functions
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateSlideCounter();
+            updateNavigationButtons();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function updateSlideCounter() {
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // Disable previous button on first slide
+            if (currentSlide === 0) {
+                prevBtn.disabled = true;
+            } else {
+                prevBtn.disabled = false;
+            }
+
+            // Disable next button on last slide
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.disabled = false;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < totalSlides - 1) {
+                    nextSlide();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    prevSlide();
+                }
+            }
+        });
+
+        // Initialize first slide
+        slides[0].classList.add('active');
+        updateSlideCounter();
+        updateNavigationButtons();
+
+        // Interactive Demo Functions
+        function addLogEntry(message, type = 'info') {
+            const logContent = document.getElementById('log-content');
+            if (!logContent) return;
+
+            const timestamp = new Date().toLocaleString('id-ID', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+
+            let emoji = 'ℹ️';
+            let color = '#94a3b8';
+
+            if (type === 'warning') {
+                emoji = '⚠️';
+                color = '#f59e0b';
+            } else if (type === 'error') {
+                emoji = '❌';
+                color = '#ef4444';
+            } else if (type === 'success') {
+                emoji = '✅';
+                color = '#10b981';
+            }
+
+            const entry = document.createElement('div');
+            entry.style.color = color;
+            entry.textContent = `[${timestamp}] ${emoji} ${message}`;
+            logContent.appendChild(entry);
+            logContent.scrollTop = logContent.scrollHeight;
+        }
+
+        function updateMetric(metricId, value, status, statusText, cardColor = '#1e293b') {
+            const valueEl = document.getElementById(`${metricId}-value`);
+            const statusEl = document.getElementById(`${metricId}-status`);
+            const cardEl = document.getElementById(`${metricId}-card`);
+
+            if (valueEl) valueEl.textContent = value;
+            if (statusEl) statusEl.textContent = status;
+            if (cardEl) cardEl.style.background = cardColor;
+        }
+
+        function simulateNormalLoad() {
+            clearInterval(dashboardInterval);
+            addLogEntry('Simulating normal load conditions...', 'info');
+
+            setTimeout(() => {
+                updateMetric('latency', '120ms', '✅ Healthy', 'Healthy', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                updateMetric('throughput', '1,250 req/s', '✅ Normal', 'Normal', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                updateMetric('error', '0.05%', '✅ Low', 'Low', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                updateMetric('cpu', '45%', '✅ Normal', 'Normal', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                addLogEntry('System operating normally - All metrics within target', 'success');
+            }, 1000);
+        }
+
+        function simulateHighLoad() {
+            clearInterval(dashboardInterval);
+            addLogEntry('Simulating high load scenario...', 'warning');
+
+            let step = 0;
+            dashboardInterval = setInterval(() => {
+                step++;
+
+                const latency = 120 + (step * 80);
+                const throughput = 1250 + (step * 500);
+                const cpu = 45 + (step * 15);
+                const errors = 0.05 + (step * 0.3);
+
+                updateMetric('latency', `${latency}ms`, '⚠️ High', 'High', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                updateMetric('throughput', `${throughput} req/s`, '⚠️ High', 'High', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                updateMetric('error', `${errors.toFixed(2)}%`, '⚠️ Elevated', 'Elevated', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                updateMetric('cpu', `${cpu}%`, cpu > 80 ? '❌ Critical' : '⚠️ High', cpu > 80 ? 'Critical' : 'High', cpu > 80 ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 'linear-gradient(135deg, #f59e0b, #d97706)');
+
+                if (step === 1) {
+                    addLogEntry('Traffic increasing - Latency rising', 'warning');
+                } else if (step === 3) {
+                    addLogEntry('Triggering auto-scaling - Adding 2 instances', 'info');
+                } else if (step === 5) {
+                    addLogEntry('CPU usage critical - Consider additional capacity', 'error');
+                    clearInterval(dashboardInterval);
+                }
+            }, 1500);
+        }
+
+        function simulateSystemFailure() {
+            clearInterval(dashboardInterval);
+            addLogEntry('Simulating system failure scenario...', 'error');
+
+            setTimeout(() => {
+                updateMetric('latency', '5,200ms', '❌ Critical', 'Critical', 'linear-gradient(135deg, #ef4444, #dc2626)');
+                updateMetric('throughput', '150 req/s', '❌ Low', 'Low', 'linear-gradient(135deg, #ef4444, #dc2626)');
+                updateMetric('error', '23.5%', '❌ Critical', 'Critical', 'linear-gradient(135deg, #ef4444, #dc2626)');
+                updateMetric('cpu', '12%', '⚠️ Low', 'Low (Service Down)', 'linear-gradient(135deg, #ef4444, #dc2626)');
+                addLogEntry('DATABASE CONNECTION FAILED', 'error');
+            }, 1000);
+
+            setTimeout(() => {
+                addLogEntry('PagerDuty alert triggered - On-call engineer paged', 'error');
+            }, 2000);
+
+            setTimeout(() => {
+                addLogEntry('Attempting automatic failover to replica database...', 'warning');
+            }, 3500);
+
+            setTimeout(() => {
+                addLogEntry('Failover successful - Service recovering', 'success');
+                updateMetric('latency', '380ms', '⚠️ Elevated', 'Recovering', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                updateMetric('throughput', '980 req/s', '⚠️ Below Normal', 'Recovering', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                updateMetric('error', '1.2%', '⚠️ Elevated', 'Recovering', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                updateMetric('cpu', '52%', '✅ Normal', 'Normal', 'linear-gradient(135deg, #10b981, #059669)');
+            }, 5500);
+        }
+
+        function simulateSlowQuery() {
+            clearInterval(dashboardInterval);
+            addLogEntry('Simulating slow database query scenario...', 'warning');
+
+            setTimeout(() => {
+                updateMetric('latency', '2,100ms', '❌ Very High', 'Very High', 'linear-gradient(135deg, #ef4444, #dc2626)');
+                updateMetric('throughput', '420 req/s', '⚠️ Degraded', 'Degraded', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                updateMetric('error', '0.08%', '✅ Low', 'Low', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                updateMetric('cpu', '78%', '⚠️ High', 'High', 'linear-gradient(135deg, #f59e0b, #d97706)');
+                addLogEntry('Detected slow query: SELECT * FROM orders WHERE...', 'warning');
+            }, 1000);
+
+            setTimeout(() => {
+                addLogEntry('Query execution time: 1,850ms (normal: <50ms)', 'error');
+            }, 2000);
+
+            setTimeout(() => {
+                addLogEntry('Root cause: Missing index on orders.customer_id column', 'warning');
+            }, 3500);
+
+            setTimeout(() => {
+                addLogEntry('Recommendation: CREATE INDEX idx_customer_id ON orders(customer_id)', 'info');
+            }, 5000);
+        }
+
+        function resetDashboard() {
+            clearInterval(dashboardInterval);
+            addLogEntry('Resetting dashboard to initial state...', 'info');
+
+            setTimeout(() => {
+                updateMetric('latency', '120ms', '✅ Healthy', 'Healthy', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                updateMetric('throughput', '1,250 req/s', '✅ Normal', 'Normal', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                updateMetric('error', '0.05%', '✅ Low', 'Low', 'linear-gradient(135deg, #1e293b, #0f172a)');
+                updateMetric('cpu', '45%', '✅ Normal', 'Normal', 'linear-gradient(135deg, #1e293b, #0f172a)');
+
+                // Clear and reset log
+                const logContent = document.getElementById('log-content');
+                if (logContent) {
+                    logContent.innerHTML = '';
+                    const timestamp = new Date().toLocaleString('id-ID', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false
+                    });
+                    logContent.innerHTML = `
+                        <div>[${timestamp}] ℹ️  System initialized - All metrics nominal</div>
+                        <div>[${timestamp}] ✅ Health check passed - Response time: 120ms</div>
+                    `;
+
+                    addLogEntry('Dashboard reset complete', 'success');
+                }
+            }, 500);
+        }
+    </script>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)https://class.tiflab.my.id/storage/lessons/materials/1761012593_9-Konfigurasi-File-Server.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfigurasi File Server - Pertemuan 9</title>
+    <link rel="stylesheet" href="./Konfigurasi File Server - Pertemuan 9_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px 60px 80px 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+            min-height: 0;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+            flex-shrink: 0;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #667eea;
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .feature-box {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+        .info-box {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid #667eea;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .config-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .config-example::before {
+            content: "Configuration";
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .step-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .icon {
+            color: #667eea;
+            margin-right: 15px;
+            font-size: 32px;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #f39c12;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.6);
+        }
+
+        .presenter-mode {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            max-width: 400px;
+        }
+
+        .presenter-mode.active {
+            display: block;
+        }
+
+        .list-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+        }
+
+        .highlight-text {
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border-left: 3px solid #f39c12;
+            font-weight: bold;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #f39c12;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+        }
+
+        .success-box {
+            background: #e8f5e8;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #27ae60;
+        }
+
+        .demo-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .command-box {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .quota-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .quota-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .quota-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .quota-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .backup-strategy {
+            background: linear-gradient(45deg, #e8f5e8, #f0f8f0);
+            border: 2px solid #27ae60;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        /* Custom Scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+            border: 2px solid #f1f1f1;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #5a6fd8;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                width: 98%;
+                height: 95%;
+            }
+            
+            .slide-title {
+                font-size: 32px;
+            }
+            
+            .slide-content {
+                font-size: 20px;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        /* Help text */
+        .help-text {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="" style="cursor: none;">
+    <div class="custom-pointer" id="customPointer" style="left: 288px; top: 380px;"></div>
+    <div class="progress-bar" id="progressBar" style="width: 6.25%;"></div>
+    <div class="slide-counter" id="slideCounter">1 / 16</div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div><i class="fas fa-chevron-up"></i> Scroll up</div>
+        <div><i class="fas fa-chevron-down"></i> Scroll down</div>
+    </div>
+
+    <!-- Help text -->
+    <div class="help-text" id="helpText">
+        <div><strong>Controls:</strong></div>
+        <div>←/→: Change slides | ↑/↓: Scroll | F: Fullscreen</div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Konfigurasi File Server - Pertemuan 9_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Konfigurasi File Server</div>
+                <div class="slide-subtitle">Pertemuan 9 - Network Shares dan Backup Strategies</div>
+            </div>
+            <div class="slide-content">
+                <div class="feature-box animation-bounce">
+                    <i class="fas fa-server icon"></i>
+                    File Server Configuration &amp; Management
+                </div>
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h3 style="color: #667eea; margin-bottom: 15px;">
+                                <i class="fas fa-folder-open"></i> File Server Setup
+                            </h3>
+                            <p>Konfigurasi server untuk sharing files dan data management</p>
+                        </div>
+                        <div class="info-box">
+                            <h3 style="color: #667eea; margin-bottom: 15px;">
+                                <i class="fas fa-network-wired"></i> Network Shares
+                            </h3>
+                            <p>SMB/CIFS, NFS, dan FTP file sharing protocols</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h3 style="color: #667eea; margin-bottom: 15px;">
+                                <i class="fas fa-hdd"></i> Disk Quota Management
+                            </h3>
+                            <p>Pembatasan penggunaan disk space per user/group</p>
+                        </div>
+                        <div class="info-box">
+                            <h3 style="color: #667eea; margin-bottom: 15px;">
+                                <i class="fas fa-backup"></i> Backup Strategies
+                            </h3>
+                            <p>Data protection dan disaster recovery planning</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+                <div>Semester Ganjil 2024/2025</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Tujuan Pembelajaran -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Tujuan Pembelajaran</div>
+            </div>
+            <div class="slide-content">
+                <div class="feature-box">
+                    <i class="fas fa-bullseye icon"></i>
+                    Learning Objectives
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-server" style="color: #667eea;"></i> Setup File Server</strong><br>
+                            Mampu mengkonfigurasi dan mengelola file server untuk berbagai protokol sharing
+                        </div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-share-alt" style="color: #667eea;"></i> Network Shares &amp; Permissions</strong><br>
+                            Mengimplementasikan network shares dengan security permissions yang tepat
+                        </div>
+                    </div>
+                    <div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-chart-pie" style="color: #667eea;"></i> Disk Quota Management</strong><br>
+                            Menerapkan disk quota untuk mengontrol penggunaan storage resources
+                        </div>
+                        <div class="list-item">
+                            <strong><i class="fas fa-shield-alt" style="color: #667eea;"></i> Backup Strategies</strong><br>
+                            Merancang dan mengimplementasikan strategi backup yang efektif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h3 style="color: #27ae60; margin-bottom: 15px;">
+                        <i class="fas fa-check-circle"></i> Kompetensi yang Dicapai
+                    </h3>
+                    <p style="margin-bottom: 10px;"><strong>Teoritis:</strong> Memahami konsep file server, sharing protocols, dan data protection</p>
+                    <p style="margin-bottom: 10px;"><strong>Praktis:</strong> Konfigurasi file server yang secure dan reliable</p>
+                    <p><strong>Analitis:</strong> Evaluasi dan optimasi performa file server system</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda Pertemuan -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Agenda Pertemuan</div>
+            </div>
+            <div class="slide-content">
+                <div class="feature-box">
+                    <i class="fas fa-list-alt icon"></i>
+                    Materi Hari Ini (2x50 menit)
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <strong>File Server Fundamentals</strong><br>
+                    <span style="color: #666; font-size: 20px;">Konsep dasar file server, protokol sharing, dan arsitektur sistem</span>
+                    <div style="margin-top: 10px; font-size: 16px; color: #667eea;">⏱️ 20 menit</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <strong>Setup File Server &amp; Network Shares</strong><br>
+                    <span style="color: #666; font-size: 20px;">Konfigurasi Samba, NFS, dan FTP server dengan permissions</span>
+                    <div style="margin-top: 10px; font-size: 16px; color: #667eea;">⏱️ 30 menit</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <strong>Disk Quota Management</strong><br>
+                    <span style="color: #666; font-size: 20px;">Implementasi user/group quotas dan monitoring</span>
+                    <div style="margin-top: 10px; font-size: 16px; color: #667eea;">⏱️ 25 menit</div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <strong>Backup Strategies &amp; Implementation</strong><br>
+                    <span style="color: #666; font-size: 20px;">Strategi backup, automated backup, dan restore procedures</span>
+                    <div style="margin-top: 10px; font-size: 16px; color: #667eea;">⏱️ 25 menit</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: File Server Fundamentals -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">File Server Fundamentals</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Apa itu File Server?</h3>
+                        <div class="info-box">
+                            <p><strong>File Server</strong> adalah server yang dirancang khusus untuk menyimpan, mengelola, dan menyediakan akses ke files melalui jaringan.</p>
+                        </div>
+                        
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Fungsi Utama</h3>
+                        <div class="list-item">
+                            <i class="fas fa-database" style="color: #667eea;"></i>
+                            <strong>Centralized Storage</strong> - Penyimpanan terpusat
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-users" style="color: #667eea;"></i>
+                            <strong>Multi-user Access</strong> - Akses bersamaan
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-lock" style="color: #667eea;"></i>
+                            <strong>Access Control</strong> - Kontrol permission
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-sync" style="color: #667eea;"></i>
+                            <strong>Data Synchronization</strong> - Sinkronisasi data
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Protocol File Sharing</h3>
+                        <div class="step-card">
+                            <div class="step-number">SMB</div>
+                            <strong>SMB/CIFS (Samba)</strong><br>
+                            Protocol untuk Windows networking, cross-platform compatible
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">NFS</div>
+                            <strong>Network File System</strong><br>
+                            Native Unix/Linux file sharing protocol
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">FTP</div>
+                            <strong>File Transfer Protocol</strong><br>
+                            Transfer files over network, SFTP untuk security
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">SSH</div>
+                            <strong>SSH/SCP</strong><br>
+                            Secure file transfer menggunakan SSH protocol
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Samba Configuration -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Setup Samba File Server</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <h3><i class="fas fa-tools"></i> Praktik: Konfigurasi Samba Server</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Installation &amp; Basic Setup</h3>
+                        <div class="command-box">
+<pre># Install Samba
+sudo apt update
+sudo apt install samba samba-common-bin
+
+# Check status
+sudo systemctl status smbd
+sudo systemctl enable smbd</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Create Share Directory</strong><br>
+                            sudo mkdir -p /srv/samba/shared<br>
+                            sudo chmod 777 /srv/samba/shared
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Add Samba Users</strong><br>
+                            sudo smbpasswd -a username<br>
+                            sudo smbpasswd -e username
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Samba Configuration</h3>
+                        <div class="config-example">
+<pre># /etc/samba/smb.conf
+[global]
+&nbsp;&nbsp;&nbsp;&nbsp;workgroup = WORKGROUP
+&nbsp;&nbsp;&nbsp;&nbsp;server string = File Server
+&nbsp;&nbsp;&nbsp;&nbsp;security = user
+&nbsp;&nbsp;&nbsp;&nbsp;map to guest = bad user
+&nbsp;&nbsp;&nbsp;&nbsp;dns proxy = no
+
+[shared]
+&nbsp;&nbsp;&nbsp;&nbsp;comment = Shared Directory
+&nbsp;&nbsp;&nbsp;&nbsp;path = /srv/samba/shared
+&nbsp;&nbsp;&nbsp;&nbsp;browseable = yes
+&nbsp;&nbsp;&nbsp;&nbsp;read only = no
+&nbsp;&nbsp;&nbsp;&nbsp;guest ok = no
+&nbsp;&nbsp;&nbsp;&nbsp;create mask = 0755
+&nbsp;&nbsp;&nbsp;&nbsp;directory mask = 0755</pre>
+                        </div>
+
+                        <div class="command-box">
+<pre># Test configuration
+sudo testparm
+
+# Restart services
+sudo systemctl restart smbd nmbd</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: NFS Configuration -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Setup NFS File Server</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <h3><i class="fas fa-linux"></i> Praktik: Konfigurasi NFS Server</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">NFS Server Setup</h3>
+                        <div class="command-box">
+<pre># Install NFS
+sudo apt install nfs-kernel-server
+
+# Create NFS directory
+sudo mkdir -p /srv/nfs/public
+sudo chown nobody:nogroup /srv/nfs/public
+sudo chmod 755 /srv/nfs/public</pre>
+                        </div>
+
+                        <div class="config-example">
+<pre># /etc/exports
+/srv/nfs/public&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.0/24(rw,sync,no_subtree_check)
+/home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.0/24(rw,sync,no_root_squash)</pre>
+                        </div>
+
+                        <div class="command-box">
+<pre># Apply configuration
+sudo exportfs -ra
+sudo systemctl restart nfs-kernel-server
+
+# Check exports
+sudo exportfs -v</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">NFS Client Configuration</h3>
+                        <div class="command-box">
+<pre># Install NFS client
+sudo apt install nfs-common
+
+# Create mount point
+sudo mkdir /mnt/nfs-share
+
+# Mount NFS share
+sudo mount -t nfs 192.168.1.10:/srv/nfs/public /mnt/nfs-share</pre>
+                        </div>
+
+                        <div class="config-example">
+<pre># /etc/fstab (permanent mount)
+192.168.1.10:/srv/nfs/public&nbsp;&nbsp;&nbsp;&nbsp;/mnt/nfs-share&nbsp;&nbsp;&nbsp;&nbsp;nfs&nbsp;&nbsp;&nbsp;&nbsp;defaults&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0</pre>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> NFS Security Notes</h4>
+                            <p>• NFS v3 tidak encrypted by default</p>
+                            <p>• Gunakan NFS v4 dengan Kerberos untuk security</p>
+                            <p>• Restrict access menggunakan firewall rules</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: File Permissions & Access Control -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">File Permissions &amp; Access Control</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Samba Permissions</h3>
+                        <div class="config-example">
+<pre># Advanced Samba Share
+[finance]
+&nbsp;&nbsp;&nbsp;&nbsp;comment = Finance Department
+&nbsp;&nbsp;&nbsp;&nbsp;path = /srv/samba/finance
+&nbsp;&nbsp;&nbsp;&nbsp;valid users = @finance-group
+&nbsp;&nbsp;&nbsp;&nbsp;read only = no
+&nbsp;&nbsp;&nbsp;&nbsp;create mask = 0660
+&nbsp;&nbsp;&nbsp;&nbsp;directory mask = 0770
+&nbsp;&nbsp;&nbsp;&nbsp;force group = finance-group
+
+[public]
+&nbsp;&nbsp;&nbsp;&nbsp;comment = Public Share
+&nbsp;&nbsp;&nbsp;&nbsp;path = /srv/samba/public
+&nbsp;&nbsp;&nbsp;&nbsp;guest ok = yes
+&nbsp;&nbsp;&nbsp;&nbsp;read only = yes
+&nbsp;&nbsp;&nbsp;&nbsp;browseable = yes</pre>
+                        </div>
+
+                        <div class="command-box">
+<pre># Create groups &amp; users
+sudo groupadd finance-group
+sudo usermod -aG finance-group alice
+sudo usermod -aG finance-group bob
+
+# Set directory permissions
+sudo chgrp finance-group /srv/samba/finance
+sudo chmod 770 /srv/samba/finance</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Advanced Access Control</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>User-based Access</strong><br>
+                            valid users = alice, bob<br>
+                            invalid users = guest
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Group-based Access</strong><br>
+                            valid users = @admin-group<br>
+                            write list = @editors
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>IP-based Restriction</strong><br>
+                            hosts allow = 192.168.1.0/24<br>
+                            hosts deny = ALL
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-shield-alt"></i> Security Best Practices</h4>
+                            <p>• Disable guest access untuk sensitive data</p>
+                            <p>• Gunakan strong passwords untuk Samba users</p>
+                            <p>• Implement firewall rules</p>
+                            <p>• Regular audit access logs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Disk Quota Management -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Disk Quota Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <h3><i class="fas fa-chart-pie"></i> Praktik: Implementasi Disk Quotas</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Enable Quota System</h3>
+                        <div class="command-box">
+<pre># Edit /etc/fstab
+/dev/sda1 /home ext4 defaults,usrquota,grpquota 0 2
+
+# Remount filesystem
+sudo mount -o remount /home
+
+# Create quota files
+sudo quotacheck -cum /home
+sudo quotaon /home</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Check Quota Status</strong><br>
+                            sudo quotacheck -avum<br>
+                            sudo repquota -a
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Set User Quotas</strong><br>
+                            sudo edquota -u alice<br>
+                            sudo setquota -u alice 100M 150M 0 0 /home
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Quota Configuration</h3>
+                        <table class="quota-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Soft Limit</th>
+                                    <th>Hard Limit</th>
+                                    <th>Current Usage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>alice</td>
+                                    <td>100 MB</td>
+                                    <td>150 MB</td>
+                                    <td>45 MB</td>
+                                </tr>
+                                <tr>
+                                    <td>bob</td>
+                                    <td>200 MB</td>
+                                    <td>250 MB</td>
+                                    <td>180 MB</td>
+                                </tr>
+                                <tr>
+                                    <td>charlie</td>
+                                    <td>50 MB</td>
+                                    <td>75 MB</td>
+                                    <td>65 MB</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="command-box">
+<pre># Group quotas
+sudo edquota -g students
+sudo setquota -g students 1G 2G 0 0 /home
+
+# Copy quotas
+sudo edquota -p alice -u bob
+sudo edquota -p alice -u charlie</pre>
+                        </div>
+
+                        <div class="warning-box">
+                            <strong>Soft vs Hard Limits:</strong><br>
+                            • <strong>Soft Limit:</strong> Warning threshold<br>
+                            • <strong>Hard Limit:</strong> Absolute maximum<br>
+                            • <strong>Grace Period:</strong> Time to comply after soft limit
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Quota Monitoring -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Quota Monitoring &amp; Management</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Monitoring Commands</h3>
+                        <div class="command-box">
+<pre># Check user quotas
+quota -u alice
+repquota -u /home
+
+# Check all users
+repquota -a
+
+# Check group quotas  
+quota -g students
+repquota -g /home
+
+# Quota usage summary
+df -h
+du -sh /home/*</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Automated Quota Reports</strong><br>
+                            Script untuk monitoring quota usage dan alerting
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Grace Period Management</strong><br>
+                            sudo edquota -t<br>
+                            Configure grace periods untuk soft limits
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Quota Management Script</h3>
+                        <div class="config-example">
+<pre>#!/bin/bash
+# quota-monitor.sh
+
+# Check quota usage
+repquota -a | while read line; do
+    user=$(echo $line | awk '{print $1}')
+    used=$(echo $line | awk '{print $3}')
+    soft=$(echo $line | awk '{print $4}')
+    
+    if [ "$used" -gt "$soft" ] 2&gt;/dev/null; then
+        echo "WARNING: $user exceeded quota"
+        echo "$used KB used, limit: $soft KB"
+        
+        # Send email notification
+        mail -s "Quota Warning" $user@domain.com &lt;&lt; EOF
+Your disk quota has been exceeded.
+Current usage: $used KB
+Limit: $soft KB
+Please clean up your files.
+EOF
+    fi
+done</pre>
+                        </div>
+
+                        <div class="command-box">
+<pre># Setup cron job for monitoring
+sudo crontab -e
+
+# Run every hour
+0 * * * * /usr/local/bin/quota-monitor.sh</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Backup Strategies -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Backup Strategies</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <h3><i class="fas fa-shield-alt"></i> Data Protection &amp; Disaster Recovery</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Types of Backup</h3>
+                        <div class="backup-strategy">
+                            <h4><i class="fas fa-database"></i> Full Backup</h4>
+                            <p><strong>Pros:</strong> Complete data copy, fastest restore</p>
+                            <p><strong>Cons:</strong> Large storage, longer backup time</p>
+                            <p><strong>Frequency:</strong> Weekly/Monthly</p>
+                        </div>
+
+                        <div class="backup-strategy">
+                            <h4><i class="fas fa-level-up-alt"></i> Incremental Backup</h4>
+                            <p><strong>Pros:</strong> Fast backup, minimal storage</p>
+                            <p><strong>Cons:</strong> Complex restore process</p>
+                            <p><strong>Frequency:</strong> Daily</p>
+                        </div>
+
+                        <div class="backup-strategy">
+                            <h4><i class="fas fa-clone"></i> Differential Backup</h4>
+                            <p><strong>Pros:</strong> Balance between full and incremental</p>
+                            <p><strong>Cons:</strong> Growing backup size</p>
+                            <p><strong>Frequency:</strong> Daily/Weekly</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">3-2-1 Backup Rule</h3>
+                        <div class="info-box">
+                            <div style="text-align: center; font-size: 48px; color: #667eea; margin-bottom: 20px;">
+                                <strong>3-2-1</strong>
+                            </div>
+                            <div style="font-size: 24px; line-height: 1.8;">
+                                <p><strong style="color: #667eea;">3</strong> copies of important data</p>
+                                <p><strong style="color: #667eea;">2</strong> different storage media</p>
+                                <p><strong style="color: #667eea;">1</strong> offsite backup copy</p>
+                            </div>
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-clock"></i> Backup Schedule Example</h4>
+                            <p><strong>Daily:</strong> Incremental backup (automated)</p>
+                            <p><strong>Weekly:</strong> Differential backup</p>
+                            <p><strong>Monthly:</strong> Full backup</p>
+                            <p><strong>Quarterly:</strong> Archive to offsite storage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Backup Implementation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Backup Implementation</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Rsync Backup</h3>
+                        <div class="command-box">
+<pre># Basic rsync backup
+rsync -avz /srv/samba/ /backup/daily/
+
+# Remote backup
+rsync -avz /srv/samba/ user@backup-server:/backup/
+
+# Incremental with hard links
+rsync -avz --link-dest=/backup/previous/ 
+      /srv/samba/ /backup/current/</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Create Backup Script</strong><br>
+                            Automated backup dengan rotation policy
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Schedule with Cron</strong><br>
+                            0 2 * * * /usr/local/bin/backup.sh
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Advanced Backup Script</h3>
+                        <div class="config-example">
+<pre>#!/bin/bash
+# backup.sh - Automated backup script
+
+BACKUP_SOURCE="/srv/samba"
+BACKUP_DEST="/backup"
+DATE=$(date +%Y%m%d_%H%M%S)
+RETENTION_DAYS=30
+
+# Create backup directory
+mkdir -p $BACKUP_DEST/$DATE
+
+# Perform backup
+rsync -avz --delete \
+      --link-dest=$BACKUP_DEST/latest \
+      $BACKUP_SOURCE/ \
+      $BACKUP_DEST/$DATE/
+
+# Update latest symlink
+rm -f $BACKUP_DEST/latest
+ln -s $DATE $BACKUP_DEST/latest
+
+# Cleanup old backups
+find $BACKUP_DEST -maxdepth 1 -type d \
+     -mtime +$RETENTION_DAYS -exec rm -rf {} \;
+
+# Log backup completion
+echo "$(date): Backup completed successfully" &gt;&gt; /var/log/backup.log</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Restore Procedures -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Restore Procedures</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <h3><i class="fas fa-undo"></i> Testing Restore Procedures</h3>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Restore Types</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Full System Restore</strong><br>
+                            Complete recovery dari total system failure
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Selective File Restore</strong><br>
+                            Restore specific files atau directories
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Point-in-Time Recovery</strong><br>
+                            Restore ke waktu tertentu sebelum masalah terjadi
+                        </div>
+
+                        <div class="command-box">
+<pre># Full restore
+rsync -avz /backup/20241201_020000/ /srv/samba/
+
+# Selective restore
+rsync -avz /backup/latest/important_files/ 
+      /srv/samba/important_files/
+
+# Verify restore
+diff -r /backup/latest/ /srv/samba/</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Disaster Recovery Plan</h3>
+                        <div class="backup-strategy">
+                            <h4><i class="fas fa-file-alt"></i> Documentation</h4>
+                            <p>• Inventory semua systems dan data</p>
+                            <p>• Step-by-step recovery procedures</p>
+                            <p>• Emergency contact information</p>
+                        </div>
+
+                        <div class="backup-strategy">
+                            <h4><i class="fas fa-vial"></i> Regular Testing</h4>
+                            <p>• Monthly restore testing</p>
+                            <p>• Verify backup integrity</p>
+                            <p>• Update procedures as needed</p>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Recovery Time Objectives</h4>
+                            <p><strong>RTO (Recovery Time Objective):</strong> Maximum acceptable downtime</p>
+                            <p><strong>RPO (Recovery Point Objective):</strong> Maximum acceptable data loss</p>
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-check-circle"></i> Restore Verification</h4>
+                            <p>• File integrity checks</p>
+                            <p>• Service functionality testing</p>
+                            <p>• User access validation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Case Study -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Case Study: Enterprise File Server</div>
+            </div>
+            <div class="slide-content">
+                <div class="demo-box">
+                    <h3><i class="fas fa-building"></i> Skenario: PT. Digital Solutions</h3>
+                </div>
+
+                <div class="info-box" style="margin-bottom: 30px;">
+                    <h4>Requirement Analysis</h4>
+                    <p>PT. Digital Solutions membutuhkan file server untuk 100 employees dengan departemen: IT (25), Finance (20), HR (15), Marketing (20), Operations (20).</p>
+                    <p><strong>Requirements:</strong> Multi-protocol access, departmental isolation, 2TB storage, automated backup, disaster recovery.</p>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Implementation Plan</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Hardware Setup</strong><br>
+                            • Server: Dell PowerEdge R740<br>
+                            • Storage: 4TB RAID 10 (2TB usable)<br>
+                            • Network: Dual 1Gb NIC
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>File Server Configuration</strong><br>
+                            • Samba untuk Windows clients<br>
+                            • NFS untuk Linux workstations<br>
+                            • SFTP untuk remote access
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Security Implementation</strong><br>
+                            • Departmental access control<br>
+                            • Firewall rules<br>
+                            • Audit logging
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Directory Structure</h3>
+                        <div class="config-example">
+<pre>/srv/fileserver/
+├── departments/
+│   ├── it/           (IT department only)
+│   ├── finance/      (Finance + Management)
+│   ├── hr/           (HR department only)
+│   ├── marketing/    (Marketing department)
+│   └── operations/   (Operations department)
+├── shared/
+│   ├── public/       (All users read-only)
+│   ├── projects/     (Cross-departmental)
+│   └── temp/         (Temporary files)
+└── backup/
+    ├── daily/
+    ├── weekly/
+    └── monthly/</pre>
+                        </div>
+
+                        <table class="quota-table">
+                            <thead>
+                                <tr>
+                                    <th>Department</th>
+                                    <th>Users</th>
+                                    <th>Quota (GB)</th>
+                                    <th>Protocol</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>IT</td>
+                                    <td>25</td>
+                                    <td>600</td>
+                                    <td>SMB/NFS</td>
+                                </tr>
+                                <tr>
+                                    <td>Finance</td>
+                                    <td>20</td>
+                                    <td>400</td>
+                                    <td>SMB</td>
+                                </tr>
+                                <tr>
+                                    <td>HR</td>
+                                    <td>15</td>
+                                    <td>300</td>
+                                    <td>SMB</td>
+                                </tr>
+                                <tr>
+                                    <td>Marketing</td>
+                                    <td>20</td>
+                                    <td>500</td>
+                                    <td>SMB</td>
+                                </tr>
+                                <tr>
+                                    <td>Operations</td>
+                                    <td>20</td>
+                                    <td>400</td>
+                                    <td>SMB</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Case Study: Enterprise File Server Implementation</div>
+                <div>Slide 13</div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Performance Optimization & Monitoring -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Performance Optimization &amp; Monitoring</div>
+                <div class="slide-subtitle">Tuning dan Monitoring File Server</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea;">Performance Tuning</h3>
+                        <div class="config-example">
+<pre># Samba Performance Tuning
+[global]
+    socket options = TCP_NODELAY IPTOS_LOWDELAY
+    read raw = yes
+    write raw = yes
+    max xmit = 65535
+    dead time = 15
+    getwd cache = yes</pre>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Network Optimization</strong><br>
+                            • Jumbo frames untuk Gigabit networks<br>
+                            • NIC teaming untuk bandwidth aggregation
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Storage Optimization</strong><br>
+                            • SSD untuk metadata dan cache<br>
+                            • RAID configuration sesuai workload
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Memory Optimization</strong><br>
+                            • Increase file system cache<br>
+                            • Optimize Samba memory usage
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #667eea;">Monitoring &amp; Alerting</h3>
+                        <div class="command-box">
+<pre># Monitor file server performance
+iostat -x 1       # Disk I/O statistics
+iftop             # Network traffic monitoring
+smbstatus         # Samba connections
+netstat -i        # Network interface statistics
+
+# Check file server health
+df -h             # Disk usage
+free -m           # Memory usage
+uptime            # System load</pre>
+                        </div>
+
+                        <div class="success-box">
+                            <h4><i class="fas fa-chart-line"></i> Key Metrics to Monitor</h4>
+                            <p>• <strong>Throughput:</strong> MB/s transfer rates</p>
+                            <p>• <strong>Latency:</strong> Response time per request</p>
+                            <p>• <strong>Connections:</strong> Concurrent user sessions</p>
+                            <p>• <strong>Storage:</strong> Disk usage dan IOPS</p>
+                            <p>• <strong>Network:</strong> Bandwidth utilization</p>
+                        </div>
+
+                        <div class="warning-box">
+                            <h4><i class="fas fa-bell"></i> Alert Thresholds</h4>
+                            <p>• Disk usage &gt; 80%</p>
+                            <p>• Memory usage &gt; 85%</p>
+                            <p>• Network utilization &gt; 70%</p>
+                            <p>• Response time &gt; 5 seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Performance Optimization &amp; Monitoring</div>
+                <div>Slide 14</div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Kesimpulan & Next Steps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Konfigurasi File Server - Pertemuan 9_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Kesimpulan &amp; Next Steps</div>
+                <div class="slide-subtitle">File Server Configuration Summary</div>
+            </div>
+            <div class="slide-content">
+                <div class="feature-box animation-bounce">
+                    <i class="fas fa-trophy icon"></i>
+                    Materi Telah Diselesaikan!
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Yang Telah Dipelajari</h3>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>File Server Setup:</strong> Samba, NFS, dan FTP configuration
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Network Shares:</strong> Permissions dan access control
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Disk Quotas:</strong> User/group quota management
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Backup Strategies:</strong> 3-2-1 rule dan automation
+                        </div>
+                        <div class="list-item">
+                            <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            <strong>Performance Optimization:</strong> Tuning dan monitoring
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #667eea; margin-bottom: 20px;">Tugas Praktik</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Setup File Server</strong><br>
+                            Konfigurasi Samba server dengan 3 departmental shares
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Implement Quotas</strong><br>
+                            Set disk quotas untuk 5 users dengan different limits
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Backup Implementation</strong><br>
+                            Create automated backup script dengan retention policy
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Test Restore</strong><br>
+                            Verify backup integrity dan restore procedures
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: #27ae60; text-align: center;">
+                        <i class="fas fa-graduation-cap"></i> Pertemuan Selanjutnya
+                    </h3>
+                    <p style="text-align: center; font-size: 24px; margin-top: 15px;">
+                        <strong>Pertemuan 10:</strong> Monitoring dan Troubleshooting Sistem Jaringan
+                    </p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Kesimpulan &amp; Next Steps</div>
+                <div>Slide 15</div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Konfigurasi File Server - Pertemuan 9_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Terima Kasih</div>
+                <div class="slide-subtitle">Selesai Materi Konfigurasi File Server</div>
+            </div>
+            <div class="slide-content">
+                <div class="feature-box animation-bounce">
+                    <i class="fas fa-heart icon"></i>
+                    Terima Kasih!
+                </div>
+                
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: #27ae60; text-align: center;">
+                        <i class="fas fa-check-circle"></i> Materi Telah Selesai
+                    </h3>
+                    <p style="text-align: center; font-size: 20px; margin-top: 15px;">
+                        <strong>Semoga materi Konfigurasi File Server ini bermanfaat!</strong>
+                    </p>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h4><i class="fas fa-user"></i> Kontak Dosen</h4>
+                    <p><strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong></p>
+                    <p>Program Studi Teknologi Informasi</p>
+                    <p>Universitas Tidar Magelang</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <div style="font-size: 4rem; color: #667eea;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div>Terima Kasih</div>
+                <div>Slide 16</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes">
+            <p>Slide 1: Pembukaan materi file server configuration</p>
+        </div>
+        <div style="margin-top: 15px;">
+            <strong>Waktu:</strong> <span id="timer">01:47</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        // Debugging
+        console.log('Total slides found:', totalSlides);
+        console.log('Slide elements:', slides);
+        for(let i = 0; i < slides.length; i++) {
+            console.log('Slide', i+1, ':', slides[i]);
+        }
+        let presenterModeActive = false;
+        let startTime = Date.now();
+
+        // Custom pointer
+        const customPointer = document.getElementById('customPointer');
+        
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Slide 1: Pembukaan materi file server configuration dengan overview protocols dan components",
+            "Slide 2: Tujuan pembelajaran - focus pada practical skills untuk enterprise file server management", 
+            "Slide 3: Agenda pembelajaran 2x50 menit dengan breakdown waktu per topik",
+            "Slide 4: File server fundamentals - explain different protocols dan use cases",
+            "Slide 5: Hands-on Samba configuration - demonstrate live setup dengan best practices",
+            "Slide 6: NFS setup untuk Linux environments - show cross-platform compatibility",
+            "Slide 7: Advanced permissions dan access control - security considerations",
+            "Slide 8: Disk quota implementation - practical resource management",
+            "Slide 9: Quota monitoring dan automation - proactive management approach",
+            "Slide 10: Backup strategies overview - emphasize 3-2-1 rule importance",
+            "Slide 11: Backup implementation dengan scripts - show automation benefits",
+            "Slide 12: Restore procedures dan disaster recovery - testing is critical",
+            "Slide 13: Enterprise case study - apply all concepts in real scenario",
+            "Slide 14: Performance optimization dan monitoring - production considerations",
+            "Slide 15: Summary dan practical assignments untuk next session"
+        ];
+
+        function updateSlide() {
+            console.log('updateSlide called, currentSlide:', currentSlide);
+            slides.forEach((slide, index) => {
+                const isActive = index === currentSlide;
+                slide.classList.toggle('active', isActive);
+                console.log('Slide', index+1, 'active:', isActive);
+                if (index === currentSlide) {
+                    slide.scrollTop = 0;
+                    console.log('Setting active slide:', index+1, slide);
+                }
+            });
+
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            console.log('changeSlide called, direction:', direction, 'current:', currentSlide, 'new:', newSlide, 'totalSlides:', totalSlides);
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                console.log('Changing to slide:', currentSlide + 1);
+                updateSlide();
+            } else {
+                console.log('Cannot change slide - out of bounds');
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            
+            if (presenterModeActive) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'f':
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    togglePresenterMode();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = 0;
+                        updateSlide();
+                    } else {
+                        slides[currentSlide].scrollTop = 0;
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    if (e.ctrlKey) {
+                        currentSlide = totalSlides - 1;
+                        updateSlide();
+                    } else {
+                        const activeSlide = slides[currentSlide];
+                        activeSlide.scrollTop = activeSlide.scrollHeight;
+                    }
+                    break;
+                case 't':  // Test - go to slide 14
+                    currentSlide = 13; // 0-indexed
+                    console.log('Forcing navigation to slide 14');
+                    updateSlide();
+                    break;
+                case 'y':  // Test - go to slide 15  
+                    currentSlide = 14; // 0-indexed
+                    console.log('Forcing navigation to slide 15');
+                    updateSlide();
+                    break;
+                case 'u':  // Test - go to slide 16
+                    currentSlide = 15; // 0-indexed
+                    console.log('Forcing navigation to slide 16');
+                    updateSlide();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+        setInterval(updateTimer, 1000);
+        
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Show help text on first load
+        setTimeout(showHelpText, 1000);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 0) {
+                    changeSlide(1);
+                } else {
+                    changeSlide(-1);
+                }
+            }
+
+            touchStartX = 0;
+            touchStartY = 0;
+        });
+
+        // Auto-hide cursor
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'none';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                document.body.style.cursor = 'none';
+            }, 3000);
+        });
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

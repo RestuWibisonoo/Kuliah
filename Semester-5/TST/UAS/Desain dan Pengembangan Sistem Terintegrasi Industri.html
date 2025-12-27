@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<!-- saved from url=(0123)https://class.tiflab.my.id/storage/lessons/materials/1760914958_9-Desain-dan-Pengembangan-Sistem-Terintegrasi-Industri.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desain dan Pengembangan Sistem Terintegrasi Industri</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #667eea rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #FFA500;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #FFEAA7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #DDD;
+        }
+
+        ul {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "🏭";
+            position: absolute;
+            left: -2rem;
+            top: 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-box h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+
+        .content-box ul {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .industry-box {
+            background: rgba(102, 126, 234, 0.2);
+            border-left: 4px solid #667eea;
+        }
+
+        .smart-box {
+            background: rgba(118, 75, 162, 0.2);
+            border-left: 4px solid #764ba2;
+        }
+
+        .integration-box {
+            background: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid #2ecc71;
+        }
+
+        .design-box {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid #e74c3c;
+        }
+
+        .case-study {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-study h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .architecture-diagram {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            backdrop-filter: blur(10px);
+        }
+
+        .framework-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .framework-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .framework-item h5 {
+            font-size: 1.3rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: #FFEAA7;
+            margin-top: 0.5rem;
+        }
+    </style>
+<style>
+            @keyframes fadeIn {
+                from { opacity: 0; transform: scale(0.8); }
+                to { opacity: 1; transform: scale(1); }
+            }
+        </style></head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar" style="width: 4.7619%;"></div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 120px; height: 120px; margin-right: 2rem; animation: fadeIn 1s ease;">
+                <div>
+                    <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Desain dan Pengembangan<br>Sistem Terintegrasi Industri</h1>
+                    <div class="subtitle">Design and Development of Integrated Systems for Industrial Applications</div>
+                </div>
+            </div>
+
+            <div class="university-info">
+                <div class="university-name">Universitas Tidar Magelang</div>
+                <div class="faculty-info">Fakultas Teknik - Program Studi Teknologi Informasi</div>
+                <div class="course-info">Teknologi Sistem Terintegrasi - Pertemuan 9</div>
+                <div style="margin-top: 1rem; font-size: 1.1rem; color: #FFEAA7;">Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>🎯 CPMK yang Dicapai</h4>
+                    <ul>
+                        <li>CPMK 0801: Konsep IoT sistematis</li>
+                        <li>CPMK 0901: Analisis infrastruktur jaringan</li>
+                        <li>CPMK 1001: Implementasi algoritma</li>
+                        <li>CPMK 1005: Cloud Computing &amp; integrasi data</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>📊 Detail Pertemuan</h4>
+                    <ul>
+                        <li>Durasi: 170 menit (3 SKS)</li>
+                        <li>Metode: Ceramah, proyek desain, diskusi</li>
+                        <li>Target: Merancang sistem terintegrasi industri</li>
+                        <li>Penilaian: Kelengkapan dan relevansi desain</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Konteks Mata Kuliah TST -->
+        <div class="slide">
+            <h2>Konteks dalam Teknologi Sistem Terintegrasi</h2>
+
+            <h3>Deskripsi Mata Kuliah</h3>
+            <div class="case-study">
+                <p style="font-size: 1.3rem; line-height: 1.6; text-align: justify;">Mata kuliah Teknologi Sistem Terintegrasi mencakup bagaimana berbagai sistem dalam ruang lingkup teknologi informasi seperti <strong>IoT</strong>, <strong>infrastruktur dan jaringan</strong>, serta <strong>cloud computing</strong> diintegrasikan untuk dapat saling berkomunikasi, menghasilkan data, serta memberikan informasi sesuai dengan tujuan sistem yang dibutuhkan.</p>
+
+                <p style="font-size: 1.2rem; line-height: 1.6; text-align: justify; margin-top: 1rem;">
+                    Integrasi sistem ini memungkinkan industri untuk menciptakan ekosistem digital yang kohesif, dimana data mengalir secara seamless dari tingkat operasional (sensor dan mesin) hingga tingkat strategis (business intelligence dan decision making). Pendekatan holistik ini mengoptimalkan efisiensi operasional, meningkatkan kualitas produk, dan memberikan competitive advantage bagi perusahaan.
+                </p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>🔗 Integrasi Komponen TST</h4>
+                    <ul>
+                        <li><strong>IoT Devices &amp; Sensors:</strong> Perangkat fisik yang mengumpulkan data real-time dari lingkungan industri (suhu, tekanan, getaran, kualitas produk)</li>
+                        <li><strong>Network Infrastructure:</strong> Backbone komunikasi yang menghubungkan semua komponen sistem dengan protokol industrial-grade</li>
+                        <li><strong>Cloud Computing Platforms:</strong> Infrastruktur scalable untuk penyimpanan data masif dan komputasi analytics</li>
+                        <li><strong>Data Processing &amp; Analytics:</strong> Algoritma machine learning dan AI untuk mengolah data menjadi actionable insights</li>
+                        <li><strong>Security Framework:</strong> Lapisan keamanan berlapis untuk melindungi data dan sistem dari ancaman cyber</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>🎯 Aplikasi Industri</h4>
+                    <ul>
+                        <li><strong>Smart Manufacturing:</strong> Pabrik cerdas dengan otomasi penuh, monitoring real-time, dan optimasi produksi berbasis AI</li>
+                        <li><strong>Industrial Automation:</strong> Sistem kontrol otomatis untuk proses manufaktur, mengurangi human error dan meningkatkan konsistensi</li>
+                        <li><strong>Supply Chain Management:</strong> Tracking end-to-end dari raw material hingga finished goods dengan visibility penuh</li>
+                        <li><strong>Quality Control Systems:</strong> Inspeksi otomatis menggunakan computer vision dan AI untuk deteksi defect</li>
+                        <li><strong>Predictive Maintenance:</strong> Analisis kondisi mesin untuk memprediksi kerusakan sebelum terjadi downtime</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: CPMK dan Capaian Pembelajaran -->
+        <div class="slide">
+            <h2>Capaian Pembelajaran Mata Kuliah (CPMK)</h2>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>📟 CPMK 0801</h4>
+                    <p><strong>Konsep IoT Sistematis</strong></p>
+                    <ul>
+                        <li><strong>Mengonsepkan teori IoT:</strong> Memahami arsitektur IoT layer (perception, network, application) dan prinsip M2M communication dalam konteks industri</li>
+                        <li><strong>Metode dan teknik pemrograman IoT:</strong> Menguasai embedded programming (C/C++, MicroPython), protokol komunikasi (MQTT, CoAP), dan edge computing</li>
+                        <li><strong>Algoritma pengembangan produk IoT:</strong> Merancang flow data collection, preprocessing, transmission optimization, dan energy management</li>
+                        <li><strong>Layanan berbasis IoT secara sistematis:</strong> Membangun end-to-end IoT solutions dari sensor deployment hingga cloud analytics dan user interface</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>🌐 CPMK 0901</h4>
+                    <p><strong>Infrastruktur &amp; Keamanan Jaringan</strong></p>
+                    <ul>
+                        <li><strong>Mengonsepkan infrastruktur jaringan:</strong> Merancang network topology (star, mesh, hybrid) untuk industrial environments dengan pertimbangan reliability dan redundancy</li>
+                        <li><strong>Menganalisis kebutuhan jaringan:</strong> Menghitung bandwidth requirements, latency constraints, dan QoS parameters untuk aplikasi real-time industrial</li>
+                        <li><strong>Merancang keamanan jaringan:</strong> Implementasi network segmentation, DMZ, firewall rules, VPN tunneling, dan IDS/IPS systems</li>
+                        <li><strong>Implementasi security framework:</strong> Menerapkan zero-trust architecture, encryption standards (TLS/SSL), dan compliance dengan industrial security standards (IEC 62443)</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>⚙️ CPMK 1001</h4>
+                    <p><strong>Implementasi Algoritma</strong></p>
+                    <ul>
+                        <li><strong>Mengimplementasikan algoritma:</strong> Coding optimization algorithms (genetic algorithms, simulated annealing) untuk production scheduling dan resource allocation</li>
+                        <li><strong>Penyelesaian permasalahan tertentu:</strong> Menerapkan machine learning models (regression, classification, clustering) untuk predictive maintenance dan quality prediction</li>
+                        <li><strong>Optimasi proses industri:</strong> Menggunakan mathematical optimization (linear programming, constraint satisfaction) untuk minimizing waste dan maximizing throughput</li>
+                        <li><strong>Data processing algorithms:</strong> Implementasi real-time stream processing, time-series analysis, anomaly detection, dan data fusion dari multiple sensor sources</li>
+                    </ul>
+                </div>
+                <div class="content-box design-box">
+                    <h4>☁️ CPMK 1005</h4>
+                    <p><strong>Cloud Computing &amp; Integrasi Data</strong></p>
+                    <ul>
+                        <li><strong>Implementasi Cloud Computing:</strong> Deployment aplikasi industrial di cloud platforms (AWS IoT Core, Azure IoT Hub, Google Cloud IoT) dengan scalability dan high availability</li>
+                        <li><strong>Integrasi data kehidupan sehari-hari:</strong> Connecting operational data dengan business systems (ERP, CRM, SCM) untuk holistic view dan data-driven decision making</li>
+                        <li><strong>Cloud-based solutions:</strong> Utilizing cloud services seperti serverless computing, container orchestration (Kubernetes), dan managed databases untuk industrial applications</li>
+                        <li><strong>Data analytics &amp; visualization:</strong> Building dashboards dan reporting systems dengan tools seperti Power BI, Tableau, Grafana untuk real-time monitoring dan historical trend analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Pengantar Sistem Terintegrasi Industri -->
+        <div class="slide">
+            <h2>Pengantar Sistem Terintegrasi Industri</h2>
+
+            <h3>Definisi dan Konsep Fundamental</h3>
+            <ul>
+                <li><strong>Sistem yang mengintegrasikan seluruh aspek operasional:</strong> Menciptakan ekosistem digital kohesif yang menghubungkan shop floor operations, business processes, supply chain, dan customer interactions dalam satu platform terintegrasi</li>
+                <li><strong>Menghubungkan mesin produksi dengan sistem informasi:</strong> Bridge antara OT (Operational Technology) dan IT (Information Technology) melalui protokol standar industrial (OPC UA, Modbus) yang memungkinkan bi-directional communication</li>
+                <li><strong>Mengoptimalkan efisiensi melalui otomatisasi:</strong> Mengurangi manual intervention dengan automated workflows, robot collaboration, dan autonomous decision-making systems yang meningkatkan throughput dan mengurangi human error</li>
+                <li><strong>Pemantauan real-time dan pengambilan keputusan berbasis data:</strong> Dashboard analytics yang menampilkan KPIs secara live, memungkinkan quick response terhadap anomalies, dan data-driven strategic planning menggunakan historical trends</li>
+            </ul>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>🏭 Karakteristik Utama</h4>
+                    <ul>
+                        <li><strong>Real-time Monitoring (IoT Sensors):</strong> Network sensor yang continuously collecting data (temperature, vibration, pressure, flow rate) dengan sampling rate tinggi untuk immediate visibility</li>
+                        <li><strong>Predictive Maintenance (ML Algorithms):</strong> Machine learning models yang analyze sensor patterns untuk predict equipment failures sebelum terjadi, reducing unplanned downtime hingga 50%</li>
+                        <li><strong>Quality Control Integration:</strong> Automated inspection systems menggunakan computer vision dan AI untuk detect defects dengan accuracy &gt;99%, ensuring consistent product quality</li>
+                        <li><strong>Supply Chain Integration:</strong> End-to-end visibility dari supplier hingga customer dengan real-time tracking, automated reordering, dan just-in-time inventory management</li>
+                        <li><strong>Cloud-based Data Processing:</strong> Scalable cloud infrastructure untuk big data analytics, machine learning training, dan cross-plant benchmarking dengan unlimited storage capacity</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>🚀 Manfaat Implementasi</h4>
+                    <ul>
+                        <li><strong>Peningkatan efisiensi 20-30%:</strong> Optimasi production scheduling, reduced changeover time, improved OEE (Overall Equipment Effectiveness), dan minimized energy consumption</li>
+                        <li><strong>Pengurangan waste dan downtime:</strong> Lean manufacturing principles implementation, predictive maintenance preventing failures, dan quick troubleshooting reducing MTTR (Mean Time To Repair)</li>
+                        <li><strong>Konsistensi kualitas produk:</strong> Automated quality checks, statistical process control (SPC), real-time adjustments, dan 100% traceability ensuring customer satisfaction</li>
+                        <li><strong>Optimasi penggunaan sumber daya:</strong> Smart energy management, optimal raw material utilization, workforce productivity enhancement, dan capacity planning optimization</li>
+                        <li><strong>Competitive advantage:</strong> Faster time-to-market, customization capabilities, operational excellence, innovation enablement, dan superior customer experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Komponen TST dalam Industri -->
+        <div class="slide">
+            <h2>Komponen TST dalam Aplikasi Industri</h2>
+
+            <h3>Integrasi IoT, Jaringan, dan Cloud Computing</h3>
+
+            <div class="architecture-diagram">
+                ┌───────────────────────────────────────────────────────────┐<br>
+                │                    CLOUD COMPUTING LAYER                     │<br>
+                │  AWS/Azure/GCP | Data Analytics | Machine Learning | Storage  │<br>
+                └───────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                ┌───────────────────────────────────────────────────────────┐<br>
+                │                NETWORK INFRASTRUCTURE                     │<br>
+                │  5G/WiFi6 | Industrial Ethernet | Edge Computing | VPN    │<br>
+                └───────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                ┌───────────────────────────────────────────────────────────┐<br>
+                │                      IOT LAYER                             │<br>
+                │  Smart Sensors | RFID Tags | Actuators | Industrial IoT   │<br>
+                └───────────────────────────────────────────────────────────┘
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>📟 Relevansi dengan CPMK 0801 (IoT)</h4>
+                    <ul>
+                        <li><strong>Smart sensors untuk monitoring produksi:</strong> Temperature sensors (DHT22, PT100), vibration sensors (accelerometers), pressure transducers, flow meters yang collect process parameters setiap detik untuk real-time production visibility</li>
+                        <li><strong>RFID untuk tracking material:</strong> Active/passive RFID tags pada raw materials, WIP (Work In Progress), dan finished goods untuk automated inventory tracking, anti-counterfeiting, dan traceability compliance</li>
+                        <li><strong>Actuators untuk kontrol otomatis:</strong> Pneumatic valves, servo motors, relays yang dikontrol via PLC atau microcontroller untuk automated process control berdasarkan sensor feedback loops</li>
+                        <li><strong>Edge computing untuk real-time processing:</strong> Edge gateways (Intel NUC, Raspberry Pi) yang melakukan local data preprocessing, filtering, aggregation sebelum kirim ke cloud, reducing latency dan bandwidth usage</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>🌐 Relevansi dengan CPMK 0901 (Network)</h4>
+                    <ul>
+                        <li><strong>Industrial Ethernet untuk komunikasi:</strong> EtherCAT, PROFINET, Ethernet/IP dengan deterministic timing untuk real-time control applications, supporting thousands of I/O points dengan microsecond precision</li>
+                        <li><strong>Wireless networking (5G/WiFi6):</strong> Private 5G networks untuk mobile robots/AGVs, WiFi 6 untuk high-density IoT deployments, LoRaWAN untuk wide-area low-power sensors</li>
+                        <li><strong>Network security implementation:</strong> Industrial firewalls (Fortinet, Palo Alto), VPN tunnels untuk remote access, network segmentation (VLAN), intrusion detection/prevention systems</li>
+                        <li><strong>Redundant network architecture:</strong> Ring topology dengan rapid spanning tree protocol (RSTP), dual NICs, failover mechanisms ensuring 99.99% uptime untuk mission-critical operations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Evolusi Industri -->
+        <div class="slide">
+            <h2>Evolusi Menuju Industri Terintegrasi 4.0</h2>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>Industri 1.0</h5>
+                    <p><strong>Mekanisasi dengan tenaga uap (1760s):</strong> Revolusi pertama dengan steam engine, mechanized looms, dan water power yang menggantikan tenaga manual</p>
+                </div>
+                <div class="framework-item">
+                    <h5>Industri 2.0</h5>
+                    <p><strong>Produksi massal dengan listrik (1870s):</strong> Assembly lines, electrical energy, mass production (Ford Model T), dan division of labor meningkatkan output drastis</p>
+                </div>
+                <div class="framework-item">
+                    <h5>Industri 3.0</h5>
+                    <p><strong>Otomatisasi dengan komputer (1970s):</strong> PLCs, SCADA systems, industrial robots, dan digital automation mengurangi human intervention dalam manufacturing</p>
+                </div>
+                <div class="framework-item">
+                    <h5>Industri 4.0</h5>
+                    <p><strong>Sistem cyber-physical terintegrasi (2011-sekarang):</strong> IoT, AI/ML, cloud computing, big data analytics, dan digital twins menciptakan smart factories</p>
+                </div>
+                <div class="framework-item">
+                    <h5>Industri 5.0</h5>
+                    <p><strong>Kolaborasi manusia-mesin berkelanjutan (emerging):</strong> Cobots (collaborative robots), human-centric AI, sustainable manufacturing, dan personalized mass production</p>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📈 Transformasi Digital Industri</h4>
+                <div class="content-grid">
+                    <div>
+                        <h4>Dari (Traditional):</h4>
+                        <ul>
+                            <li><strong>Manufaktur Tradisional:</strong> Manual operations, paper-based records, isolated machines, batch processing, dan reactive decision making</li>
+                            <li><strong>Supply Chain Manual:</strong> Phone/fax orders, spreadsheet inventory, periodic stock checks, delayed shipments, dan limited visibility</li>
+                            <li><strong>Reactive Maintenance:</strong> Fix-when-broken approach, unplanned downtime, high repair costs, spare parts stockpiling, dan production disruptions</li>
+                            <li><strong>Quality Check Manual:</strong> Sampling inspection, subjective assessment, delayed feedback, scrap/rework waste, dan inconsistent standards</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Menuju (Digital):</h4>
+                        <ul>
+                            <li><strong>Smart Manufacturing:</strong> Automated production lines, digital twins, real-time optimization, flexible manufacturing, dan self-adjusting processes</li>
+                            <li><strong>Automated Supply Network:</strong> EDI/API integration, real-time inventory visibility, automated replenishment, track-and-trace, dan supplier collaboration</li>
+                            <li><strong>Predictive Maintenance:</strong> Condition monitoring, AI-based failure prediction, scheduled interventions, optimized spare parts, dan maximized uptime</li>
+                            <li><strong>AI-driven Quality Control:</strong> 100% automated inspection, computer vision defect detection, real-time process adjustment, root cause analysis, dan zero-defect manufacturing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Internet of Things dalam Industri -->
+        <div class="slide">
+            <h2>IoT dalam Sistem Terintegrasi Industri</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 0801: Konsep IoT Sistematis</h3>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>📟 Sensor Technologies</h4>
+                    <ul>
+                        <li><strong>Temperature &amp; Humidity Sensors:</strong> DHT22 (±0.5°C accuracy), PT100/PT1000 RTDs untuk precision, thermocouples untuk high temperature (&gt;1000°C), dan capacitive humidity sensors untuk environmental monitoring</li>
+                        <li><strong>Vibration &amp; Acoustic Sensors:</strong> Accelerometers (MEMS) untuk bearing condition monitoring, piezoelectric sensors untuk shock detection, dan acoustic emission sensors untuk crack detection dalam rotating equipment</li>
+                        <li><strong>Pressure &amp; Flow Sensors:</strong> Piezoresistive pressure transmitters (4-20mA), differential pressure sensors untuk filter clogging detection, ultrasonic/magnetic flow meters untuk liquid/gas flow measurement</li>
+                        <li><strong>Vision &amp; Image Processing:</strong> Industrial cameras (Basler, Cognex) dengan 5MP+ resolution, LED/laser lighting systems, dan embedded vision processors untuk real-time defect detection</li>
+                        <li><strong>Chemical &amp; Gas Sensors:</strong> Electrochemical sensors untuk toxic gases (CO, H2S), infrared sensors untuk CO2/methane, dan PID (photoionization) detectors untuk VOC monitoring</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>⚙️ Industrial IoT Protocols</h4>
+                    <ul>
+                        <li><strong>MQTT:</strong> Publish-subscribe pattern, QoS levels (0,1,2), persistent sessions, last will testament, ideal untuk unreliable networks dengan bandwidth 100Kbps+</li>
+                        <li><strong>CoAP:</strong> UDP-based, RESTful architecture, 4-byte overhead, built-in discovery, optimized untuk constrained devices dengan &lt;10KB RAM</li>
+                        <li><strong>LoRaWAN:</strong> Long-range (2-15km), low power (10+ years battery), 0.3-50 Kbps data rate, star topology, perfect untuk outdoor wide-area sensor networks</li>
+                        <li><strong>NB-IoT:</strong> Cellular technology, deep indoor penetration, 200 Kbps downlink, licensed spectrum, telco infrastructure, suitable untuk mission-critical applications</li>
+                        <li><strong>OPC UA:</strong> Industrial standard, platform-independent, secure (X.509 certificates), pub-sub &amp; client-server models, semantic information modeling untuk interoperability</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Practical Implementation Example</h4>
+                <div class="architecture-diagram">
+                    Smart Factory Floor:<br>
+                    [Temperature Sensor] → [Gateway] → [MQTT Broker] → [Cloud Analytics]<br>
+                           │                │              │              │<br>
+                    [Vibration Sensor] → [Edge AI] → [Alert System] → [Maintenance App]<br>
+                           │                │              │              │<br>
+                    [Quality Camera] → [CV Model] → [Quality DB] → [Dashboard]
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Network Infrastructure & Security -->
+        <div class="slide">
+            <h2>Infrastruktur Jaringan &amp; Keamanan Industri</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 0901: Infrastruktur &amp; Keamanan Jaringan</h3>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>🌐 Network Architecture</h4>
+                    <ul>
+                        <li><strong>Industrial Ethernet (IEEE 802.3):</strong> Ruggedized switches dengan M12 connectors, -40°C to 75°C operating temp, DIN-rail mounting, redundant power supplies, dan EMI/EMC compliance untuk harsh environments</li>
+                        <li><strong>Time-Sensitive Networking (TSN):</strong> IEEE 802.1 standards untuk deterministic latency, traffic shaping, time synchronization (&lt;1µs), dan guaranteed bandwidth untuk motion control applications</li>
+                        <li><strong>Software-Defined Networking (SDN):</strong> Centralized network control via OpenFlow, dynamic traffic routing, automated provisioning, network virtualization, dan programmable policies untuk agile manufacturing</li>
+                        <li><strong>5G Private Networks:</strong> Ultra-low latency (&lt;10ms), high reliability (99.999%), massive IoT connectivity (1M devices/km²), network slicing untuk differentiated services</li>
+                        <li><strong>Edge Computing Nodes:</strong> Local processing gateways dengan AI inference capabilities, reducing cloud round-trip time dari 100ms ke &lt;10ms untuk real-time control loops</li>
+                    </ul>
+                </div>
+                <div class="content-box design-box">
+                    <h4>🔒 Security Framework</h4>
+                    <ul>
+                        <li><strong>Industrial Firewalls:</strong> Deep packet inspection (DPI), protocol-aware filtering (Modbus, OPC UA), stateful inspection, application whitelisting, dan IEC 62443 certified appliances</li>
+                        <li><strong>VPN &amp; Secure Tunneling:</strong> IPsec tunnels untuk site-to-site connectivity, SSL VPN untuk remote access, encrypted communication (AES-256), multi-factor authentication (MFA)</li>
+                        <li><strong>Network Segmentation:</strong> Purdue model implementation (Level 0-5), VLANs untuk logical separation, DMZ zones, unidirectional gateways, micro-segmentation untuk lateral movement prevention</li>
+                        <li><strong>Intrusion Detection Systems (IDS):</strong> Anomaly-based detection using machine learning, signature-based IDS (Snort/Suricata), industrial protocol analysis, SIEM integration (Splunk/QRadar)</li>
+                        <li><strong>Zero-Trust Architecture:</strong> Verify explicitly, least privilege access, assume breach mindset, continuous authentication, micro-segmentation, encrypted everywhere principle</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🛡️ Security Implementation Strategy</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Network Segmentation:</h5>
+                        <ul>
+                            <li>OT Network (Operational Technology)</li>
+                            <li>IT Network (Information Technology)</li>
+                            <li>DMZ (Demilitarized Zone)</li>
+                            <li>Management Network</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Security Monitoring:</h5>
+                        <ul>
+                            <li>Real-time traffic analysis</li>
+                            <li>Anomaly detection</li>
+                            <li>Security event correlation</li>
+                            <li>Automated incident response</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Algorithms & Data Processing -->
+        <div class="slide">
+            <h2>Algoritma dan Pemrosesan Data Industri</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 1001: Algoritma untuk Penyelesaian Masalah</h3>
+
+            <div class="content-grid">
+                <div class="content-box integration-box">
+                    <h4>⚙️ Optimization Algorithms</h4>
+                    <ul>
+                        <li><strong>Genetic Algorithm untuk scheduling:</strong> Population-based search, crossover &amp; mutation operators, fitness evaluation, evolving optimal production schedules dengan constraints (setup time, due dates, resource capacity)</li>
+                        <li><strong>Particle Swarm Optimization:</strong> Swarm intelligence algorithm, velocity &amp; position updates, global/local best tracking, optimal parameter tuning untuk process control (temperature, pressure, flow rates)</li>
+                        <li><strong>Simulated Annealing:</strong> Probabilistic optimization, temperature cooling schedule, escape local optima, solution space exploration untuk layout optimization dan routing problems</li>
+                        <li><strong>Linear Programming:</strong> Simplex method, objective function optimization, linear constraints, production planning untuk maximize profit/minimize cost dengan resource limitations</li>
+                        <li><strong>Constraint Satisfaction:</strong> Backtracking search, constraint propagation, arc consistency, solving complex scheduling problems dengan multiple interdependent constraints</li>
+                    </ul>
+                </div>
+                <div class="content-box design-box">
+                    <h4>🤖 Machine Learning Algorithms</h4>
+                    <ul>
+                        <li><strong>Predictive Maintenance (Random Forest):</strong> Ensemble learning dengan 100+ decision trees, feature importance ranking, predicting RUL (Remaining Useful Life) dengan 85-95% accuracy dari sensor time-series data</li>
+                        <li><strong>Quality Prediction (SVM):</strong> Support Vector Machines dengan RBF kernel, hyperplane separation, predicting product quality dari process parameters, classification accuracy &gt;90%</li>
+                        <li><strong>Anomaly Detection (Isolation Forest):</strong> Unsupervised learning, anomaly score calculation, detecting outliers dalam sensor data tanpa labeled training data, precision &gt;85%</li>
+                        <li><strong>Computer Vision (CNN):</strong> Convolutional Neural Networks (ResNet, VGG), image classification/segmentation, detecting defects (scratches, cracks, discoloration) dengan 99%+ accuracy</li>
+                        <li><strong>Time Series Forecasting (LSTM):</strong> Long Short-Term Memory networks, sequence modeling, forecasting demand/energy consumption/production output dengan MAPE &lt;10%</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Algorithm Implementation Example</h4>
+                <div class="architecture-diagram">
+                    Predictive Maintenance Algorithm:<br><br>
+                    📟 Data Collection: Sensor readings (vibration, temperature)<br>
+                    ↓<br>
+                    🛠️ Preprocessing: Normalization, feature extraction<br>
+                    ↓<br>
+                    🤖 Model Training: Random Forest Classifier<br>
+                    ↓<br>
+                    🔍 Prediction: Equipment failure probability<br>
+                    ↓<br>
+                    🚨 Action: Maintenance scheduling &amp; alerts
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Cloud Computing Integration -->
+        <div class="slide">
+            <h2>Cloud Computing dan Integrasi Data</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 1005: Cloud Computing &amp; Integrasi Data</h3>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>☁️ Cloud Platforms</h4>
+                    <ul>
+                        <li><strong>AWS IoT Core &amp; Greengrass:</strong> Device registry &amp; shadows, MQTT broker, rules engine untuk routing, Lambda functions, Greengrass untuk edge ML inference, SiteWise untuk industrial data collection</li>
+                        <li><strong>Microsoft Azure IoT Hub:</strong> Device-to-cloud messaging, IoT Edge untuk edge computing, Digital Twins untuk virtual representation, Time Series Insights untuk analytics, 99.9% SLA availability</li>
+                        <li><strong>Google Cloud IoT Platform:</strong> Cloud IoT Core device management, Pub/Sub messaging, Dataflow untuk stream processing, BigQuery untuk analytics, AutoML untuk custom model training</li>
+                        <li><strong>IBM Watson IoT:</strong> Cognitive analytics, blockchain integration untuk supply chain, Maximo integration untuk asset management, AI-powered insights dari IoT data</li>
+                        <li><strong>Private Cloud Solutions:</strong> OpenStack deployment, VMware vSphere, on-premise control, data sovereignty compliance, hybrid cloud connectivity dengan public clouds</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>📊 Data Integration Services</h4>
+                    <ul>
+                        <li><strong>Data Lake &amp; Data Warehouse:</strong> S3/ADLS untuk raw data storage (petabyte-scale), Snowflake/Redshift untuk structured analytics, Delta Lake untuk ACID transactions, schema-on-read flexibility</li>
+                        <li><strong>ETL/ELT Processing:</strong> Apache NiFi untuk data flows, Talend/Informatica untuk transformations, dbt untuk data modeling, Airflow untuk orchestration, handling millions of records/hour</li>
+                        <li><strong>Real-time Stream Processing:</strong> Apache Kafka untuk event streaming (1M+ messages/sec), Spark Streaming/Flink untuk windowed analytics, Kinesis untuk AWS ecosystem, low-latency processing (&lt;100ms)</li>
+                        <li><strong>API Management:</strong> API Gateway (Kong, Apigee) untuk rate limiting, authentication/authorization, request/response transformation, API versioning, developer portal untuk documentation</li>
+                        <li><strong>Data Visualization Tools:</strong> Tableau/Power BI untuk business users, Grafana untuk real-time monitoring, custom React dashboards, mobile apps untuk field access</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>☁️ Cloud Architecture for Industry</h4>
+                <div class="architecture-diagram">
+                    ┌────────────────────────────────────┐<br>
+                    │        CLOUD ANALYTICS LAYER           │<br>
+                    │  Machine Learning | BI | Reporting     │<br>
+                    └────────────────────────────────────┘<br>
+                    ┌────────────────────────────────────┐<br>
+                    │         DATA INTEGRATION LAYER        │<br>
+                    │  Data Lake | Stream Processing | API  │<br>
+                    └────────────────────────────────────┘<br>
+                    ┌────────────────────────────────────┐<br>
+                    │           EDGE COMPUTING LAYER        │<br>
+                    │  Local Processing | Edge AI | Cache   │<br>
+                    └────────────────────────────────────┘
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Arsitektur Sistem Terintegrasi -->
+        <div class="slide">
+            <h2>Arsitektur Sistem Terintegrasi Industri</h2>
+
+            <h3>Framework Industrial IoT (IIoT)</h3>
+
+            <div class="architecture-diagram">
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                    BUSINESS LAYER                       │<br>
+                │  ERP | CRM | SCM | Quality Management | Analytics       │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                  APPLICATION LAYER                      │<br>
+                │  MES | WMS | PLM | SCADA | Energy Management           │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                 CONNECTIVITY LAYER                      │<br>
+                │  Industrial Networks | Protocols | Edge Computing       │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                    DEVICE LAYER                         │<br>
+                │  Sensors | Actuators | PLCs | Robots | Machines        │<br>
+                └─────────────────────────────────────────────────────────┘
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box integration-box">
+                    <h4>🔗 Komponen Utama</h4>
+                    <ul>
+                        <li><strong>MES (Manufacturing Execution System):</strong> Real-time shop floor control, work order management, production tracking, quality data collection, labor management, performance analysis, connecting ERP dengan control systems</li>
+                        <li><strong>ERP (Enterprise Resource Planning):</strong> SAP/Oracle systems untuk finance, HR, procurement, sales, inventory management, demand planning, master data management, enterprise-wide integration</li>
+                        <li><strong>SCADA (Supervisory Control And Data Acquisition):</strong> HMI visualization, alarm management, historical data trending, remote control capabilities, multi-site monitoring, PLC communication</li>
+                        <li><strong>WMS (Warehouse Management System):</strong> Inventory tracking, pick/pack/ship optimization, barcode/RFID scanning, dock management, cross-docking, integration dengan transportation systems</li>
+                    </ul>
+                </div>
+                <div class="content-box design-box">
+                    <h4>📡 Protokol Komunikasi</h4>
+                    <ul>
+                        <li><strong>OPC UA:</strong> Platform-independent industrial standard, client-server &amp; pub-sub models, secure communication (encryption + authentication), information modeling, 1000+ nodes support</li>
+                        <li><strong>Modbus:</strong> Serial (RTU) dan TCP/IP variants, master-slave architecture, simple implementation, 247 device addressing, widely adopted legacy protocol</li>
+                        <li><strong>Profinet:</strong> Siemens industrial Ethernet, real-time communication (&lt;1ms cycle time), IRT (Isochronous Real-Time), device replacement without tools</li>
+                        <li><strong>MQTT:</strong> Lightweight publish-subscribe, QoS levels, 2-byte header overhead, support untuk millions of concurrent connections, ideal untuk IoT scalability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Metodologi Desain -->
+        <div class="slide">
+            <h2>Metodologi Desain Sistem Terintegrasi</h2>
+
+            <h3>Framework Desain Industri 4.0</h3>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>📊 Assessment</h5>
+                    <p>Current state analysis<br>Gap identification<br>ROI analysis</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🏗️ Design</h5>
+                    <p>Architecture design<br>Integration points<br>Technology stack</p>
+                </div>
+                <div class="framework-item">
+                    <h5>📋 Planning</h5>
+                    <p>Implementation roadmap<br>Resource planning<br>Risk assessment</p>
+                </div>
+                <div class="framework-item">
+                    <h5>🧪 Testing</h5>
+                    <p>Integration testing<br>Performance validation<br>Security testing</p>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🎯 Design Thinking Approach</h4>
+                <div class="content-grid">
+                    <div class="content-box">
+                        <h4>1. Empathize</h4>
+                        <ul>
+                            <li>User interviews</li>
+                            <li>Process observation</li>
+                            <li>Pain point identification</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h4>2. Define</h4>
+                        <ul>
+                            <li>Problem statement</li>
+                            <li>Requirements specification</li>
+                            <li>Success criteria</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h4>3. Ideate</h4>
+                        <ul>
+                            <li>Technology brainstorming</li>
+                            <li>Integration scenarios</li>
+                            <li>Innovation opportunities</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h4>4. Prototype &amp; Test</h4>
+                        <ul>
+                            <li>Proof of concept</li>
+                            <li>MVP development</li>
+                            <li>Continuous improvement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Studi Kasus Smart Manufacturing -->
+        <div class="slide">
+            <h2>Studi Kasus: Smart Manufacturing System</h2>
+
+            <div class="case-study">
+                <h4>🏭 PT. Manufaktur Indonesia</h4>
+                <p><strong>Background:</strong> Perusahaan otomotif dengan 3 plant, 500+ mesin, 1000+ karyawan</p>
+                <p><strong>Target:</strong> Implementasi smart manufacturing untuk meningkatkan OEE</p>
+            </div>
+
+            <h3>Proposed System Architecture</h3>
+            <div class="architecture-diagram">
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                  EXECUTIVE DASHBOARD                    │<br>
+                │  Real-time KPIs | Predictive Analytics | Reports       │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                    DATA ANALYTICS                       │<br>
+                │  Machine Learning | Predictive Models | BI Tools       │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │               INTEGRATION MIDDLEWARE                    │<br>
+                │  ESB | API Gateway | Message Broker | Data Lake        │<br>
+                └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                ┌────────────────┬─────────────────┬────────────────────────┐<br>
+                │      ERP       │      MES        │    QUALITY SYSTEM      │<br>
+                │   SAP/Oracle   │   Wonderware    │     QC Database        │<br>
+                └────────────────┴─────────────────┴────────────────────────┘<br>
+                                           │<br>
+                ┌─────────────────────────────────────────────────────────┐<br>
+                │                   SHOP FLOOR                           │<br>
+                │  CNC Machines | Robots | Sensors | PLCs | HMIs        │<br>
+                └─────────────────────────────────────────────────────────┘
+            </div>
+        </div>
+
+        <!-- Slide 14: Implementation Strategy -->
+        <div class="slide">
+            <h2>Strategi Implementasi</h2>
+
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>Phase 1</h5>
+                    <h4>Foundation</h4>
+                    <p>3 bulan</p>
+                    <ul>
+                        <li>Network upgrade</li>
+                        <li>Basic connectivity</li>
+                        <li>Data collection</li>
+                        <li>Staff training</li>
+                    </ul>
+                </div>
+                <div class="framework-item">
+                    <h5>Phase 2</h5>
+                    <h4>Integration</h4>
+                    <p>6 bulan</p>
+                    <ul>
+                        <li>MES-ERP integration</li>
+                        <li>Real-time dashboard</li>
+                        <li>Predictive maintenance</li>
+                        <li>Quality integration</li>
+                    </ul>
+                </div>
+                <div class="framework-item">
+                    <h5>Phase 3</h5>
+                    <h4>Analytics</h4>
+                    <p>3 bulan</p>
+                    <ul>
+                        <li>ML models deployment</li>
+                        <li>Advanced analytics</li>
+                        <li>Mobile apps</li>
+                        <li>Optimization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Expected Benefits</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">25%</div>
+                    <div class="metric-label">OEE Improvement</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">30%</div>
+                    <div class="metric-label">Maintenance Cost Reduction</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">40%</div>
+                    <div class="metric-label">Quality Improvement</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">20%</div>
+                    <div class="metric-label">Lead Time Reduction</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Technology Stack -->
+        <div class="slide">
+            <h2>Technology Stack Selection</h2>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>🏗️ Infrastructure Layer</h4>
+                    <ul>
+                        <li>Cloud: AWS/Azure</li>
+                        <li>Edge: Intel Edge Insights</li>
+                        <li>Network: Industrial Ethernet</li>
+                        <li>Security: Zero-trust architecture</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>💻 Application Layer</h4>
+                    <ul>
+                        <li>MES: Wonderware/Siemens</li>
+                        <li>Analytics: Databricks</li>
+                        <li>Integration: MuleSoft</li>
+                        <li>Visualization: Tableau/Power BI</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>💾 Data Layer</h4>
+                    <ul>
+                        <li>Time-series: InfluxDB</li>
+                        <li>Big Data: Apache Hadoop</li>
+                        <li>Streaming: Apache Kafka</li>
+                        <li>Warehouse: Snowflake</li>
+                    </ul>
+                </div>
+                <div class="content-box design-box">
+                    <h4>🔒 Security &amp; Monitoring</h4>
+                    <ul>
+                        <li>Identity: Active Directory</li>
+                        <li>Network: VPN/Firewall</li>
+                        <li>Monitoring: Prometheus</li>
+                        <li>SIEM: Splunk</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Hands-on Workshop: IoT Sensor Integration -->
+        <div class="slide">
+            <h2>Workshop: IoT Sensor Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Practical Implementation (20 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>📟 Hardware Setup</h4>
+                    <ul>
+                        <li>Arduino/ESP32 microcontroller</li>
+                        <li>Temperature sensor (DHT22)</li>
+                        <li>Vibration sensor (SW-420)</li>
+                        <li>WiFi connectivity module</li>
+                        <li>OLED display for local monitoring</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>💻 Software Components</h4>
+                    <ul>
+                        <li>Arduino IDE programming</li>
+                        <li>MQTT client implementation</li>
+                        <li>JSON data formatting</li>
+                        <li>Cloud dashboard setup</li>
+                        <li>Real-time data visualization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔧 Workshop Activity</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Step 1: Hardware Connection</h5>
+                        <ul>
+                            <li>Connect sensors to microcontroller</li>
+                            <li>Setup power supply and WiFi</li>
+                            <li>Test basic sensor readings</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Step 2: Programming</h5>
+                        <ul>
+                            <li>Write sensor reading code</li>
+                            <li>Implement MQTT publishing</li>
+                            <li>Add data formatting functions</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Step 3: Cloud Integration</h5>
+                        <ul>
+                            <li>Setup cloud MQTT broker</li>
+                            <li>Configure data pipeline</li>
+                            <li>Create monitoring dashboard</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Step 4: Testing &amp; Demo</h5>
+                        <ul>
+                            <li>End-to-end system testing</li>
+                            <li>Real-time data monitoring</li>
+                            <li>Group demonstration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Network Security Implementation -->
+        <div class="slide">
+            <h2>Network Security Implementation Lab</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Practical Security Configuration (15 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box design-box">
+                    <h4>🛡️ Security Tools</h4>
+                    <ul>
+                        <li>pfSense firewall configuration</li>
+                        <li>OpenVPN server setup</li>
+                        <li>Suricata IDS implementation</li>
+                        <li>Network monitoring with Wireshark</li>
+                        <li>VLAN segmentation demo</li>
+                    </ul>
+                </div>
+                <div class="content-box industry-box">
+                    <h4>📊 Monitoring &amp; Analysis</h4>
+                    <ul>
+                        <li>Traffic analysis and pattern recognition</li>
+                        <li>Security event logging</li>
+                        <li>Intrusion detection alerts</li>
+                        <li>Network performance metrics</li>
+                        <li>Security audit reports</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>💻 Lab Exercise: Industrial Network Security</h4>
+                <div class="architecture-diagram">
+                    Network Topology:<br><br>
+                    [Internet] → [Firewall] → [DMZ] → [Internal Network]<br>
+                           │           │        │              │<br>
+                    [VPN Server] [IDS/IPS] [Web Server] [Industrial Systems]<br>
+                           │           │        │              │<br>
+                    [Remote Access] [SIEM] [Database] [SCADA/HMI]
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Cloud Data Analytics Workshop -->
+        <div class="slide">
+            <h2>Cloud Data Analytics Workshop</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Hands-on Cloud Implementation (20 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>☁️ Cloud Platform Setup</h4>
+                    <ul>
+                        <li>AWS IoT Core configuration</li>
+                        <li>Azure IoT Hub setup</li>
+                        <li>Google Cloud IoT setup</li>
+                        <li>Data pipeline creation</li>
+                        <li>Real-time analytics configuration</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>📊 Analytics Implementation</h4>
+                    <ul>
+                        <li>Data ingestion and processing</li>
+                        <li>Machine learning model deployment</li>
+                        <li>Dashboard and visualization setup</li>
+                        <li>Alert and notification system</li>
+                        <li>API development for integration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Workshop Exercise: Industrial Analytics Pipeline</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Data Source:</h5>
+                        <ul>
+                            <li>IoT sensor data streaming</li>
+                            <li>Production system logs</li>
+                            <li>Quality control measurements</li>
+                            <li>Equipment maintenance records</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Analytics Output:</h5>
+                        <ul>
+                            <li>Real-time production monitoring</li>
+                            <li>Predictive maintenance alerts</li>
+                            <li>Quality trend analysis</li>
+                            <li>Energy consumption optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Interactive Discussion & Q&A -->
+        <div class="slide">
+            <h2>Interactive Discussion &amp; Q&amp;A Session</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Diskusi Interaktif (20 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>💬 Discussion Topics</h4>
+                    <ul>
+                        <li>Challenges dalam implementasi TST</li>
+                        <li>Best practices dari industri</li>
+                        <li>Future trends dan teknologi emerging</li>
+                        <li>Career opportunities di TST</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>❓ Q&amp;A Session</h4>
+                    <ul>
+                        <li>Technical implementation questions</li>
+                        <li>CPMK achievement clarification</li>
+                        <li>Project guidance and tips</li>
+                        <li>Industry application examples</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>💭 Case Study Discussion</h4>
+                <p><strong>Scenario:</strong> Implementasi sistem terintegrasi di UMKM lokal</p>
+                <div class="content-grid">
+                    <div>
+                        <h5>Challenges:</h5>
+                        <ul>
+                            <li>Limited budget dan resources</li>
+                            <li>Technical skill gap</li>
+                            <li>Legacy system integration</li>
+                            <li>Change management resistance</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Proposed Solutions:</h5>
+                        <ul>
+                            <li>Phased implementation approach</li>
+                            <li>Cloud-based solutions</li>
+                            <li>Training dan capacity building</li>
+                            <li>Government support programs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Kesimpulan -->
+        <div class="slide">
+            <h2>Kesimpulan &amp; Tindak Lanjut</h2>
+
+            <h3>Key Takeaways</h3>
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>🎯 Critical Success Factors</h4>
+                    <ul>
+                        <li>Start dengan clear business objectives</li>
+                        <li>Focus pada user needs dan experience</li>
+                        <li>Plan for scalability dari awal</li>
+                        <li>Invest dalam security dan reliability</li>
+                        <li>Prepare untuk continuous improvement</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>📚 Rangkuman Materi</h4>
+                    <ul>
+                        <li>Sistem terintegrasi = IoT + Automation + Analytics</li>
+                        <li>Arsitektur berlapis untuk scalability</li>
+                        <li>Design thinking untuk human-centered solutions</li>
+                        <li>Implementation butuh planning yang matang</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📅 Persiapan Pertemuan Selanjutnya</h4>
+                <ul>
+                    <li><strong>Topic:</strong> "Implementasi dan Testing Sistem Terintegrasi"</li>
+                    <li><strong>Reading Assignment:</strong> System testing methodologies dan deployment strategies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <!-- Slide 24: Next Meeting Preview -->
+        <div class="slide">
+            <h2>Preview Pertemuan Selanjutnya</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Desain dan Pengembangan Sistem Terintegrasi Industri_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Pertemuan 10: Implementasi dan Testing Sistem Terintegrasi</h3>
+
+            <div class="content-grid">
+                <div class="content-box industry-box">
+                    <h4>🛠️ Topics yang Akan Dibahas</h4>
+                    <ul>
+                        <li>System deployment strategies</li>
+                        <li>Integration testing methodologies</li>
+                        <li>Performance optimization techniques</li>
+                        <li>Monitoring dan maintenance</li>
+                        <li>Troubleshooting dan debugging</li>
+                    </ul>
+                </div>
+                <div class="content-box smart-box">
+                    <h4>📋 Preparation Required</h4>
+                    <ul>
+                        <li>Complete project design documentation</li>
+                        <li>Prepare testing scenarios</li>
+                        <li>Setup development environment</li>
+                        <li>Review deployment best practices</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📚 Reading Assignment</h4>
+                <ul>
+                    <li>"System Testing in Industrial IoT Environments" - IEEE Paper</li>
+                    <li>"DevOps for Industrial Systems" - Best Practices Guide</li>
+                    <li>"Continuous Integration in Manufacturing" - Case Studies</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3 style="color: #FFD700;">Terima Kasih!</h3>
+                <p style="font-size: 1.2rem; color: #FFEAA7; margin-top: 1rem;">Contact: ikhwan.alfath@untidar.ac.id</p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="prevSlide()">← Previous</button>
+            <button class="control-btn" onclick="nextSlide()">Next →</button>
+            <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
+        </div>
+
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">21</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        // Add fade animation for logo
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: scale(0.8); }
+                to { opacity: 1; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+
+            // Update progress bar
+            const progress = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F11') {
+                e.preventDefault();
+                toggleFullscreen();
+            } else if (e.key === 'Escape') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Auto-advance slides (optional, commented out)
+        // setInterval(nextSlide, 10000); // Auto-advance every 10 seconds
+    </script>
+
+<span style="border-radius:10px !important;text-indent:12px !important;width:auto !important;height:20px !important;padding:0px 8px !important;text-align:center !important;vertical-align:middle !important;font:bold 11px / 20px &quot;Helvetica Neue&quot;, Helvetica, sans-serif !important;color:rgb(255, 255, 255) !important;background:url(&quot;data:image/svg+xml;base64,PHN2ZyBpZD0ic291cmNlIiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9IjYiIGZpbGw9IiNFNjAwMjMiPjwvY2lyY2xlPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTAgNkMwIDguNTYxNSAxLjYwNTUgMTAuNzQ4NSAzLjg2NSAxMS42MDlDMy44MSAxMS4xNDA1IDMuNzUxNSAxMC4zNjggMy44Nzc1IDkuODI2QzMuOTg2IDkuMzYgNC41NzggNi44NTcgNC41NzggNi44NTdDNC41NzggNi44NTcgNC4zOTk1IDYuNDk5NSA0LjM5OTUgNS45N0M0LjM5OTUgNS4xNCA0Ljg4MDUgNC41MiA1LjQ4IDQuNTJDNS45OSA0LjUyIDYuMjM2IDQuOTAyNSA2LjIzNiA1LjM2MUM2LjIzNiA1Ljg3MzUgNS45MDk1IDYuNjM5NSA1Ljc0MSA3LjM1QzUuNjAwNSA3Ljk0NDUgNi4wMzk1IDguNDI5NSA2LjYyNTUgOC40Mjk1QzcuNjg3IDguNDI5NSA4LjUwMzUgNy4zMSA4LjUwMzUgNS42OTRDOC41MDM1IDQuMjYzNSA3LjQ3NTUgMy4yNjQgNi4wMDggMy4yNjRDNC4zMDkgMy4yNjQgMy4zMTE1IDQuNTM4NSAzLjMxMTUgNS44NTZDMy4zMTE1IDYuMzY5NSAzLjUwOSA2LjkxOTUgMy43NTYgNy4yMTlDMy44MDQ1IDcuMjc4NSAzLjgxMiA3LjMzIDMuNzk3NSA3LjM5MDVDMy43NTIgNy41Nzk1IDMuNjUxIDcuOTg1IDMuNjMxNSA4LjA2OEMzLjYwNSA4LjE3NyAzLjU0NSA4LjIwMDUgMy40MzE1IDguMTQ3NUMyLjY4NTUgNy44MDA1IDIuMjE5NSA2LjcxIDIuMjE5NSA1LjgzNEMyLjIxOTUgMy45NDk1IDMuNTg4IDIuMjE5NSA2LjE2NTUgMi4yMTk1QzguMjM3NSAyLjIxOTUgOS44NDggMy42OTYgOS44NDggNS42NjlDOS44NDggNy43Mjc1IDguNTUwNSA5LjM4NDUgNi43NDg1IDkuMzg0NUM2LjE0MyA5LjM4NDUgNS41NzQ1IDkuMDY5NSA1LjM3OTUgOC42OThDNS4zNzk1IDguNjk4IDUuMDggOS44MzkgNS4wMDc1IDEwLjExOEM0Ljg2NjUgMTAuNjYgNC40NzU1IDExLjM0NiA0LjIzMyAxMS43MzU1QzQuNzkyIDExLjkwNzUgNS4zODUgMTIgNiAxMkM5LjMxMzUgMTIgMTIgOS4zMTM1IDEyIDZDMTIgMi42ODY1IDkuMzEzNSAwIDYgMEMyLjY4NjUgMCAwIDIuNjg2NSAwIDZaIiBmaWxsPSJ3aGl0ZSI+PC9wYXRoPgo8L3N2Zz4=&quot;) 4px 50% / 12px 12px no-repeat rgb(230, 0, 35) !important;position:absolute !important;opacity:1 !important;z-index:9007199254740990 !important;display:none !important;cursor:pointer !important;border:none !important;-webkit-font-smoothing:antialiased !important;top:0 !important;left:0 !important;display:none !important;top:101px !important;left:170px !important">Save</span></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

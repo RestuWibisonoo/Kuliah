@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<!-- saved from url=(0112)https://class.tiflab.my.id/storage/lessons/materials/1761529639_10-Integrasi-Data-dalam-Sistem-Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrasi Data dalam Sistem Terintegrasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%);
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #2196F3, #21CBF3);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #21CBF3, #2196F3);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #2196F3 rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #FFA500;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #FFEAA7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #FFEAA7;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #DDD;
+        }
+
+        ul {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "🗂️";
+            position: absolute;
+            left: -2rem;
+            top: 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-box h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+
+        .content-box ul {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .data-box {
+            background: rgba(33, 150, 243, 0.2);
+            border-left: 4px solid #2196F3;
+        }
+
+        .integration-box {
+            background: rgba(33, 203, 243, 0.2);
+            border-left: 4px solid #21CBF3;
+        }
+
+        .cloud-box {
+            background: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid #2ecc71;
+        }
+
+        .analytics-box {
+            background: rgba(231, 76, 60, 0.2);
+            border-left: 4px solid #e74c3c;
+        }
+
+        .case-study {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-study h4 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .architecture-diagram {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            backdrop-filter: blur(10px);
+        }
+
+        .framework-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .framework-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .framework-item h5 {
+            font-size: 1.3rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2196F3, #21CBF3);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: #FFEAA7;
+            margin-top: 0.5rem;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .workshop-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #21CBF3;
+        }
+
+        .workshop-step h5 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .data-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .data-source {
+            background: rgba(33, 150, 243, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            margin: 0.5rem;
+            border: 2px solid #2196F3;
+        }
+
+        .arrow {
+            font-size: 2rem;
+            color: #FFD700;
+            margin: 0 1rem;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="presentation-container">
+        <div class="progress-bar" id="progressBar" style="width: 5%;"></div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 120px; height: 120px; margin-right: 2rem; animation: fadeIn 1s ease;">
+                <div>
+                    <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Integrasi Data dalam<br>Sistem Terintegrasi</h1>
+                    <div class="subtitle">Data Integration in Integrated Systems: Techniques and Tools</div>
+                </div>
+            </div>
+
+            <div class="university-info">
+                <div class="university-name">Universitas Tidar Magelang</div>
+                <div class="faculty-info">Fakultas Teknik - Program Studi Teknologi Informasi</div>
+                <div class="course-info">Teknologi Sistem Terintegrasi - Pertemuan 10</div>
+                <div style="margin-top: 1rem; font-size: 1.1rem; color: #FFEAA7;">Dosen: Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>🎯 CPMK yang Dicapai</h4>
+                    <ul>
+                        <li>CPMK 0801: IoT data collection &amp; processing</li>
+                        <li>CPMK 0901: Network-based data transmission</li>
+                        <li>CPMK 1001: Data integration algorithms</li>
+                        <li>CPMK 1005: Cloud data integration</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>📊 Detail Pertemuan</h4>
+                    <ul>
+                        <li>Durasi: 170 menit (3 SKS)</li>
+                        <li>Metode: Ceramah, diskusi, studi kasus</li>
+                        <li>Target: Implementasi data integration</li>
+                        <li>Penilaian: Keberhasilan integrasi data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Konteks dalam TST -->
+        <div class="slide">
+            <h2>Data Integration dalam Konteks TST</h2>
+
+            <h3>Peran Data dalam Sistem Terintegrasi</h3>
+            <div class="case-study">
+                <p style="font-size: 1.3rem; line-height: 1.6; text-align: justify;">Dalam sistem terintegrasi, data merupakan penghubung utama antara komponen <strong>IoT</strong>, <strong>infrastruktur jaringan</strong>, dan <strong>cloud computing</strong>. Data integration memastikan informasi dapat mengalir seamless antar sistem untuk menghasilkan insight yang valuable.</p>
+            </div>
+
+            <div class="data-flow">
+                <div class="data-source">
+                    <h5>IoT Devices</h5>
+                    <p>Sensor Data<br>Real-time Streams</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="data-source">
+                    <h5>Network Layer</h5>
+                    <p>Data Transmission<br>Protocol Conversion</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="data-source">
+                    <h5>Cloud Platform</h5>
+                    <p>Data Processing<br>Storage &amp; Analytics</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="data-source">
+                    <h5>Applications</h5>
+                    <p>Business Intelligence<br>Decision Making</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>🔗 Challenges dalam Data Integration</h4>
+                    <ul>
+                        <li>Heterogenitas format data</li>
+                        <li>Volume dan velocity data yang besar</li>
+                        <li>Latency dan bandwidth limitations</li>
+                        <li>Data quality dan consistency</li>
+                        <li>Security dan privacy concerns</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>💡 Solutions dan Approach</h4>
+                    <ul>
+                        <li>Standardized data formats (JSON, XML)</li>
+                        <li>API-based integration</li>
+                        <li>Message queuing systems</li>
+                        <li>Edge computing untuk preprocessing</li>
+                        <li>Data governance frameworks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Data Integration Fundamentals -->
+        <div class="slide">
+            <h2>Fundamentals of Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Core Concepts dan Terminologi</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>📋 Data Integration Types</h4>
+                    <ul>
+                        <li><strong>ETL (Extract, Transform, Load)</strong></li>
+                        <li><strong>ELT (Extract, Load, Transform)</strong></li>
+                        <li><strong>Real-time Integration</strong></li>
+                        <li><strong>Batch Integration</strong></li>
+                        <li><strong>API-based Integration</strong></li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>🏗️ Integration Patterns</h4>
+                    <ul>
+                        <li><strong>Point-to-Point</strong> - Direct connections</li>
+                        <li><strong>Hub and Spoke</strong> - Central broker</li>
+                        <li><strong>Enterprise Service Bus</strong> - ESB pattern</li>
+                        <li><strong>Microservices</strong> - API gateway</li>
+                        <li><strong>Event-Driven</strong> - Publish/Subscribe</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Data Integration Architecture</h4>
+                <div class="architecture-diagram">
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                    DATA CONSUMERS                       │<br>
+                    │    Dashboards | Reports | Mobile Apps | APIs           │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                  INTEGRATION LAYER                      │<br>
+                    │    Message Queue | API Gateway | Event Bus | ESB       │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                    DATA PROCESSING                      │<br>
+                    │    ETL Engine | Stream Processing | Data Validation     │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                    ┌──────────────┬────────────────┬─────────────────────────┐<br>
+                    │   DATA SOURCES                                         │<br>
+                    │ IoT Devices | Databases | Files | Web Services | APIs  │<br>
+                    └──────────────┴────────────────┴─────────────────────────┘
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: IoT Data Integration (CPMK 0801) -->
+        <div class="slide">
+            <h2>IoT Data Integration Techniques</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 0801: IoT Data Collection &amp; Processing</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>📡 IoT Data Characteristics</h4>
+                    <ul>
+                        <li><strong>High Volume</strong> - Terabytes per day</li>
+                        <li><strong>High Velocity</strong> - Real-time streams</li>
+                        <li><strong>Variety</strong> - Multiple data types</li>
+                        <li><strong>Veracity</strong> - Data quality issues</li>
+                        <li><strong>Value</strong> - Business insights</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>🔧 IoT Integration Protocols</h4>
+                    <ul>
+                        <li><strong>MQTT</strong> - Lightweight messaging</li>
+                        <li><strong>CoAP</strong> - Constrained devices</li>
+                        <li><strong>HTTP/REST</strong> - Web-based APIs</li>
+                        <li><strong>WebSocket</strong> - Real-time communication</li>
+                        <li><strong>LoRaWAN</strong> - Long-range networks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🏭 Industrial IoT Data Integration Example</h4>
+                <div class="code-block">
+// MQTT Data Integration Example<br>
+const mqtt = require('mqtt');<br>
+const client = mqtt.connect('mqtt://broker.hivemq.com');<br><br>
+
+// Subscribe to sensor topics<br>
+client.on('connect', function () {<br>
+&nbsp;&nbsp;client.subscribe('factory/temperature/+');<br>
+&nbsp;&nbsp;client.subscribe('factory/vibration/+');<br>
+&nbsp;&nbsp;client.subscribe('factory/quality/+');<br>
+});<br><br>
+
+// Process incoming sensor data<br>
+client.on('message', function (topic, message) {<br>
+&nbsp;&nbsp;const data = JSON.parse(message.toString());<br>
+&nbsp;&nbsp;const enrichedData = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;...data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timestamp: new Date().toISOString(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;source: topic,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;processed: true<br>
+&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;// Send to cloud analytics platform<br>
+&nbsp;&nbsp;sendToCloud(enrichedData);<br>
+});
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Network-based Data Integration (CPMK 0901) -->
+        <div class="slide">
+            <h2>Network Infrastructure untuk Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 0901: Network-based Data Transmission</h3>
+
+            <div class="content-grid">
+                <div class="content-box cloud-box">
+                    <h4>🌐 Network Protocols for Data Integration</h4>
+                    <ul>
+                        <li><strong>TCP/IP</strong> - Reliable data transmission</li>
+                        <li><strong>UDP</strong> - Fast, lightweight protocol</li>
+                        <li><strong>WebSocket</strong> - Full-duplex communication</li>
+                        <li><strong>gRPC</strong> - High-performance RPC</li>
+                        <li><strong>Apache Kafka</strong> - Distributed streaming</li>
+                    </ul>
+                </div>
+                <div class="content-box analytics-box">
+                    <h4>🔐 Security Considerations</h4>
+                    <ul>
+                        <li><strong>TLS/SSL</strong> - Data encryption in transit</li>
+                        <li><strong>VPN Tunneling</strong> - Secure connections</li>
+                        <li><strong>API Authentication</strong> - OAuth, JWT</li>
+                        <li><strong>Network Segmentation</strong> - Isolated networks</li>
+                        <li><strong>Firewall Rules</strong> - Access control</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔗 Network Architecture for Data Integration</h4>
+                <div class="architecture-diagram">
+                    Internet ←→ [Edge Router] ←→ [Firewall] ←→ [Load Balancer]<br>
+                         ↓                  ↓              ↓<br>
+                    [DMZ Network]    [VPN Gateway]   [API Gateway]<br>
+                         ↓                  ↓              ↓<br>
+                    [Web Servers]    [Secure Tunnel]  [Microservices]<br>
+                         ↓                  ↓              ↓<br>
+                    [Data Collectors] [Internal Net] [Message Queue]<br>
+                         ↓                  ↓              ↓<br>
+                    [IoT Devices]    [Database Cluster] [Analytics Engine]
+                </div>
+
+                <div class="workshop-step">
+                    <h5>Network Configuration Best Practices:</h5>
+                    <ul>
+                        <li>Implement redundant network paths for high availability</li>
+                        <li>Use Quality of Service (QoS) for critical data streams</li>
+                        <li>Monitor network performance and bandwidth utilization</li>
+                        <li>Implement network-level data compression and caching</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Data Integration Algorithms (CPMK 1001) -->
+        <div class="slide">
+            <h2>Algorithms untuk Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 1001: Data Integration Algorithms</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>⚙️ Core Algorithms</h4>
+                    <ul>
+                        <li><strong>Data Deduplication</strong> - Remove duplicates</li>
+                        <li><strong>Record Matching</strong> - Entity resolution</li>
+                        <li><strong>Schema Mapping</strong> - Structure alignment</li>
+                        <li><strong>Data Cleansing</strong> - Quality improvement</li>
+                        <li><strong>Conflict Resolution</strong> - Handle inconsistencies</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>🔍 Advanced Techniques</h4>
+                    <ul>
+                        <li><strong>Machine Learning</strong> - Pattern recognition</li>
+                        <li><strong>Fuzzy Matching</strong> - Approximate matching</li>
+                        <li><strong>Graph Algorithms</strong> - Relationship mapping</li>
+                        <li><strong>Clustering</strong> - Data grouping</li>
+                        <li><strong>Time Series Analysis</strong> - Temporal data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🧮 Data Integration Algorithm Implementation</h4>
+                <div class="code-block">
+// Data Deduplication Algorithm Example<br>
+class DataDeduplication {<br>
+&nbsp;&nbsp;constructor() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this.hashTable = new Map();<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;// Generate hash for record identification<br>
+&nbsp;&nbsp;generateHash(record) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const key = `${record.deviceId}_${record.timestamp}_${record.value}`;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return require('crypto').createHash('sha256').update(key).digest('hex');<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;// Remove duplicate records<br>
+&nbsp;&nbsp;removeDuplicates(dataStream) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return dataStream.filter(record =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const hash = this.generateHash(record);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (this.hashTable.has(hash)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false; // Duplicate found<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.hashTable.set(hash, true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true; // Unique record<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;}<br>
+}
+                </div>
+
+                <div class="workshop-step">
+                    <h5>Algorithm Performance Considerations:</h5>
+                    <ul>
+                        <li>Time complexity: O(n) for linear algorithms, O(n log n) for sorting-based</li>
+                        <li>Space complexity: Consider memory usage for large datasets</li>
+                        <li>Scalability: Design for distributed processing</li>
+                        <li>Accuracy: Balance between precision and recall</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Cloud Data Integration (CPMK 1005) -->
+        <div class="slide">
+            <h2>Cloud Computing untuk Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Implementasi CPMK 1005: Cloud Data Integration</h3>
+
+            <div class="content-grid">
+                <div class="content-box cloud-box">
+                    <h4>☁️ Cloud Integration Services</h4>
+                    <ul>
+                        <li><strong>AWS Glue</strong> - Serverless ETL service</li>
+                        <li><strong>Azure Data Factory</strong> - Data integration service</li>
+                        <li><strong>Google Dataflow</strong> - Stream and batch processing</li>
+                        <li><strong>Apache Airflow</strong> - Workflow orchestration</li>
+                        <li><strong>Talend Cloud</strong> - Integration platform</li>
+                    </ul>
+                </div>
+                <div class="content-box analytics-box">
+                    <h4>🗄️ Cloud Storage Solutions</h4>
+                    <ul>
+                        <li><strong>Data Lakes</strong> - Raw data storage (S3, ADLS)</li>
+                        <li><strong>Data Warehouses</strong> - Structured data (Redshift, BigQuery)</li>
+                        <li><strong>NoSQL Databases</strong> - Flexible schemas (MongoDB, DynamoDB)</li>
+                        <li><strong>Time Series DB</strong> - IoT data (InfluxDB, Timestream)</li>
+                        <li><strong>Graph Databases</strong> - Relationships (Neo4j, Neptune)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>☁️ Cloud Integration Architecture</h4>
+                <div class="architecture-diagram">
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                    ANALYTICS LAYER                      │<br>
+                    │    BI Tools | ML Models | Dashboards | Reports         │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                  PROCESSING LAYER                       │<br>
+                    │    Stream Analytics | Batch Jobs | ETL Pipelines       │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                    STORAGE LAYER                        │<br>
+                    │    Data Lake | Data Warehouse | Databases | Cache      │<br>
+                    └─────────────────────────────────────────────────────────┘<br>
+                                           │<br>
+                    ┌─────────────────────────────────────────────────────────┐<br>
+                    │                   INGESTION LAYER                       │<br>
+                    │    API Gateway | Message Queue | Stream Ingestion      │<br>
+                    └─────────────────────────────────────────────────────────┘
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">99.9%</div>
+                        <div class="metric-label">Availability SLA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">&lt; 100ms</div>
+                        <div class="metric-label">API Response Time</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">1M+</div>
+                        <div class="metric-label">Records/sec Processing</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">Auto</div>
+                        <div class="metric-label">Scaling</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Data Integration Tools & Technologies -->
+        <div class="slide">
+            <h2>Tools &amp; Technologies untuk Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Comprehensive Tool Ecosystem</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>🔧 ETL/ELT Tools</h4>
+                    <ul>
+                        <li><strong>Apache NiFi</strong> - Visual data flow</li>
+                        <li><strong>Talend</strong> - Open source integration</li>
+                        <li><strong>Pentaho Kettle</strong> - Data transformation</li>
+                        <li><strong>Informatica</strong> - Enterprise-grade ETL</li>
+                        <li><strong>Apache Camel</strong> - Integration patterns</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>📊 Real-time Processing</h4>
+                    <ul>
+                        <li><strong>Apache Kafka</strong> - Stream processing</li>
+                        <li><strong>Apache Storm</strong> - Real-time computation</li>
+                        <li><strong>Apache Spark Streaming</strong> - Micro-batching</li>
+                        <li><strong>Amazon Kinesis</strong> - AWS streaming</li>
+                        <li><strong>Apache Flink</strong> - Stream processing</li>
+                    </ul>
+                </div>
+                <div class="content-box cloud-box">
+                    <h4>🗃️ Data Storage &amp; Management</h4>
+                    <ul>
+                        <li><strong>Hadoop HDFS</strong> - Distributed storage</li>
+                        <li><strong>Apache Hive</strong> - Data warehouse</li>
+                        <li><strong>MongoDB</strong> - Document database</li>
+                        <li><strong>Elasticsearch</strong> - Search and analytics</li>
+                        <li><strong>Redis</strong> - In-memory caching</li>
+                    </ul>
+                </div>
+                <div class="content-box analytics-box">
+                    <h4>📈 Monitoring &amp; Governance</h4>
+                    <ul>
+                        <li><strong>Apache Atlas</strong> - Data governance</li>
+                        <li><strong>DataDog</strong> - Infrastructure monitoring</li>
+                        <li><strong>Prometheus</strong> - Metrics collection</li>
+                        <li><strong>Grafana</strong> - Data visualization</li>
+                        <li><strong>Apache Ranger</strong> - Security policies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🛠️ Tool Selection Matrix</h4>
+                <div class="architecture-diagram">
+                    <table style="border-collapse: collapse; width: 100%; color: white;">
+                        <tbody><tr style="background-color: rgba(255,255,255,0.1);">
+                            <th style="border: 1px solid #ddd; padding: 8px;">Use Case</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Best Tool</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Key Features</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Real-time Streaming</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Apache Kafka</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">High throughput, fault tolerance</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Batch ETL</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Talend/NiFi</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Visual interface, connectors</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Cloud Integration</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">AWS Glue</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Serverless, auto-scaling</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">IoT Data</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">InfluxDB</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Time-series optimization</td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Workshop - ETL Pipeline Implementation -->
+        <div class="slide">
+            <h2>Workshop: ETL Pipeline Implementation</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Hands-on ETL Development (25 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>🛠️ Tools Setup</h4>
+                    <ul>
+                        <li>Apache NiFi untuk visual flow design</li>
+                        <li>PostgreSQL sebagai source database</li>
+                        <li>MongoDB sebagai target NoSQL database</li>
+                        <li>Python scripts untuk data transformation</li>
+                        <li>Docker untuk containerization</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>📊 Data Sources</h4>
+                    <ul>
+                        <li>Manufacturing sensors data (CSV files)</li>
+                        <li>ERP system data (SQL database)</li>
+                        <li>IoT device logs (JSON streams)</li>
+                        <li>Quality control measurements (Excel)</li>
+                        <li>External weather data (REST API)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 1: Environment Setup (5 menit)</h5>
+                <div class="code-block">
+# Docker compose untuk setup environment<br>
+version: '3.8'<br>
+services:<br>
+&nbsp;&nbsp;nifi:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;image: apache/nifi:latest<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ports:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "8080:8080"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;environment:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- NIFI_WEB_HTTP_PORT=8080<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;postgres:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;image: postgres:13<br>
+&nbsp;&nbsp;&nbsp;&nbsp;environment:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- POSTGRES_DB=manufacturing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- POSTGRES_USER=admin<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- POSTGRES_PASSWORD=password<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;mongodb:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;image: mongo:latest<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ports:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "27017:27017"
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 2: Data Flow Design (10 menit)</h5>
+                <ul>
+                    <li>Create processors untuk data extraction dari multiple sources</li>
+                    <li>Configure data transformation steps (cleansing, validation)</li>
+                    <li>Setup routing based pada data quality checks</li>
+                    <li>Define error handling dan retry mechanisms</li>
+                </ul>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 3: Transformation Logic (10 menit)</h5>
+                <div class="code-block">
+# Python transformation script<br>
+import pandas as pd<br>
+import json<br>
+from datetime import datetime<br><br>
+
+def transform_sensor_data(raw_data):<br>
+&nbsp;&nbsp;# Clean and normalize sensor readings<br>
+&nbsp;&nbsp;df = pd.DataFrame(raw_data)<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;# Handle missing values<br>
+&nbsp;&nbsp;df.fillna(method='forward', inplace=True)<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;# Add computed fields<br>
+&nbsp;&nbsp;df['efficiency'] = df['output'] / df['input'] * 100<br>
+&nbsp;&nbsp;df['quality_score'] = calculate_quality(df)<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;# Standardize timestamp format<br>
+&nbsp;&nbsp;df['timestamp'] = pd.to_datetime(df['timestamp'])<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;return df.to_dict('records')
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Workshop - Real-time Stream Processing -->
+        <div class="slide">
+            <h2>Workshop: Real-time Stream Processing</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Apache Kafka Stream Processing (20 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box integration-box">
+                    <h4>🔄 Kafka Setup</h4>
+                    <ul>
+                        <li>Kafka broker configuration</li>
+                        <li>Topic creation untuk different data types</li>
+                        <li>Producer setup untuk IoT data simulation</li>
+                        <li>Consumer groups untuk parallel processing</li>
+                        <li>Schema registry untuk data governance</li>
+                    </ul>
+                </div>
+                <div class="content-box analytics-box">
+                    <h4>📊 Stream Processing Logic</h4>
+                    <ul>
+                        <li>Real-time data filtering</li>
+                        <li>Window-based aggregations</li>
+                        <li>Join operations across streams</li>
+                        <li>Anomaly detection algorithms</li>
+                        <li>Alert generation mechanisms</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 1: Kafka Producer Implementation (8 menit)</h5>
+                <div class="code-block">
+// Node.js Kafka Producer<br>
+const kafka = require('kafkajs');<br><br>
+
+const client = kafka({<br>
+&nbsp;&nbsp;clientId: 'iot-producer',<br>
+&nbsp;&nbsp;brokers: ['localhost:9092']<br>
+});<br><br>
+
+const producer = client.producer();<br><br>
+
+async function publishSensorData() {<br>
+&nbsp;&nbsp;await producer.connect();<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;// Simulate IoT sensor data<br>
+&nbsp;&nbsp;setInterval(async () =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const sensorData = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deviceId: `sensor-${Math.floor(Math.random() * 100)}`,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temperature: 20 + Math.random() * 10,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;humidity: 40 + Math.random() * 20,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp: new Date().toISOString()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await producer.send({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topic: 'sensor-data',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages: [{ value: JSON.stringify(sensorData) }]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;}, 1000);<br>
+}
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 2: Stream Processing with Kafka Streams (12 menit)</h5>
+                <div class="code-block">
+// Java Kafka Streams Application<br>
+Properties props = new Properties();<br>
+props.put(StreamsConfig.APPLICATION_ID_CONFIG, "sensor-analytics");<br>
+props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");<br><br>
+
+StreamsBuilder builder = new StreamsBuilder();<br><br>
+
+// Create stream from sensor-data topic<br>
+KStream&lt;String, String&gt; sensorStream = builder.stream("sensor-data");<br><br>
+
+// Parse and filter sensor data<br>
+KStream&lt;String, SensorData&gt; parsedStream = sensorStream<br>
+&nbsp;&nbsp;.mapValues(value -&gt; gson.fromJson(value, SensorData.class))<br>
+&nbsp;&nbsp;.filter((key, sensor) -&gt; sensor.getTemperature() &gt; 30);<br><br>
+
+// Aggregate data in 5-minute windows<br>
+KTable&lt;Windowed&lt;String&gt;, Double&gt; avgTemp = parsedStream<br>
+&nbsp;&nbsp;.groupByKey()<br>
+&nbsp;&nbsp;.windowedBy(TimeWindows.of(Duration.ofMinutes(5)))<br>
+&nbsp;&nbsp;.aggregate(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;() -&gt; new TemperatureAggregate(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(key, value, aggregate) -&gt; aggregate.add(value.getTemperature())<br>
+&nbsp;&nbsp;);
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Workshop - Cloud Data Integration -->
+        <div class="slide">
+            <h2>Workshop: Cloud Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>AWS Cloud Integration Pipeline (25 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box cloud-box">
+                    <h4>☁️ AWS Services Used</h4>
+                    <ul>
+                        <li>AWS IoT Core untuk device connectivity</li>
+                        <li>Amazon Kinesis untuk data streaming</li>
+                        <li>AWS Glue untuk ETL processing</li>
+                        <li>Amazon S3 untuk data lake storage</li>
+                        <li>Amazon Redshift untuk data warehouse</li>
+                    </ul>
+                </div>
+                <div class="content-box analytics-box">
+                    <h4>📊 Analytics &amp; Visualization</h4>
+                    <ul>
+                        <li>Amazon QuickSight untuk dashboards</li>
+                        <li>AWS Lambda untuk serverless processing</li>
+                        <li>CloudWatch untuk monitoring</li>
+                        <li>SNS untuk alerting</li>
+                        <li>API Gateway untuk data access</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 1: IoT Core Setup (8 menit)</h5>
+                <div class="code-block">
+// AWS IoT Device SDK untuk Python<br>
+from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient<br>
+import json<br>
+import time<br><br>
+
+# Initialize AWS IoT client<br>
+client = AWSIoTMQTTClient("factory-sensor-001")<br>
+client.configureEndpoint("your-iot-endpoint.amazonaws.com", 8883)<br>
+client.configureCredentials("root-CA.crt", "private.pem.key", "certificate.pem.crt")<br><br>
+
+# Configure connection<br>
+client.configureAutoReconnectBackoffTime(1, 32, 20)<br>
+client.configureOfflinePublishQueueing(-1)<br>
+client.configureDrainingFrequency(2)<br>
+client.configureConnectDisconnectTimeout(10)<br><br>
+
+# Connect and publish sensor data<br>
+client.connect()<br>
+while True:<br>
+&nbsp;&nbsp;sensor_data = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"deviceId": "sensor-001",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"temperature": get_temperature(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"timestamp": int(time.time())<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;client.publish("factory/sensors/temperature", json.dumps(sensor_data), 1)<br>
+&nbsp;&nbsp;time.sleep(5)
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 2: Kinesis Data Streams (8 menit)</h5>
+                <div class="code-block">
+// Lambda function untuk processing Kinesis streams<br>
+exports.handler = async (event) =&gt; {<br>
+&nbsp;&nbsp;const records = event.Records;<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;for (const record of records) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Decode Kinesis data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const payload = Buffer.from(record.kinesis.data, 'base64').toString();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const data = JSON.parse(payload);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Process and enrich data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const enrichedData = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processedAt: new Date().toISOString(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temperatureStatus: data.temperature &gt; 35 ? 'HIGH' : 'NORMAL',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;partitionKey: data.deviceId<br>
+&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Store in S3 and forward to analytics<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await storeInS3(enrichedData);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await forwardToAnalytics(enrichedData);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;return { statusCode: 200, body: 'Processed successfully' };<br>
+};
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Step 3: AWS Glue ETL Job (9 menit)</h5>
+                <ul>
+                    <li>Create Glue crawler untuk automatic schema discovery</li>
+                    <li>Design ETL job untuk data transformation</li>
+                    <li>Configure job triggers dan scheduling</li>
+                    <li>Monitor job execution dan performance</li>
+                    <li>Setup data quality checks dan validation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Case Study - Smart Factory Integration -->
+        <div class="slide">
+            <h2>Case Study: Smart Factory Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>PT. Manufaktur Nusantara - Data Integration Project</h3>
+
+            <div class="case-study">
+                <h4>🏭 Business Context</h4>
+                <p><strong>Challenge:</strong> Mengintegrasikan data dari 15 production lines, 200+ sensors, 5 different systems (ERP, MES, QMS, SCADA, WMS) untuk real-time monitoring dan predictive analytics.</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>📊 Data Sources</h4>
+                    <ul>
+                        <li><strong>Production Lines:</strong> 500GB/day sensor data</li>
+                        <li><strong>ERP System:</strong> SAP dengan 50+ tables</li>
+                        <li><strong>Quality System:</strong> Real-time inspection data</li>
+                        <li><strong>SCADA:</strong> Equipment status dan alarms</li>
+                        <li><strong>External:</strong> Supplier dan weather data</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>🔧 Integration Challenges</h4>
+                    <ul>
+                        <li><strong>Data Volume:</strong> 2TB daily data influx</li>
+                        <li><strong>Latency:</strong> Sub-second response requirements</li>
+                        <li><strong>Formats:</strong> CSV, JSON, XML, Binary protocols</li>
+                        <li><strong>Legacy Systems:</strong> 20+ year old equipment</li>
+                        <li><strong>Network:</strong> Limited bandwidth, security constraints</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🏗️ Solution Architecture</h4>
+                <div class="architecture-diagram">
+                    Production Floor → [Edge Gateways] → [Industrial Network]<br>
+                           ↓                  ↓              ↓<br>
+                    [Protocol Converters] → [Message Bus] → [Data Lake]<br>
+                           ↓                  ↓              ↓<br>
+                    [Real-time Processing] → [Analytics] → [Dashboards]<br>
+                           ↓                  ↓              ↓<br>
+                    [ML Models] → [Alerts &amp; Notifications] → [Mobile Apps]
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">15%</div>
+                    <div class="metric-label">OEE Improvement</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">25%</div>
+                    <div class="metric-label">Downtime Reduction</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">30%</div>
+                    <div class="metric-label">Quality Improvement</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">40%</div>
+                    <div class="metric-label">Maintenance Cost Savings</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Data Quality & Governance -->
+        <div class="slide">
+            <h2>Data Quality &amp; Governance</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Ensuring Data Quality dalam Integration Process</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>✅ Data Quality Dimensions</h4>
+                    <ul>
+                        <li><strong>Accuracy:</strong> Correctness of data values</li>
+                        <li><strong>Completeness:</strong> Missing data handling</li>
+                        <li><strong>Consistency:</strong> Uniform data representation</li>
+                        <li><strong>Timeliness:</strong> Data freshness dan currency</li>
+                        <li><strong>Validity:</strong> Conformance to business rules</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>📋 Data Governance Framework</h4>
+                    <ul>
+                        <li><strong>Data Lineage:</strong> Track data flow dan transformations</li>
+                        <li><strong>Metadata Management:</strong> Catalog dan documentation</li>
+                        <li><strong>Access Control:</strong> Security dan authorization</li>
+                        <li><strong>Audit Trail:</strong> Change tracking dan compliance</li>
+                        <li><strong>Data Stewardship:</strong> Ownership dan responsibility</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔍 Data Quality Implementation</h4>
+                <div class="code-block">
+# Data Quality Validation Framework<br>
+class DataQualityValidator:<br>
+&nbsp;&nbsp;def __init__(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.rules = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.metrics = {}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def add_rule(self, name, condition, severity='HIGH'):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.rules.append({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name': name,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'condition': condition,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'severity': severity<br>
+&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def validate_batch(self, data):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;results = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for rule in self.rules:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;violations = data[~rule['condition'](data)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if len(violations) &gt; 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;results.append({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rule': rule['name'],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'violations': len(violations),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'severity': rule['severity']<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return results<br><br>
+
+# Usage example<br>
+validator = DataQualityValidator()<br>
+validator.add_rule('temperature_range', lambda df: df['temp'].between(0, 100))<br>
+validator.add_rule('required_fields', lambda df: df['device_id'].notna())<br>
+quality_report = validator.validate_batch(sensor_data)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Performance Optimization -->
+        <div class="slide">
+            <h2>Performance Optimization Strategies</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Optimizing Data Integration Performance</h3>
+
+            <div class="content-grid">
+                <div class="content-box cloud-box">
+                    <h4>🚀 Performance Techniques</h4>
+                    <ul>
+                        <li><strong>Parallel Processing:</strong> Multi-threading dan distributed computing</li>
+                        <li><strong>Caching Strategies:</strong> In-memory caching untuk frequently accessed data</li>
+                        <li><strong>Indexing:</strong> Database indexing untuk faster queries</li>
+                        <li><strong>Partitioning:</strong> Data partitioning untuk scalability</li>
+                        <li><strong>Compression:</strong> Data compression untuk network efficiency</li>
+                    </ul>
+                </div>
+                <div class="content-box analytics-box">
+                    <h4>📈 Monitoring &amp; Metrics</h4>
+                    <ul>
+                        <li><strong>Throughput:</strong> Records processed per second</li>
+                        <li><strong>Latency:</strong> End-to-end processing time</li>
+                        <li><strong>Error Rate:</strong> Failed integration attempts</li>
+                        <li><strong>Resource Utilization:</strong> CPU, memory, network usage</li>
+                        <li><strong>SLA Compliance:</strong> Service level agreement adherence</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>⚡ Performance Optimization Example</h4>
+                <div class="code-block">
+# Optimized Data Processing Pipeline<br>
+import concurrent.futures<br>
+import pandas as pd<br>
+from multiprocessing import Pool<br><br>
+
+class OptimizedDataProcessor:<br>
+&nbsp;&nbsp;def __init__(self, max_workers=4):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.max_workers = max_workers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.cache = {}<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def process_batch_parallel(self, data_chunks):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;with concurrent.futures.ProcessPoolExecutor(max_workers=self.max_workers) as executor:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Submit all chunks for parallel processing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;futures = [executor.submit(self.process_chunk, chunk) for chunk in data_chunks]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Collect results as they complete<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;results = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for future in concurrent.futures.as_completed(futures):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;results.extend(future.result())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return results<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def process_chunk(self, chunk):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Apply transformations with caching<br>
+&nbsp;&nbsp;&nbsp;&nbsp;processed_data = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for record in chunk:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cache_key = f"{record['device_id']}_{record['type']}"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if cache_key in self.cache:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processed_record = self.cache[cache_key]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processed_record = self.transform_record(record)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.cache[cache_key] = processed_record<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processed_data.append(processed_record)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return processed_data
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">10x</div>
+                    <div class="metric-label">Throughput Improvement</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">50%</div>
+                    <div class="metric-label">Latency Reduction</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Availability</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">60%</div>
+                    <div class="metric-label">Cost Savings</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Security in Data Integration -->
+        <div class="slide">
+            <h2>Security dalam Data Integration</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Comprehensive Security Framework</h3>
+
+            <div class="content-grid">
+                <div class="content-box analytics-box">
+                    <h4>🔐 Security Layers</h4>
+                    <ul>
+                        <li><strong>Data Encryption:</strong> At rest dan in transit</li>
+                        <li><strong>Access Control:</strong> RBAC dan attribute-based</li>
+                        <li><strong>API Security:</strong> Authentication dan rate limiting</li>
+                        <li><strong>Network Security:</strong> VPNs dan secure tunnels</li>
+                        <li><strong>Audit Logging:</strong> Comprehensive activity tracking</li>
+                    </ul>
+                </div>
+                <div class="content-box data-box">
+                    <h4>🛡️ Compliance Requirements</h4>
+                    <ul>
+                        <li><strong>GDPR:</strong> Data privacy dan consent management</li>
+                        <li><strong>HIPAA:</strong> Healthcare data protection</li>
+                        <li><strong>PCI DSS:</strong> Payment card data security</li>
+                        <li><strong>SOX:</strong> Financial data integrity</li>
+                        <li><strong>ISO 27001:</strong> Information security management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔒 Security Implementation</h4>
+                <div class="code-block">
+# Secure Data Integration Framework<br>
+import hashlib<br>
+import jwt<br>
+from cryptography.fernet import Fernet<br><br>
+
+class SecureDataIntegrator:<br>
+&nbsp;&nbsp;def __init__(self, encryption_key, jwt_secret):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.cipher = Fernet(encryption_key)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;self.jwt_secret = jwt_secret<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def encrypt_sensitive_data(self, data):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Identify sensitive fields<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sensitive_fields = ['ssn', 'credit_card', 'email', 'phone']<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for field in sensitive_fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if field in data:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Encrypt sensitive data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encrypted_value = self.cipher.encrypt(str(data[field]).encode())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data[f"{field}_encrypted"] = encrypted_value.decode()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Hash for indexing (one-way)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data[f"{field}_hash"] = hashlib.sha256(str(data[field]).encode()).hexdigest()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Remove plain text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;del data[field]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return data<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;def authenticate_request(self, token):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload = jwt.decode(token, self.jwt_secret, algorithms=['HS256'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return payload['user_id'], payload['permissions']<br>
+&nbsp;&nbsp;&nbsp;&nbsp;except jwt.InvalidTokenError:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise Exception("Invalid authentication token")
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Project Assignment -->
+        <div class="slide">
+            <h2>Project Assignment: Data Integration Implementation</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Comprehensive Data Integration Project</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>🎯 Project Scenarios</h4>
+                    <ul>
+                        <li><strong>Smart Agriculture:</strong> Farm sensors, weather data, crop monitoring</li>
+                        <li><strong>Healthcare IoT:</strong> Patient monitoring, medical devices, health records</li>
+                        <li><strong>Retail Analytics:</strong> POS systems, inventory, customer behavior</li>
+                        <li><strong>Smart City:</strong> Traffic sensors, utilities, public services</li>
+                        <li><strong>Supply Chain:</strong> Logistics tracking, supplier data, warehouse management</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>📋 Deliverables (2 minggu)</h4>
+                    <ul>
+                        <li><strong>Architecture Document:</strong> System design dan data flow</li>
+                        <li><strong>Implementation Code:</strong> Working integration pipeline</li>
+                        <li><strong>Data Quality Report:</strong> Validation dan cleansing results</li>
+                        <li><strong>Performance Analysis:</strong> Throughput dan latency metrics</li>
+                        <li><strong>Demo Presentation:</strong> Live system demonstration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Evaluation Criteria</h4>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">25%</div>
+                        <div class="metric-label">Technical Implementation</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">20%</div>
+                        <div class="metric-label">CPMK Integration</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">20%</div>
+                        <div class="metric-label">Data Quality</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">15%</div>
+                        <div class="metric-label">Performance</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">10%</div>
+                        <div class="metric-label">Security</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">10%</div>
+                        <div class="metric-label">Documentation &amp; Presentation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workshop-step">
+                <h5>Project Requirements:</h5>
+                <ul>
+                    <li>Integrate minimum 3 different data sources with different formats</li>
+                    <li>Implement real-time dan batch processing components</li>
+                    <li>Include data quality validation dan error handling</li>
+                    <li>Apply security best practices dan data governance</li>
+                    <li>Demonstrate all 4 CPMK components (IoT, Network, Algorithms, Cloud)</li>
+                    <li>Provide comprehensive documentation dan user manual</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 17: Industry Best Practices -->
+        <div class="slide">
+            <h2>Industry Best Practices</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Proven Strategies dari Leading Organizations</h3>
+
+            <div class="content-grid">
+                <div class="content-box cloud-box">
+                    <h4>🏆 Enterprise Best Practices</h4>
+                    <ul>
+                        <li><strong>Start Small:</strong> Pilot projects untuk proof of concept</li>
+                        <li><strong>Standardize:</strong> Common data formats dan APIs</li>
+                        <li><strong>Automate:</strong> Self-service data integration capabilities</li>
+                        <li><strong>Monitor:</strong> Comprehensive observability dan alerting</li>
+                        <li><strong>Govern:</strong> Data governance dan compliance frameworks</li>
+                    </ul>
+                </div>
+                <div class="content-box analytics-box">
+                    <h4>💡 Lessons Learned</h4>
+                    <ul>
+                        <li><strong>Data Quality First:</strong> 80% effort on data quality, 20% on features</li>
+                        <li><strong>Change Management:</strong> Involve stakeholders early dan often</li>
+                        <li><strong>Incremental Approach:</strong> Iterative development dan deployment</li>
+                        <li><strong>Documentation:</strong> Maintain comprehensive data lineage</li>
+                        <li><strong>Team Skills:</strong> Invest in training dan skill development</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🌟 Success Stories</h4>
+                <div class="content-grid">
+                    <div>
+                        <h5>Netflix:</h5>
+                        <ul>
+                            <li>Real-time data integration untuk personalization</li>
+                            <li>Microservices architecture dengan event streaming</li>
+                            <li>A/B testing data integration untuk product decisions</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Uber:</h5>
+                        <ul>
+                            <li>Real-time location data integration</li>
+                            <li>Dynamic pricing based on integrated data streams</li>
+                            <li>Predictive analytics untuk demand forecasting</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Amazon:</h5>
+                        <ul>
+                            <li>Supply chain optimization dengan data integration</li>
+                            <li>Customer behavior analytics across touchpoints</li>
+                            <li>Inventory management dengan predictive analytics</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Tesla:</h5>
+                        <ul>
+                            <li>Vehicle telemetry data integration</li>
+                            <li>Over-the-air updates data integration</li>
+                            <li>Manufacturing quality data integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Interactive Discussion -->
+        <div class="slide">
+            <h2>Interactive Discussion &amp; Q&amp;A</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Diskusi Interaktif (20 menit)</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>💬 Discussion Topics</h4>
+                    <ul>
+                        <li>Real-world data integration challenges</li>
+                        <li>Technology choices dan trade-offs</li>
+                        <li>Scalability dan performance considerations</li>
+                        <li>Future trends dalam data integration</li>
+                        <li>Career opportunities di data engineering</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>❓ Q&amp;A Session</h4>
+                    <ul>
+                        <li>Technical implementation questions</li>
+                        <li>CPMK achievement clarification</li>
+                        <li>Project guidance dan troubleshooting</li>
+                        <li>Industry application examples</li>
+                        <li>Tool recommendations dan alternatives</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔍 Deep Dive Questions</h4>
+                <div class="workshop-step">
+                    <h5>1. How would you handle data integration challenges in a resource-constrained environment?</h5>
+                </div>
+                <div class="workshop-step">
+                    <h5>2. What are the trade-offs between real-time dan batch processing in your project context?</h5>
+                </div>
+                <div class="workshop-step">
+                    <h5>3. How can we ensure data privacy dan compliance in cross-border data integration?</h5>
+                </div>
+                <div class="workshop-step">
+                    <h5>4. What strategies would you use to handle schema evolution dalam long-running integrations?</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Assessment Methods -->
+        <div class="slide">
+            <h2>Assessment Methods &amp; Criteria</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Comprehensive Assessment Framework</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>📝 Assessment Components</h4>
+                    <ul>
+                        <li><strong>Project Implementation (50%):</strong> Working data integration pipeline</li>
+                        <li><strong>Technical Documentation (20%):</strong> Architecture dan design documents</li>
+                        <li><strong>Presentation (15%):</strong> System demo dan explanation</li>
+                        <li><strong>Code Quality (10%):</strong> Code structure, comments, best practices</li>
+                        <li><strong>Innovation (5%):</strong> Creative solutions dan advanced features</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>🎯 CPMK Assessment Mapping</h4>
+                    <ul>
+                        <li><strong>CPMK 0801 (25%):</strong> IoT data collection implementation</li>
+                        <li><strong>CPMK 0901 (25%):</strong> Network infrastructure design</li>
+                        <li><strong>CPMK 1001 (25%):</strong> Algorithm implementation dan optimization</li>
+                        <li><strong>CPMK 1005 (25%):</strong> Cloud integration dan data processing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📊 Grading Rubric</h4>
+                <div class="architecture-diagram">
+                    <table style="border-collapse: collapse; width: 100%; color: white;">
+                        <tbody><tr style="background-color: rgba(255,255,255,0.1);">
+                            <th style="border: 1px solid #ddd; padding: 8px;">Criteria</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Excellent (A)</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Good (B)</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Satisfactory (C)</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Integration Success</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">All sources integrated flawlessly</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Most sources integrated successfully</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Basic integration achieved</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Data Quality</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Comprehensive quality checks</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Good quality validation</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Basic quality measures</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Performance</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Optimized for scale</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Good performance</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Acceptable performance</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Documentation</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Complete dan comprehensive</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Good coverage</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Basic documentation</td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">A</div>
+                    <div class="metric-label">Excellent (85-100)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">B</div>
+                    <div class="metric-label">Good (70-84)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">C</div>
+                    <div class="metric-label">Satisfactory (60-69)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">D</div>
+                    <div class="metric-label">Needs Improvement (&lt;60)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Next Meeting Preview -->
+        <div class="slide">
+            <h2>Preview Pertemuan Selanjutnya</h2>
+            <div style="display: flex; align-items: center; margin-bottom: 2rem;">
+                <img src="./Integrasi Data dalam Sistem Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 60px; height: 60px; margin-right: 1rem;">
+            </div>
+
+            <h3>Pertemuan 11: Testing dan Validasi Sistem Terintegrasi</h3>
+
+            <div class="content-grid">
+                <div class="content-box data-box">
+                    <h4>🧪 Topics yang Akan Dibahas</h4>
+                    <ul>
+                        <li>System testing strategies untuk integrated systems</li>
+                        <li>Performance testing dan load testing</li>
+                        <li>Data quality testing dan validation</li>
+                        <li>Security testing dan vulnerability assessment</li>
+                        <li>User acceptance testing dan feedback integration</li>
+                    </ul>
+                </div>
+                <div class="content-box integration-box">
+                    <h4>📋 Preparation Required</h4>
+                    <ul>
+                        <li>Complete data integration project implementation</li>
+                        <li>Prepare test scenarios dan test data</li>
+                        <li>Setup monitoring dan logging systems</li>
+                        <li>Review testing frameworks dan methodologies</li>
+                        <li>Prepare project demonstrations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>📚 Reading Assignment</h4>
+                <ul>
+                    <li>"Testing Microservices dan Distributed Systems" - Martin Fowler</li>
+                    <li>"Data Quality Testing in Big Data Environments" - IEEE Paper</li>
+                    <li>"Performance Testing Strategies for Cloud Applications" - Best Practices Guide</li>
+                    <li>"Security Testing for IoT Systems" - OWASP Guidelines</li>
+                </ul>
+            </div>
+
+            <div class="workshop-step">
+                <h5>🎯 Learning Objectives untuk Pertemuan 11:</h5>
+                <ul>
+                    <li>Understand comprehensive testing strategies for integrated systems</li>
+                    <li>Implement automated testing pipelines</li>
+                    <li>Perform performance analysis dan optimization</li>
+                    <li>Conduct security assessments dan vulnerability testing</li>
+                    <li>Validate system functionality against business requirements</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3 style="color: #FFD700;">Terima Kasih!</h3>
+                <p style="font-size: 1.2rem; color: #FFEAA7; margin-top: 1rem;">
+                    Questions? Contact: ikhwan.alfath@untidar.ac.id
+                </p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="prevSlide()">← Previous</button>
+            <button class="control-btn" onclick="nextSlide()">Next →</button>
+            <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
+        </div>
+
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">20</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+
+            // Update progress bar
+            const progress = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F11') {
+                e.preventDefault();
+                toggleFullscreen();
+            } else if (e.key === 'Escape') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+
+        // Initialize
+        showSlide(0);
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

@@ -1,0 +1,2766 @@
+<!DOCTYPE html>
+<!-- saved from url=(0133)https://class.tiflab.my.id/storage/lessons/materials/1763430332_12-Keamanan-dalam-Cloud-Computing-dan-Infrastruktur-Terintegrasi.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keamanan dalam Cloud Computing dan Infrastruktur Terintegrasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Keamanan dalam Cloud Computing dan Infrastruktur Terintegrasi_files/css2" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: #e4e4e7;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            padding: 60px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            position: relative;
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Custom scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 5px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #3b82f6, #2563eb);
+            border-radius: 5px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #2563eb, #1d4ed8);
+            background-clip: content-box;
+        }
+
+        /* Firefox scrollbar */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 rgba(15, 23, 42, 0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #60a5fa;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            padding-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .university-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .university-name {
+            font-size: 1.5rem;
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .faculty-info {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .course-info {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        ul {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-left: 2rem;
+            font-weight: 400;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            position: relative;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        li:hover {
+            transform: translateX(5px);
+            color: #60a5fa;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: -1.5rem;
+            top: 0;
+            color: #3b82f6;
+            font-weight: 700;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .content-box {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(148, 163, 184, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-box:hover::before {
+            opacity: 1;
+        }
+
+        .content-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .content-box ul {
+            font-size: 1.1rem;
+            margin-left: 1rem;
+        }
+
+        .security-box {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 3px solid #3b82f6;
+            color: #3b82f6;
+        }
+
+        .security-box h4 {
+            color: #60a5fa;
+        }
+
+        .threat-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 3px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .threat-box h4 {
+            color: #f87171;
+        }
+
+        .solution-box {
+            background: rgba(34, 197, 94, 0.08);
+            border-left: 3px solid #22c55e;
+            color: #22c55e;
+        }
+
+        .solution-box h4 {
+            color: #4ade80;
+        }
+
+        .best-practice-box {
+            background: rgba(168, 85, 247, 0.08);
+            border-left: 3px solid #a855f7;
+            color: #a855f7;
+        }
+
+        .best-practice-box h4 {
+            color: #c084fc;
+        }
+
+        .case-study {
+            background: rgba(100, 116, 139, 0.1);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .case-study:hover {
+            border-color: rgba(148, 163, 184, 0.4);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .case-study h4 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .framework-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .framework-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .framework-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .framework-item h5 {
+            font-size: 1.3rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            padding: 14px 24px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: #e4e4e7;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+        }
+
+        .control-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            backdrop-filter: blur(12px);
+            color: #60a5fa;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .code-block:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .code-block::before {
+            content: 'CODE';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .code-block pre {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .threat-model {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .threat-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-top: 3px solid #ef4444;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .threat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(239, 68, 68, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .threat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-top-color: #f87171;
+            box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .threat-card:hover::after {
+            opacity: 1;
+        }
+
+        .threat-card h5 {
+            color: #f87171;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .security-layer {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #3498db;
+            border-radius: 8px;
+        }
+
+        .security-layer h5 {
+            color: #FFD700;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-container {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .demo-btn {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .demo-btn:hover::before {
+            left: 100%;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .demo-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .comparison-table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: rgba(59, 130, 246, 0.15);
+            padding: 1.2rem;
+            text-align: left;
+            color: #60a5fa;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .comparison-table td {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 1rem;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .responsibility-model {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .responsibility-layer {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 4px solid;
+            border-radius: 5px;
+        }
+
+        .provider-layer {
+            border-left-color: #3498db;
+        }
+
+        .shared-layer {
+            border-left-color: #f39c12;
+        }
+
+        .customer-layer {
+            border-left-color: #e74c3c;
+        }
+
+        .attack-timeline {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #e74c3c;
+            border-radius: 8px;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline-item::before {
+            content: "⚠️";
+            position: absolute;
+            left: 1rem;
+            top: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .highlight {
+            background: rgba(59, 130, 246, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            color: #60a5fa;
+            font-weight: 600;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* Interactive elements */
+        .interactive-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            color: #4ade80;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-badge:hover {
+            background: rgba(34, 197, 94, 0.25);
+            transform: scale(1.05);
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted #60a5fa;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: #e4e4e7;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        /* Animated progress indicator */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Click animation */
+        @keyframes clickPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
+        .click-effect {
+            animation: clickPulse 0.6s;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.8rem; }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .threat-model {
+                grid-template-columns: 1fr;
+            }
+            .slide {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="progress-bar" id="progressBar" style="width: 3.7037%;"></div>
+
+    <div class="presentation-container">
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="./Keamanan dalam Cloud Computing dan Infrastruktur Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 150px; height: 150px; margin-bottom: 1.5rem; animation: fadeInUp 0.8s ease-out;">
+            </div>
+
+            <h1>Keamanan dalam Cloud Computing</h1>
+            <h1>dan Infrastruktur Terintegrasi</h1>
+            <div class="subtitle">Security in Cloud Computing and Integrated Infrastructure</div>
+
+            <div class="university-info" style="margin-top: 3rem;">
+                <div class="university-name">Universitas Tidar</div>
+                <div class="faculty-info">Fakultas Teknik - Program Studi Teknologi Informasi</div>
+                <div class="course-info">Teknologi Sistem Terintegrasi - Pertemuan 12</div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem; font-size: 1.3rem;">
+                <p>📚 Durasi: 3 x 50 menit</p>
+                <p>🎯 Target: Memahami dan Mengimplementasikan Keamanan Cloud</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Agenda -->
+        <div class="slide">
+            <h2>📋 Agenda Perkuliahan</h2>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🎯 Sesi 1 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Konsep dasar Cloud Security</li>
+                        <li>Tantangan keamanan cloud</li>
+                        <li>Shared Responsibility Model</li>
+                        <li>Cloud Security Architecture</li>
+                    </ul>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>💻 Sesi 2 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Identity &amp; Access Management (IAM)</li>
+                        <li>Network Security (VPC, Security Groups)</li>
+                        <li>Data Encryption (at rest &amp; in transit)</li>
+                        <li>Application Security (WAF, API Security)</li>
+                    </ul>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>🔍 Sesi 3 (50 menit)</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Studi Kasus: Capital One Data Breach</li>
+                        <li>Hands-on: Secure Infrastructure Design</li>
+                        <li>Best Practices &amp; Security Checklist</li>
+                        <li>Diskusi &amp; Q&amp;A</li>
+                    </ul>
+                </div>
+
+                <div class="content-box best-practice-box">
+                    <h4>📊 Capaian Pembelajaran</h4>
+                    <ul style="font-size: 1.2rem;">
+                        <li>Memahami konsep keamanan cloud</li>
+                        <li>Menganalisis ancaman keamanan</li>
+                        <li>Merancang sistem keamanan</li>
+                        <li>Implementasi security controls</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Pengantar Cloud Security -->
+        <div class="slide">
+            <h2>🌐 Pengantar Cloud Security</h2>
+
+            <h3>Definisi Cloud Security</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem;">
+                Cloud security adalah kumpulan <span class="highlight">kebijakan, teknologi, prosedur, dan kontrol</span>
+                yang bekerja bersama untuk melindungi sistem berbasis cloud, data, dan infrastruktur.
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspek</th>
+                        <th>Traditional IT</th>
+                        <th>Cloud Computing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Kontrol Fisik</strong></td>
+                        <td>✅ Full Control</td>
+                        <td>🔄 Shared Responsibility</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security Perimeter</strong></td>
+                        <td>🌐 Network-based</td>
+                        <td>👤 Identity-based</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visibility</strong></td>
+                        <td>✅ Complete</td>
+                        <td>⚠️ Limited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scalability</strong></td>
+                        <td>🔧 Manual</td>
+                        <td>🚀 Dynamic</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compliance</strong></td>
+                        <td>🏢 Organization-specific</td>
+                        <td>🤝 Shared/Provider-managed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 4: Tantangan Keamanan Cloud -->
+        <div class="slide">
+            <h2>⚠️ Tantangan Keamanan Cloud</h2>
+
+            <div class="threat-model">
+                <div class="threat-card">
+                    <h5>🔓 Data Breaches</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Akses tidak sah ke data sensitif<br>
+                        • Multi-tenancy risks<br>
+                        • Insider threats<br>
+                        • Data leakage
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>⚙️ Misconfiguration</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Storage buckets terbuka (S3, Blob)<br>
+                        • Firewall rules yang salah<br>
+                        • Default credentials<br>
+                        • Unpatched systems
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>👤 Identity Management</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Weak authentication<br>
+                        • Poor access control<br>
+                        • Privilege escalation<br>
+                        • Credential theft
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🔌 Insecure APIs</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • API tanpa autentikasi proper<br>
+                        • Rate limiting tidak ada<br>
+                        • Injection vulnerabilities<br>
+                        • Data exposure
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🎭 Account Hijacking</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Phishing attacks<br>
+                        • Credential stuffing<br>
+                        • Session hijacking<br>
+                        • Brute force attacks
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>👁️ Lack of Visibility</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Shadow IT<br>
+                        • Unmanaged services<br>
+                        • Data sprawl<br>
+                        • Blind spots in monitoring
+                    </p>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📊 Statistik Keamanan Cloud 2024</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    • <strong>95%</strong> cloud security failures disebabkan oleh human error<br>
+                    • <strong>$4.45 juta</strong> rata-rata biaya data breach<br>
+                    • <strong>277 hari</strong> rata-rata waktu untuk identifikasi dan containment breach<br>
+                    • <strong>68%</strong> organisasi mengalami cloud security incident dalam 12 bulan terakhir
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Shared Responsibility Model -->
+        <div class="slide">
+            <h2>🤝 Shared Responsibility Model</h2>
+
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; text-align: center;">
+                Model yang mendefinisikan <span class="highlight">pembagian tanggung jawab keamanan</span>
+                antara Cloud Provider dan Customer
+            </p>
+
+            <div class="responsibility-model">
+                <div class="responsibility-layer customer-layer">
+                    <h5 style="color: #FFD700; font-size: 1.4rem;">🔴 Customer Responsibility (Security IN the Cloud)</h5>
+                    <p style="font-size: 1.2rem; margin-top: 1rem; line-height: 1.8;">
+                        ✓ Data Classification &amp; Accountability<br>
+                        ✓ Identity &amp; Access Management (IAM)<br>
+                        ✓ Application Security<br>
+                        ✓ Network &amp; Firewall Configuration<br>
+                        ✓ Operating System Patching (IaaS)<br>
+                        ✓ Client-side Data Encryption<br>
+                        ✓ Server-side Encryption (file system/data)
+                    </p>
+                </div>
+
+                <div class="responsibility-layer shared-layer">
+                    <h5 style="color: #FFD700; font-size: 1.4rem;">🟡 Shared Responsibility</h5>
+                    <p style="font-size: 1.2rem; margin-top: 1rem; line-height: 1.8;">
+                        ⚡ Patch Management (tergantung service model)<br>
+                        ⚡ Configuration Management<br>
+                        ⚡ Awareness &amp; Training
+                    </p>
+                </div>
+
+                <div class="responsibility-layer provider-layer">
+                    <h5 style="color: #FFD700; font-size: 1.4rem;">🔵 Provider Responsibility (Security OF the Cloud)</h5>
+                    <p style="font-size: 1.2rem; margin-top: 1rem; line-height: 1.8;">
+                        ✓ Physical Security (Data Centers)<br>
+                        ✓ Network Infrastructure<br>
+                        ✓ Hypervisor Security<br>
+                        ✓ Hardware Maintenance<br>
+                        ✓ Global Infrastructure<br>
+                        ✓ Managed Services Security
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Responsibility by Service Model -->
+        <div class="slide">
+            <h2>📊 Tanggung Jawab Berdasarkan Service Model</h2>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🖥️ IaaS (Infrastructure as a Service)</h4>
+                    <div style="margin-top: 1rem;">
+                        <p style="color: #3498db; font-size: 1.2rem; margin-bottom: 0.5rem;"><strong>Provider:</strong></p>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">
+                            • Physical security<br>
+                            • Network infrastructure<br>
+                            • Storage &amp; compute<br>
+                            • Hypervisor
+                        </p>
+                        <p style="color: #e74c3c; font-size: 1.2rem; margin: 1rem 0 0.5rem 0;"><strong>Customer:</strong></p>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">
+                            • Operating System<br>
+                            • Applications<br>
+                            • Data<br>
+                            • Identity &amp; Access<br>
+                            • Network controls
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>⚙️ PaaS (Platform as a Service)</h4>
+                    <div style="margin-top: 1rem;">
+                        <p style="color: #3498db; font-size: 1.2rem; margin-bottom: 0.5rem;"><strong>Provider:</strong></p>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">
+                            • Runtime environment<br>
+                            • Middleware<br>
+                            • Operating System<br>
+                            • Infrastructure
+                        </p>
+                        <p style="color: #e74c3c; font-size: 1.2rem; margin: 1rem 0 0.5rem 0;"><strong>Customer:</strong></p>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">
+                            • Applications<br>
+                            • Data<br>
+                            • Identity management<br>
+                            • Access control
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>☁️ SaaS (Software as a Service)</h4>
+                    <div style="margin-top: 1rem;">
+                        <p style="color: #3498db; font-size: 1.2rem; margin-bottom: 0.5rem;"><strong>Provider:</strong></p>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">
+                            • Application<br>
+                            • Runtime &amp; Middleware<br>
+                            • Operating System<br>
+                            • Infrastructure
+                        </p>
+                        <p style="color: #e74c3c; font-size: 1.2rem; margin: 1rem 0 0.5rem 0;"><strong>Customer:</strong></p>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">
+                            • Data<br>
+                            • User access management<br>
+                            • Device security<br>
+                            • End-user authentication
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-box best-practice-box">
+                    <h4>🔐 Key Takeaway</h4>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-top: 1rem;">
+                        Semakin tinggi abstraksi layanan cloud (IaaS → PaaS → SaaS),
+                        semakin <span class="highlight">banyak tanggung jawab keamanan yang diambil alih oleh provider</span>.
+                        <br><br>
+                        Namun, <strong>customer SELALU bertanggung jawab</strong> atas:
+                        <br>✓ Data mereka
+                        <br>✓ User access management
+                        <br>✓ Application-level security (untuk IaaS &amp; PaaS)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Defense in Depth -->
+        <div class="slide">
+            <h2>🛡️ Cloud Security Architecture: Defense in Depth</h2>
+
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; text-align: center;">
+                Strategi keamanan berlapis untuk melindungi aset cloud dari berbagai ancaman
+            </p>
+
+            <div class="security-layer">
+                <h5>Layer 7: 📁 Data Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Encryption at rest (AES-256)<br>
+                    • Encryption in transit (TLS 1.3)<br>
+                    • Data classification &amp; labeling<br>
+                    • Data Loss Prevention (DLP)<br>
+                    • Key management (KMS)
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>Layer 6: 💻 Application Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Secure coding practices (OWASP Top 10)<br>
+                    • Web Application Firewall (WAF)<br>
+                    • API security &amp; rate limiting<br>
+                    • Input validation &amp; output encoding<br>
+                    • Security testing (SAST, DAST)
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>Layer 5: 📱 Endpoint Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Antivirus/Antimalware<br>
+                    • Device management (MDM)<br>
+                    • Endpoint Detection &amp; Response (EDR)<br>
+                    • Patch management
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>Layer 4: 👤 Identity &amp; Access Management</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Multi-Factor Authentication (MFA)<br>
+                    • Single Sign-On (SSO)<br>
+                    • Role-Based Access Control (RBAC)<br>
+                    • Least Privilege principle<br>
+                    • Identity federation
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>Layer 3: 🌐 Network Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Virtual Private Cloud (VPC)<br>
+                    • Security Groups &amp; Network ACLs<br>
+                    • Intrusion Detection/Prevention (IDS/IPS)<br>
+                    • Network segmentation &amp; micro-segmentation<br>
+                    • DDoS protection
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>Layer 2: 🖥️ Infrastructure Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Hardened VM/Container images<br>
+                    • Patch management automation<br>
+                    • Configuration management<br>
+                    • Vulnerability scanning
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>Layer 1: 🏢 Physical Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Data center access control<br>
+                    • Surveillance &amp; monitoring<br>
+                    • Environmental controls<br>
+                    • Hardware security (HSM)
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Identity and Access Management -->
+        <div class="slide">
+            <h2>👤 Identity and Access Management (IAM)</h2>
+
+            <h3>Prinsip Least Privilege</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 1.5rem;">
+                Berikan <span class="highlight">akses minimum</span> yang diperlukan untuk menjalankan tugas.
+            </p>
+
+            <div class="code-block">
+                <pre>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadOnlyAccessToS3Bucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::company-data/*",
+        "arn:aws:s3:::company-data"
+      ],
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": "203.0.113.0/24"
+        }
+      }
+    }
+  ]
+}</pre>
+            </div>
+
+            <div class="content-grid" style="margin-top: 2rem;">
+                <div class="content-box security-box">
+                    <h4>🔑 IAM Best Practices</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Enable MFA untuk semua users</li>
+                        <li>Gunakan roles, bukan long-term credentials</li>
+                        <li>Rotate credentials secara berkala</li>
+                        <li>Monitor dan audit access logs</li>
+                        <li>Implement password policies</li>
+                    </ul>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>⚠️ Common IAM Mistakes</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Menggunakan root account untuk operasional</li>
+                        <li>Over-permissive policies (Action: "*")</li>
+                        <li>Sharing credentials antar users</li>
+                        <li>Tidak mengaktifkan MFA</li>
+                        <li>Hardcoding credentials dalam code</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Network Security -->
+        <div class="slide">
+            <h2>🌐 Network Security: VPC &amp; Security Groups</h2>
+
+            <h3>Virtual Private Cloud (VPC)</h3>
+            <p style="font-size: 1.3rem; margin-bottom: 1.5rem;">
+                Isolated network untuk resources cloud Anda dengan <span class="highlight">kontrol penuh</span> atas networking environment.
+            </p>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🔐 Security Groups (Stateful)</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        <strong>Karakteristik:</strong><br>
+                        • Virtual firewall untuk instances<br>
+                        • Operates at instance level<br>
+                        • Stateful (return traffic automatic)<br>
+                        • Allow rules only (default deny)<br>
+                        • Evaluate all rules before decision
+                    </p>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>🛡️ Network ACLs (Stateless)</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        <strong>Karakteristik:</strong><br>
+                        • Operates at subnet level<br>
+                        • Stateless (must allow return traffic)<br>
+                        • Allow &amp; Deny rules<br>
+                        • Rules processed in number order<br>
+                        • First match wins
+                    </p>
+                </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 2rem;">
+                <pre># Security Group Example (Terraform)
+resource "aws_security_group" "web_sg" {
+  name        = "web-server-sg"
+  description = "Security group for web servers"
+  vpc_id      = aws_vpc.main.id
+
+  # Allow HTTPS from anywhere
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "HTTPS from internet"
+  }
+
+  # Allow SSH only from office IP
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["203.0.113.0/24"]
+    description = "SSH from office"
+  }
+
+  # Allow all outbound
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}</pre>
+            </div>
+        </div>
+
+        <!-- Slide 10: Network Segmentation -->
+        <div class="slide">
+            <h2>🏗️ Network Segmentation Architecture</h2>
+
+            <div class="responsibility-model">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                        <h5 style="color: #FFD700; font-size: 1.4rem;">☁️ Internet</h5>
+                    </div>
+                    <div style="font-size: 2rem; margin: 1rem 0;">⬇️</div>
+                    <div style="background: rgba(52, 152, 219, 0.2); padding: 1.5rem; border-radius: 10px; border-left: 4px solid #3498db; margin: 1rem 0;">
+                        <h5 style="color: #FFD700; font-size: 1.4rem;">🌐 Internet Gateway</h5>
+                    </div>
+                    <div style="font-size: 2rem; margin: 1rem 0;">⬇️</div>
+                    <div style="background: rgba(46, 204, 113, 0.2); padding: 1.5rem; border-radius: 10px; border-left: 4px solid #27ae60; margin: 1rem 0;">
+                        <h5 style="color: #FFD700; font-size: 1.4rem;">🌍 Public Subnet (DMZ)</h5>
+                        <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                            • Load Balancers (ALB/NLB)<br>
+                            • NAT Gateways<br>
+                            • Bastion Hosts (Jump Servers)<br>
+                            • Web Application Firewall (WAF)
+                        </p>
+                    </div>
+                    <div style="font-size: 2rem; margin: 1rem 0;">⬇️</div>
+                    <div style="background: rgba(241, 196, 15, 0.2); padding: 1.5rem; border-radius: 10px; border-left: 4px solid #f39c12; margin: 1rem 0;">
+                        <h5 style="color: #FFD700; font-size: 1.4rem;">⚙️ Private Subnet (Application Tier)</h5>
+                        <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                            • Application Servers<br>
+                            • API Servers<br>
+                            • Business Logic Tier<br>
+                            • Microservices
+                        </p>
+                    </div>
+                    <div style="font-size: 2rem; margin: 1rem 0;">⬇️</div>
+                    <div style="background: rgba(231, 76, 60, 0.2); padding: 1.5rem; border-radius: 10px; border-left: 4px solid #e74c3c; margin: 1rem 0;">
+                        <h5 style="color: #FFD700; font-size: 1.4rem;">🗄️ Private Subnet (Data Tier)</h5>
+                        <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                            • Database Servers (RDS, DynamoDB)<br>
+                            • Cache Servers (ElastiCache, Redis)<br>
+                            • Storage (S3, EBS)<br>
+                            • No direct internet access
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h4>🔒 Security Controls per Layer</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    <strong>DMZ:</strong> WAF, DDoS protection, TLS termination<br>
+                    <strong>App Tier:</strong> Security groups, runtime protection, secret management<br>
+                    <strong>Data Tier:</strong> Encryption at rest, access logging, backup encryption
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Data Encryption -->
+        <div class="slide">
+            <h2>🔐 Data Security: Encryption</h2>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>💾 Encryption at Rest</h4>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-top: 1rem;">
+                        Melindungi data yang disimpan dalam storage
+                    </p>
+                    <ul style="font-size: 1.1rem; margin-top: 1rem;">
+                        <li>AES-256 encryption</li>
+                        <li>AWS KMS, Azure Key Vault</li>
+                        <li>Database encryption (TDE)</li>
+                        <li>Disk/volume encryption</li>
+                        <li>Object storage encryption (S3, Blob)</li>
+                    </ul>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>🔄 Encryption in Transit</h4>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-top: 1rem;">
+                        Melindungi data saat bergerak antar systems
+                    </p>
+                    <ul style="font-size: 1.1rem; margin-top: 1rem;">
+                        <li>TLS 1.3 / SSL certificates</li>
+                        <li>HTTPS untuk web traffic</li>
+                        <li>VPN untuk site-to-site</li>
+                        <li>IPSec tunnels</li>
+                        <li>Certificate pinning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 2rem;">
+                <pre># AWS S3 Server-Side Encryption (Python)
+import boto3
+
+s3 = boto3.client('s3')
+
+# Upload with SSE-KMS encryption
+s3.put_object(
+    Bucket='secure-bucket',
+    Key='sensitive-data.txt',
+    Body='Confidential information',
+    ServerSideEncryption='aws:kms',
+    SSEKMSKeyId='arn:aws:kms:region:account:key/key-id'
+)
+
+# Enable default bucket encryption
+s3.put_bucket_encryption(
+    Bucket='secure-bucket',
+    ServerSideEncryptionConfiguration={
+        'Rules': [{
+            'ApplyServerSideEncryptionByDefault': {
+                'SSEAlgorithm': 'aws:kms',
+                'KMSMasterKeyID': 'key-id'
+            },
+            'BucketKeyEnabled': True
+        }]
+    }
+)</pre>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>🔑 Key Management Best Practices</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    ✓ Use managed key services (KMS, Key Vault)<br>
+                    ✓ Enable automatic key rotation<br>
+                    ✓ Separate keys per environment/application<br>
+                    ✓ Audit key usage dengan CloudTrail/Azure Monitor<br>
+                    ✓ Never hardcode keys dalam code
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Web Application Firewall -->
+        <div class="slide">
+            <h2>🛡️ Web Application Firewall (WAF)</h2>
+
+            <p style="font-size: 1.3rem; margin-bottom: 2rem; text-align: center;">
+                WAF melindungi aplikasi web dari <span class="highlight">common exploits dan vulnerabilities</span>
+                seperti SQL injection, XSS, dan DDoS attacks.
+            </p>
+
+            <div class="threat-model">
+                <div class="threat-card">
+                    <h5>🚫 SQL Injection</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Detect dan block malicious SQL queries dalam HTTP requests
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>⚡ Cross-Site Scripting (XSS)</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Filter script injections dalam user input dan responses
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🔄 CSRF Protection</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Validate requests untuk prevent cross-site forgery attacks
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>⏱️ Rate Limiting</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Limit requests per IP untuk prevent abuse dan DDoS
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🌐 Geo-blocking</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Block traffic dari specific countries atau regions
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🤖 Bot Detection</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Identify dan block automated malicious bots
+                    </p>
+                </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 2rem;">
+                <pre># AWS WAF Rule Example (Terraform)
+resource "aws_wafv2_web_acl" "main" {
+  name  = "production-waf"
+  scope = "REGIONAL"
+
+  default_action {
+    allow {}
+  }
+
+  # Rate limiting rule
+  rule {
+    name     = "RateLimitRule"
+    priority = 1
+    action {
+      block {}
+    }
+    statement {
+      rate_based_statement {
+        limit              = 2000
+        aggregate_key_type = "IP"
+      }
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "RateLimitRule"
+      sampled_requests_enabled   = true
+    }
+  }
+
+  # SQL injection protection
+  rule {
+    name     = "SQLiProtection"
+    priority = 2
+    override_action {
+      none {}
+    }
+    statement {
+      managed_rule_group_statement {
+        vendor_name = "AWS"
+        name        = "AWSManagedRulesSQLiRuleSet"
+      }
+    }
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "SQLiProtection"
+      sampled_requests_enabled   = true
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <!-- Slide 13: API Security -->
+        <div class="slide">
+            <h2>🔌 API Security Best Practices</h2>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🔐 Authentication &amp; Authorization</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>JWT (JSON Web Tokens)</li>
+                        <li>OAuth 2.0 / OpenID Connect</li>
+                        <li>API Keys dengan rotation</li>
+                        <li>mTLS (Mutual TLS)</li>
+                        <li>Service-to-service authentication</li>
+                    </ul>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>⚠️ Input Validation</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Schema validation (JSON Schema)</li>
+                        <li>Type checking &amp; sanitization</li>
+                        <li>Length &amp; format validation</li>
+                        <li>Whitelist approach</li>
+                        <li>Reject unexpected parameters</li>
+                    </ul>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>⏱️ Rate Limiting</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Per-user/per-IP limits</li>
+                        <li>Token bucket algorithm</li>
+                        <li>Sliding window counters</li>
+                        <li>429 Too Many Requests response</li>
+                        <li>Retry-After headers</li>
+                    </ul>
+                </div>
+
+                <div class="content-box best-practice-box">
+                    <h4>📊 Monitoring &amp; Logging</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Request/response logging</li>
+                        <li>Audit trails untuk sensitive operations</li>
+                        <li>Anomaly detection</li>
+                        <li>Performance metrics</li>
+                        <li>Security event alerting</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 2rem;">
+                <pre># Secure API Example (Python Flask)
+from flask import Flask, request, jsonify
+from functools import wraps
+import jwt
+from datetime import datetime, timedelta
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your-secret-key'
+
+# JWT Authentication Decorator
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+
+        if not token:
+            return jsonify({'message': 'Token missing'}), 401
+
+        try:
+            if token.startswith('Bearer '):
+                token = token[7:]
+            data = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])
+            current_user = data['user_id']
+        except jwt.ExpiredSignatureError:
+            return jsonify({'message': 'Token expired'}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({'message': 'Invalid token'}), 401
+
+        return f(current_user, *args, **kwargs)
+
+    return decorated
+
+# Protected Endpoint
+@app.route('/api/data', methods=['GET'])
+@token_required
+def get_data(current_user):
+    return jsonify({
+        'message': 'Protected data',
+        'user': current_user
+    })</pre>
+            </div>
+        </div>
+
+        <!-- Slide 14: Case Study - Capital One -->
+        <div class="slide">
+            <h2>📚 Studi Kasus: Capital One Data Breach (2019)</h2>
+
+            <div class="case-study">
+                <h4>📋 Background</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    <strong>Waktu:</strong> Maret - Juli 2019<br>
+                    <strong>Target:</strong> Capital One Financial Corporation<br>
+                    <strong>Data Dicuri:</strong> 100 juta aplikasi kartu kredit di AS, 6 juta di Kanada<br>
+                    <strong>Kerugian Estimasi:</strong> $150-300 juta<br>
+                    <strong>Root Cause:</strong> Misconfigured Web Application Firewall + Over-permissive IAM
+                </p>
+            </div>
+
+            <div class="attack-timeline">
+                <h4 style="color: #FFD700; font-size: 1.6rem; margin-bottom: 1rem;">⏱️ Timeline Serangan</h4>
+
+                <div class="timeline-item">
+                    <h5 style="color: #FFD700; font-size: 1.3rem;">Step 1: Initial Access</h5>
+                    <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                        Attacker mengeksploitasi misconfigured WAF yang berjalan di AWS EC2 instance.
+                        WAF memiliki vulnerability SSRF (Server-Side Request Forgery).
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h5 style="color: #FFD700; font-size: 1.3rem;">Step 2: Metadata Service Access</h5>
+                    <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                        Melalui SSRF, attacker mengakses EC2 Instance Metadata Service (IMDS)
+                        di endpoint <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 3px;">http://169.254.169.254/latest/meta-data/iam/security-credentials/</code>
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h5 style="color: #FFD700; font-size: 1.3rem;">Step 3: Credential Theft</h5>
+                    <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                        Mendapatkan temporary AWS credentials dari IAM role yang attached ke EC2 instance.
+                        Role ini memiliki permissions yang <span class="highlight">terlalu luas (overly permissive)</span>.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h5 style="color: #FFD700; font-size: 1.3rem;">Step 4: S3 Access &amp; Data Exfiltration</h5>
+                    <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                        Menggunakan stolen credentials untuk mengakses S3 buckets yang berisi data pelanggan.
+                        Download ratusan gigabyte data sensitif tanpa terdeteksi.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Capital One - Root Causes -->
+        <div class="slide">
+            <h2>🔍 Capital One Breach: Root Causes Analysis</h2>
+
+            <div class="threat-model">
+                <div class="threat-card">
+                    <h5>❌ Misconfigured Firewall</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        WAF rule yang salah konfigurasi memungkinkan SSRF attacks.
+                        Attacker bisa membuat request ke internal services.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>❌ Over-permissive IAM</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        EC2 instance memiliki IAM role dengan permission <code>s3:*</code>
+                        pada semua resources. Melanggar principle of least privilege.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>❌ IMDSv1 Usage</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Menggunakan Instance Metadata Service versi 1 yang vulnerable
+                        terhadap SSRF. IMDSv2 (session-based) lebih secure.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>❌ Lack of Monitoring</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Tidak ada alert untuk unusual S3 access patterns.
+                        CloudTrail logs tidak dimonitor dengan baik.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>❌ No Data Loss Prevention</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Tidak ada controls untuk mencegah mass data download.
+                        No rate limiting atau anomaly detection.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>❌ Missing Encryption</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Beberapa S3 buckets tidak menggunakan encryption.
+                        Data sensitif disimpan dalam plaintext.
+                    </p>
+                </div>
+            </div>
+
+            <div class="code-block" style="margin-top: 2rem;">
+                <pre># Contoh IAM Policy yang TOO PERMISSIVE (WRONG!)
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": "s3:*",          // ❌ TOO BROAD!
+    "Resource": "*"            // ❌ ALL RESOURCES!
+  }]
+}
+
+# Seharusnya: Least Privilege (CORRECT)
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": [
+      "s3:GetObject"           // ✅ Specific action only
+    ],
+    "Resource": [
+      "arn:aws:s3:::specific-bucket/specific-prefix/*"  // ✅ Specific resource
+    ],
+    "Condition": {
+      "IpAddress": {
+        "aws:SourceIp": "10.0.0.0/16"  // ✅ Additional condition
+      }
+    }
+  }]
+}</pre>
+            </div>
+        </div>
+
+        <!-- Slide 16: Capital One - Remediation -->
+        <div class="slide">
+            <h2>✅ Remediation &amp; Prevention Measures</h2>
+
+            <div class="security-layer">
+                <h5>1. 🔐 Implement Least Privilege IAM</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Review dan minimize semua IAM permissions<br>
+                    • Gunakan specific actions dan resources<br>
+                    • Add condition clauses (IP, time, MFA)<br>
+                    • Regular IAM access reviews
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>2. 🛡️ Migrate to IMDSv2</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Require session tokens untuk metadata access<br>
+                    • Protect against SSRF attacks<br>
+                    • Set hop limit = 1<br>
+                    • Enforce IMDSv2 at organization level
+                </p>
+                <div class="code-block" style="margin-top: 1rem;">
+                    <pre># Enforce IMDSv2
+aws ec2 modify-instance-metadata-options \
+    --instance-id i-1234567890abcdef0 \
+    --http-tokens required \
+    --http-put-response-hop-limit 1</pre>
+                </div>
+            </div>
+
+            <div class="security-layer">
+                <h5>3. 📊 Enable Comprehensive Monitoring</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • CloudTrail logging untuk all API calls<br>
+                    • CloudWatch alarms untuk unusual patterns<br>
+                    • S3 access logging enabled<br>
+                    • Real-time alerting untuk sensitive data access
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>4. 🔒 Enforce S3 Bucket Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Enable default encryption (SSE-KMS)<br>
+                    • Block public access by default<br>
+                    • Bucket policies dengan least privilege<br>
+                    • Deny unencrypted uploads<br>
+                    • Versioning &amp; MFA delete enabled
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>5. 🚨 Deploy Security Services</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • AWS GuardDuty untuk threat detection<br>
+                    • AWS Security Hub untuk centralized findings<br>
+                    • AWS Macie untuk sensitive data discovery<br>
+                    • AWS Config untuk compliance monitoring
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>6. 🔍 Regular Security Assessments</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    • Automated vulnerability scanning<br>
+                    • Penetration testing (authorized)<br>
+                    • Configuration audits<br>
+                    • Security awareness training
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 17: Hands-on Exercise -->
+        <div class="slide">
+            <h2>💻 Hands-on Exercise: Secure Cloud Infrastructure</h2>
+
+            <div class="case-study">
+                <h4>🎯 Objective</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Merancang dan mengimplementasikan infrastruktur cloud yang secure
+                    untuk <span class="highlight">aplikasi web 3-tier</span> (Web, App, Database)
+                </p>
+            </div>
+
+            <h3 style="margin-top: 2rem;">📋 Requirements</h3>
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🏗️ Architecture</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Web tier: Load balancer + web servers</li>
+                        <li>App tier: Application servers (private subnet)</li>
+                        <li>Data tier: Database (RDS/Cloud SQL)</li>
+                        <li>Multi-AZ deployment untuk HA</li>
+                    </ul>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>🔐 Security Requirements</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Network segmentation dengan VPC</li>
+                        <li>Least privilege IAM policies</li>
+                        <li>Encryption at rest dan in transit</li>
+                        <li>WAF untuk web protection</li>
+                        <li>Logging &amp; monitoring</li>
+                        <li>Automated backups</li>
+                    </ul>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>📊 Deliverables</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Infrastructure as Code (Terraform/CloudFormation)</li>
+                        <li>Architecture diagram</li>
+                        <li>Security controls documentation</li>
+                        <li>Testing &amp; validation results</li>
+                    </ul>
+                </div>
+
+                <div class="content-box best-practice-box">
+                    <h4>✅ Evaluation Criteria</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Kelengkapan security controls (30%)</li>
+                        <li>Efektivitas solusi (30%)</li>
+                        <li>Dokumentasi (20%)</li>
+                        <li>Cost optimization (10%)</li>
+                        <li>Presentation (10%)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>💡 Tips</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    • Gunakan free tier dari cloud providers untuk praktik<br>
+                    • Ikuti AWS Well-Architected Framework - Security Pillar<br>
+                    • Test security controls sebelum submit<br>
+                    • Document semua design decisions
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 18: Security Best Practices -->
+        <div class="slide">
+            <h2>✨ Cloud Security Best Practices</h2>
+
+            <div class="security-layer">
+                <h5>🔐 Identity &amp; Access Management</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    ✓ Enable MFA untuk semua privileged accounts<br>
+                    ✓ Implement principle of least privilege<br>
+                    ✓ Use roles instead of long-term credentials<br>
+                    ✓ Regular access reviews dan credential rotation<br>
+                    ✓ Centralized identity provider (SSO)
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>📁 Data Protection</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    ✓ Encrypt all data at rest (AES-256)<br>
+                    ✓ Use TLS 1.3 untuk data in transit<br>
+                    ✓ Implement data classification<br>
+                    ✓ Regular backups dengan encryption<br>
+                    ✓ Data retention policies
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>🌐 Network Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    ✓ Network segmentation (public/private subnets)<br>
+                    ✓ Security groups dengan least privilege<br>
+                    ✓ WAF untuk web applications<br>
+                    ✓ DDoS protection enabled<br>
+                    ✓ VPN/PrivateLink untuk hybrid connectivity
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>📊 Monitoring &amp; Logging</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    ✓ Enable CloudTrail/Activity Logs<br>
+                    ✓ Centralized log aggregation<br>
+                    ✓ Real-time alerting untuk security events<br>
+                    ✓ Log retention sesuai compliance requirements<br>
+                    ✓ Regular log reviews
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>🔄 Continuous Security</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    ✓ Automated vulnerability scanning<br>
+                    ✓ Infrastructure as Code scanning (tfsec, Checkov)<br>
+                    ✓ Regular penetration testing<br>
+                    ✓ Patch management automation<br>
+                    ✓ Security awareness training
+                </p>
+            </div>
+
+            <div class="security-layer">
+                <h5>🚨 Incident Response</h5>
+                <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                    ✓ Documented incident response plan<br>
+                    ✓ Regular IR drills/simulations<br>
+                    ✓ Automated remediation untuk common issues<br>
+                    ✓ Communication protocols<br>
+                    ✓ Post-incident reviews
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 19: Security Checklist -->
+        <div class="slide">
+            <h2>✅ Cloud Security Checklist</h2>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🔐 Access Control</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>☐ MFA enabled untuk all users</li>
+                        <li>☐ Root account tidak digunakan</li>
+                        <li>☐ IAM policies follow least privilege</li>
+                        <li>☐ Service accounts menggunakan roles</li>
+                        <li>☐ Regular access reviews</li>
+                        <li>☐ Password policy enforced</li>
+                    </ul>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>🌐 Network Security</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>☐ VPC properly segmented</li>
+                        <li>☐ Security groups restrictive</li>
+                        <li>☐ No unnecessary ports open</li>
+                        <li>☐ WAF deployed untuk web apps</li>
+                        <li>☐ DDoS protection enabled</li>
+                        <li>☐ VPN untuk remote access</li>
+                    </ul>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>🔒 Data Security</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>☐ Encryption at rest enabled</li>
+                        <li>☐ TLS 1.3 untuk transit</li>
+                        <li>☐ Key rotation automated</li>
+                        <li>☐ S3 buckets tidak public</li>
+                        <li>☐ Database encryption enabled</li>
+                        <li>☐ Backup encryption enabled</li>
+                    </ul>
+                </div>
+
+                <div class="content-box best-practice-box">
+                    <h4>📊 Monitoring &amp; Compliance</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>☐ CloudTrail/logs enabled</li>
+                        <li>☐ Security alerts configured</li>
+                        <li>☐ GuardDuty/Security Center active</li>
+                        <li>☐ Config/Policy compliance checked</li>
+                        <li>☐ Vulnerability scanning scheduled</li>
+                        <li>☐ Incident response plan documented</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>🎯 Quick Win Actions</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    <strong>Implementasi prioritas tinggi yang bisa dilakukan hari ini:</strong><br><br>
+                    1️⃣ Enable MFA untuk semua accounts<br>
+                    2️⃣ Review dan tighten IAM policies<br>
+                    3️⃣ Enable CloudTrail/Activity Logs<br>
+                    4️⃣ Turn on default encryption untuk storage<br>
+                    5️⃣ Block public access pada S3/storage buckets<br>
+                    6️⃣ Enable security monitoring services (GuardDuty/Security Center)
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 20: Interactive Demo -->
+        <div class="slide">
+            <h2>🎮 Interactive Security Demo</h2>
+
+            <div class="demo-container">
+                <h3 style="color: #FFD700; margin-bottom: 1.5rem;">Security Scenarios Simulator</h3>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 2rem 0;">
+                    <button class="demo-btn" onclick="simulateSQLInjection()">🚫 SQL Injection Attack</button>
+                    <button class="demo-btn" onclick="simulateSSRF()">🔓 SSRF Attack Demo</button>
+                    <button class="demo-btn" onclick="simulateRateLimit()">⏱️ Rate Limiting Test</button>
+                    <button class="demo-btn" onclick="simulateMisconfiguration()">⚙️ Find Misconfiguration</button>
+                    <button class="demo-btn" onclick="resetDemo()">🔄 Reset</button>
+                </div>
+
+                <div id="demoResult" style="background: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 10px; min-height: 200px; margin-top: 2rem; font-size: 1.2rem; transition: opacity 0.3s;">
+                    <p style="text-align: center; color: #FFEAA7;">
+                        👆 Click any button above to simulate security scenarios
+                    </p>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📚 Learning Objectives</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    • Memahami common attack vectors<br>
+                    • Melihat bagaimana security controls bekerja<br>
+                    • Practice identifying vulnerabilities<br>
+                    • Understand remediation approaches
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 21: Emerging Threats -->
+        <div class="slide">
+            <h2>🚨 Emerging Cloud Security Threats</h2>
+
+            <div class="threat-model">
+                <div class="threat-card">
+                    <h5>☁️ Cloud-Native Malware</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Malware yang specifically designed untuk cloud environments.
+                        Crypto-mining, data exfiltration, dan lateral movement.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🐳 Container Escapes</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Vulnerabilities yang memungkinkan attacker escape dari container
+                        dan mengakses host system atau orchestrator.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🔗 Supply Chain Attacks</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Compromise dependencies, container images, atau third-party services
+                        yang digunakan dalam cloud infrastructure.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🤖 AI-Powered Attacks</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Attackers menggunakan AI/ML untuk automated reconnaissance,
+                        vulnerability discovery, dan adaptive attacks.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>🌐 Multi-Cloud Complexity</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Security gaps dan misconfigurations akibat complexity
+                        dari managing multiple cloud providers.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h5>⚡ Serverless Vulnerabilities</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">
+                        Function injection, event-data injection, dan
+                        over-privileged function permissions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>🛡️ Defense Strategies</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    ✓ Zero Trust Architecture - Never trust, always verify<br>
+                    ✓ Runtime Security - Monitor container/function behavior<br>
+                    ✓ SBOM (Software Bill of Materials) - Track dependencies<br>
+                    ✓ AI-powered Detection - Use ML untuk anomaly detection<br>
+                    ✓ Cloud Security Posture Management (CSPM)<br>
+                    ✓ DevSecOps - Security integrated dalam development lifecycle
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 22: Compliance & Governance -->
+        <div class="slide">
+            <h2>📜 Compliance &amp; Governance</h2>
+
+            <h3>🌍 Common Compliance Frameworks</h3>
+            <div class="framework-diagram">
+                <div class="framework-item">
+                    <h5>GDPR</h5>
+                    <p style="font-size: 1rem;">EU Data Protection Regulation</p>
+                </div>
+                <div class="framework-item">
+                    <h5>HIPAA</h5>
+                    <p style="font-size: 1rem;">Healthcare Data Protection</p>
+                </div>
+                <div class="framework-item">
+                    <h5>PCI-DSS</h5>
+                    <p style="font-size: 1rem;">Payment Card Industry</p>
+                </div>
+                <div class="framework-item">
+                    <h5>SOC 2</h5>
+                    <p style="font-size: 1rem;">Service Organization Controls</p>
+                </div>
+                <div class="framework-item">
+                    <h5>ISO 27001</h5>
+                    <p style="font-size: 1rem;">Information Security Management</p>
+                </div>
+            </div>
+
+            <div class="content-grid" style="margin-top: 2rem;">
+                <div class="content-box security-box">
+                    <h4>🔐 Data Residency &amp; Sovereignty</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Data harus disimpan di lokasi geografis tertentu<br>
+                        • Compliance dengan local data protection laws<br>
+                        • Understand cloud provider region coverage<br>
+                        • Implement data locality controls
+                    </p>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>📊 Audit &amp; Reporting</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Automated compliance reporting<br>
+                        • Regular internal &amp; external audits<br>
+                        • Evidence collection untuk compliance<br>
+                        • Continuous compliance monitoring
+                    </p>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>📋 Policy as Code</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • AWS Config Rules, Azure Policy<br>
+                        • OPA (Open Policy Agent)<br>
+                        • Automated policy enforcement<br>
+                        • Version-controlled compliance policies
+                    </p>
+                </div>
+
+                <div class="content-box best-practice-box">
+                    <h4>🎯 Governance Best Practices</h4>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        • Centralized governance model<br>
+                        • Clear ownership &amp; responsibilities<br>
+                        • Regular compliance reviews<br>
+                        • Documentation &amp; change management
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Tools & Resources -->
+        <div class="slide">
+            <h2>🛠️ Cloud Security Tools &amp; Resources</h2>
+
+            <div class="content-grid">
+                <div class="content-box security-box">
+                    <h4>🔍 Security Scanning</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li><strong>AWS Inspector</strong> - Vulnerability scanning</li>
+                        <li><strong>Azure Security Center</strong> - Unified security management</li>
+                        <li><strong>Google Security Command Center</strong> - Asset discovery</li>
+                        <li><strong>Prowler</strong> - AWS security assessment</li>
+                        <li><strong>ScoutSuite</strong> - Multi-cloud auditing</li>
+                    </ul>
+                </div>
+
+                <div class="content-box threat-box">
+                    <h4>📝 IaC Security</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li><strong>Checkov</strong> - Static code analysis</li>
+                        <li><strong>tfsec</strong> - Terraform security scanner</li>
+                        <li><strong>Terrascan</strong> - Policy as code</li>
+                        <li><strong>KICS</strong> - Infrastructure as code scanner</li>
+                        <li><strong>Snyk IaC</strong> - Developer-first security</li>
+                    </ul>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>🔐 Secrets Management</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li><strong>AWS Secrets Manager</strong> - Managed secrets</li>
+                        <li><strong>Azure Key Vault</strong> - Keys &amp; secrets</li>
+                        <li><strong>Google Secret Manager</strong> - Secret storage</li>
+                        <li><strong>HashiCorp Vault</strong> - Multi-cloud secrets</li>
+                        <li><strong>Sealed Secrets</strong> - Kubernetes secrets</li>
+                    </ul>
+                </div>
+
+                <div class="content-box best-practice-box">
+                    <h4>📚 Learning Resources</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li><strong>AWS Well-Architected Framework</strong></li>
+                        <li><strong>Azure Security Benchmark</strong></li>
+                        <li><strong>Google Cloud Security Best Practices</strong></li>
+                        <li><strong>OWASP Cloud Security Project</strong></li>
+                        <li><strong>Cloud Security Alliance (CSA)</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>🎓 Certifications</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    • <strong>AWS Certified Security - Specialty</strong><br>
+                    • <strong>Azure Security Engineer Associate</strong><br>
+                    • <strong>Google Professional Cloud Security Engineer</strong><br>
+                    • <strong>CCSP (Certified Cloud Security Professional)</strong><br>
+                    • <strong>CCSK (Certificate of Cloud Security Knowledge)</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 24: Discussion Topics -->
+        <div class="slide">
+            <h2>💬 Diskusi &amp; Refleksi</h2>
+
+            <div class="case-study">
+                <h4>❓ Pertanyaan Diskusi</h4>
+
+                <div style="margin: 1.5rem 0;">
+                    <h5 style="color: #FFD700; font-size: 1.3rem; margin-bottom: 0.5rem;">1. Zero Trust Security</h5>
+                    <p style="font-size: 1.2rem; line-height: 1.8;">
+                        Bagaimana cara mengimplementasikan Zero Trust security model di cloud environment?
+                        Apa tantangan yang mungkin dihadapi?
+                    </p>
+                </div>
+
+                <div style="margin: 1.5rem 0;">
+                    <h5 style="color: #FFD700; font-size: 1.3rem; margin-bottom: 0.5rem;">2. Multi-Cloud Security</h5>
+                    <p style="font-size: 1.2rem; line-height: 1.8;">
+                        Apa strategi untuk maintain consistent security posture across multiple cloud providers
+                        (AWS, Azure, GCP)?
+                    </p>
+                </div>
+
+                <div style="margin: 1.5rem 0;">
+                    <h5 style="color: #FFD700; font-size: 1.3rem; margin-bottom: 0.5rem;">3. Security vs. Usability</h5>
+                    <p style="font-size: 1.2rem; line-height: 1.8;">
+                        Bagaimana balance antara security requirements dengan developer productivity
+                        dan user experience?
+                    </p>
+                </div>
+
+                <div style="margin: 1.5rem 0;">
+                    <h5 style="color: #FFD700; font-size: 1.3rem; margin-bottom: 0.5rem;">4. Incident Response</h5>
+                    <p style="font-size: 1.2rem; line-height: 1.8;">
+                        Bagaimana perbedaan incident response di cloud vs on-premise?
+                        Apa tools dan processes yang essential?
+                    </p>
+                </div>
+
+                <div style="margin: 1.5rem 0;">
+                    <h5 style="color: #FFD700; font-size: 1.3rem; margin-bottom: 0.5rem;">5. Compliance Automation</h5>
+                    <p style="font-size: 1.2rem; line-height: 1.8;">
+                        Bagaimana cara automate compliance checking dan reporting untuk regulations
+                        seperti GDPR, HIPAA, atau PCI-DSS?
+                    </p>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>🎯 Group Activity</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    <strong>Threat Modeling Exercise:</strong><br><br>
+                    Bentuk kelompok (3-4 orang) dan lakukan threat modeling untuk scenario:<br>
+                    <em>"E-commerce platform dengan payment processing, customer PII storage, dan mobile app"</em>
+                    <br><br>
+                    Identifikasi threats menggunakan STRIDE framework dan propose mitigations.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 25: Summary -->
+        <div class="slide">
+            <h2>📝 Ringkasan &amp; Key Takeaways</h2>
+
+            <div class="content-box security-box" style="margin-bottom: 2rem;">
+                <h4>🎯 Konsep Utama yang Dipelajari</h4>
+                <ul style="font-size: 1.2rem; line-height: 2;">
+                    <li>Cloud security adalah <strong>shared responsibility</strong> antara provider dan customer</li>
+                    <li><strong>Defense in Depth</strong> - Multiple layers of security controls</li>
+                    <li><strong>Least Privilege</strong> - Minimize permissions untuk reduce risk</li>
+                    <li><strong>Encryption everywhere</strong> - At rest dan in transit</li>
+                    <li><strong>Continuous monitoring</strong> - Detect dan respond to threats</li>
+                </ul>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-box threat-box">
+                    <h4>⚠️ Common Pitfalls</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Misconfigured resources (S3 buckets, security groups)</li>
+                        <li>Over-permissive IAM policies</li>
+                        <li>Missing encryption</li>
+                        <li>Inadequate logging &amp; monitoring</li>
+                        <li>Lack of incident response plan</li>
+                    </ul>
+                </div>
+
+                <div class="content-box solution-box">
+                    <h4>✅ Best Practices</h4>
+                    <ul style="font-size: 1.1rem;">
+                        <li>Enable MFA untuk all accounts</li>
+                        <li>Automate security dengan IaC</li>
+                        <li>Regular security assessments</li>
+                        <li>Security awareness training</li>
+                        <li>Document security architecture</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="case-study" style="margin-top: 2rem;">
+                <h4>📚 Next Steps</h4>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    1️⃣ Complete hands-on exercise (due next week)<br>
+                    2️⃣ Review Capital One case study dan lessons learned<br>
+                    3️⃣ Explore AWS/Azure/GCP security documentation<br>
+                    4️⃣ Practice dengan free tier cloud accounts<br>
+                    5️⃣ Join cloud security communities &amp; forums
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 26: Q&A -->
+        <div class="slide">
+            <h2>❓ Questions &amp; Answers</h2>
+
+            <div style="text-align: center; margin-top: 4rem;">
+                <h3 style="font-size: 3rem; margin-bottom: 2rem;">💭</h3>
+                <p style="font-size: 2rem; color: #FFD700; margin-bottom: 2rem;">
+                    Ada pertanyaan?
+                </p>
+                <p style="font-size: 1.5rem; color: #FFEAA7;">
+                    Silakan ajukan pertanyaan Anda
+                </p>
+            </div>
+
+            <div class="case-study" style="margin-top: 4rem;">
+                <h4>📧 Informasi Dosen</h4>
+                <p style="font-size: 1.3rem; line-height: 2; text-align: center;">
+                    <strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom</strong><br>
+                    Email: ikhwan.alfath@untidar.ac.id<br>
+                    Program Studi Teknologi Informasi<br>
+                    Universitas Tidar
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 27: Thank You -->
+        <div class="slide">
+            <div style="text-align: center; margin-top: 8rem;">
+                <div style="margin-bottom: 2rem;">
+                    <img src="./Keamanan dalam Cloud Computing dan Infrastruktur Terintegrasi_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="width: 120px; height: 120px; animation: fadeInUp 0.8s ease-out;">
+                </div>
+
+                <h1 style="font-size: 4rem; margin-bottom: 2rem;">Terima Kasih!</h1>
+                <p style="font-size: 2rem; color: #60a5fa; margin-bottom: 1rem; font-weight: 600;">
+                    Pertemuan 12
+                </p>
+                <p style="font-size: 1.6rem; color: #94a3b8; margin-bottom: 3rem;">
+                    Keamanan dalam Cloud Computing dan Infrastruktur Terintegrasi
+                </p>
+
+                <div style="background: rgba(30, 41, 59, 0.5); padding: 2rem; border-radius: 16px; max-width: 600px; margin: 0 auto; border: 1px solid rgba(59, 130, 246, 0.3);">
+                    <p style="font-size: 1.3rem; line-height: 2; color: #cbd5e1;">
+                        🔐 Stay Secure!<br>
+                        ☁️ Keep Learning!<br>
+                        🚀 Build Resilient Systems!
+                    </p>
+                </div>
+
+                <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 12px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    <p style="font-size: 1.1rem; color: #94a3b8; margin-bottom: 0.5rem;">
+                        <strong style="color: #60a5fa;">Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom</strong>
+                    </p>
+                    <p style="font-size: 1rem; color: #94a3b8;">
+                        Universitas Tidar - Program Studi Teknologi Informasi
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="slide-counter" id="slideCounter">1 / 27</div>
+    <div class="controls">
+        <button class="control-btn" onclick="prevSlide()">← Previous</button>
+        <button class="control-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+        <button class="control-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            if (index >= totalSlides) {
+                currentSlideIndex = 0;
+            } else if (index < 0) {
+                currentSlideIndex = totalSlides - 1;
+            } else {
+                currentSlideIndex = index;
+            }
+
+            slides[currentSlideIndex].classList.add('active');
+
+            // Reset scroll position
+            slides[currentSlideIndex].scrollTop = 0;
+
+            // Update counter
+            document.getElementById('slideCounter').textContent = `${currentSlideIndex + 1} / ${totalSlides}`;
+
+            // Update progress bar
+            const progress = ((currentSlideIndex + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlideIndex - 1);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Demo functions with animations
+        function simulateSQLInjection() {
+            const result = document.getElementById('demoResult');
+            result.style.opacity = '0';
+            setTimeout(() => {
+                result.innerHTML = `
+                    <div style="text-align: left; animation: fadeInUp 0.5s ease-out;">
+                        <h4 style="color: #60a5fa; margin-bottom: 1rem; font-size: 1.4rem;">🚫 SQL Injection Attack Detected</h4>
+                        <p style="margin-bottom: 0.5rem; color: #94a3b8;"><strong style="color: #e4e4e7;">Attack Vector:</strong></p>
+                        <code style="background: rgba(15, 23, 42, 0.8); padding: 0.75rem; display: block; margin-bottom: 1rem; border-radius: 8px; font-family: 'JetBrains Mono', monospace; color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">
+                        SELECT * FROM users WHERE username='admin' OR '1'='1' --'
+                        </code>
+                        <p style="margin-bottom: 0.5rem; color: #94a3b8;"><strong style="color: #e4e4e7;">WAF Response:</strong></p>
+                        <p style="color: #4ade80; margin: 0.3rem 0;">✅ Request blocked by WAF rule: AWSManagedRulesSQLiRuleSet</p>
+                        <p style="color: #4ade80; margin: 0.3rem 0;">✅ CloudWatch alarm triggered</p>
+                        <p style="color: #4ade80; margin: 0.3rem 0;">✅ Security team notified</p>
+                        <p style="margin-top: 1rem; padding: 1rem; background: rgba(34, 197, 94, 0.1); border-left: 3px solid #22c55e; border-radius: 6px;"><strong style="color: #4ade80;">Mitigation:</strong> <span style="color: #94a3b8;">Input validation + parameterized queries + WAF rules</span></p>
+                    </div>
+                `;
+                result.style.opacity = '1';
+            }, 150);
+        }
+
+        function simulateSSRF() {
+            const result = document.getElementById('demoResult');
+            result.style.opacity = '0';
+            setTimeout(() => {
+                result.innerHTML = `
+                    <div style="text-align: left; animation: fadeInUp 0.5s ease-out;">
+                        <h4 style="color: #60a5fa; margin-bottom: 1rem; font-size: 1.4rem;">🔓 SSRF Attack Simulation</h4>
+                        <p style="margin-bottom: 0.5rem; color: #94a3b8;"><strong style="color: #e4e4e7;">Attack Attempt:</strong></p>
+                        <code style="background: rgba(15, 23, 42, 0.8); padding: 0.75rem; display: block; margin-bottom: 1rem; border-radius: 8px; font-family: 'JetBrains Mono', monospace; color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); font-size: 0.9rem;">
+                        http://vulnerable-app.com/fetch?url=http://169.254.169.254/latest/meta-data/
+                        </code>
+                        <p style="margin-bottom: 0.5rem; color: #94a3b8;"><strong style="color: #e4e4e7;">Without IMDSv2:</strong></p>
+                        <p style="color: #f87171; margin: 0.3rem 0;">❌ Metadata accessible - credentials exposed!</p>
+                        <p style="margin-bottom: 0.5rem; margin-top: 1rem; color: #94a3b8;"><strong style="color: #e4e4e7;">With IMDSv2:</strong></p>
+                        <p style="color: #4ade80; margin: 0.3rem 0;">✅ Request blocked - session token required</p>
+                        <p style="color: #4ade80; margin: 0.3rem 0;">✅ Hop limit prevents SSRF</p>
+                        <p style="margin-top: 1rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; border-radius: 6px;"><strong style="color: #60a5fa;">Lesson:</strong> <span style="color: #94a3b8;">Always use IMDSv2 and validate user input!</span></p>
+                    </div>
+                `;
+                result.style.opacity = '1';
+            }, 150);
+        }
+
+        function simulateRateLimit() {
+            const result = document.getElementById('demoResult');
+            result.style.opacity = '0';
+            setTimeout(() => {
+                result.innerHTML = `
+                    <div style="text-align: left; animation: fadeInUp 0.5s ease-out;">
+                        <h4 style="color: #60a5fa; margin-bottom: 1rem; font-size: 1.4rem;">⏱️ Rate Limiting Test</h4>
+                        <p style="margin-bottom: 0.5rem; color: #94a3b8;"><strong style="color: #e4e4e7;">Test Scenario:</strong></p>
+                        <p style="color: #cbd5e1; margin-bottom: 1rem;">Simulating 3000 requests/minute from single IP</p>
+                        <p style="margin-bottom: 0.5rem; color: #94a3b8;"><strong style="color: #e4e4e7;">Results:</strong></p>
+                        <div style="background: rgba(30, 41, 59, 0.5); padding: 1rem; border-radius: 8px; margin: 0.5rem 0;">
+                            <p style="margin: 0.3rem 0;">✅ Requests 1-2000: <span style="color: #4ade80; font-weight: 600;">Allowed</span></p>
+                            <p style="margin: 0.3rem 0;">⚠️ Requests 2001-3000: <span style="color: #f87171; font-weight: 600;">Blocked (429 Too Many Requests)</span></p>
+                        </div>
+                        <p style="margin-top: 1rem; margin-bottom: 0.5rem; color: #94a3b8;"><strong style="color: #e4e4e7;">WAF Action:</strong></p>
+                        <p style="color: #fbbf24; margin: 0.3rem 0;">🛡️ IP temporarily blocked for 5 minutes</p>
+                        <p style="color: #60a5fa; margin: 0.3rem 0;">📊 CloudWatch metrics updated</p>
+                        <p style="margin-top: 1rem; padding: 1rem; background: rgba(168, 85, 247, 0.1); border-left: 3px solid #a855f7; border-radius: 6px;"><strong style="color: #c084fc;">Protection:</strong> <span style="color: #94a3b8;">DDoS mitigation + API abuse prevention</span></p>
+                    </div>
+                `;
+                result.style.opacity = '1';
+            }, 150);
+        }
+
+        function simulateMisconfiguration() {
+            const result = document.getElementById('demoResult');
+            result.style.opacity = '0';
+            setTimeout(() => {
+                result.innerHTML = `
+                    <div style="text-align: left; animation: fadeInUp 0.5s ease-out;">
+                        <h4 style="color: #60a5fa; margin-bottom: 1rem; font-size: 1.4rem;">⚙️ Misconfiguration Scan Results</h4>
+                        <p style="margin-bottom: 0.75rem; color: #94a3b8;"><strong style="color: #e4e4e7;">Security Issues Found:</strong></p>
+                        <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 8px; border-left: 3px solid #ef4444; margin-bottom: 1rem;">
+                            <p style="color: #f87171; margin: 0.3rem 0;">❌ S3 Bucket "company-data" has public read access</p>
+                            <p style="color: #f87171; margin: 0.3rem 0;">❌ Security Group allows SSH (22) from 0.0.0.0/0</p>
+                            <p style="color: #f87171; margin: 0.3rem 0;">❌ RDS instance not encrypted at rest</p>
+                        </div>
+                        <div style="background: rgba(251, 191, 36, 0.1); padding: 1rem; border-radius: 8px; border-left: 3px solid #fbbf24; margin-bottom: 1rem;">
+                            <p style="color: #fbbf24; margin: 0.3rem 0;">⚠️ IAM user has "AdministratorAccess" policy</p>
+                            <p style="color: #fbbf24; margin: 0.3rem 0;">⚠️ MFA not enabled for root account</p>
+                        </div>
+                        <p style="margin-bottom: 0.75rem; color: #94a3b8;"><strong style="color: #e4e4e7;">Recommendations:</strong></p>
+                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; border-left: 3px solid #22c55e;">
+                            <p style="color: #4ade80; margin: 0.3rem 0;">✓ Block public S3 access immediately</p>
+                            <p style="color: #4ade80; margin: 0.3rem 0;">✓ Restrict SSH to specific IP ranges</p>
+                            <p style="color: #4ade80; margin: 0.3rem 0;">✓ Enable RDS encryption (requires new instance)</p>
+                            <p style="color: #4ade80; margin: 0.3rem 0;">✓ Apply least privilege IAM policies</p>
+                            <p style="color: #4ade80; margin: 0.3rem 0;">✓ Enable MFA for all privileged accounts</p>
+                        </div>
+                    </div>
+                `;
+                result.style.opacity = '1';
+            }, 150);
+        }
+
+        function resetDemo() {
+            const result = document.getElementById('demoResult');
+            result.style.opacity = '0';
+            setTimeout(() => {
+                result.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 1.1rem;">👆 Click any button above to simulate security scenarios</p>';
+                result.style.opacity = '1';
+            }, 150);
+        }
+
+        // Add click effect to all demo buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoButtons = document.querySelectorAll('.demo-btn');
+            demoButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    this.classList.add('click-effect');
+                    setTimeout(() => {
+                        this.classList.remove('click-effect');
+                    }, 600);
+                });
+            });
+
+            // Add transition to demo result container
+            const demoResult = document.getElementById('demoResult');
+            if (demoResult) {
+                demoResult.style.transition = 'opacity 0.3s ease';
+            }
+
+            // Add hover effect to threat cards
+            const threatCards = document.querySelectorAll('.threat-card');
+            threatCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 300);
+                });
+            });
+
+            // Add interactive tooltips to code blocks
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach(block => {
+                block.addEventListener('click', function() {
+                    // Copy code to clipboard
+                    const code = this.querySelector('pre').textContent;
+                    navigator.clipboard.writeText(code).then(() => {
+                        const original = this.style.borderColor;
+                        this.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                        setTimeout(() => {
+                            this.style.borderColor = original;
+                        }, 1000);
+                    });
+                });
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const activeSlide = document.querySelector('.slide.active');
+
+            switch(event.key) {
+                case 'ArrowRight':
+                case 'PageDown':
+                    event.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                    event.preventDefault();
+                    prevSlide();
+                    break;
+                case ' ':
+                    if (!event.shiftKey) {
+                        event.preventDefault();
+                        nextSlide();
+                    }
+                    break;
+                case 'ArrowUp':
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: -100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'ArrowDown':
+                    event.preventDefault();
+                    if (activeSlide) {
+                        activeSlide.scrollBy({
+                            top: 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'Home':
+                    if (event.ctrlKey) {
+                        currentSlideIndex = 0;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'End':
+                    if (event.ctrlKey) {
+                        currentSlideIndex = totalSlides - 1;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        event.preventDefault();
+                        if (activeSlide) {
+                            activeSlide.scrollTo({
+                                top: activeSlide.scrollHeight,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+            }
+        });
+
+        // Touch/swipe support
+        let startX = null;
+        document.addEventListener('touchstart', function(event) {
+            startX = event.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', function(event) {
+            if (startX === null) return;
+
+            let endX = event.changedTouches[0].clientX;
+            let diffX = startX - endX;
+
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+
+            startX = null;
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

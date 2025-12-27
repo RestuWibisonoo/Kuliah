@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<!-- saved from url=(0103)https://class.tiflab.my.id/storage/lessons/materials/1763430230_13-Troubleshooting-Sistem-Jaringan.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting Sistem Jaringan - Pertemuan 13</title>
+    <link rel="stylesheet" href="./Troubleshooting Sistem Jaringan - Pertemuan 13_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+            gap: 15px;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .icon {
+            color: #667eea;
+            margin-right: 15px;
+            font-size: 48px;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tool-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .tool-icon {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+            box-shadow: 0 5px 15px rgba(243,156,18,0.2);
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+            box-shadow: 0 5px 15px rgba(39,174,96,0.2);
+        }
+
+        .info-box {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+            box-shadow: 0 5px 15px rgba(52,152,219,0.2);
+        }
+
+        .danger-box {
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #c0392b;
+            box-shadow: 0 5px 15px rgba(231,76,60,0.2);
+        }
+
+        .methodology-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            min-width: 120px;
+            position: relative;
+            flex: 1;
+            max-width: 180px;
+        }
+
+        .flow-step::after {
+            content: "→";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .diagnostic-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .diagnostic-table th {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        .diagnostic-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .diagnostic-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .problem-icon {
+            font-size: 32px;
+            color: #e74c3c;
+            margin-right: 15px;
+            float: left;
+        }
+
+        .solution-icon {
+            font-size: 32px;
+            color: #27ae60;
+            margin-right: 15px;
+            float: left;
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        .help-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            z-index: 10001;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+
+        .presenter-mode {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px;
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .presenter-mode.active {
+            right: 0;
+        }
+
+        .presenter-mode h4 {
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+
+        .slide-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            color: #718096;
+            flex-shrink: 0;
+        }
+
+        .slide-footer .university-info {
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="custom-pointer" style="opacity: 1; left: 524px; top: 487px;"></div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Troubleshooting Sistem Jaringan</div>
+                <div class="slide-subtitle">Metodologi dan Tools untuk Diagnosis Network Problems</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-tools icon"></i>
+                    Pertemuan 13 - KASJ
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-graduation-cap" style="color: #f39c12; margin-right: 15px;"></i>Learning Outcomes</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 20px;">
+                                <li>Memahami metodologi troubleshooting sistematis</li>
+                                <li>Menguasai network diagnostic tools</li>
+                                <li>Mampu melakukan log analysis</li>
+                                <li>Mengenali common problems dan solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-clock" style="color: #e67e22; margin-right: 15px;"></i>Duration &amp; Method</h3>
+                        <div class="info-box">
+                            <p><strong>Waktu:</strong> 2 x 50 menit</p>
+                            <p><strong>Metode:</strong> Problem Based Learning + Lab Troubleshooting</p>
+                            <p><strong>Assessment:</strong> Diagnosis akurat &amp; solusi efektif</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">1 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Troubleshooting Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">What is Network Troubleshooting?</div>
+                <div class="slide-subtitle">Definition and Importance</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-search icon"></i>
+                    Systematic Problem Solving
+                </div>
+                
+                <div class="step-card">
+                    <h3><i class="fas fa-bullseye" style="color: #667eea; margin-right: 15px;"></i>Definition</h3>
+                    <p><strong>Network Troubleshooting</strong> adalah proses sistematis untuk mengidentifikasi, mendiagnosis, dan menyelesaikan masalah dalam infrastruktur jaringan komputer.</p>
+                </div>
+
+                <div class="three-column">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h4>Problem Identification</h4>
+                        <p>Mengenali gejala dan mengidentifikasi sumber masalah</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <h4>Root Cause Analysis</h4>
+                        <p>Mencari akar penyebab masalah dengan tools dan metode</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <h4>Solution Implementation</h4>
+                        <p>Mengimplementasikan solusi yang tepat dan efektif</p>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong><i class="fas fa-lightbulb"></i> Key Principle:</strong> Troubleshooting yang efektif memerlukan pendekatan sistematis, bukan random trial-and-error!
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">2 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Troubleshooting Methodology -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Troubleshooting Methodology</div>
+                <div class="slide-subtitle">Systematic Approach to Problem Solving</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-list-ol icon"></i>
+                    7-Step Methodology
+                </div>
+                
+                <div class="methodology-flow">
+                    <div class="flow-step">
+                        <strong>1</strong><br>Define Problem
+                    </div>
+                    <div class="flow-step">
+                        <strong>2</strong><br>Gather Info
+                    </div>
+                    <div class="flow-step">
+                        <strong>3</strong><br>Consider Possibilities
+                    </div>
+                    <div class="flow-step">
+                        <strong>4</strong><br>Create Action Plan
+                    </div>
+                </div>
+                <div class="methodology-flow" style="margin-top: 10px;">
+                    <div class="flow-step">
+                        <strong>5</strong><br>Implement &amp; Test
+                    </div>
+                    <div class="flow-step">
+                        <strong>6</strong><br>Observe Results
+                    </div>
+                    <div class="flow-step">
+                        <strong>7</strong><br>Document
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Define the Problem</strong><br>
+                            Identifikasi gejala, scope, dan dampak masalah secara jelas
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Gather Information</strong><br>
+                            Kumpulkan data: log files, network topology, configuration
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Consider Possibilities</strong><br>
+                            Buat daftar kemungkinan penyebab berdasarkan gejala
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Create Action Plan</strong><br>
+                            Rancang langkah-langkah troubleshooting secara prioritas
+                        </div>
+                    </div>
+                    <div>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>Implement &amp; Test</strong><br>
+                            Laksanakan rencana dan test hasil implementasi
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>Observe Results</strong><br>
+                            Monitor dan evaluasi hasil troubleshooting
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>Document Solution</strong><br>
+                            Dokumentasikan solusi untuk referensi masa depan
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">3 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Network Diagnostic Tools - Basic -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Network Diagnostic Tools</div>
+                <div class="slide-subtitle">Basic Command Line Tools</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-terminal icon"></i>
+                    Essential CLI Tools
+                </div>
+                
+                <div class="three-column">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-satellite-dish"></i>
+                        </div>
+                        <h4>ping</h4>
+                        <p>Test connectivity &amp; latency</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h4>traceroute</h4>
+                        <p>Trace network path</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>nslookup</h4>
+                        <p>DNS query &amp; resolution</p>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-play-circle" style="color: #27ae60; margin-right: 15px;"></i>Basic Usage</h3>
+                        <div class="code-block"># Test connectivity
+ping google.com
+ping -c 4 192.168.1.1
+
+# Trace route
+traceroute google.com
+tracert google.com (Windows)
+
+# DNS lookup
+nslookup google.com
+dig google.com</div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-chart-line" style="color: #3498db; margin-right: 15px;"></i>Advanced Options</h3>
+                        <div class="code-block"># Ping with options
+ping -c 10 -s 1000 target
+ping -i 0.5 -W 2 target
+
+# Traceroute with options
+traceroute -I target
+traceroute -T -p 80 target
+
+# DNS with specific server
+nslookup google.com 8.8.8.8</div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-lightbulb"></i> Pro Tip:</strong> Gunakan kombinasi tools untuk mendapatkan gambaran lengkap kondisi jaringan!
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">4 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Advanced Diagnostic Tools -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Advanced Diagnostic Tools</div>
+                <div class="slide-subtitle">Professional Network Analysis</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-microscope icon"></i>
+                    Advanced Analysis Tools
+                </div>
+                
+                <div class="three-column">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h4>netstat</h4>
+                        <p>Network connections &amp; statistics</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4>Wireshark</h4>
+                        <p>Packet capture &amp; analysis</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4>nmap</h4>
+                        <p>Network discovery &amp; security audit</p>
+                    </div>
+                </div>
+
+                <table class="diagnostic-table">
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>Purpose</th>
+                            <th>Key Features</th>
+                            <th>Use Cases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>netstat</strong></td>
+                            <td>Connection monitoring</td>
+                            <td>Active connections, routing table, stats</td>
+                            <td>Port scanning, connection troubleshooting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wireshark</strong></td>
+                            <td>Packet analysis</td>
+                            <td>Deep packet inspection, protocol analysis</td>
+                            <td>Protocol debugging, security analysis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nmap</strong></td>
+                            <td>Network scanning</td>
+                            <td>Host discovery, port scanning, OS detection</td>
+                            <td>Network inventory, security assessment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>iperf3</strong></td>
+                            <td>Bandwidth testing</td>
+                            <td>Throughput, latency, jitter measurement</td>
+                            <td>Performance testing, capacity planning</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-shield-alt"></i> Security Note:</strong> Gunakan tools ini hanya pada network yang Anda miliki atau dengan izin eksplisit!
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">5 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Log Analysis Fundamentals -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Log Analysis Fundamentals</div>
+                <div class="slide-subtitle">Understanding Network and System Logs</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-file-alt icon"></i>
+                    Log Analysis Essentials
+                </div>
+                
+                <div class="three-column">
+                    <div class="step-card">
+                        <h4><i class="fas fa-server" style="color: #667eea; margin-right: 10px;"></i>System Logs</h4>
+                        <ul style="font-size: 18px;">
+                            <li>/var/log/syslog</li>
+                            <li>/var/log/messages</li>
+                            <li>Windows Event Logs</li>
+                            <li>Application logs</li>
+                        </ul>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-network-wired" style="color: #667eea; margin-right: 10px;"></i>Network Logs</h4>
+                        <ul style="font-size: 18px;">
+                            <li>Router/Switch logs</li>
+                            <li>Firewall logs</li>
+                            <li>DHCP logs</li>
+                            <li>DNS query logs</li>
+                        </ul>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-shield-alt" style="color: #667eea; margin-right: 10px;"></i>Security Logs</h4>
+                        <ul style="font-size: 18px;">
+                            <li>Authentication logs</li>
+                            <li>Access logs</li>
+                            <li>IDS/IPS alerts</li>
+                            <li>VPN connection logs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-search" style="color: #f39c12; margin-right: 15px;"></i>Log Analysis Commands</h3>
+                        <div class="code-block"># View recent logs
+tail -f /var/log/syslog
+tail -n 100 /var/log/messages
+
+# Search patterns
+grep "error" /var/log/syslog
+grep -i "failed" /var/log/auth.log
+
+# Advanced filtering
+awk '/ERROR/ {print $1,$2,$3}' log.txt
+sed -n '100,200p' /var/log/syslog</div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-chart-bar" style="color: #27ae60; margin-right: 15px;"></i>Log Analysis Tips</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Timestamp correlation:</strong> Cocokkan waktu kejadian</li>
+                                <li><strong>Pattern recognition:</strong> Cari pola berulang</li>
+                                <li><strong>Severity levels:</strong> Fokus pada ERROR/CRITICAL</li>
+                                <li><strong>Context analysis:</strong> Lihat log sebelum/sesudah</li>
+                                <li><strong>Cross-reference:</strong> Bandingkan multiple log sources</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong><i class="fas fa-clock"></i> Time Synchronization:</strong> Pastikan semua device memiliki waktu yang sinkron untuk analisis yang akurat!
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">6 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Common Network Problems -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Common Network Problems</div>
+                <div class="slide-subtitle">Frequent Issues and Symptoms</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-exclamation-triangle icon"></i>
+                    Top Network Issues
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <div class="problem-card">
+                            <div class="problem-icon">
+                                <i class="fas fa-unlink"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Connectivity Issues</h4>
+                                <p><strong>Symptoms:</strong> Cannot reach host, timeouts</p>
+                                <p><strong>Causes:</strong> Cable issues, interface down, wrong IP config</p>
+                            </div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-icon">
+                                <i class="fas fa-turtle"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Performance Issues</h4>
+                                <p><strong>Symptoms:</strong> Slow response, high latency</p>
+                                <p><strong>Causes:</strong> Bandwidth saturation, congestion, routing loops</p>
+                            </div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>DNS Problems</h4>
+                                <p><strong>Symptoms:</strong> Cannot resolve hostnames</p>
+                                <p><strong>Causes:</strong> DNS server down, wrong configuration, cache issues</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="problem-card">
+                            <div class="problem-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>DHCP Issues</h4>
+                                <p><strong>Symptoms:</strong> No IP address assignment</p>
+                                <p><strong>Causes:</strong> DHCP server down, scope exhaustion, VLAN issues</p>
+                            </div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-icon">
+                                <i class="fas fa-route"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Routing Problems</h4>
+                                <p><strong>Symptoms:</strong> Cannot reach remote networks</p>
+                                <p><strong>Causes:</strong> Missing routes, routing loops, metric issues</p>
+                            </div>
+                        </div>
+
+                        <div class="problem-card">
+                            <div class="problem-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Security Blocks</h4>
+                                <p><strong>Symptoms:</strong> Connection refused, filtered</p>
+                                <p><strong>Causes:</strong> Firewall rules, ACLs, port security</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="danger-box">
+                    <strong><i class="fas fa-lightbulb"></i> Troubleshooting Priority:</strong>
+                    <ol style="margin-top: 10px; font-size: 18px;">
+                        <li>Physical Layer (cables, interfaces)</li>
+                        <li>Data Link Layer (switching, VLANs)</li>
+                        <li>Network Layer (IP, routing)</li>
+                        <li>Application Layer (services, protocols)</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">7 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Connectivity Troubleshooting -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Connectivity Troubleshooting</div>
+                <div class="slide-subtitle">Step-by-Step Diagnosis</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-plug icon"></i>
+                    Connectivity Diagnosis Flow
+                </div>
+                
+                <div class="methodology-flow">
+                    <div class="flow-step">
+                        <strong>1</strong><br>Physical Check
+                    </div>
+                    <div class="flow-step">
+                        <strong>2</strong><br>Interface Status
+                    </div>
+                    <div class="flow-step">
+                        <strong>3</strong><br>IP Config
+                    </div>
+                </div>
+                <div class="methodology-flow" style="margin-top: 10px;">
+                    <div class="flow-step">
+                        <strong>4</strong><br>Local Ping
+                    </div>
+                    <div class="flow-step">
+                        <strong>5</strong><br>Gateway Ping
+                    </div>
+                    <div class="flow-step">
+                        <strong>6</strong><br>Remote Ping
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-list-check" style="color: #27ae60; margin-right: 15px;"></i>Diagnosis Steps</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Physical Layer</strong><br>
+                            <div class="code-block" style="margin-top: 10px; font-size: 16px;"># Check cable connection
+# Link lights on interfaces
+# Port status on switches
+
+show interface status
+show ip interface brief</div>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>IP Configuration</strong><br>
+                            <div class="code-block" style="margin-top: 10px; font-size: 16px;"># Check IP settings
+ipconfig /all (Windows)
+ip addr show (Linux)
+ifconfig (Linux/macOS)
+
+# Check routing
+route print (Windows)
+ip route show (Linux)</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Local Connectivity</strong><br>
+                            <div class="code-block" style="margin-top: 10px; font-size: 16px;"># Ping loopback
+ping 127.0.0.1
+
+# Ping own IP
+ping [own-ip-address]
+
+# Ping default gateway
+ping [gateway-ip]</div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Remote Connectivity</strong><br>
+                            <div class="code-block" style="margin-top: 10px; font-size: 16px;"># Ping remote host
+ping google.com
+ping 8.8.8.8
+
+# Trace route to destination
+traceroute google.com
+pathping google.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-check-circle"></i> Quick Test Sequence:</strong> localhost → own-IP → gateway → DNS-server → internet-host
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">8 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Performance Issues Troubleshooting -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Performance Issues</div>
+                <div class="slide-subtitle">Bandwidth and Latency Problems</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-tachometer-alt icon"></i>
+                    Performance Analysis
+                </div>
+                
+                <div class="three-column">
+                    <div class="step-card">
+                        <h4><i class="fas fa-stopwatch" style="color: #e74c3c; margin-right: 10px;"></i>Latency Issues</h4>
+                        <ul style="font-size: 18px;">
+                            <li>High ping times</li>
+                            <li>Packet loss</li>
+                            <li>Jitter variations</li>
+                            <li>Buffer delays</li>
+                        </ul>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-chart-line" style="color: #f39c12; margin-right: 10px;"></i>Throughput Issues</h4>
+                        <ul style="font-size: 18px;">
+                            <li>Bandwidth saturation</li>
+                            <li>Duplex mismatches</li>
+                            <li>Queue congestion</li>
+                            <li>Protocol overhead</li>
+                        </ul>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-cogs" style="color: #667eea; margin-right: 10px;"></i>Application Issues</h4>
+                        <ul style="font-size: 18px;">
+                            <li>TCP window scaling</li>
+                            <li>SSL/TLS overhead</li>
+                            <li>Database queries</li>
+                            <li>Server processing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-tools" style="color: #27ae60; margin-right: 15px;"></i>Performance Testing Tools</h3>
+                        <div class="code-block"># Bandwidth testing
+iperf3 -c server-ip
+iperf3 -s (server mode)
+
+# Extended ping test
+ping -c 100 -i 0.2 target
+ping -s 1472 target (MTU test)
+
+# Monitor interface stats
+watch -n 1 "cat /proc/net/dev"
+netstat -i</div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-search" style="color: #3498db; margin-right: 15px;"></i>Performance Metrics</h3>
+                        <table class="diagnostic-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Good</th>
+                                    <th>Poor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Latency (LAN)</td>
+                                    <td>&lt; 1ms</td>
+                                    <td>&gt; 10ms</td>
+                                </tr>
+                                <tr>
+                                    <td>Latency (WAN)</td>
+                                    <td>&lt; 50ms</td>
+                                    <td>&gt; 200ms</td>
+                                </tr>
+                                <tr>
+                                    <td>Packet Loss</td>
+                                    <td>&lt; 0.1%</td>
+                                    <td>&gt; 1%</td>
+                                </tr>
+                                <tr>
+                                    <td>Jitter</td>
+                                    <td>&lt; 5ms</td>
+                                    <td>&gt; 50ms</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Common Causes:</strong> Bandwidth saturation, duplex mismatch, excessive collisions, routing inefficiencies
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">9 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 10: DNS Troubleshooting -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">DNS Troubleshooting</div>
+                <div class="slide-subtitle">Domain Name Resolution Issues</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-globe icon"></i>
+                    DNS Diagnosis &amp; Resolution
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-exclamation-triangle" style="color: #e74c3c; margin-right: 15px;"></i>Common DNS Symptoms</h3>
+                        <div class="problem-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Cannot resolve hostnames</strong> to IP addresses</li>
+                                <li><strong>Slow website loading</strong> despite good connectivity</li>
+                                <li><strong>Intermittent resolution</strong> failures</li>
+                                <li><strong>"Server not found"</strong> errors</li>
+                                <li><strong>Wrong IP resolution</strong> for known domains</li>
+                            </ul>
+                        </div>
+
+                        <h3><i class="fas fa-search-plus" style="color: #f39c12; margin-right: 15px;"></i>DNS Testing Commands</h3>
+                        <div class="code-block"># Basic DNS lookup
+nslookup google.com
+dig google.com
+
+# Specific DNS server
+nslookup google.com 8.8.8.8
+dig @1.1.1.1 google.com
+
+# Reverse DNS
+nslookup 8.8.8.8
+dig -x 8.8.8.8</div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-tools" style="color: #667eea; margin-right: 15px;"></i>Advanced DNS Diagnosis</h3>
+                        <div class="code-block"># Check DNS configuration
+cat /etc/resolv.conf (Linux)
+ipconfig /all (Windows)
+
+# Flush DNS cache
+ipconfig /flushdns (Windows)
+sudo systemctl flush-dns (Linux)
+
+# Trace DNS resolution
+dig +trace google.com
+nslookup -debug google.com</div>
+
+                        <h3><i class="fas fa-wrench" style="color: #27ae60; margin-right: 15px;"></i>DNS Solutions</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Check DNS server:</strong> Verify server availability</li>
+                                <li><strong>Try alternative DNS:</strong> 8.8.8.8, 1.1.1.1, 9.9.9.9</li>
+                                <li><strong>Clear cache:</strong> Flush local DNS cache</li>
+                                <li><strong>Check firewall:</strong> Allow port 53 UDP/TCP</li>
+                                <li><strong>Test with IP:</strong> Bypass DNS entirely</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-lightbulb"></i> DNS Hierarchy Test:</strong>
+                    Test from specific → general: Local DNS → ISP DNS → Public DNS (8.8.8.8) → Root servers
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-check-circle"></i> Quick DNS Test:</strong> ping domain-name vs ping IP-address - jika IP works tapi domain tidak, masalahnya di DNS!
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">10 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 11: DHCP Troubleshooting -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">DHCP Troubleshooting</div>
+                <div class="slide-subtitle">IP Address Assignment Issues</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-network-wired icon"></i>
+                    DHCP Diagnosis Process
+                </div>
+                
+                <div class="methodology-flow">
+                    <div class="flow-step">
+                        <strong>1</strong><br>Check Client
+                    </div>
+                    <div class="flow-step">
+                        <strong>2</strong><br>Network Path
+                    </div>
+                    <div class="flow-step">
+                        <strong>3</strong><br>DHCP Server
+                    </div>
+                </div>
+                <div class="methodology-flow" style="margin-top: 10px;">
+                    <div class="flow-step">
+                        <strong>4</strong><br>Scope/Pool
+                    </div>
+                    <div class="flow-step">
+                        <strong>5</strong><br>Relay Agent
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-desktop" style="color: #667eea; margin-right: 15px;"></i>Client-Side Diagnosis</h3>
+                        <div class="code-block"># Release and renew IP
+ipconfig /release
+ipconfig /renew
+
+# Check current config
+ipconfig /all
+ip addr show
+
+# Check DHCP lease
+cat /var/lib/dhcp/dhclient.leases
+
+# Manual DHCP request
+dhclient -v eth0</div>
+
+                        <div class="problem-card">
+                            <h4><i class="fas fa-exclamation-triangle" style="color: #e74c3c; margin-right: 10px;"></i>Common DHCP Problems</h4>
+                            <ul style="font-size: 16px;">
+                                <li>No IP address assigned (169.254.x.x)</li>
+                                <li>Wrong subnet assignment</li>
+                                <li>Duplicate IP conflicts</li>
+                                <li>Lease expiration issues</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-server" style="color: #27ae60; margin-right: 15px;"></i>Server-Side Diagnosis</h3>
+                        <div class="code-block"># Check DHCP service status
+systemctl status dhcpd
+service dhcp status
+
+# View DHCP logs
+tail -f /var/log/dhcp.log
+journalctl -u dhcpd -f
+
+# Check scope utilization
+dhcp-lease-list
+show ip dhcp pool (Cisco)
+
+# Verify configuration
+dhcpd -t -cf /etc/dhcp/dhcpd.conf</div>
+
+                        <div class="step-card">
+                            <h4><i class="fas fa-tools" style="color: #f39c12; margin-right: 10px;"></i>DHCP Solutions</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Expand address pool</li>
+                                <li>Check DHCP relay configuration</li>
+                                <li>Verify VLAN settings</li>
+                                <li>Test with static IP first</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="diagnostic-table">
+                    <thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Symptom</th>
+                            <th>Likely Cause</th>
+                            <th>Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>No IP</td>
+                            <td>169.254.x.x address</td>
+                            <td>DHCP server unreachable</td>
+                            <td>Check network, server status</td>
+                        </tr>
+                        <tr>
+                            <td>Wrong subnet</td>
+                            <td>IP in wrong range</td>
+                            <td>Multiple DHCP servers</td>
+                            <td>Identify rogue DHCP</td>
+                        </tr>
+                        <tr>
+                            <td>IP conflict</td>
+                            <td>Duplicate address error</td>
+                            <td>Static IP overlap</td>
+                            <td>Check reservations, exclusions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">11 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Wireshark for Network Analysis -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Wireshark for Network Analysis</div>
+                <div class="slide-subtitle">Deep Packet Inspection and Protocol Analysis</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-microscope icon"></i>
+                    Packet-Level Troubleshooting
+                </div>
+                
+                <div class="three-column">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h4>Capture Traffic</h4>
+                        <p>Monitor real-time network packets</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <h4>Apply Filters</h4>
+                        <p>Focus on relevant traffic only</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <h4>Analyze Protocols</h4>
+                        <p>Deep dive into protocol behavior</p>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-filter" style="color: #667eea; margin-right: 15px;"></i>Common Wireshark Filters</h3>
+                        <div class="code-block"># Protocol filters
+http
+tcp
+udp
+dns
+dhcp
+arp
+
+# IP address filters
+ip.addr == 192.168.1.1
+ip.src == 10.0.0.1
+ip.dst == 8.8.8.8
+
+# Port filters
+tcp.port == 80
+udp.port == 53</div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-bug" style="color: #e74c3c; margin-right: 15px;"></i>Troubleshooting with Wireshark</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>TCP Analysis:</strong> Retransmissions, timeouts, window size</li>
+                                <li><strong>DNS Issues:</strong> Query/response matching, errors</li>
+                                <li><strong>HTTP Problems:</strong> Status codes, response times</li>
+                                <li><strong>Performance:</strong> Bandwidth usage, latency patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-chart-line" style="color: #27ae60; margin-right: 15px;"></i>Analysis Features</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Flow Analysis:</strong> Follow TCP streams</li>
+                                <li><strong>Statistics:</strong> Protocol hierarchy, conversations</li>
+                                <li><strong>Expert Analysis:</strong> Automatic problem detection</li>
+                                <li><strong>Time Analysis:</strong> Response time graphs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-lightbulb" style="color: #f39c12; margin-right: 15px;"></i>Best Practices</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Capture close to problem:</strong> Minimize noise</li>
+                                <li><strong>Use appropriate filters:</strong> Focus analysis</li>
+                                <li><strong>Save captures:</strong> For later analysis</li>
+                                <li><strong>Compare baseline:</strong> Normal vs problem traffic</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-graduation-cap"></i> Pro Tip:</strong> Start with basic filters (host, protocol, port) then narrow down based on findings. Use "Follow TCP Stream" for application-level issues.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">12 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Hands-on Lab Exercise -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Hands-on Lab: Network Troubleshooting</div>
+                <div class="slide-subtitle">Practice Real-World Scenarios</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-flask icon"></i>
+                    Lab Troubleshooting Scenarios
+                </div>
+                
+                <div class="three-column">
+                    <div class="step-card">
+                        <h4><i class="fas fa-exclamation-triangle" style="color: #e74c3c; margin-right: 10px;"></i>Scenario 1</h4>
+                        <p><strong>Problem:</strong> Client cannot browse internet</p>
+                        <p><strong>Symptoms:</strong> Local network OK, external sites fail</p>
+                        <p><strong>Tools:</strong> ping, traceroute, nslookup</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-turtle" style="color: #f39c12; margin-right: 10px;"></i>Scenario 2</h4>
+                        <p><strong>Problem:</strong> Slow file transfers between offices</p>
+                        <p><strong>Symptoms:</strong> High latency, packet loss</p>
+                        <p><strong>Tools:</strong> iperf3, Wireshark, monitoring</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-network-wired" style="color: #667eea; margin-right: 10px;"></i>Scenario 3</h4>
+                        <p><strong>Problem:</strong> New devices cannot get IP addresses</p>
+                        <p><strong>Symptoms:</strong> APIPA addresses, DHCP errors</p>
+                        <p><strong>Tools:</strong> DHCP logs, scope analysis</p>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-list-ol" style="color: #27ae60; margin-right: 15px;"></i>Lab Exercise Steps</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Problem Definition</strong><br>
+                            Define symptoms and scope clearly
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Information Gathering</strong><br>
+                            Collect network topology, configurations, logs
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Systematic Testing</strong><br>
+                            Apply troubleshooting methodology step-by-step
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Solution Implementation</strong><br>
+                            Apply fix and verify resolution
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-tools" style="color: #667eea; margin-right: 15px;"></i>Required Tools</h3>
+                        <div class="code-block"># Network testing
+ping, traceroute, nslookup
+netstat, ss, ip route
+
+# Performance testing
+iperf3, speedtest-cli
+mtr, pathping
+
+# Packet analysis
+tcpdump, Wireshark
+tshark (CLI version)
+
+# System monitoring
+top, htop, iftop
+iotop, nethogs</div>
+
+                        <h3><i class="fas fa-clipboard-check" style="color: #f39c12; margin-right: 15px;"></i>Assessment Criteria</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Problem identification:</strong> Accurate symptom analysis</li>
+                                <li><strong>Methodology usage:</strong> Systematic approach</li>
+                                <li><strong>Tool utilization:</strong> Appropriate tool selection</li>
+                                <li><strong>Solution effectiveness:</strong> Problem resolution</li>
+                                <li><strong>Documentation:</strong> Clear process recording</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-stopwatch"></i> Time Allocation:</strong> 30 min problem setup + 60 min troubleshooting + 30 min documentation and discussion
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">13 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Documentation and Best Practices -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Documentation &amp; Best Practices</div>
+                <div class="slide-subtitle">Effective Troubleshooting Habits</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-clipboard-list icon"></i>
+                    Professional Troubleshooting Standards
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-file-alt" style="color: #667eea; margin-right: 15px;"></i>Documentation Requirements</h3>
+                        <div class="step-card">
+                            <h4>Problem Record Template</h4>
+                            <ul style="font-size: 18px;">
+                                <li><strong>Date/Time:</strong> When problem occurred</li>
+                                <li><strong>Symptoms:</strong> What users experienced</li>
+                                <li><strong>Scope:</strong> Affected systems/users</li>
+                                <li><strong>Impact:</strong> Business/operational impact</li>
+                                <li><strong>Root Cause:</strong> Identified cause</li>
+                                <li><strong>Solution:</strong> Steps taken to resolve</li>
+                                <li><strong>Prevention:</strong> How to avoid recurrence</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-star" style="color: #27ae60; margin-right: 15px;"></i>Best Practices</h3>
+                        <div class="step-card">
+                            <h4>Troubleshooting Excellence</h4>
+                            <ul style="font-size: 18px;">
+                                <li><strong>Stay systematic:</strong> Don't skip steps</li>
+                                <li><strong>Document everything:</strong> Commands, outputs, changes</li>
+                                <li><strong>Test incrementally:</strong> One change at a time</li>
+                                <li><strong>Backup configurations:</strong> Before making changes</li>
+                                <li><strong>Verify solutions:</strong> Ensure complete resolution</li>
+                                <li><strong>Share knowledge:</strong> Update team documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="three-column">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>Time Management</h4>
+                        <p>Set reasonable timeframes for troubleshooting phases</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Communication</h4>
+                        <p>Keep stakeholders informed of progress and ETA</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Change Control</h4>
+                        <p>Follow change management procedures for fixes</p>
+                    </div>
+                </div>
+
+                <div class="code-block"># Sample troubleshooting log entry
+Date: 2024-01-15 14:30
+Problem: Users cannot access internal web server
+Symptoms: HTTP timeouts, connection refused errors
+Affected: Marketing department (20 users)
+Investigation:
+  14:35 - Verified web server service running
+  14:40 - Checked firewall rules - FOUND: Port 80 blocked
+  14:45 - Added firewall exception for port 80
+  14:50 - Verified user access restored
+Resolution: Firewall rule added to allow HTTP traffic
+Root Cause: Recent security policy blocked web traffic
+Prevention: Review firewall rules before policy deployment</div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-graduation-cap"></i> Knowledge Base:</strong> Maintain searchable database of problems and solutions for faster future resolution.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">14 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Summary & Key Takeaways -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Summary &amp; Key Takeaways</div>
+                <div class="slide-subtitle">Network Troubleshooting Mastery</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-check-circle icon"></i>
+                    Troubleshooting Success Framework
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-list-check" style="color: #27ae60; margin-right: 15px;"></i>Core Competencies Achieved</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 20px;">
+                                <li><strong>✓ Systematic Methodology:</strong> 7-step troubleshooting process</li>
+                                <li><strong>✓ Diagnostic Tools:</strong> CLI tools and advanced analyzers</li>
+                                <li><strong>✓ Log Analysis:</strong> Reading and interpreting network logs</li>
+                                <li><strong>✓ Common Problems:</strong> Identifying frequent network issues</li>
+                                <li><strong>✓ Solution Implementation:</strong> Effective problem resolution</li>
+                                <li><strong>✓ Documentation:</strong> Professional recording practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-tools" style="color: #667eea; margin-right: 15px;"></i>Essential Tools Mastered</h3>
+                        <div class="step-card">
+                            <h4>Basic Tools</h4>
+                            <ul style="font-size: 18px;">
+                                <li>ping, traceroute, nslookup</li>
+                                <li>netstat, ipconfig, route</li>
+                            </ul>
+                            <h4>Advanced Tools</h4>
+                            <ul style="font-size: 18px;">
+                                <li>Wireshark, tcpdump</li>
+                                <li>iperf3, nmap</li>
+                            </ul>
+                            <h4>Analysis Methods</h4>
+                            <ul style="font-size: 18px;">
+                                <li>Log correlation</li>
+                                <li>Performance metrics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="three-column">
+                    <div class="problem-card">
+                        <h4><i class="fas fa-lightbulb" style="color: #f39c12; margin-right: 10px;"></i>Remember</h4>
+                        <p><strong>Stay systematic</strong> - random troubleshooting wastes time and can make problems worse</p>
+                    </div>
+                    <div class="problem-card">
+                        <h4><i class="fas fa-database" style="color: #3498db; margin-right: 10px;"></i>Document</h4>
+                        <p><strong>Record everything</strong> - your future self (and colleagues) will thank you</p>
+                    </div>
+                    <div class="problem-card">
+                        <h4><i class="fas fa-users" style="color: #27ae60; margin-right: 10px;"></i>Collaborate</h4>
+                        <p><strong>Share knowledge</strong> - build team expertise through documentation</p>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-trophy"></i> Professional Troubleshooter Qualities:</strong>
+                    Methodical approach + Right tools + Continuous learning + Clear documentation = Network troubleshooting excellence!
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: white; text-align: center;">
+                        <i class="fas fa-graduation-cap"></i> Pertemuan Selanjutnya
+                    </h3>
+                    <p style="text-align: center; font-size: 24px; margin-top: 15px;">
+                        <strong>Pertemuan 14:</strong> Network Security Monitoring dan Incident Response
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-graduation-cap"></i> Next Steps:</strong> 
+                    Apply these skills in real environments, build your personal troubleshooting toolkit, and contribute to team knowledge base.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">15 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Troubleshooting Sistem Jaringan - Pertemuan 13_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Terima Kasih</div>
+                <div class="slide-subtitle">Selesai Materi Troubleshooting Sistem Jaringan</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-tools icon"></i>
+                    Terima Kasih!
+                </div>
+                
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: white; text-align: center;">
+                        <i class="fas fa-check-circle"></i> Materi Telah Selesai
+                    </h3>
+                    <p style="text-align: center; font-size: 20px; margin-top: 15px;">
+                        <strong>Semoga materi Troubleshooting Sistem Jaringan ini bermanfaat!</strong>
+                    </p>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h4><i class="fas fa-question-circle"></i> Q&amp;A Session</h4>
+                            <ul style="font-size: 18px;">
+                                <li>Troubleshooting methodology questions</li>
+                                <li>Tool usage clarifications</li>
+                                <li>Real-world scenario discussions</li>
+                                <li>Lab exercise feedback</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h4><i class="fas fa-book"></i> Additional Resources</h4>
+                            <ul style="font-size: 16px;">
+                                <li><strong>Wireshark Documentation:</strong><br>wireshark.org/docs/</li>
+                                <li><strong>Network+ Study Materials:</strong><br>CompTIA resources</li>
+                                <li><strong>Cisco Troubleshooting Guide:</strong><br>cisco.com/c/en/us/support/</li>
+                                <li><strong>Linux Network Commands:</strong><br>man pages and tutorials</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <h4><i class="fas fa-user"></i> Kontak Dosen</h4>
+                    <p><strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong></p>
+                    <p>Program Studi Teknologi Informasi</p>
+                    <p>Universitas Tidar Magelang</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <div style="font-size: 4rem; color: #667eea;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">16 / 16</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        Use ↑↓ to scroll within slide
+    </div>
+
+    <!-- Help Text -->
+    <div class="help-text" id="helpText">
+        <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <div style="text-align: left; margin-top: 20px;">
+            <p><kbd>→</kbd> <kbd>Space</kbd> Next slide</p>
+            <p><kbd>←</kbd> Previous slide</p>
+            <p><kbd>↑</kbd> <kbd>↓</kbd> Scroll within slide</p>
+            <p><kbd>F</kbd> <kbd>F11</kbd> Toggle fullscreen</p>
+            <p><kbd>P</kbd> Presenter mode</p>
+            <p><kbd>H</kbd> <kbd>?</kbd> Show this help</p>
+        </div>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes"><p>Welcome to Network Troubleshooting session. Introduce methodology importance and real-world applications.</p></div>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #333;">
+            <div style="margin-bottom: 10px;">
+                <strong>Timer:</strong> <span id="timer">00:00</span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Progress:</strong> <span id="progress">0%</span>
+            </div>
+            <div style="background: #333; height: 4px; border-radius: 2px; overflow: hidden;">
+                <div id="progressBar" style="height: 100%; background: #667eea; width: 6.25%; transition: width 0.3s ease;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+        let timerInterval;
+        const customPointer = document.querySelector('.custom-pointer');
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Welcome to Network Troubleshooting session. Introduce methodology importance and real-world applications.",
+            "Define troubleshooting - emphasize systematic approach vs random trial-and-error.",
+            "Walk through 7-step methodology. Stress importance of following each step sequentially.",
+            "Demonstrate basic CLI tools. Show live examples of ping, traceroute, nslookup commands.",
+            "Introduce advanced tools. Explain when to use each tool and their specific strengths.",
+            "Focus on log analysis skills. Show real log examples and pattern recognition techniques.",
+            "Present common network issues. Use real-world examples and case studies.",
+            "Detailed connectivity troubleshooting workflow. Practice with live network scenarios.",
+            "Performance issue diagnosis. Demonstrate bandwidth testing and latency measurement.",
+            "DNS troubleshooting techniques. Show hierarchy testing and resolution verification.",
+            "DHCP problem solving. Demonstrate client and server-side diagnosis methods.",
+            "Wireshark packet analysis. Live demonstration of filtering and protocol analysis.",
+            "Hands-on lab introduction. Explain scenarios and assessment criteria clearly.",
+            "Documentation best practices. Emphasize knowledge sharing and process improvement.",
+            "Review key concepts and tools. Ensure understanding of systematic approach.",
+            "Q&A session. Address practical questions and real-world implementation challenges."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('progressBar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            
+            if (presenterNotes[currentSlide]) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons state
+            updateNavigationButtons();
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        // Add scroll event listener for active slide
+        function addScrollListeners() {
+            slides[currentSlide].addEventListener('scroll', updateScrollIndicators);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            document.body.style.marginRight = presenterModeActive ? '400px' : '0';
+            
+            if (presenterModeActive) {
+                startTimer();
+            } else {
+                stopTimer();
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('progress').textContent = 
+                    `${Math.round(((currentSlide + 1) / totalSlides) * 100)}%`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'f':
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    togglePresenterMode();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+            }
+        });
+
+        // Mouse events for custom pointer
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            customPointer.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            customPointer.style.opacity = '0';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-btn') || e.target.closest('.presenter-mode')) return;
+            
+            const rect = document.documentElement.getBoundingClientRect();
+            if (e.clientX > rect.width / 2) {
+                changeSlide(1);
+            } else {
+                changeSlide(-1);
+            }
+        });
+
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Initialize
+        updateSlide();
+        addScrollListeners();
+
+        // Show help text on first load
+        setTimeout(showHelpText, 1000);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

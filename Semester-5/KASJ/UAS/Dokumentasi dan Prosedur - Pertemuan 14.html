@@ -1,0 +1,2719 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)https://class.tiflab.my.id/storage/lessons/materials/1764035609_14-Dokumentasi-dan-Prosedur.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi dan Prosedur - Pertemuan 14</title>
+    <link rel="stylesheet" href="./Dokumentasi dan Prosedur - Pertemuan 14_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .custom-pointer {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            height: 90%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            animation: slideIn 0.6s ease-out;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+        }
+
+        .university-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 24px;
+            color: #3498db;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #333;
+            gap: 15px;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 32px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .icon {
+            color: #3498db;
+            margin-right: 15px;
+            font-size: 48px;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tool-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .tool-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .warning-box {
+            background: #f39c12;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+            box-shadow: 0 5px 15px rgba(243,156,18,0.2);
+        }
+
+        .success-box {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2ecc71;
+            box-shadow: 0 5px 15px rgba(39,174,96,0.2);
+        }
+
+        .info-box {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #2980b9;
+            box-shadow: 0 5px 15px rgba(52,152,219,0.2);
+        }
+
+        .danger-box {
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #c0392b;
+            box-shadow: 0 5px 15px rgba(231,76,60,0.2);
+        }
+
+        .methodology-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            min-width: 120px;
+            position: relative;
+            flex: 1;
+            max-width: 180px;
+        }
+
+        .flow-step::after {
+            content: "→";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3498db;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .documentation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .documentation-table th {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        .documentation-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .documentation-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .process-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .process-icon {
+            font-size: 32px;
+            color: #3498db;
+            margin-right: 15px;
+            float: left;
+        }
+
+        .sop-template {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .animation-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #3498db;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        .help-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            z-index: 10001;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .help-text.visible {
+            opacity: 1;
+        }
+
+        .presenter-mode {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px;
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .presenter-mode.active {
+            right: 0;
+        }
+
+        .presenter-mode h4 {
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+
+        .slide-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            color: #718096;
+            flex-shrink: 0;
+        }
+
+        .slide-footer .university-info {
+            color: #4a5568;
+        }
+
+        .template-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .checklist-item i {
+            color: #27ae60;
+            margin-right: 10px;
+        }
+
+        .phase-card {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .phase-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1131.0" data-gr-ext-installed="">
+    <div class="custom-pointer" style="opacity: 1; left: 578px; top: 500px;"></div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Dokumentasi dan Prosedur</div>
+                <div class="slide-subtitle">System Documentation &amp; Standard Operating Procedures</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-file-alt icon"></i>
+                    Pertemuan 14 - KASJ
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-graduation-cap" style="color: #f39c12; margin-right: 15px;"></i>Learning Outcomes</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 20px;">
+                                <li>Mampu membuat dokumentasi sistem yang lengkap</li>
+                                <li>Menulis Standard Operating Procedures (SOP)</li>
+                                <li>Memahami change management process</li>
+                                <li>Menerapkan knowledge management practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-clock" style="color: #e67e22; margin-right: 15px;"></i>Duration &amp; Method</h3>
+                        <div class="info-box">
+                            <p><strong>Waktu:</strong> 2 x 50 menit</p>
+                            <p><strong>Metode:</strong> Documentation Project</p>
+                            <p><strong>Assessment:</strong> Dokumentasi lengkap dan akurat, SOP implementable</p>
+                        </div>
+                        <div class="warning-box" style="margin-top: 20px;">
+                            <p><strong>Project Output:</strong></p>
+                            <ul style="font-size: 16px; margin-top: 10px;">
+                                <li>System documentation</li>
+                                <li>SOP dokumen</li>
+                                <li>Change control setup</li>
+                                <li>Knowledge sharing session</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">1 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Importance of Documentation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Why Documentation Matters</div>
+                <div class="slide-subtitle">The Foundation of IT Operations</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-book icon"></i>
+                    Documentation is NOT Optional
+                </div>
+                
+                <div class="three-column">
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <h4>Team Collaboration</h4>
+                            <p>Enable knowledge sharing, reduce dependency on individuals, improve team efficiency</p>
+                        </div>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <h4>Time Efficiency</h4>
+                            <p>Reduce troubleshooting time, faster onboarding, consistent procedures across team</p>
+                        </div>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <h4>Risk Mitigation</h4>
+                            <p>Prevent critical knowledge loss, ensure compliance, maintain system reliability</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-exclamation-triangle" style="color: #e74c3c; margin-right: 15px;"></i>Consequences of Poor Documentation</h3>
+                        <div class="danger-box">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Knowledge Silos:</strong> Critical information trapped with individuals</li>
+                                <li><strong>Inconsistent Processes:</strong> Different approaches for same tasks</li>
+                                <li><strong>Extended Downtime:</strong> Longer resolution times during incidents</li>
+                                <li><strong>Compliance Issues:</strong> Audit failures and regulatory problems</li>
+                                <li><strong>Training Inefficiency:</strong> Steep learning curve for new team members</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-trophy" style="color: #27ae60; margin-right: 15px;"></i>Benefits of Good Documentation</h3>
+                        <div class="success-box">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Operational Excellence:</strong> Standardized, repeatable processes</li>
+                                <li><strong>Knowledge Preservation:</strong> Organizational memory retention</li>
+                                <li><strong>Faster Problem Resolution:</strong> Quick access to solutions</li>
+                                <li><strong>Better Decision Making:</strong> Historical data and lessons learned</li>
+                                <li><strong>Improved Security:</strong> Documented security procedures</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-quote-left"></i> Industry Fact:</strong> Organizations with comprehensive documentation experience 50% faster incident resolution times and 75% reduction in recurring issues.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">2 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Documentation Best Practices -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Documentation Best Practices</div>
+                <div class="slide-subtitle">Creating Effective and Useful Documentation</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-star icon"></i>
+                    Quality Documentation Principles
+                </div>
+                
+                <div class="methodology-flow">
+                    <div class="flow-step">
+                        <strong>Clear</strong><br>Easy to understand
+                    </div>
+                    <div class="flow-step">
+                        <strong>Concise</strong><br>No unnecessary details
+                    </div>
+                    <div class="flow-step">
+                        <strong>Complete</strong><br>All necessary information
+                    </div>
+                    <div class="flow-step">
+                        <strong>Current</strong><br>Up-to-date content
+                    </div>
+                    <div class="flow-step">
+                        <strong>Accessible</strong><br>Easy to find and use
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-clipboard-list" style="color: #3498db; margin-right: 15px;"></i>Writing Guidelines</h3>
+                        <div class="step-card">
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Use Simple Language:</strong> Avoid jargon, write for your audience</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Structure Content:</strong> Headers, bullets, numbered lists</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Include Examples:</strong> Screenshots, code samples, use cases</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Version Control:</strong> Track changes, maintain history</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Regular Reviews:</strong> Update and validate content</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-tools" style="color: #27ae60; margin-right: 15px;"></i>Documentation Tools</h3>
+                        <div class="three-column" style="grid-template-columns: 1fr;">
+                            <div class="tool-card">
+                                <div class="tool-icon">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                                <h4>Wiki Platforms</h4>
+                                <p>Confluence, Notion, GitBook</p>
+                            </div>
+                            <div class="tool-card">
+                                <div class="tool-icon">
+                                    <i class="fas fa-code-branch"></i>
+                                </div>
+                                <h4>Version Control</h4>
+                                <p>Git-based docs, Markdown files</p>
+                            </div>
+                            <div class="tool-card">
+                                <div class="tool-icon">
+                                    <i class="fas fa-share-alt"></i>
+                                </div>
+                                <h4>Collaboration Tools</h4>
+                                <p>Google Docs, Microsoft 365</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <h4><i class="fas fa-template" style="color: #3498db; margin-right: 10px;"></i>Documentation Template Structure</h4>
+                    <div class="code-block" style="font-size: 16px;">1. Title and Purpose
+2. Scope and Audience
+3. Prerequisites/Requirements
+4. Step-by-step Procedures
+5. Troubleshooting Guide
+6. References and Related Documents
+7. Version History and Change Log</div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">3 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Types of System Documentation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Types of System Documentation</div>
+                <div class="slide-subtitle">Comprehensive Documentation Portfolio</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-folder-open icon"></i>
+                    Documentation Categories
+                </div>
+                
+                <table class="documentation-table">
+                    <thead>
+                        <tr>
+                            <th>Documentation Type</th>
+                            <th>Purpose</th>
+                            <th>Audience</th>
+                            <th>Update Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>System Architecture</strong></td>
+                            <td>Overall system design and components</td>
+                            <td>Architects, Developers</td>
+                            <td>Major changes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Installation Guides</strong></td>
+                            <td>Step-by-step setup procedures</td>
+                            <td>IT Staff, Administrators</td>
+                            <td>Version updates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Configuration Docs</strong></td>
+                            <td>System settings and parameters</td>
+                            <td>System Administrators</td>
+                            <td>Configuration changes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Manuals</strong></td>
+                            <td>End-user operation guides</td>
+                            <td>End Users</td>
+                            <td>Feature updates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>API Documentation</strong></td>
+                            <td>Interface specifications</td>
+                            <td>Developers, Integrators</td>
+                            <td>API changes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Troubleshooting</strong></td>
+                            <td>Problem resolution guides</td>
+                            <td>Support Staff</td>
+                            <td>New issues discovered</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-sitemap" style="color: #3498db; margin-right: 15px;"></i>Technical Documentation</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Network Diagrams:</strong> Physical and logical topology</li>
+                                <li><strong>Database Schema:</strong> Tables, relationships, indexes</li>
+                                <li><strong>Security Policies:</strong> Access controls, procedures</li>
+                                <li><strong>Backup Procedures:</strong> Schedules, restoration steps</li>
+                                <li><strong>Monitoring Setup:</strong> Alerts, thresholds, dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-users" style="color: #27ae60; margin-right: 15px;"></i>Process Documentation</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Standard Operating Procedures:</strong> Routine operations</li>
+                                <li><strong>Incident Response:</strong> Emergency procedures</li>
+                                <li><strong>Change Management:</strong> Approval and implementation</li>
+                                <li><strong>User Provisioning:</strong> Account creation and management</li>
+                                <li><strong>Compliance Procedures:</strong> Audit and regulatory requirements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong><i class="fas fa-lightbulb"></i> Documentation Hierarchy:</strong> Start with critical system docs, then expand to detailed procedures. Prioritize based on business impact and usage frequency.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">4 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Standard Operating Procedures (SOP) -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Standard Operating Procedures (SOP)</div>
+                <div class="slide-subtitle">Standardizing IT Operations</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-clipboard-check icon"></i>
+                    SOP: Your Operational Playbook
+                </div>
+                
+                <div class="step-card">
+                    <h3><i class="fas fa-bullseye" style="color: #3498db; margin-right: 15px;"></i>What is an SOP?</h3>
+                    <p><strong>Standard Operating Procedure</strong> adalah dokumen langkah-demi-langkah yang menjelaskan cara melakukan tugas atau proses tertentu secara konsisten dan efisien.</p>
+                </div>
+
+                <div class="three-column">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h4>Consistency</h4>
+                        <p>Same results every time, regardless of who performs the task</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h4>Efficiency</h4>
+                        <p>Optimized steps reduce time and eliminate guesswork</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>Training</h4>
+                        <p>Clear procedures enable faster onboarding</p>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-list-ol" style="color: #f39c12; margin-right: 15px;"></i>SOP Components</h3>
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4 style="margin-top: 10px;">Title &amp; Purpose</h4>
+                            <p>Clear title and explanation of what the SOP accomplishes</p>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4 style="margin-top: 10px;">Scope &amp; Responsibilities</h4>
+                            <p>When to use, who is responsible, required permissions</p>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4 style="margin-top: 10px;">Prerequisites</h4>
+                            <p>Required tools, access rights, and conditions</p>
+                        </div>
+                        <div class="phase-card">
+                            <div class="phase-number">4</div>
+                            <h4 style="margin-top: 10px;">Step-by-Step Procedures</h4>
+                            <p>Detailed, sequential instructions with decision points</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-wrench" style="color: #27ae60; margin-right: 15px;"></i>SOP Example Areas</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Server Maintenance:</strong> Patching, rebooting, health checks</li>
+                                <li><strong>User Account Management:</strong> Creation, modification, deletion</li>
+                                <li><strong>Backup Operations:</strong> Daily, weekly, monthly procedures</li>
+                                <li><strong>Security Incident Response:</strong> Detection, containment, recovery</li>
+                                <li><strong>System Deployment:</strong> New server provisioning</li>
+                                <li><strong>Monitoring &amp; Alerting:</strong> Dashboard reviews, alert handling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-key"></i> SOP Success Factors:</strong> Keep it simple, test procedures regularly, gather feedback from users, and update based on lessons learned.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">5 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 6: SOP Template & Structure -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">SOP Template &amp; Structure</div>
+                <div class="slide-subtitle">Creating Effective Standard Operating Procedures</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-file-alt icon"></i>
+                    SOP Template Framework
+                </div>
+                
+                <div class="sop-template">
+                    <h4><i class="fas fa-header" style="color: #3498db; margin-right: 10px;"></i>SOP Document Header</h4>
+                    <div class="code-block" style="font-size: 14px;">SOP Title: [Clear, descriptive title]
+Document ID: SOP-[Category]-[Number] (e.g., SOP-SYS-001)
+Version: [X.Y format]
+Effective Date: [DD/MM/YYYY]
+Review Date: [DD/MM/YYYY]
+Owner: [Department/Role]
+Approved by: [Name and Title]</div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-clipboard-list" style="color: #3498db; margin-right: 15px;"></i>Content Structure</h3>
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <strong>Purpose &amp; Objective</strong><br>
+                            Why this SOP exists and what it achieves
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <strong>Scope &amp; Applicability</strong><br>
+                            When, where, and to whom this SOP applies
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <strong>Roles &amp; Responsibilities</strong><br>
+                            Who does what in this procedure
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">4</div>
+                            <strong>Prerequisites</strong><br>
+                            Required access, tools, and conditions
+                        </div>
+                    </div>
+                    <div>
+                        <div class="step-card">
+                            <div class="step-number">5</div>
+                            <strong>Detailed Procedures</strong><br>
+                            Step-by-step instructions with decision points
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">6</div>
+                            <strong>Exception Handling</strong><br>
+                            What to do when normal flow doesn't apply
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">7</div>
+                            <strong>Quality Controls</strong><br>
+                            Verification steps and checkpoints
+                        </div>
+                        <div class="step-card">
+                            <div class="step-number">8</div>
+                            <strong>References &amp; Records</strong><br>
+                            Related documents and record keeping
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sop-template">
+                    <h4><i class="fas fa-code" style="color: #27ae60; margin-right: 10px;"></i>Procedure Step Format</h4>
+                    <div class="code-block" style="font-size: 14px;">Step X: [Action Verb] [Object/Target]
+
+Description: Brief explanation of what this step accomplishes
+
+Procedure:
+  X.1 [Specific action with exact commands/clicks]
+  X.2 [Expected result or verification step]
+  X.3 [Any conditions or decision points]
+
+Example:
+  - Command: sudo systemctl restart apache2
+  - Expected: Service restarts without errors
+  - Verification: curl http://localhost returns status 200
+
+Notes: Any warnings, tips, or additional information</div>
+                </div>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-magic"></i> Writing Tips:</strong> Use active voice, start steps with action verbs, include screenshots for GUI procedures, and provide both command-line and UI alternatives when possible.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">6 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Change Management Process -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Change Management Process</div>
+                <div class="slide-subtitle">Controlled and Safe System Changes</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-cogs icon"></i>
+                    Change Control Framework
+                </div>
+                
+                <div class="step-card">
+                    <h3><i class="fas fa-info-circle" style="color: #3498db; margin-right: 15px;"></i>What is Change Management?</h3>
+                    <p><strong>Change Management</strong> adalah proses formal untuk mengelola modifikasi sistem IT, memastikan perubahan dilakukan dengan cara yang terkontrol, aman, dan dapat di-audit.</p>
+                </div>
+
+                <div class="methodology-flow">
+                    <div class="flow-step">
+                        <strong>Request</strong><br>Change initiated
+                    </div>
+                    <div class="flow-step">
+                        <strong>Assessment</strong><br>Impact analysis
+                    </div>
+                    <div class="flow-step">
+                        <strong>Approval</strong><br>Review &amp; authorize
+                    </div>
+                    <div class="flow-step">
+                        <strong>Planning</strong><br>Implementation plan
+                    </div>
+                    <div class="flow-step">
+                        <strong>Testing</strong><br>Validate changes
+                    </div>
+                    <div class="flow-step">
+                        <strong>Deployment</strong><br>Execute changes
+                    </div>
+                    <div class="flow-step">
+                        <strong>Review</strong><br>Post-implementation
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-layer-group" style="color: #f39c12; margin-right: 15px;"></i>Change Categories</h3>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-exclamation-triangle" style="color: #e74c3c;"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Emergency Changes</h4>
+                                <p><strong>High Risk:</strong> Critical security fixes, system outages</p>
+                                <p><strong>Approval:</strong> Expedited process, post-implementation review</p>
+                            </div>
+                        </div>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-exclamation" style="color: #f39c12;"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Standard Changes</h4>
+                                <p><strong>Medium Risk:</strong> Configuration updates, software patches</p>
+                                <p><strong>Approval:</strong> Change Advisory Board (CAB) review</p>
+                            </div>
+                        </div>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-check-circle" style="color: #27ae60;"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Normal Changes</h4>
+                                <p><strong>Low Risk:</strong> Routine maintenance, pre-approved procedures</p>
+                                <p><strong>Approval:</strong> Automated or simplified approval</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-clipboard-list" style="color: #27ae60; margin-right: 15px;"></i>Change Request Template</h3>
+                        <div class="template-card">
+                            <div class="code-block" style="font-size: 16px;">Change ID: CHG-YYYY-NNNN
+Title: [Brief description]
+Category: [Emergency/Standard/Normal]
+Priority: [High/Medium/Low]
+Requestor: [Name and Department]
+Business Justification: [Why needed]
+Description: [Detailed change description]
+Systems Affected: [List of systems]
+Impact Assessment: [Risk analysis]
+Rollback Plan: [How to revert if needed]
+Implementation Window: [Date/time]
+Success Criteria: [How to verify]
+Testing Required: [Test procedures]
+Communications: [Who to notify]</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="danger-box">
+                    <strong><i class="fas fa-shield-alt"></i> Change Control Principles:</strong> No unauthorized changes, all changes must be documented, tested, and approved. Always have a rollback plan ready!
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">7 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Change Implementation Workflow -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Change Implementation Workflow</div>
+                <div class="slide-subtitle">Step-by-Step Change Execution</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-project-diagram icon"></i>
+                    Change Execution Process
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-clipboard-check" style="color: #3498db; margin-right: 15px;"></i>Pre-Implementation Phase</h3>
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4 style="margin-top: 10px;">Change Planning</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Define detailed implementation steps</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Identify required resources and tools</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Schedule maintenance windows</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Prepare communication notices</span>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4 style="margin-top: 10px;">Risk Assessment</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Analyze potential impacts</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Create rollback procedures</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Test rollback in non-production</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-play-circle" style="color: #27ae60; margin-right: 15px;"></i>Implementation Phase</h3>
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4 style="margin-top: 10px;">Execute Changes</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Follow documented procedures exactly</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Log all actions and timestamps</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verify each step completion</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Monitor system health continuously</span>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">4</div>
+                            <h4 style="margin-top: 10px;">Post-Implementation</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Validate success criteria met</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Update documentation if needed</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Notify stakeholders of completion</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Conduct lessons learned session</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sop-template">
+                    <h4><i class="fas fa-code" style="color: #f39c12; margin-right: 10px;"></i>Change Log Template</h4>
+                    <div class="code-block" style="font-size: 16px;">Change Implementation Log
+
+Change ID: CHG-2024-001
+Date: 2024-01-15
+Implementer: John Doe
+Start Time: 20:00
+End Time: 22:30
+
+Pre-Change Status:
+- System version: 2.1.5
+- Services running: Web, DB, Cache
+- Performance baseline: Documented
+
+Implementation Steps:
+20:00 - Announced maintenance window
+20:05 - Stopped application services
+20:10 - Created system backup
+20:25 - Applied software patches
+21:15 - Updated configuration files
+21:30 - Started services
+21:45 - Ran validation tests
+22:00 - Performance monitoring
+22:30 - Confirmed successful deployment
+
+Post-Change Verification:
+✓ All services operational
+✓ Performance within acceptable range
+✓ No error messages in logs
+✓ User acceptance testing passed</div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">8 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Knowledge Management Systems -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Knowledge Management Systems</div>
+                <div class="slide-subtitle">Capturing and Sharing Organizational Knowledge</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-brain icon"></i>
+                    Knowledge is Power
+                </div>
+                
+                <div class="step-card">
+                    <h3><i class="fas fa-lightbulb" style="color: #3498db; margin-right: 15px;"></i>What is Knowledge Management?</h3>
+                    <p><strong>Knowledge Management</strong> adalah proses sistematis untuk mengidentifikasi, menangkap, mengorganisasi, menyimpan, dan berbagi pengetahuan organisasi untuk meningkatkan efisiensi dan inovasi.</p>
+                </div>
+
+                <div class="three-column">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-capture"></i>
+                        </div>
+                        <h4>Knowledge Capture</h4>
+                        <p>Document lessons learned, best practices, and expert insights</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>Knowledge Storage</h4>
+                        <p>Organize information in searchable, accessible repositories</p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h4>Knowledge Sharing</h4>
+                        <p>Facilitate easy access and collaboration among team members</p>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-archive" style="color: #f39c12; margin-right: 15px;"></i>Knowledge Categories</h3>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Explicit Knowledge</h4>
+                                <p><strong>Tangible:</strong> Documentation, procedures, manuals, code</p>
+                                <p><strong>Easy to share:</strong> Can be written down and transferred</p>
+                            </div>
+                        </div>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Tacit Knowledge</h4>
+                                <p><strong>Intangible:</strong> Experience, intuition, skills, insights</p>
+                                <p><strong>Hard to transfer:</strong> Personal knowledge and expertise</p>
+                            </div>
+                        </div>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Collective Knowledge</h4>
+                                <p><strong>Organizational:</strong> Culture, processes, relationships</p>
+                                <p><strong>Embedded:</strong> In systems, routines, and practices</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-tools" style="color: #27ae60; margin-right: 15px;"></i>KM Tools &amp; Platforms</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Wiki Systems:</strong> Confluence, MediaWiki, Notion</li>
+                                <li><strong>Document Management:</strong> SharePoint, Google Workspace</li>
+                                <li><strong>Discussion Forums:</strong> Slack, Microsoft Teams</li>
+                                <li><strong>Q&amp;A Platforms:</strong> Stack Overflow for Teams</li>
+                                <li><strong>Video Libraries:</strong> Recorded training sessions</li>
+                                <li><strong>Expert Networks:</strong> Directory of subject matter experts</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box">
+                            <h4><i class="fas fa-search"></i> Search &amp; Discovery</h4>
+                            <p>Implement powerful search capabilities with tagging, categorization, and AI-powered recommendations to help users find relevant knowledge quickly.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-rocket"></i> Knowledge Management Success:</strong> Make it easy to contribute, easy to find, and valuable to use. Recognize and reward knowledge sharing behaviors!
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">9 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Knowledge Sharing Strategies -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Knowledge Sharing Strategies</div>
+                <div class="slide-subtitle">Building a Learning Organization</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-handshake icon"></i>
+                    Effective Knowledge Transfer
+                </div>
+                
+                <div class="methodology-flow">
+                    <div class="flow-step">
+                        <strong>Capture</strong><br>Document knowledge
+                    </div>
+                    <div class="flow-step">
+                        <strong>Organize</strong><br>Structure content
+                    </div>
+                    <div class="flow-step">
+                        <strong>Share</strong><br>Make accessible
+                    </div>
+                    <div class="flow-step">
+                        <strong>Apply</strong><br>Use in practice
+                    </div>
+                    <div class="flow-step">
+                        <strong>Improve</strong><br>Update &amp; refine
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-comments" style="color: #3498db; margin-right: 15px;"></i>Knowledge Sharing Methods</h3>
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4 style="margin-top: 10px;">Documentation</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Technical wikis and knowledge bases</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Troubleshooting guides and FAQs</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Best practices and lessons learned</span>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4 style="margin-top: 10px;">Interactive Sessions</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Tech talks and lunch &amp; learn sessions</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Code reviews and peer programming</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Post-incident reviews and retrospectives</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4 style="margin-top: 10px;">Mentoring &amp; Training</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Senior-junior pairing programs</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Cross-training initiatives</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Job shadowing and rotations</span>
+                            </div>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">4</div>
+                            <h4 style="margin-top: 10px;">Communities of Practice</h4>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Special interest groups</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Internal conferences and showcases</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Innovation time and hackathons</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="documentation-table">
+                    <thead>
+                        <tr>
+                            <th>Knowledge Type</th>
+                            <th>Best Sharing Method</th>
+                            <th>Tools &amp; Platforms</th>
+                            <th>Success Metrics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Technical Procedures</strong></td>
+                            <td>Step-by-step documentation</td>
+                            <td>Wiki, Process management tools</td>
+                            <td>Usage frequency, accuracy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Problem Solutions</strong></td>
+                            <td>Searchable knowledge base</td>
+                            <td>Ticketing systems, FAQ databases</td>
+                            <td>Resolution time reduction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best Practices</strong></td>
+                            <td>Case studies and examples</td>
+                            <td>Blogs, internal publications</td>
+                            <td>Adoption rate, quality metrics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Expert Skills</strong></td>
+                            <td>Mentoring and training</td>
+                            <td>Video conferencing, LMS</td>
+                            <td>Skill development, competency</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong><i class="fas fa-balance-scale"></i> Knowledge Sharing Balance:</strong> Encourage sharing without overwhelming people. Focus on quality over quantity, and make sharing part of regular workflows.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">10 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Documentation Project Planning -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Documentation Project Planning</div>
+                <div class="slide-subtitle">Structured Approach to Documentation Creation</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-project-diagram icon"></i>
+                    Documentation Project Framework
+                </div>
+                
+                <div class="methodology-flow">
+                    <div class="flow-step">
+                        <strong>Assess</strong><br>Current state
+                    </div>
+                    <div class="flow-step">
+                        <strong>Plan</strong><br>Documentation scope
+                    </div>
+                    <div class="flow-step">
+                        <strong>Create</strong><br>Write content
+                    </div>
+                    <div class="flow-step">
+                        <strong>Review</strong><br>Quality check
+                    </div>
+                    <div class="flow-step">
+                        <strong>Deploy</strong><br>Make accessible
+                    </div>
+                    <div class="flow-step">
+                        <strong>Maintain</strong><br>Keep updated
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-search" style="color: #3498db; margin-right: 15px;"></i>Phase 1: Assessment</h3>
+                        <div class="step-card">
+                            <h4>Current State Analysis</h4>
+                            <ul style="font-size: 18px;">
+                                <li><strong>Inventory existing documentation</strong></li>
+                                <li><strong>Identify gaps and outdated content</strong></li>
+                                <li><strong>Survey stakeholders for needs</strong></li>
+                                <li><strong>Assess current tools and platforms</strong></li>
+                            </ul>
+                        </div>
+
+                        <h3><i class="fas fa-map" style="color: #f39c12; margin-right: 15px;"></i>Phase 2: Planning</h3>
+                        <div class="step-card">
+                            <h4>Documentation Strategy</h4>
+                            <ul style="font-size: 18px;">
+                                <li><strong>Define scope and priorities</strong></li>
+                                <li><strong>Choose documentation standards</strong></li>
+                                <li><strong>Select tools and platforms</strong></li>
+                                <li><strong>Assign roles and responsibilities</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-edit" style="color: #27ae60; margin-right: 15px;"></i>Phase 3: Creation</h3>
+                        <div class="step-card">
+                            <h4>Content Development</h4>
+                            <ul style="font-size: 18px;">
+                                <li><strong>Create templates and standards</strong></li>
+                                <li><strong>Write high-priority documents first</strong></li>
+                                <li><strong>Include SME (Subject Matter Expert) reviews</strong></li>
+                                <li><strong>Add visual aids and examples</strong></li>
+                            </ul>
+                        </div>
+
+                        <h3><i class="fas fa-rocket" style="color: #e74c3c; margin-right: 15px;"></i>Phase 4: Deployment</h3>
+                        <div class="step-card">
+                            <h4>Launch &amp; Adoption</h4>
+                            <ul style="font-size: 18px;">
+                                <li><strong>Publish to chosen platforms</strong></li>
+                                <li><strong>Train team on new processes</strong></li>
+                                <li><strong>Communicate availability widely</strong></li>
+                                <li><strong>Gather initial feedback</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <h4><i class="fas fa-clipboard-list" style="color: #3498db; margin-right: 10px;"></i>Documentation Project Checklist</h4>
+                    <div class="two-column">
+                        <div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Document inventory completed</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Stakeholder needs assessed</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Documentation standards defined</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Tools and platforms selected</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Team roles and responsibilities assigned</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Templates and guidelines created</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Priority documents identified</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Review process established</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Maintenance schedule planned</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Success metrics defined</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-stopwatch"></i> Project Timeline:</strong> Typical documentation project: 2-4 weeks assessment, 4-8 weeks creation, 2 weeks review and deployment, ongoing maintenance.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">11 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Hands-on Project: System Documentation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Hands-on Project: System Documentation</div>
+                <div class="slide-subtitle">Creating Comprehensive System Documentation</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-laptop-code icon"></i>
+                    Documentation Workshop
+                </div>
+                
+                <div class="three-column">
+                    <div class="step-card">
+                        <h4><i class="fas fa-server" style="color: #3498db; margin-right: 10px;"></i>Project 1</h4>
+                        <p><strong>System Architecture Document</strong></p>
+                        <p><strong>Scope:</strong> Web server infrastructure</p>
+                        <p><strong>Deliverables:</strong> Network diagram, component list, data flow</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-cogs" style="color: #f39c12; margin-right: 10px;"></i>Project 2</h4>
+                        <p><strong>Installation &amp; Configuration Guide</strong></p>
+                        <p><strong>Scope:</strong> Apache web server setup</p>
+                        <p><strong>Deliverables:</strong> Step-by-step guide, configuration files</p>
+                    </div>
+                    <div class="step-card">
+                        <h4><i class="fas fa-life-ring" style="color: #e74c3c; margin-right: 10px;"></i>Project 3</h4>
+                        <p><strong>Troubleshooting Guide</strong></p>
+                        <p><strong>Scope:</strong> Common web server issues</p>
+                        <p><strong>Deliverables:</strong> Problem-solution matrix, diagnostic steps</p>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-tasks" style="color: #27ae60; margin-right: 15px;"></i>Workshop Activities</h3>
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4 style="margin-top: 10px;">System Analysis (30 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Examine existing web server setup</li>
+                                <li>Identify key components and dependencies</li>
+                                <li>Map data and traffic flows</li>
+                                <li>Document current configurations</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4 style="margin-top: 10px;">Documentation Creation (50 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Use provided templates</li>
+                                <li>Create network diagrams</li>
+                                <li>Write installation procedures</li>
+                                <li>Document troubleshooting steps</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4 style="margin-top: 10px;">Peer Review (20 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Exchange documents with peers</li>
+                                <li>Review for clarity and completeness</li>
+                                <li>Provide constructive feedback</li>
+                                <li>Suggest improvements</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">4</div>
+                            <h4 style="margin-top: 10px;">Presentation (20 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Present key findings</li>
+                                <li>Demonstrate documentation usage</li>
+                                <li>Discuss challenges faced</li>
+                                <li>Share lessons learned</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <h4><i class="fas fa-clipboard-check" style="color: #3498db; margin-right: 10px;"></i>Assessment Criteria</h4>
+                    <table class="documentation-table">
+                        <thead>
+                            <tr>
+                                <th>Criteria</th>
+                                <th>Weight</th>
+                                <th>Excellent (4)</th>
+                                <th>Good (3)</th>
+                                <th>Needs Improvement (2)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Completeness</strong></td>
+                                <td>30%</td>
+                                <td>All required sections present</td>
+                                <td>Most sections complete</td>
+                                <td>Several missing sections</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Clarity</strong></td>
+                                <td>25%</td>
+                                <td>Very clear and easy to follow</td>
+                                <td>Generally clear</td>
+                                <td>Some confusing parts</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Accuracy</strong></td>
+                                <td>25%</td>
+                                <td>All information correct</td>
+                                <td>Minor inaccuracies</td>
+                                <td>Several errors present</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Usability</strong></td>
+                                <td>20%</td>
+                                <td>Highly practical and usable</td>
+                                <td>Generally usable</td>
+                                <td>Limited practical value</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">12 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 13: SOP Development Workshop -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">SOP Development Workshop</div>
+                <div class="slide-subtitle">Writing Effective Standard Operating Procedures</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-clipboard-list icon"></i>
+                    SOP Creation Lab
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-target" style="color: #3498db; margin-right: 15px;"></i>SOP Scenarios</h3>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Database Backup SOP</h4>
+                                <p><strong>Scope:</strong> Daily backup procedures</p>
+                                <p><strong>Complexity:</strong> Medium - multiple steps, verification</p>
+                                <p><strong>Critical:</strong> Yes - data protection</p>
+                            </div>
+                        </div>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>User Account Creation SOP</h4>
+                                <p><strong>Scope:</strong> New employee onboarding</p>
+                                <p><strong>Complexity:</strong> Medium - security considerations</p>
+                                <p><strong>Critical:</strong> Yes - security compliance</p>
+                            </div>
+                        </div>
+                        <div class="process-card">
+                            <div class="process-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div style="overflow: hidden;">
+                                <h4>Security Incident Response SOP</h4>
+                                <p><strong>Scope:</strong> Security breach handling</p>
+                                <p><strong>Complexity:</strong> High - multiple decision points</p>
+                                <p><strong>Critical:</strong> Very high - business impact</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-edit" style="color: #27ae60; margin-right: 15px;"></i>Workshop Structure</h3>
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4 style="margin-top: 10px;">Process Mapping (20 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Identify all process steps</li>
+                                <li>Map decision points and branches</li>
+                                <li>Define inputs and outputs</li>
+                                <li>Identify roles and responsibilities</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4 style="margin-top: 10px;">SOP Writing (40 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Use standard SOP template</li>
+                                <li>Write clear, actionable steps</li>
+                                <li>Include error handling procedures</li>
+                                <li>Add verification checkpoints</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4 style="margin-top: 10px;">Testing &amp; Refinement (20 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Walk through procedures step-by-step</li>
+                                <li>Identify missing information</li>
+                                <li>Test with different scenarios</li>
+                                <li>Refine language and clarity</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">4</div>
+                            <h4 style="margin-top: 10px;">Review &amp; Validation (20 min)</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Peer review for completeness</li>
+                                <li>Check against quality criteria</li>
+                                <li>Validate with subject matter experts</li>
+                                <li>Prepare final version</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sop-template">
+                    <h4><i class="fas fa-file-alt" style="color: #f39c12; margin-right: 10px;"></i>SOP Quality Checklist</h4>
+                    <div class="two-column">
+                        <div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Purpose clearly stated</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Scope and applicability defined</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Prerequisites identified</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Steps are sequential and logical</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Each step is actionable</strong></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Decision points clearly marked</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Error handling included</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Verification steps present</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>References and related docs listed</strong></span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Version control information included</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong><i class="fas fa-trophy"></i> SOP Excellence:</strong> A great SOP should be so clear that someone unfamiliar with the process can follow it successfully without additional guidance.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">13 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Change Control Implementation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Change Control Implementation</div>
+                <div class="slide-subtitle">Setting Up Change Management Process</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-shield-alt icon"></i>
+                    Change Control Setup Lab
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-cog" style="color: #3498db; margin-right: 15px;"></i>Implementation Tasks</h3>
+                        <div class="phase-card">
+                            <div class="phase-number">1</div>
+                            <h4 style="margin-top: 10px;">Define Change Categories</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Emergency changes (critical fixes)</li>
+                                <li>Standard changes (planned updates)</li>
+                                <li>Normal changes (routine maintenance)</li>
+                                <li>Risk assessment criteria</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">2</div>
+                            <h4 style="margin-top: 10px;">Create Change Request Form</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Required information fields</li>
+                                <li>Risk assessment section</li>
+                                <li>Approval workflow definition</li>
+                                <li>Testing and rollback plans</li>
+                            </ul>
+                        </div>
+
+                        <div class="phase-card">
+                            <div class="phase-number">3</div>
+                            <h4 style="margin-top: 10px;">Establish Approval Process</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Change Advisory Board (CAB) members</li>
+                                <li>Approval authority matrix</li>
+                                <li>Escalation procedures</li>
+                                <li>Emergency approval process</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-tools" style="color: #27ae60; margin-right: 15px;"></i>Tools &amp; Systems</h3>
+                        <div class="step-card">
+                            <h4>Change Management Tools</h4>
+                            <ul style="font-size: 18px;">
+                                <li><strong>ITSM Platforms:</strong> ServiceNow, JIRA Service Management</li>
+                                <li><strong>Collaboration Tools:</strong> Microsoft Teams, Slack</li>
+                                <li><strong>Document Management:</strong> Confluence, SharePoint</li>
+                                <li><strong>Version Control:</strong> Git, SVN for configuration</li>
+                                <li><strong>Monitoring:</strong> Automated change detection</li>
+                            </ul>
+                        </div>
+
+                        <div class="template-card">
+                            <h4><i class="fas fa-clipboard" style="color: #f39c12; margin-right: 10px;"></i>Change Control Metrics</h4>
+                            <ul style="font-size: 16px;">
+                                <li><strong>Change Success Rate:</strong> % of successful changes</li>
+                                <li><strong>Rollback Rate:</strong> % requiring rollback</li>
+                                <li><strong>Approval Time:</strong> Average approval duration</li>
+                                <li><strong>Compliance Rate:</strong> % following process</li>
+                                <li><strong>Change Volume:</strong> Number of changes per period</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="template-card">
+                    <h4><i class="fas fa-file-contract" style="color: #3498db; margin-right: 10px;"></i>Change Control Policy Template</h4>
+                    <div class="code-block" style="font-size: 14px;">CHANGE CONTROL POLICY
+
+1. PURPOSE
+   This policy establishes procedures for managing IT system changes
+   to ensure stability, security, and compliance.
+
+2. SCOPE
+   Applies to all IT infrastructure, applications, and configurations.
+
+3. CHANGE CATEGORIES
+   - Emergency: Immediate action required (&lt; 24 hours)
+   - Standard: Planned changes (2-5 days approval)
+   - Normal: Routine maintenance (1-2 days approval)
+
+4. APPROVAL AUTHORITY
+   - Emergency: IT Manager + Security Lead
+   - Standard: Change Advisory Board (CAB)
+   - Normal: Team Lead approval
+
+5. MANDATORY REQUIREMENTS
+   - All changes must be documented
+   - Testing required before production
+   - Rollback plan must be defined
+   - Post-implementation review required
+
+6. EXCEPTIONS
+   Only authorized by CTO for business-critical emergencies</div>
+                </div>
+
+                <div class="warning-box">
+                    <strong><i class="fas fa-exclamation-circle"></i> Change Control Success Factors:</strong> Clear process, proper training, tool integration, regular reviews, and continuous improvement based on lessons learned.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">14 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Knowledge Sharing Session -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div class="slide-title">Knowledge Sharing Session</div>
+                <div class="slide-subtitle">Best Practices and Lessons Learned</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <i class="fas fa-users icon"></i>
+                    Collaborative Learning
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <h3><i class="fas fa-trophy" style="color: #27ae60; margin-right: 15px;"></i>Key Achievements</h3>
+                        <div class="step-card">
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>System Documentation:</strong> Created comprehensive system docs</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>SOP Development:</strong> Written implementable procedures</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Change Control:</strong> Established change management process</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Knowledge Base:</strong> Built searchable knowledge repository</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Team Collaboration:</strong> Improved knowledge sharing culture</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-lightbulb" style="color: #f39c12; margin-right: 15px;"></i>Lessons Learned</h3>
+                        <div class="step-card">
+                            <ul style="font-size: 18px;">
+                                <li><strong>Start Simple:</strong> Begin with critical documents first</li>
+                                <li><strong>Involve SMEs:</strong> Get expert input early and often</li>
+                                <li><strong>User Feedback:</strong> Regular feedback improves quality</li>
+                                <li><strong>Keep Current:</strong> Outdated docs are worse than no docs</li>
+                                <li><strong>Make it Searchable:</strong> Organization and indexing matter</li>
+                                <li><strong>Training is Key:</strong> People need to know docs exist</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="three-column">
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <h4>Best Practices Identified</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Use templates for consistency</li>
+                                <li>Include visual aids and examples</li>
+                                <li>Regular review cycles</li>
+                                <li>Version control everything</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <h4>Common Challenges</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Time constraints</li>
+                                <li>Keeping docs updated</li>
+                                <li>Getting team buy-in</li>
+                                <li>Technical complexity</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div style="overflow: hidden;">
+                            <h4>Future Improvements</h4>
+                            <ul style="font-size: 16px;">
+                                <li>Automation opportunities</li>
+                                <li>Integration with tools</li>
+                                <li>AI-assisted documentation</li>
+                                <li>Mobile accessibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sop-template">
+                    <h4><i class="fas fa-handshake" style="color: #3498db; margin-right: 10px;"></i>Knowledge Sharing Action Items</h4>
+                    <div class="two-column">
+                        <div>
+                            <h5>Individual Commitments</h5>
+                            <ul style="font-size: 16px; margin-top: 10px;">
+                                <li>Maintain personal documentation habits</li>
+                                <li>Share knowledge proactively with team</li>
+                                <li>Provide feedback on existing docs</li>
+                                <li>Participate in review cycles</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5>Team Initiatives</h5>
+                            <ul style="font-size: 16px; margin-top: 10px;">
+                                <li>Monthly documentation review sessions</li>
+                                <li>Knowledge sharing lunch &amp; learns</li>
+                                <li>Cross-training programs</li>
+                                <li>Documentation improvement projects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: white; text-align: center;">
+                        <i class="fas fa-graduation-cap"></i> Pertemuan Selanjutnya
+                    </h3>
+                    <p style="text-align: center; font-size: 24px; margin-top: 15px;">
+                        <strong>Pertemuan 15:</strong> IT Project Management dan Implementation
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <strong><i class="fas fa-quote-left"></i> Remember:</strong> "The best documentation is the one that gets used. The second best is the one that gets updated. The worst is the one that gets ignored."
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">15 / 16</div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Thank You -->
+        <div class="slide">
+            <div class="slide-header">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <img src="./Dokumentasi dan Prosedur - Pertemuan 14_files/LOGO-UNTIDAR-2017-218x218.png" alt="Logo Universitas Tidar" style="height: 80px; margin-right: 30px;">
+                    <div style="text-align: left;">
+                        <div class="university-info" style="font-size: 18px; font-weight: bold;">Universitas Tidar Magelang</div>
+                        <div class="university-info">Program Studi Teknologi Informasi</div>
+                    </div>
+                </div>
+                <div class="slide-title">Terima Kasih</div>
+                <div class="slide-subtitle">Selesai Materi Dokumentasi dan Prosedur</div>
+            </div>
+            <div class="slide-content">
+                <div class="highlight-box animation-bounce">
+                    <i class="fas fa-file-alt icon"></i>
+                    Terima Kasih!
+                </div>
+                
+                <div class="success-box" style="margin-top: 30px;">
+                    <h3 style="color: white; text-align: center;">
+                        <i class="fas fa-check-circle"></i> Materi Telah Selesai
+                    </h3>
+                    <p style="text-align: center; font-size: 20px; margin-top: 15px;">
+                        <strong>Semoga materi Dokumentasi dan Prosedur ini bermanfaat!</strong>
+                    </p>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <div class="info-box">
+                            <h4><i class="fas fa-question-circle"></i> Q&amp;A Session</h4>
+                            <ul style="font-size: 18px;">
+                                <li>Documentation best practices questions</li>
+                                <li>SOP implementation challenges</li>
+                                <li>Change management discussions</li>
+                                <li>Knowledge sharing strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h4><i class="fas fa-book"></i> Additional Resources</h4>
+                            <ul style="font-size: 16px;">
+                                <li><strong>ITIL Documentation:</strong><br>itlibrary.org</li>
+                                <li><strong>Technical Writing Guide:</strong><br>Google Technical Writing Course</li>
+                                <li><strong>Change Management:</strong><br>ITIL Change Management Guide</li>
+                                <li><strong>Knowledge Management:</strong><br>KM Best Practice Resources</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="template-card" style="margin-top: 20px;">
+                    <h4><i class="fas fa-trophy"></i> Project Deliverables Summary</h4>
+                    <div class="two-column">
+                        <div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>System Documentation:</strong> Architecture, installation, troubleshooting guides</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Standard Operating Procedures:</strong> Database backup, user management, incident response</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Change Control Framework:</strong> Policy, procedures, and forms</span>
+                            </div>
+                            <div class="checklist-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span><strong>Knowledge Management System:</strong> Repository and sharing processes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <h4><i class="fas fa-user"></i> Kontak Dosen</h4>
+                    <p><strong>Ikhwan Alfath Nurul Fathony, S.Kom., M.Kom.</strong></p>
+                    <p>Program Studi Teknologi Informasi</p>
+                    <p>Universitas Tidar Magelang</p>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <div style="font-size: 4rem; color: #3498db;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <div class="university-info">Universitas Tidar - Program Studi Teknologi Informasi</div>
+                <div id="slideCounter">16 / 16</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" title="Previous Slide" disabled="">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" title="Next Slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;up&#39;)" title="Scroll Up">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollSlide(&#39;down&#39;)" title="Scroll Down">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="nav-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Presenter Mode">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </button>
+        <button class="nav-btn" onclick="toggleFullscreen()" title="Fullscreen">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator visible" id="scrollIndicator">
+        Use ↑↓ to scroll within slide
+    </div>
+
+    <!-- Help Text -->
+    <div class="help-text" id="helpText">
+        <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <div style="text-align: left; margin-top: 20px;">
+            <p><kbd>→</kbd> <kbd>Space</kbd> Next slide</p>
+            <p><kbd>←</kbd> Previous slide</p>
+            <p><kbd>↑</kbd> <kbd>↓</kbd> Scroll within slide</p>
+            <p><kbd>F</kbd> <kbd>F11</kbd> Toggle fullscreen</p>
+            <p><kbd>P</kbd> Presenter mode</p>
+            <p><kbd>H</kbd> <kbd>?</kbd> Show this help</p>
+        </div>
+    </div>
+
+    <!-- Presenter Mode Panel -->
+    <div class="presenter-mode" id="presenterMode">
+        <h4>Presenter Notes</h4>
+        <div id="presenterNotes"><p>Welcome to Documentation and Procedures session. Emphasize the critical importance of documentation in IT operations.</p></div>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #333;">
+            <div style="margin-bottom: 10px;">
+                <strong>Timer:</strong> <span id="timer">00:00</span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Progress:</strong> <span id="progress">0%</span>
+            </div>
+            <div style="background: #333; height: 4px; border-radius: 2px; overflow: hidden;">
+                <div id="progressBar" style="height: 100%; background: #3498db; width: 6.25%; transition: width 0.3s ease;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let presenterModeActive = false;
+        let startTime = Date.now();
+        let timerInterval;
+        const customPointer = document.querySelector('.custom-pointer');
+
+        // Presenter notes for each slide
+        const presenterNotes = [
+            "Welcome to Documentation and Procedures session. Emphasize the critical importance of documentation in IT operations.",
+            "Explain why documentation matters - use real examples of how poor documentation impacts operations.",
+            "Go through documentation best practices. Emphasize quality over quantity - better to have fewer high-quality docs.",
+            "Review different types of documentation. Help students understand when each type is needed.",
+            "Introduce SOPs as operational playbooks. Emphasize consistency and standardization benefits.",
+            "Walk through SOP structure and template. Show how good structure makes procedures easier to follow.",
+            "Explain change management importance. Use examples of changes gone wrong without proper process.",
+            "Detail change implementation workflow. Emphasize the importance of rollback plans.",
+            "Introduce knowledge management concepts. Explain difference between explicit and tacit knowledge.",
+            "Discuss knowledge sharing strategies. Emphasize cultural aspects and making sharing rewarding.",
+            "Guide through documentation project planning. Help students understand the systematic approach.",
+            "Facilitate hands-on documentation creation. Provide guidance and feedback during the workshop.",
+            "Guide SOP development workshop. Help students create practical, usable procedures.",
+            "Walk through change control implementation. Show how to adapt process to organization size.",
+            "Facilitate knowledge sharing session. Encourage reflection and commitment to continuous improvement.",
+            "Wrap up session, reinforce key concepts, and prepare students for final projects and assessments."
+        ];
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('progressBar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            
+            if (presenterNotes[currentSlide]) {
+                document.getElementById('presenterNotes').innerHTML = `<p>${presenterNotes[currentSlide]}</p>`;
+            }
+
+            // Update navigation buttons state
+            updateNavigationButtons();
+            
+            // Update scroll indicators
+            setTimeout(updateScrollIndicators, 100);
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function scrollSlide(direction) {
+            const activeSlide = slides[currentSlide];
+            const scrollAmount = 200;
+            
+            if (direction === 'up') {
+                activeSlide.scrollTop -= scrollAmount;
+            } else if (direction === 'down') {
+                activeSlide.scrollTop += scrollAmount;
+            }
+            
+            updateScrollIndicators();
+        }
+
+        function updateScrollIndicators() {
+            const activeSlide = slides[currentSlide];
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            if (activeSlide.scrollHeight > activeSlide.clientHeight) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        }
+
+        function showHelpText() {
+            const helpText = document.getElementById('helpText');
+            helpText.classList.add('visible');
+            
+            setTimeout(() => {
+                helpText.classList.remove('visible');
+            }, 5000);
+        }
+
+        // Add scroll event listener for active slide
+        function addScrollListeners() {
+            slides[currentSlide].addEventListener('scroll', updateScrollIndicators);
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                updateSlide();
+            }
+        }
+
+        function togglePresenterMode() {
+            presenterModeActive = !presenterModeActive;
+            document.getElementById('presenterMode').classList.toggle('active', presenterModeActive);
+            document.body.style.marginRight = presenterModeActive ? '400px' : '0';
+            
+            if (presenterModeActive) {
+                startTimer();
+            } else {
+                stopTimer();
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('progress').textContent = 
+                    `${Math.round(((currentSlide + 1) / totalSlides) * 100)}%`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    scrollSlide('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    scrollSlide('down');
+                    break;
+                case 'f':
+                case 'F11':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    togglePresenterMode();
+                    break;
+                case 'h':
+                case '?':
+                    e.preventDefault();
+                    showHelpText();
+                    break;
+            }
+        });
+
+        // Mouse events for custom pointer
+        document.addEventListener('mousemove', (e) => {
+            customPointer.style.left = e.clientX + 'px';
+            customPointer.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            customPointer.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            customPointer.style.opacity = '0';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-btn') || e.target.closest('.presenter-mode')) return;
+            
+            const rect = document.documentElement.getBoundingClientRect();
+            if (e.clientX > rect.width / 2) {
+                changeSlide(1);
+            } else {
+                changeSlide(-1);
+            }
+        });
+
+        // Mouse wheel support for scrolling within slides
+        document.addEventListener('wheel', (e) => {
+            if (e.target.closest('.slide')) {
+                // Allow normal wheel scrolling within slides
+                return;
+            }
+            
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                scrollSlide('down');
+            } else {
+                scrollSlide('up');
+            }
+        }, { passive: false });
+
+        // Initialize
+        updateSlide();
+        addScrollListeners();
+
+        // Show help text on first load
+        setTimeout(showHelpText, 1000);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+    </script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

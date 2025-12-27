@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+    networks:
+      - smartcity-net
+
+  etl_processor:
+    build: ./etl
+    depends_on:
+      - mosquitto
+      - mongodb
+    networks:
+      - smartcity-net
+
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - smartcity-net
+
+  minio:
+    image: minio/minio
+    command: server /data
+    environment:
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=password123
+    ports:
+      - "9000:9000"
+    volumes:
+      - miniodata:/data
+    networks:
+      - smartcity-net
+
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      - smartcity-net
+
+volumes:
+  mongodata:
+  miniodata:
+
+networks:
+  smartcity-net:
+    driver: bridge

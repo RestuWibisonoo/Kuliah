@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)https://class.tiflab.my.id/storage/lessons/materials/1762784897_modul-praktikum-pertemuan12.html -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Praktikum Pertemuan 12 - Backup &amp; Recovery</title>
+    <link href="./Modul Praktikum Pertemuan 12 - Backup &amp; Recovery_files/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Cover Page Styles */
+        .cover-page {
+            background-image: url('https://tiflab.my.id/cv/cover-jarkom-compressed.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 20px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .module-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .info-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-card p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .info-card i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+            font-size: 1.5rem;
+        }
+
+        .section h4 {
+            color: #667eea;
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: 'Courier New', 'Monaco', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .warning h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .tip {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .tip h4 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+
+        /* Simulator Styles */
+        .simulator {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .simulator-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .simulator-content {
+            padding: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .tab:hover {
+            background: #e9ecef;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .backup-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .control-group input,
+        .control-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(235, 51, 73, 0.4);
+        }
+
+        .status-panel {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .backup-list {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .backup-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .backup-info h4 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .backup-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .backup-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .metric-card h4 {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.8;
+        }
+
+        .assessment {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .assessment h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .assessment ol {
+            margin-left: 25px;
+        }
+
+        .assessment li {
+            margin: 15px 0;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1127.0" data-gr-ext-installed="">
+    <!-- Cover Page -->
+    <div class="cover-page"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1><i class="fas fa-database"></i> Modul Praktikum 12</h1>
+            <p>Backup &amp; Recovery - Automated Backup and Disaster Recovery Implementation</p>
+        </div>
+
+        <div class="content">
+            <!-- Module Information -->
+            <div class="module-info">
+                <div class="info-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Capaian Pembelajaran</h3>
+                    <p>Mahasiswa mampu mengimplementasikan backup automation dan disaster recovery untuk memastikan keamanan dan ketersediaan data sistem</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Bahan Kajian</h3>
+                    <p><strong>Backup &amp; Recovery:</strong> Backup strategies, Automation scripts, Recovery testing, Disaster recovery planning</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Alokasi Waktu</h3>
+                    <p><strong>170 menit</strong> - Setup automated backup, Create backup scripts, Test recovery process, Document procedures</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-tasks"></i>
+                    <h3>Indikator Keberhasilan</h3>
+                    <p>✓ Backup working correctly<br>✓ Recovery successful<br>✓ Automation functioning<br>✓ Documentation complete</p>
+                </div>
+            </div>
+
+            <!-- Theory Section -->
+            <div class="section">
+                <h2><i class="fas fa-lightbulb"></i> Teori: Backup &amp; Recovery</h2>
+
+                <p><strong>Penjelasan:</strong> Backup dan Recovery adalah proses kritis dalam manajemen sistem yang bertujuan untuk melindungi data dari kehilangan akibat kegagalan hardware, kesalahan manusia, serangan malware, atau bencana. Strategi backup yang baik harus mencakup perencanaan yang matang, implementasi otomatis, dan pengujian recovery secara berkala untuk memastikan data dapat dipulihkan dengan cepat dan akurat saat dibutuhkan.</p>
+
+                <p style="margin-top: 15px;"><strong>Konsep Penting:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>3-2-1 Rule:</strong> 3 copies of data, 2 different media types, 1 offsite backup</li>
+                    <li><strong>RPO (Recovery Point Objective):</strong> Maksimum data loss yang dapat ditoleransi</li>
+                    <li><strong>RTO (Recovery Time Objective):</strong> Maksimum downtime yang dapat ditoleransi</li>
+                    <li><strong>Full Backup:</strong> Backup lengkap semua data</li>
+                    <li><strong>Incremental Backup:</strong> Hanya backup perubahan sejak backup terakhir</li>
+                    <li><strong>Differential Backup:</strong> Backup perubahan sejak full backup terakhir</li>
+                    <li><strong>Snapshot:</strong> Point-in-time copy dari data atau sistem</li>
+                    <li><strong>Retention Policy:</strong> Kebijakan berapa lama backup disimpan</li>
+                </ul>
+
+                <h3>Backup Strategies</h3>
+                <p><strong>Penjelasan:</strong> Strategi backup menentukan bagaimana, kapan, dan di mana data akan di-backup. Pemilihan strategi yang tepat bergantung pada kritikalitas data, volume data, bandwidth yang tersedia, dan budget. Kombinasi berbagai jenis backup (full, incremental, differential) dapat mengoptimalkan waktu backup dan space storage sambil memastikan kemampuan recovery yang cepat.</p>
+
+                <p style="margin-top: 15px;"><strong>Jenis-jenis Backup Strategy:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Daily Full Backup:</strong> Backup lengkap setiap hari - Simple recovery, high storage requirement</li>
+                    <li><strong>Weekly Full + Daily Incremental:</strong> Full backup mingguan, incremental harian - Balanced approach</li>
+                    <li><strong>Monthly Full + Weekly Differential:</strong> Full backup bulanan, differential mingguan</li>
+                    <li><strong>Continuous Data Protection (CDP):</strong> Real-time backup setiap perubahan</li>
+                    <li><strong>Cloud-based Backup:</strong> Backup ke cloud storage untuk offsite protection</li>
+                    <li><strong>Hybrid Backup:</strong> Kombinasi local dan cloud backup</li>
+                </ul>
+
+                <h3>Backup Tools Ecosystem</h3>
+                <p><strong>Penjelasan:</strong> Linux menyediakan berbagai tools untuk backup, mulai dari tools basic seperti tar dan rsync hingga solusi enterprise seperti Bacula dan Amanda. Setiap tool memiliki keunggulan dan use case spesifik. Pemilihan tool yang tepat bergantung pada kompleksitas environment, volume data, requirement recovery, dan level automation yang diinginkan.</p>
+
+                <p style="margin-top: 15px;"><strong>Tools Overview:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>rsync:</strong> Efficient file synchronization and incremental backup</li>
+                    <li><strong>tar:</strong> Archive creation for full backups</li>
+                    <li><strong>dd:</strong> Disk cloning and bit-level backup</li>
+                    <li><strong>BorgBackup:</strong> Deduplicating backup with compression and encryption</li>
+                    <li><strong>Restic:</strong> Fast, secure, efficient backup program</li>
+                    <li><strong>Duplicity:</strong> Encrypted bandwidth-efficient backup using rsync algorithm</li>
+                    <li><strong>Bacula:</strong> Enterprise-level network backup solution</li>
+                    <li><strong>Amanda:</strong> Advanced Maryland Automatic Network Disk Archiver</li>
+                </ul>
+
+                <h3>Automation and Scheduling</h3>
+                <p><strong>Penjelasan:</strong> Automation adalah kunci keberhasilan strategi backup. Manual backup rawan error dan inkonsistensi. Dengan automation menggunakan cron jobs atau systemd timers, backup dapat dijadwalkan secara konsisten, monitoring dapat otomatis, dan notifikasi dapat dikirim jika ada kegagalan. Script automation harus robust, memiliki error handling, logging, dan verification untuk memastikan reliability backup.</p>
+            </div>
+
+            <!-- Backup Implementation -->
+            <div class="section">
+                <h2><i class="fas fa-save"></i> Backup Implementation</h2>
+
+                <h3>Rsync - Incremental Backup</h3>
+                <p><strong>Penjelasan:</strong> Rsync adalah tool powerful untuk synchronization dan incremental backup. Rsync hanya mentransfer file yang berubah, menggunakan delta-transfer algorithm yang sangat efisien. Rsync mendukung local dan remote backup, preservation of file permissions and timestamps, compression, dan dapat di-combine dengan SSH untuk secure transfer. Sangat cocok untuk backup data file dan direktori dengan perubahan yang tidak terlalu besar.</p>
+
+                <p style="margin-top: 15px;"><strong>Konsep Penting:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Delta Transfer:</strong> Hanya transfer bagian file yang berubah</li>
+                    <li><strong>Archive Mode (-a):</strong> Preserve permissions, timestamps, symbolic links</li>
+                    <li><strong>Dry Run (-n):</strong> Simulasi tanpa actual transfer</li>
+                    <li><strong>Hard Links:</strong> Save space dengan link to unchanged files</li>
+                </ul>
+
+                <div class="code-block"># ========================================================================
+# BASIC RSYNC BACKUP
+# ========================================================================
+
+rsync -av /source/directory/ /backup/destination/
+# -a = archive mode (preserve permissions, timestamps, symbolic links)
+# -v = verbose output
+# Trailing slash pada source penting:
+# /source/directory/ = copy contents of directory
+# /source/directory = copy directory itself
+
+
+# ========================================================================
+# RSYNC WITH PROGRESS AND STATS
+# ========================================================================
+
+rsync -av --progress --stats /source/ /backup/
+# --progress = show progress during transfer
+# --stats = show transfer statistics at end
+# Useful untuk monitoring backup besar
+
+
+# ========================================================================
+# RSYNC WITH DELETE - MIRROR BACKUP
+# ========================================================================
+
+rsync -av --delete /source/ /backup/
+# --delete = delete files in destination yang tidak ada di source
+# Creates exact mirror of source
+# WARNING: File yang dihapus dari source juga dihapus dari backup
+
+
+# ========================================================================
+# RSYNC WITH EXCLUSIONS
+# ========================================================================
+
+rsync -av --exclude='*.tmp' --exclude='cache/' /source/ /backup/
+# --exclude = skip files/directories matching pattern
+# Useful untuk skip temporary files, cache, logs
+# Multiple --exclude dapat digunakan
+
+rsync -av --exclude-from='/path/to/exclude-list.txt' /source/ /backup/
+# --exclude-from = read exclusion patterns from file
+# Lebih clean untuk banyak exclusions
+
+
+# ========================================================================
+# RSYNC OVER SSH - REMOTE BACKUP
+# ========================================================================
+
+rsync -av -e ssh /local/source/ user@remote-server:/remote/backup/
+# -e ssh = use SSH for secure transfer
+# Backup ke remote server
+# Memerlukan SSH access ke remote server
+
+rsync -av -e "ssh -p 2222" /source/ user@host:/backup/
+# Custom SSH port
+# Useful jika SSH tidak di default port 22
+
+
+# ========================================================================
+# RSYNC WITH BANDWIDTH LIMIT
+# ========================================================================
+
+rsync -av --bwlimit=1000 /source/ /backup/
+# --bwlimit=1000 = limit to 1000 KBytes/sec
+# Prevent backup from consuming all bandwidth
+# Useful untuk backup saat jam kerja
+
+
+# ========================================================================
+# INCREMENTAL BACKUP WITH HARD LINKS
+# ========================================================================
+
+rsync -av --link-dest=/backup/previous/ /source/ /backup/current/
+# --link-dest = hard link to unchanged files in previous backup
+# Save massive space untuk files yang tidak berubah
+# Previous backup directory must exist
+
+# Full backup script example:
+#!/bin/bash
+BACKUP_ROOT="/backup"
+DATE=$(date +%Y-%m-%d)
+LATEST="$BACKUP_ROOT/latest"
+BACKUP_DIR="$BACKUP_ROOT/$DATE"
+
+rsync -av --delete --link-dest="$LATEST" /source/ "$BACKUP_DIR/"
+rm -f "$LATEST"
+ln -s "$BACKUP_DIR" "$LATEST"
+# Creates new backup dengan link ke previous
+# Always maintain 'latest' symlink</div>
+
+                <h3>TAR - Archive Backup</h3>
+                <p><strong>Penjelasan:</strong> TAR (Tape Archive) adalah tool klasik untuk creating archive files. TAR sangat reliable, supported di semua sistem Unix/Linux, dan dapat dikombinasikan dengan compression (gzip, bzip2, xz) untuk menghemat space. TAR cocok untuk full backup, archival purposes, dan transfer data. Kombinasi tar dengan compression dan split dapat menghasilkan backup files yang compact dan manageable.</p>
+
+                <div class="code-block"># ========================================================================
+# BASIC TAR BACKUP - CREATE ARCHIVE
+# ========================================================================
+
+tar -cvf backup.tar /path/to/directory/
+# -c = create archive
+# -v = verbose (show files being archived)
+# -f = specify filename
+# Creates uncompressed archive
+
+
+# ========================================================================
+# TAR WITH GZIP COMPRESSION
+# ========================================================================
+
+tar -czvf backup.tar.gz /path/to/directory/
+# -z = compress with gzip
+# .tar.gz or .tgz extension
+# Good balance antara compression ratio dan speed
+
+tar -cjvf backup.tar.bz2 /path/to/directory/
+# -j = compress with bzip2
+# Better compression ratio, slower
+# .tar.bz2 or .tbz extension
+
+tar -cJvf backup.tar.xz /path/to/directory/
+# -J = compress with xz
+# Best compression ratio, slowest
+# .tar.xz extension
+
+
+# ========================================================================
+# TAR WITH EXCLUSIONS
+# ========================================================================
+
+tar -czvf backup.tar.gz --exclude='*.log' --exclude='tmp/*' /data/
+# --exclude = skip files matching pattern
+# Multiple --exclude dapat digunakan
+# Useful untuk skip unnecessary files
+
+tar -czvf backup.tar.gz --exclude-from=exclude-list.txt /data/
+# --exclude-from = read exclusions from file
+# exclude-list.txt contains patterns, one per line
+
+
+# ========================================================================
+# TAR WITH DATE IN FILENAME
+# ========================================================================
+
+tar -czvf backup-$(date +%Y%m%d).tar.gz /data/
+# $(date +%Y%m%d) = YYYYMMDD format
+# Creates: backup-20241029.tar.gz
+# Useful untuk daily backups
+
+tar -czvf backup-$(date +%Y%m%d-%H%M%S).tar.gz /data/
+# With time: YYYYMMDD-HHMMSS format
+# Creates: backup-20241029-143520.tar.gz
+# Useful untuk multiple backups per day
+
+
+# ========================================================================
+# INCREMENTAL BACKUP WITH TAR
+# ========================================================================
+
+tar -czvf full-backup.tar.gz -g snapshot.snar /data/
+# -g = create/use snapshot file
+# First run: full backup
+# snapshot.snar tracks file changes
+
+tar -czvf incremental-backup.tar.gz -g snapshot.snar /data/
+# Same snapshot file: incremental backup
+# Only backs up changed files since last backup
+
+
+# ========================================================================
+# EXTRACT TAR ARCHIVE
+# ========================================================================
+
+tar -xzvf backup.tar.gz
+# -x = extract
+# Extracts to current directory
+
+tar -xzvf backup.tar.gz -C /restore/location/
+# -C = extract to specific directory
+# Directory must exist
+
+tar -xzvf backup.tar.gz file1.txt dir/file2.txt
+# Extract specific files only
+# Useful untuk selective restore
+
+
+# ========================================================================
+# LIST CONTENTS WITHOUT EXTRACTING
+# ========================================================================
+
+tar -tzvf backup.tar.gz
+# -t = list contents
+# View what's in archive without extracting
+# Useful untuk verification
+
+tar -tzvf backup.tar.gz | grep "searchterm"
+# Search for specific files in archive
+
+
+# ========================================================================
+# VERIFY TAR ARCHIVE
+# ========================================================================
+
+tar -dzvf backup.tar.gz
+# -d = compare archive with filesystem
+# Verify backup integrity
+# Shows differences if any</div>
+
+                <h3>DD - Disk Cloning</h3>
+                <p><strong>Penjelasan:</strong> DD (Data Duplicator) adalah tool low-level untuk copying dan converting data. DD bekerja di block level, bukan file level, sehingga dapat membuat exact copy dari entire disk atau partition termasuk boot sectors, partition tables, dan hidden data. DD sangat powerful untuk disk cloning, creating bootable backups, dan forensic purposes. PERHATIAN: DD sangat dangerous jika salah parameter, bisa overwrite data!</p>
+
+                <div class="code-block"># ========================================================================
+# WARNING: DD COMMANDS - DOUBLE CHECK BEFORE RUNNING!
+# ========================================================================
+# dd dapat destroy data jika salah parameter!
+# Always verify if= (input) and of= (output)
+# NEVER switch if and of!
+
+
+# ========================================================================
+# BACKUP ENTIRE DISK
+# ========================================================================
+
+sudo dd if=/dev/sda of=/backup/disk.img bs=4M status=progress
+# if = input file (source disk)
+# of = output file (backup image)
+# bs = block size (4M optimal untuk modern disks)
+# status=progress = show progress during copy
+# Creates exact bit-by-bit copy of disk
+
+
+# ========================================================================
+# BACKUP SPECIFIC PARTITION
+# ========================================================================
+
+sudo dd if=/dev/sda1 of=/backup/partition.img bs=4M status=progress
+# Backup hanya partition 1
+# Lebih cepat dan smaller file daripada full disk
+
+lsblk
+# List semua disks dan partitions
+# ALWAYS verify device names sebelum dd!
+
+
+# ========================================================================
+# COMPRESSED DISK BACKUP
+# ========================================================================
+
+sudo dd if=/dev/sda bs=4M status=progress | gzip &gt; /backup/disk.img.gz
+# Pipe dd output ke gzip
+# Significantly smaller backup file
+# Trade-off: slower backup process
+
+sudo dd if=/dev/sda bs=4M | pv | gzip &gt; /backup/disk.img.gz
+# pv = pipe viewer, shows progress
+# Useful untuk monitoring compressed backups
+
+
+# ========================================================================
+# RESTORE FROM DISK IMAGE
+# ========================================================================
+
+sudo dd if=/backup/disk.img of=/dev/sdb bs=4M status=progress
+# Restore image to new disk
+# WARNING: Overwrites entire target disk!
+# Target disk must be same size or larger
+
+gunzip -c /backup/disk.img.gz | sudo dd of=/dev/sdb bs=4M status=progress
+# Restore from compressed image
+# Decompress on-the-fly during restore
+
+
+# ========================================================================
+# BACKUP MBR (Master Boot Record)
+# ========================================================================
+
+sudo dd if=/dev/sda of=/backup/mbr.img bs=512 count=1
+# bs=512 = MBR size
+# count=1 = only first sector
+# Backs up MBR including partition table
+
+sudo dd if=/backup/mbr.img of=/dev/sda bs=512 count=1
+# Restore MBR
+# Useful untuk recovery boot issues
+
+
+# ========================================================================
+# CREATE BOOTABLE USB FROM ISO
+# ========================================================================
+
+sudo dd if=/path/to/ubuntu.iso of=/dev/sdb bs=4M status=progress
+# Creates bootable USB from ISO image
+# WARNING: Destroys all data on USB!
+# Verify /dev/sdb is correct USB device
+
+sudo dd if=/path/to/ubuntu.iso of=/dev/sdb bs=4M status=progress conv=fsync
+# conv=fsync = ensure all data written before completion
+# More reliable untuk bootable media
+
+
+# ========================================================================
+# VERIFY BACKUP INTEGRITY
+# ========================================================================
+
+md5sum /dev/sda &gt; disk-original.md5
+md5sum /backup/disk.img &gt; disk-backup.md5
+diff disk-original.md5 disk-backup.md5
+# Compare checksums untuk verify exact copy
+# No output = perfect match</div>
+
+                <h3>BorgBackup - Deduplicating Backup</h3>
+                <p><strong>Penjelasan:</strong> BorgBackup adalah modern backup tool dengan deduplication, compression, dan authenticated encryption. Borg sangat efficient untuk storing multiple backups karena deduplication pada chunk level - identical data blocks disimpan sekali saja. Borg juga support backup pruning, automatic archive naming, dan progress monitoring. Perfect untuk daily automated backups dengan retention policies.</p>
+
+                <div class="code-block"># ========================================================================
+# INSTALASI BORGBACKUP
+# ========================================================================
+
+sudo apt update &amp;&amp; sudo apt install borgbackup    # Ubuntu/Debian
+sudo yum install borgbackup                       # CentOS/RHEL
+sudo dnf install borgbackup                       # Fedora
+# BorgBackup modern backup solution dengan deduplication
+
+
+# ========================================================================
+# INITIALIZE BORG REPOSITORY
+# ========================================================================
+
+borg init --encryption=repokey /path/to/backup/repo
+# Creates new borg repository
+# --encryption=repokey = encrypted dengan password
+# Password akan diminta, SIMPAN PASSWORD INI!
+
+borg init --encryption=none /path/to/backup/repo
+# No encryption
+# Useful untuk testing atau trusted environment
+
+export BORG_PASSPHRASE='your-secure-password'
+# Set passphrase sebagai environment variable
+# Useful untuk automation scripts
+
+
+# ========================================================================
+# CREATE BACKUP ARCHIVE
+# ========================================================================
+
+borg create /backup/repo::backup-$(date +%Y%m%d) /home/user/data
+# Creates new backup archive
+# ::backup-YYYYMMDD = archive name
+# /home/user/data = directory to backup
+
+borg create --stats --progress /backup/repo::backup-$(date +%Y%m%d) /data
+# --stats = show statistics after backup
+# --progress = show progress during backup
+# Useful untuk monitoring backup process
+
+
+# ========================================================================
+# CREATE BACKUP WITH EXCLUSIONS
+# ========================================================================
+
+borg create --exclude '*.tmp' --exclude 'cache/*' \
+    /backup/repo::backup-$(date +%Y%m%d) /data
+# --exclude = skip matching files/directories
+# Multiple --exclude dapat digunakan
+
+borg create --exclude-from exclude.txt \
+    /backup/repo::backup-$(date +%Y%m%d) /data
+# exclude.txt contains exclusion patterns, one per line
+
+
+# ========================================================================
+# LIST ARCHIVES IN REPOSITORY
+# ========================================================================
+
+borg list /backup/repo
+# Shows all backup archives in repository
+# Displays archive name and timestamp
+
+borg list /backup/repo::backup-20241029
+# List files in specific archive
+# Shows full file listing
+
+
+# ========================================================================
+# VIEW ARCHIVE INFO
+# ========================================================================
+
+borg info /backup/repo::backup-20241029
+# Shows detailed info tentang archive:
+# - Original size
+# - Compressed size
+# - Deduplicated size
+# - Number of files
+
+borg info /backup/repo
+# Shows repository info:
+# - Total size
+# - Unique data size
+# - All archives list
+
+
+# ========================================================================
+# RESTORE FROM BACKUP
+# ========================================================================
+
+borg extract /backup/repo::backup-20241029
+# Extracts entire archive ke current directory
+# Preserves all permissions, timestamps
+
+borg extract /backup/repo::backup-20241029 path/to/specific/file
+# Extract specific file/directory only
+# Useful untuk selective recovery
+
+borg extract --dry-run /backup/repo::backup-20241029
+# Simulate extraction without actual extraction
+# Verify before actual restore
+
+
+# ========================================================================
+# MOUNT BACKUP ARCHIVE (Read-Only)
+# ========================================================================
+
+mkdir /mnt/backup
+borg mount /backup/repo::backup-20241029 /mnt/backup
+# Mount archive as read-only filesystem
+# Browse backup seperti normal directory
+
+borg umount /mnt/backup
+# Unmount when done
+# Always unmount sebelum new operations
+
+
+# ========================================================================
+# PRUNE OLD BACKUPS - RETENTION POLICY
+# ========================================================================
+
+borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 /backup/repo
+# --keep-daily=7 = keep 7 daily backups
+# --keep-weekly=4 = keep 4 weekly backups
+# --keep-monthly=6 = keep 6 monthly backups
+# Automatically removes old backups based on policy
+
+borg prune --keep-last=10 /backup/repo
+# Keep only last 10 backups
+# Simple retention policy
+
+
+# ========================================================================
+# COMPACT REPOSITORY - RECLAIM SPACE
+# ========================================================================
+
+borg compact /backup/repo
+# Reclaim space dari pruned archives
+# Borg 1.2+ required
+# Shrinks repository size after prune
+
+
+# ========================================================================
+# VERIFY BACKUP INTEGRITY
+# ========================================================================
+
+borg check /backup/repo
+# Verify repository consistency
+# Checks all archives untuk corruption
+
+borg check --verify-data /backup/repo
+# Deep verification including data chunks
+# Slower but more thorough
+# Recommended periodic check
+
+
+# ========================================================================
+# COMPLETE BACKUP SCRIPT EXAMPLE
+# ========================================================================
+
+#!/bin/bash
+export BORG_REPO="/backup/repo"
+export BORG_PASSPHRASE="your-secure-password"
+
+# Create backup
+borg create --stats --progress \
+    --exclude '/home/*/.cache' \
+    --exclude '*.tmp' \
+    ::backup-$(date +%Y%m%d-%H%M%S) \
+    /home /etc /var/www
+
+# Prune old backups
+borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6
+
+# Compact repository
+borg compact
+
+echo "Backup completed successfully!"</div>
+
+                <div class="warning">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Important Notes</h4>
+                    <ul>
+                        <li>Always test your backups! Backup yang tidak bisa di-restore adalah useless</li>
+                        <li>Store backup passwords securely - lost password = lost backups</li>
+                        <li>Implement 3-2-1 rule: 3 copies, 2 media types, 1 offsite</li>
+                        <li>Regular testing adalah must - jangan tunggu disaster untuk test restore</li>
+                        <li>Monitor backup success/failure - setup alerts untuk failed backups</li>
+                        <li>Document recovery procedures - team harus tahu how to restore</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Automation Scripts -->
+            <div class="section">
+                <h2><i class="fas fa-robot"></i> Backup Automation</h2>
+
+                <h3>Cron-based Automation</h3>
+                <p><strong>Penjelasan:</strong> Cron adalah time-based job scheduler di Unix/Linux systems. Cron sangat reliable untuk scheduled tasks seperti automated backups. Cron syntax menggunakan 5 atau 6 fields untuk specify minute, hour, day of month, month, dan day of week. Cron jobs run in background dan dapat dikonfigurasi untuk send email notifications jika ada output atau errors.</p>
+
+                <p style="margin-top: 15px;"><strong>Cron Syntax:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>* * * * *</strong> - Minute Hour Day Month Weekday</li>
+                    <li><strong>0 2 * * *</strong> - Every day at 2:00 AM</li>
+                    <li><strong>0 2 * * 0</strong> - Every Sunday at 2:00 AM</li>
+                    <li><strong>*/15 * * * *</strong> - Every 15 minutes</li>
+                    <li><strong>0 */6 * * *</strong> - Every 6 hours</li>
+                </ul>
+
+                <div class="code-block"># ========================================================================
+# CRON SETUP FOR AUTOMATED BACKUPS
+# ========================================================================
+
+crontab -e
+# Opens crontab editor untuk current user
+# Add cron jobs di file ini
+
+crontab -l
+# List current cron jobs
+# View scheduled tasks
+
+sudo crontab -e
+# Edit root's crontab
+# Backup scripts often need root privileges
+
+
+# ========================================================================
+# DAILY BACKUP AT 2 AM
+# ========================================================================
+
+0 2 * * * /usr/local/bin/backup-script.sh &gt;&gt; /var/log/backup.log 2&gt;&amp;1
+# 0 2 = 2:00 AM
+# * * * = every day, every month, every weekday
+# &gt;&gt; /var/log/backup.log = append output to log
+# 2&gt;&amp;1 = redirect errors to same log
+
+
+# ========================================================================
+# WEEKLY FULL BACKUP - SUNDAY 3 AM
+# ========================================================================
+
+0 3 * * 0 /usr/local/bin/full-backup.sh &gt;&gt; /var/log/full-backup.log 2&gt;&amp;1
+# 0 3 = 3:00 AM
+# * * 0 = every Sunday (0 = Sunday)
+# Weekly full backup strategy
+
+
+# ========================================================================
+# DAILY INCREMENTAL BACKUP - MONDAY TO SATURDAY
+# ========================================================================
+
+0 2 * * 1-6 /usr/local/bin/incremental-backup.sh &gt;&gt; /var/log/incremental.log 2&gt;&amp;1
+# 0 2 = 2:00 AM
+# * * 1-6 = Monday through Saturday
+# Daily incremental, weekly full (Sunday)
+
+
+# ========================================================================
+# HOURLY DATABASE BACKUP
+# ========================================================================
+
+0 * * * * /usr/local/bin/database-backup.sh &gt;&gt; /var/log/db-backup.log 2&gt;&amp;1
+# 0 * = every hour at minute 0
+# Critical databases need frequent backups
+
+
+# ========================================================================
+# MULTIPLE DAILY BACKUPS - EVERY 6 HOURS
+# ========================================================================
+
+0 */6 * * * /usr/local/bin/backup-script.sh &gt;&gt; /var/log/backup.log 2&gt;&amp;1
+# */6 = every 6 hours (0, 6, 12, 18)
+# High-frequency backup untuk critical systems
+
+
+# ========================================================================
+# MONTHLY ARCHIVAL BACKUP - FIRST DAY OF MONTH
+# ========================================================================
+
+0 4 1 * * /usr/local/bin/monthly-backup.sh &gt;&gt; /var/log/monthly-backup.log 2&gt;&amp;1
+# 0 4 1 = 4:00 AM on day 1
+# Long-term archival backup monthly
+
+
+# ========================================================================
+# EMAIL NOTIFICATION ON FAILURE
+# ========================================================================
+
+MAILTO=admin@example.com
+0 2 * * * /usr/local/bin/backup-script.sh || echo "Backup failed!" | mail -s "Backup Failure Alert" admin@example.com
+# MAILTO = email address untuk cron output
+# || echo = runs if backup fails
+# Sends alert email on failure</div>
+
+                <h3>Complete Backup Script Example</h3>
+                <p><strong>Penjelasan:</strong> Backup script yang robust harus include error handling, logging, verification, rotation, dan notifications. Script harus check prerequisites (disk space, connectivity), handle failures gracefully, log semua activities, verify backup success, rotate old backups berdasarkan retention policy, dan send notifications untuk status. Script juga harus be idempotent - safe to run multiple times tanpa side effects.</p>
+
+                <div class="code-block">#!/bin/bash
+# ========================================================================
+# COMPREHENSIVE BACKUP SCRIPT
+# ========================================================================
+# Features:
+# - Pre-flight checks (disk space, connectivity)
+# - Logging dengan timestamps
+# - Error handling and exit codes
+# - Backup verification
+# - Retention policy enforcement
+# - Email notifications
+# - Lock file to prevent concurrent runs
+
+
+# ========================================================================
+# CONFIGURATION VARIABLES
+# ========================================================================
+
+BACKUP_ROOT="/backup"
+SOURCE_DIR="/data"
+DATE=$(date +%Y%m%d-%H%M%S)
+BACKUP_DIR="$BACKUP_ROOT/$DATE"
+LOG_FILE="/var/log/backup-script.log"
+LOCK_FILE="/var/run/backup-script.lock"
+RETENTION_DAYS=30
+MIN_DISK_SPACE_GB=50
+ADMIN_EMAIL="admin@example.com"
+
+
+# ========================================================================
+# LOGGING FUNCTION
+# ========================================================================
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+}
+# tee -a = append to log file and display to terminal
+
+
+# ========================================================================
+# ERROR HANDLING
+# ========================================================================
+
+set -e  # Exit on any error
+set -o pipefail  # Catch errors in pipes
+
+trap 'cleanup_on_error' ERR
+# trap = execute cleanup_on_error on any error
+
+cleanup_on_error() {
+    log "ERROR: Backup failed! Cleaning up..."
+    rm -f "$LOCK_FILE"
+    send_notification "FAILURE" "Backup failed at step: $BASH_COMMAND"
+    exit 1
+}
+
+
+# ========================================================================
+# NOTIFICATION FUNCTION
+# ========================================================================
+
+send_notification() {
+    local STATUS=$1
+    local MESSAGE=$2
+
+    echo "$MESSAGE" | mail -s "Backup $STATUS: $(hostname)" "$ADMIN_EMAIL"
+    # Sends email notification
+    # Requires mailutils package installed
+}
+
+
+# ========================================================================
+# LOCK FILE CHECK - PREVENT CONCURRENT RUNS
+# ========================================================================
+
+if [ -f "$LOCK_FILE" ]; then
+    log "ERROR: Another backup is already running (lock file exists)"
+    exit 1
+fi
+
+echo $$ &gt; "$LOCK_FILE"
+# Create lock file dengan current process ID
+
+trap 'rm -f "$LOCK_FILE"' EXIT
+# Remove lock file on script exit (success or failure)
+
+
+# ========================================================================
+# PRE-FLIGHT CHECKS
+# ========================================================================
+
+log "Starting backup process..."
+
+# Check if source directory exists
+if [ ! -d "$SOURCE_DIR" ]; then
+    log "ERROR: Source directory $SOURCE_DIR does not exist"
+    exit 1
+fi
+
+# Check available disk space
+AVAILABLE_SPACE=$(df -BG "$BACKUP_ROOT" | tail -1 | awk '{print $4}' | sed 's/G//')
+if [ "$AVAILABLE_SPACE" -lt "$MIN_DISK_SPACE_GB" ]; then
+    log "ERROR: Insufficient disk space. Available: ${AVAILABLE_SPACE}GB, Required: ${MIN_DISK_SPACE_GB}GB"
+    exit 1
+fi
+
+log "Pre-flight checks passed"
+
+
+# ========================================================================
+# CREATE BACKUP
+# ========================================================================
+
+log "Creating backup directory: $BACKUP_DIR"
+mkdir -p "$BACKUP_DIR"
+
+log "Starting rsync backup from $SOURCE_DIR to $BACKUP_DIR"
+rsync -av --delete \
+    --exclude='*.tmp' \
+    --exclude='*.log' \
+    --exclude='cache/*' \
+    "$SOURCE_DIR/" "$BACKUP_DIR/" 2&gt;&amp;1 | tee -a "$LOG_FILE"
+
+RSYNC_EXIT_CODE=${PIPESTATUS[0]}
+# Capture rsync exit code
+
+if [ $RSYNC_EXIT_CODE -ne 0 ]; then
+    log "ERROR: Rsync failed with exit code $RSYNC_EXIT_CODE"
+    exit 1
+fi
+
+log "Backup created successfully"
+
+
+# ========================================================================
+# BACKUP VERIFICATION
+# ========================================================================
+
+log "Verifying backup integrity..."
+
+SOURCE_COUNT=$(find "$SOURCE_DIR" -type f | wc -l)
+BACKUP_COUNT=$(find "$BACKUP_DIR" -type f | wc -l)
+
+log "Source files: $SOURCE_COUNT, Backup files: $BACKUP_COUNT"
+
+if [ "$BACKUP_COUNT" -lt "$((SOURCE_COUNT * 95 / 100))" ]; then
+    log "WARNING: Backup file count is less than 95% of source"
+    # Still proceed but send warning
+fi
+
+
+# ========================================================================
+# CREATE COMPRESSED ARCHIVE
+# ========================================================================
+
+log "Creating compressed archive..."
+tar -czf "$BACKUP_ROOT/backup-$DATE.tar.gz" -C "$BACKUP_DIR" .
+
+ARCHIVE_SIZE=$(du -h "$BACKUP_ROOT/backup-$DATE.tar.gz" | cut -f1)
+log "Archive created: backup-$DATE.tar.gz (Size: $ARCHIVE_SIZE)"
+
+
+# ========================================================================
+# CALCULATE BACKUP SIZE
+# ========================================================================
+
+BACKUP_SIZE=$(du -sh "$BACKUP_DIR" | cut -f1)
+log "Backup size: $BACKUP_SIZE"
+
+
+# ========================================================================
+# RETENTION POLICY - DELETE OLD BACKUPS
+# ========================================================================
+
+log "Applying retention policy (keeping last $RETENTION_DAYS days)..."
+
+find "$BACKUP_ROOT" -maxdepth 1 -type d -name "20*" -mtime +$RETENTION_DAYS -exec rm -rf {} \;
+# Find directories older than RETENTION_DAYS and delete
+
+find "$BACKUP_ROOT" -maxdepth 1 -name "backup-*.tar.gz" -mtime +$RETENTION_DAYS -delete
+# Delete old archives
+
+log "Old backups cleaned up"
+
+
+# ========================================================================
+# GENERATE BACKUP REPORT
+# ========================================================================
+
+REPORT=$(cat &lt;<eof backup="" report="" -="" $(date)="===============================" hostname:="" $(hostname)="" directory:="" $backup_dir="" source="" $source_dir="" size:="" $backup_size="" archive="" $archive_size="" files="" backed="" up:="" $backup_count="" duration:="" $seconds="" seconds="" status:="" success="===============================" eof="" )="" log="" "$report"="" #="=======================================================================" send="" notification="" send_notification="" "success"="" "backup="" completed="" successfully!"="" exit="" 0<="" div="">
+
+                <h3>Systemd Timer Alternative</h3>
+                <p><strong>Penjelasan:</strong> Systemd timers adalah modern alternative untuk cron. Timers provide more features: better logging integration dengan journald, dependency management, execution conditions, calendar-based atau monotonic scheduling. Timers lebih suitable untuk complex scheduling requirements dan better integration dengan systemd ecosystem. Namun cron masih widely used dan lebih simple untuk basic scheduling.</p>
+
+                <div class="code-block"># ========================================================================
+# SYSTEMD TIMER - BACKUP.TIMER
+# ========================================================================
+
+sudo nano /etc/systemd/system/backup.timer
+# Create timer unit file
+
+# File contents:
+[Unit]
+Description=Daily Backup Timer
+Requires=backup.service
+
+[Timer]
+OnCalendar=daily
+OnCalendar=02:00
+# Runs daily at 2:00 AM
+Persistent=true
+# Run immediately if missed (system was off)
+
+[Install]
+WantedBy=timers.target
+
+
+# ========================================================================
+# SYSTEMD SERVICE - BACKUP.SERVICE
+# ========================================================================
+
+sudo nano /etc/systemd/system/backup.service
+# Create service unit file
+
+# File contents:
+[Unit]
+Description=Backup Service
+Wants=network-online.target
+After=network-online.target
+# Ensure network is available before running
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/backup-script.sh
+User=root
+StandardOutput=journal
+StandardError=journal
+# Log to systemd journal
+
+
+# ========================================================================
+# ENABLE AND START TIMER
+# ========================================================================
+
+sudo systemctl daemon-reload
+# Reload systemd configuration
+
+sudo systemctl enable backup.timer
+# Enable timer to start on boot
+
+sudo systemctl start backup.timer
+# Start timer immediately
+
+
+# ========================================================================
+# CHECK TIMER STATUS
+# ========================================================================
+
+sudo systemctl status backup.timer
+# Shows timer status and next run time
+
+sudo systemctl list-timers
+# List all active timers
+
+sudo journalctl -u backup.service
+# View logs dari backup service
+# Better logging than cron
+
+
+# ========================================================================
+# MANUALLY TRIGGER BACKUP
+# ========================================================================
+
+sudo systemctl start backup.service
+# Run backup immediately, bypass timer
+# Useful untuk testing
+
+sudo journalctl -u backup.service -f
+# Follow logs in real-time
+# Monitor backup progress</div>
+
+                <div class="tip">
+                    <h4><i class="fas fa-lightbulb"></i> Best Practices untuk Automation</h4>
+                    <ul>
+                        <li>Always use absolute paths in scripts - cron runs dengan limited environment</li>
+                        <li>Test scripts manually before scheduling - verify functionality first</li>
+                        <li>Implement proper logging - troubleshooting failures requires good logs</li>
+                        <li>Use lock files to prevent concurrent runs - avoid conflicts</li>
+                        <li>Setup monitoring and alerts - know immediately when backups fail</li>
+                        <li>Document recovery procedures - everyone should know how to restore</li>
+                        <li>Regular testing of restore process - verify backups are actually usable</li>
+                    </ul>
+                </div>
+            </eof></div>
+
+            <!-- Recovery Testing -->
+            <div class="section">
+                <h2><i class="fas fa-undo"></i> Recovery Testing</h2>
+
+                <h3>Recovery Procedures</h3>
+                <p><strong>Penjelasan:</strong> Recovery testing adalah critical component dari backup strategy. Backup yang tidak di-test adalah backup yang tidak bisa dipercaya. Recovery testing harus dilakukan regularly untuk memastikan: (1) Backups are complete and not corrupted, (2) Recovery procedures are documented dan understood, (3) RTO (Recovery Time Objective) dapat dicapai, (4) Team familiar dengan recovery process. Testing should simulate real disaster scenarios.</p>
+
+                <p style="margin-top: 15px;"><strong>Testing Strategies:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Full Recovery Test:</strong> Complete restore ke separate system</li>
+                    <li><strong>Partial Recovery Test:</strong> Restore specific files/directories</li>
+                    <li><strong>Point-in-Time Recovery:</strong> Restore ke specific date/time</li>
+                    <li><strong>Disaster Scenario Simulation:</strong> Test complete disaster recovery procedures</li>
+                    <li><strong>Documentation Verification:</strong> Follow documented procedures exactly</li>
+                </ul>
+
+                <div class="code-block"># ========================================================================
+# RSYNC RESTORE PROCEDURE
+# ========================================================================
+
+# List available backups
+ls -lh /backup/
+
+# Verify backup directory exists and contains files
+du -sh /backup/20241029/
+find /backup/20241029/ -type f | wc -l
+
+# Dry run restore - ALWAYS DO THIS FIRST!
+rsync -avn /backup/20241029/ /restore/location/
+# -n = dry run, no actual changes
+# Verify what will be restored
+
+# Actual restore
+rsync -av /backup/20241029/ /restore/location/
+# Restores all files dengan permissions preserved
+
+# Selective restore - specific directory only
+rsync -av /backup/20241029/var/www/ /var/www/
+# Restore specific directory
+
+# Selective restore - specific files
+rsync -av /backup/20241029/etc/nginx/nginx.conf /etc/nginx/
+# Restore single file
+
+
+# ========================================================================
+# TAR RESTORE PROCEDURE
+# ========================================================================
+
+# List backup archives
+ls -lh /backup/*.tar.gz
+
+# View archive contents WITHOUT extracting
+tar -tzvf /backup/backup-20241029.tar.gz | less
+# Verify backup contents
+
+# Extract to specific directory
+mkdir /restore
+cd /restore
+tar -xzvf /backup/backup-20241029.tar.gz
+# Extracts all files
+
+# Extract specific files only
+tar -xzvf /backup/backup-20241029.tar.gz path/to/specific/file
+# Selective restore
+
+# Verify extracted files
+find /restore -type f | wc -l
+du -sh /restore
+
+
+# ========================================================================
+# DD RESTORE PROCEDURE
+# ========================================================================
+
+# WARNING: DD overwrites destination! Triple check device names!
+
+# Verify source image exists
+ls -lh /backup/disk.img
+
+# Check target disk size
+lsblk
+# Ensure target disk is same size or larger
+
+# Restore uncompressed image
+sudo dd if=/backup/disk.img of=/dev/sdb bs=4M status=progress
+# Restore to /dev/sdb
+# Monitor progress carefully
+
+# Restore compressed image
+gunzip -c /backup/disk.img.gz | sudo dd of=/dev/sdb bs=4M status=progress
+# Decompress and restore simultaneously
+
+# Verify restore dengan checksum
+md5sum /backup/disk.img
+md5sum /dev/sdb
+# Checksums harus match
+
+
+# ========================================================================
+# BORGBACKUP RESTORE PROCEDURE
+# ========================================================================
+
+# List all archives in repository
+borg list /backup/repo
+
+# View specific archive contents
+borg list /backup/repo::backup-20241029
+
+# View archive info dan size
+borg info /backup/repo::backup-20241029
+
+# Extract entire archive
+mkdir /restore
+cd /restore
+borg extract /backup/repo::backup-20241029
+# Extracts all files to current directory
+
+# Selective restore
+borg extract /backup/repo::backup-20241029 home/user/important-file.txt
+# Extract specific file only
+
+# Mount archive untuk browse
+mkdir /mnt/backup
+borg mount /backup/repo::backup-20241029 /mnt/backup
+# Browse backup seperti normal filesystem
+# Read-only mount
+
+# Copy files manually
+cp /mnt/backup/path/to/file /restore/location/
+
+# Unmount when done
+borg umount /mnt/backup
+
+
+# ========================================================================
+# DATABASE RESTORE EXAMPLE - MySQL
+# ========================================================================
+
+# Restore MySQL database from backup
+mysql -u root -p database_name &lt; /backup/database_backup.sql
+# Restores SQL dump
+
+# Restore specific table only
+mysql -u root -p database_name --one-database table_name &lt; /backup/database_backup.sql
+
+# Verify restore
+mysql -u root -p -e "USE database_name; SHOW TABLES;"
+mysql -u root -p -e "USE database_name; SELECT COUNT(*) FROM table_name;"
+
+
+# ========================================================================
+# DATABASE RESTORE EXAMPLE - PostgreSQL
+# ========================================================================
+
+# Restore PostgreSQL database
+psql -U postgres database_name &lt; /backup/database_backup.sql
+
+# Using pg_restore for custom format
+pg_restore -U postgres -d database_name /backup/database_backup.dump
+
+# Verify restore
+psql -U postgres -d database_name -c "\dt"
+psql -U postgres -d database_name -c "SELECT COUNT(*) FROM table_name;"
+
+
+# ========================================================================
+# VERIFY RESTORE INTEGRITY
+# ========================================================================
+
+# Compare file counts
+SOURCE_COUNT=$(find /original/data -type f | wc -l)
+RESTORE_COUNT=$(find /restore/data -type f | wc -l)
+echo "Original: $SOURCE_COUNT, Restored: $RESTORE_COUNT"
+
+# Compare total size
+du -sh /original/data
+du -sh /restore/data
+
+# Detailed comparison dengan diff
+diff -r /original/data /restore/data
+# Shows differences if any
+# No output = perfect match
+
+# Checksum verification
+find /original/data -type f -exec md5sum {} \; | sort &gt; original.md5
+find /restore/data -type f -exec md5sum {} \; | sort &gt; restore.md5
+diff original.md5 restore.md5
+
+
+# ========================================================================
+# DOCUMENT RECOVERY TIME
+# ========================================================================
+
+# Time the recovery process
+time rsync -av /backup/20241029/ /restore/location/
+# Shows real, user, sys time
+# Verify RTO dapat dicapai
+
+# For large restores, use script dengan timing
+START_TIME=$(date +%s)
+# ... recovery commands ...
+END_TIME=$(date +%s)
+DURATION=$((END_TIME - START_TIME))
+echo "Recovery took $DURATION seconds"</div>
+
+                <h3>Disaster Recovery Planning</h3>
+                <p><strong>Penjelasan:</strong> Disaster Recovery (DR) plan adalah comprehensive document yang outlines procedures untuk recovering IT infrastructure and operations after disaster. DR plan harus cover: identification of critical systems, priority recovery order, detailed step-by-step procedures, contact information, alternative operating procedures, dan testing schedule. DR plan bukan hanya technical document - harus involve stakeholders dan regular updates.</p>
+
+                <div class="code-block"># ========================================================================
+# DISASTER RECOVERY CHECKLIST
+# ========================================================================
+
+# 1. ASSESS THE SITUATION
+# - Determine scope of disaster
+# - Identify affected systems
+# - Estimate downtime impact
+# - Activate DR team
+
+# 2. PRIORITIZE RECOVERY
+# Priority 1: Critical systems (database servers, authentication)
+# Priority 2: Important services (web servers, email)
+# Priority 3: Support systems (monitoring, logging)
+# Priority 4: Non-critical systems
+
+# 3. PREPARE RECOVERY ENVIRONMENT
+# - Verify backup integrity
+# - Prepare target hardware/VM
+# - Check network connectivity
+# - Verify storage availability
+
+# 4. EXECUTE RECOVERY
+# - Follow documented procedures
+# - Restore in priority order
+# - Verify each system before moving to next
+# - Document any issues or deviations
+
+# 5. VERIFY FUNCTIONALITY
+# - Test system functionality
+# - Verify data integrity
+# - Check application connections
+# - Perform smoke tests
+
+# 6. RETURN TO PRODUCTION
+# - Switch DNS/traffic to recovered systems
+# - Monitor closely for issues
+# - Keep backup systems online initially
+# - Document recovery time
+
+# 7. POST-INCIDENT REVIEW
+# - Document what happened
+# - Identify improvement areas
+# - Update DR procedures
+# - Schedule follow-up training
+
+
+# ========================================================================
+# DR TEST SCRIPT - QUARTERLY TESTING
+# ========================================================================
+
+#!/bin/bash
+# Disaster Recovery Test Script
+# Run quarterly to verify DR procedures
+
+LOG_FILE="/var/log/dr-test-$(date +%Y%m%d).log"
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+}
+
+log "========================================="
+log "Disaster Recovery Test Started"
+log "========================================="
+
+# Test 1: Verify backup exists
+log "Test 1: Verifying latest backup..."
+LATEST_BACKUP=$(ls -t /backup/*.tar.gz | head -1)
+if [ -z "$LATEST_BACKUP" ]; then
+    log "FAIL: No backup found!"
+    exit 1
+fi
+log "PASS: Latest backup: $LATEST_BACKUP"
+
+# Test 2: Restore to test environment
+log "Test 2: Restoring to test environment..."
+TEST_DIR="/tmp/dr-test-$(date +%s)"
+mkdir -p "$TEST_DIR"
+tar -xzf "$LATEST_BACKUP" -C "$TEST_DIR"
+if [ $? -eq 0 ]; then
+    log "PASS: Restore successful"
+else
+    log "FAIL: Restore failed"
+    exit 1
+fi
+
+# Test 3: Verify file count
+log "Test 3: Verifying file count..."
+RESTORED_COUNT=$(find "$TEST_DIR" -type f | wc -l)
+log "Restored files: $RESTORED_COUNT"
+if [ "$RESTORED_COUNT" -gt 0 ]; then
+    log "PASS: Files restored"
+else
+    log "FAIL: No files restored"
+    exit 1
+fi
+
+# Test 4: Verify critical files
+log "Test 4: Verifying critical files..."
+CRITICAL_FILES=(
+    "etc/nginx/nginx.conf"
+    "var/www/html/index.html"
+    "etc/mysql/my.cnf"
+)
+for file in "${CRITICAL_FILES[@]}"; do
+    if [ -f "$TEST_DIR/$file" ]; then
+        log "PASS: $file exists"
+    else
+        log "WARN: $file missing"
+    fi
+done
+
+# Test 5: Calculate recovery time
+log "Test 5: Measuring recovery time..."
+START_TIME=$(date +%s)
+# Simulate full recovery process
+sleep 5  # Replace dengan actual recovery commands
+END_TIME=$(date +%s)
+RECOVERY_TIME=$((END_TIME - START_TIME))
+log "Recovery time: $RECOVERY_TIME seconds"
+
+# Test 6: Cleanup
+log "Test 6: Cleaning up test environment..."
+rm -rf "$TEST_DIR"
+log "PASS: Cleanup complete"
+
+log "========================================="
+log "Disaster Recovery Test Completed"
+log "Result: SUCCESS"
+log "========================================="
+
+# Send report
+mail -s "DR Test Report - $(hostname)" admin@example.com &lt; "$LOG_FILE"</div>
+
+                <div class="warning">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Critical Recovery Reminders</h4>
+                    <ul>
+                        <li>Always perform dry-run atau simulation sebelum actual restore</li>
+                        <li>Never restore directly ke production without verification</li>
+                        <li>Document setiap step during actual disaster recovery</li>
+                        <li>Keep DR documentation updated - test quarterly dan update</li>
+                        <li>Train team members on DR procedures - everyone should know basics</li>
+                        <li>Verify restored data integrity before returning to production</li>
+                        <li>Keep backup systems running selama initial recovery phase</li>
+                        <li>Perform post-incident review untuk improve procedures</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Simulator -->
+            <div class="simulator">
+                <div class="simulator-header">
+                    <h2><i class="fas fa-laptop-code"></i> Interactive Backup &amp; Recovery Simulator</h2>
+                    <p>Practice backup operations dalam safe environment</p>
+                </div>
+
+                <div class="simulator-content">
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab(&#39;backup&#39;)">Backup Setup</button>
+                        <button class="tab" onclick="switchTab(&#39;automation&#39;)">Automation</button>
+                        <button class="tab" onclick="switchTab(&#39;restore&#39;)">Recovery</button>
+                        <button class="tab" onclick="switchTab(&#39;monitoring&#39;)">Monitoring</button>
+                    </div>
+
+                    <!-- Backup Tab -->
+                    <div id="backup-tab" class="tab-content active">
+                        <h3>Backup Configuration</h3>
+
+                        <div class="backup-controls">
+                            <div class="control-group">
+                                <label>Backup Method</label>
+                                <select id="backup-method">
+                                    <option value="rsync">Rsync (Incremental)</option>
+                                    <option value="tar">TAR (Archive)</option>
+                                    <option value="dd">DD (Disk Clone)</option>
+                                    <option value="borg">BorgBackup (Dedup)</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Source Directory</label>
+                                <input type="text" id="source-dir" value="/data" placeholder="/path/to/source">
+                            </div>
+
+                            <div class="control-group">
+                                <label>Destination</label>
+                                <input type="text" id="dest-dir" value="/backup" placeholder="/path/to/backup">
+                            </div>
+
+                            <div class="control-group">
+                                <label>Compression</label>
+                                <select id="compression">
+                                    <option value="none">None</option>
+                                    <option value="gzip">Gzip</option>
+                                    <option value="bzip2">Bzip2</option>
+                                    <option value="xz">XZ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="startBackup()">
+                            <i class="fas fa-play"></i> Start Backup
+                        </button>
+                        <button class="btn btn-success" onclick="verifyBackup()">
+                            <i class="fas fa-check"></i> Verify Backup
+                        </button>
+
+                        <div class="status-panel" id="backup-status">
+[Backup Status]
+Ready to start backup...
+Select your backup method and click Start Backup
+                        </div>
+
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <h4>Backup Size</h4>
+                                <div class="metric-value" id="backup-size">0 GB</div>
+                                <div class="metric-label">Total size</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Files Backed Up</h4>
+                                <div class="metric-value" id="files-count">0</div>
+                                <div class="metric-label">Files</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Compression Ratio</h4>
+                                <div class="metric-value" id="compression-ratio">0%</div>
+                                <div class="metric-label">Space saved</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Backup Duration</h4>
+                                <div class="metric-value" id="backup-duration">0s</div>
+                                <div class="metric-label">Time elapsed</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Automation Tab -->
+                    <div id="automation-tab" class="tab-content">
+                        <h3>Backup Automation</h3>
+
+                        <div class="backup-controls">
+                            <div class="control-group">
+                                <label>Schedule Type</label>
+                                <select id="schedule-type">
+                                    <option value="cron">Cron Job</option>
+                                    <option value="systemd">Systemd Timer</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Frequency</label>
+                                <select id="frequency">
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="hourly">Hourly</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Execution Time</label>
+                                <input type="time" id="exec-time" value="02:00">
+                            </div>
+
+                            <div class="control-group">
+                                <label>Retention (days)</label>
+                                <input type="number" id="retention" value="30" min="1" max="365">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="setupAutomation()">
+                            <i class="fas fa-robot"></i> Setup Automation
+                        </button>
+                        <button class="btn btn-success" onclick="testAutomation()">
+                            <i class="fas fa-play"></i> Test Run
+                        </button>
+
+                        <div class="status-panel" id="automation-status">
+[Automation Status]
+Configure your backup schedule above...
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Scheduled Backups</h3>
+                        <div class="backup-list" id="scheduled-backups">
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <h4>Daily Full Backup</h4>
+                                    <p>Every day at 02:00 AM | Retention: 30 days | Status: Active</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-success" onclick="alert(&#39;Manual run started&#39;)">Run Now</button>
+                                    <button class="btn btn-danger" onclick="alert(&#39;Schedule disabled&#39;)">Disable</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Restore Tab -->
+                    <div id="restore-tab" class="tab-content">
+                        <h3>Backup Recovery</h3>
+
+                        <div class="backup-controls">
+                            <div class="control-group">
+                                <label>Select Backup</label>
+                                <select id="restore-backup">
+                                    <option value="backup-20241029">backup-20241029 (Latest)</option>
+                                    <option value="backup-20241028">backup-20241028</option>
+                                    <option value="backup-20241027">backup-20241027</option>
+                                    <option value="backup-20241026">backup-20241026</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Recovery Type</label>
+                                <select id="recovery-type">
+                                    <option value="full">Full Recovery</option>
+                                    <option value="partial">Partial Recovery</option>
+                                    <option value="selective">Selective Files</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Restore Location</label>
+                                <input type="text" id="restore-location" value="/restore" placeholder="/restore/location">
+                            </div>
+
+                            <div class="control-group">
+                                <label>Verification</label>
+                                <select id="verification">
+                                    <option value="checksum">Checksum Verification</option>
+                                    <option value="filecount">File Count Only</option>
+                                    <option value="none">No Verification</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="startRestore()">
+                            <i class="fas fa-undo"></i> Start Restore
+                        </button>
+                        <button class="btn btn-success" onclick="verifyRestore()">
+                            <i class="fas fa-check-circle"></i> Verify Recovery
+                        </button>
+                        <button class="btn btn-danger" onclick="abortRestore()">
+                            <i class="fas fa-times"></i> Abort
+                        </button>
+
+                        <div class="status-panel" id="restore-status">
+[Restore Status]
+Select backup to restore and click Start Restore...
+                        </div>
+
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <h4>Recovery Progress</h4>
+                                <div class="metric-value" id="restore-progress">0%</div>
+                                <div class="metric-label">Completed</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Files Restored</h4>
+                                <div class="metric-value" id="restored-files">0</div>
+                                <div class="metric-label">Files</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Recovery Time</h4>
+                                <div class="metric-value" id="restore-time">0s</div>
+                                <div class="metric-label">Elapsed</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Data Integrity</h4>
+                                <div class="metric-value" id="integrity-status">-</div>
+                                <div class="metric-label">Status</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monitoring Tab -->
+                    <div id="monitoring-tab" class="tab-content">
+                        <h3>Backup Monitoring &amp; History</h3>
+
+                        <div class="metric-grid">
+                            <div class="metric-card">
+                                <h4>Total Backups</h4>
+                                <div class="metric-value">47</div>
+                                <div class="metric-label">All time</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Success Rate</h4>
+                                <div class="metric-value">98.5%</div>
+                                <div class="metric-label">Last 30 days</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Storage Used</h4>
+                                <div class="metric-value">2.4 TB</div>
+                                <div class="metric-label">Total backup size</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Last Backup</h4>
+                                <div class="metric-value">2h ago</div>
+                                <div class="metric-label">Status: Success</div>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 30px;">Backup History</h3>
+                        <div class="backup-list">
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <h4>backup-20241029-020000</h4>
+                                    <p>Size: 45.2 GB | Files: 12,847 | Duration: 23m | Status: ✓ Success</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-primary" onclick="alert(&#39;Viewing backup details&#39;)">Details</button>
+                                    <button class="btn btn-success" onclick="alert(&#39;Restore initiated&#39;)">Restore</button>
+                                </div>
+                            </div>
+
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <h4>backup-20241028-020000</h4>
+                                    <p>Size: 44.8 GB | Files: 12,831 | Duration: 22m | Status: ✓ Success</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-primary" onclick="alert(&#39;Viewing backup details&#39;)">Details</button>
+                                    <button class="btn btn-success" onclick="alert(&#39;Restore initiated&#39;)">Restore</button>
+                                </div>
+                            </div>
+
+                            <div class="backup-item">
+                                <div class="backup-info">
+                                    <h4>backup-20241027-020000</h4>
+                                    <p>Size: 44.5 GB | Files: 12,809 | Duration: 21m | Status: ✓ Success</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-primary" onclick="alert(&#39;Viewing backup details&#39;)">Details</button>
+                                    <button class="btn btn-success" onclick="alert(&#39;Restore initiated&#39;)">Restore</button>
+                                </div>
+                            </div>
+
+                            <div class="backup-item" style="border-left: 4px solid #dc3545;">
+                                <div class="backup-info">
+                                    <h4>backup-20241026-020000</h4>
+                                    <p>Size: 0 GB | Files: 0 | Duration: 2m | Status: ✗ Failed (Disk full)</p>
+                                </div>
+                                <div class="backup-actions">
+                                    <button class="btn btn-danger" onclick="alert(&#39;Viewing error log&#39;)">View Log</button>
+                                    <button class="btn btn-primary" onclick="alert(&#39;Retry backup&#39;)">Retry</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="refreshMonitoring()" style="margin-top: 20px;">
+                            <i class="fas fa-sync"></i> Refresh Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment -->
+            <div class="assessment">
+                <h3><i class="fas fa-clipboard-check"></i> Tugas dan Penilaian</h3>
+                <ol>
+                    <li><strong>Backup Implementation (25 points)</strong>
+                        <ul>
+                            <li>Implement rsync-based incremental backup system</li>
+                            <li>Create TAR-based full backup dengan compression</li>
+                            <li>Setup BorgBackup repository dengan encryption</li>
+                            <li>Document backup procedures dan configurations</li>
+                        </ul>
+                    </li>
+                    <li><strong>Automation Scripts (25 points)</strong>
+                        <ul>
+                            <li>Create comprehensive backup script dengan error handling</li>
+                            <li>Setup cron jobs untuk automated daily backups</li>
+                            <li>Implement retention policy untuk old backup cleanup</li>
+                            <li>Configure email notifications untuk backup status</li>
+                        </ul>
+                    </li>
+                    <li><strong>Recovery Testing (25 points)</strong>
+                        <ul>
+                            <li>Perform full system restore dari backup</li>
+                            <li>Test selective file recovery</li>
+                            <li>Verify restored data integrity dengan checksums</li>
+                            <li>Document recovery time dan procedures</li>
+                        </ul>
+                    </li>
+                    <li><strong>Disaster Recovery Plan (25 points)</strong>
+                        <ul>
+                            <li>Create comprehensive DR plan document</li>
+                            <li>Define RPO dan RTO untuk critical systems</li>
+                            <li>Document step-by-step recovery procedures</li>
+                            <li>Conduct DR simulation test dan document results</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="tip">
+                    <h4><i class="fas fa-file-alt"></i> Template Dokumentasi</h4>
+                    <p><strong>Backup &amp; Recovery Documentation Template:</strong></p>
+                    <ul>
+                        <li>Backup strategy overview (3-2-1 rule implementation)</li>
+                        <li>Backup schedule dan frequency</li>
+                        <li>Tools used dan configurations</li>
+                        <li>Automation scripts dengan explanations</li>
+                        <li>Retention policies</li>
+                        <li>Recovery procedures (step-by-step)</li>
+                        <li>Testing results dan verification</li>
+                        <li>RPO/RTO metrics</li>
+                        <li>Contact information dan escalation procedures</li>
+                        <li>Lessons learned dan improvement recommendations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function startBackup() {
+            const method = document.getElementById('backup-method').value;
+            const source = document.getElementById('source-dir').value;
+            const dest = document.getElementById('dest-dir').value;
+            const compression = document.getElementById('compression').value;
+
+            const statusPanel = document.getElementById('backup-status');
+
+            let commands = '';
+            if (method === 'rsync') {
+                commands = `[${new Date().toLocaleTimeString()}] Starting rsync backup...\n`;
+                commands += `rsync -av --progress ${source}/ ${dest}/\n\n`;
+                commands += `Scanning source directory: ${source}\n`;
+                commands += `Found 12,847 files, 45.2 GB total\n\n`;
+                commands += `Transferring files...\n`;
+                commands += `Progress: [========================================] 100%\n\n`;
+                commands += `Backup completed successfully!\n`;
+                commands += `Files backed up: 12,847\n`;
+                commands += `Total size: 45.2 GB\n`;
+                commands += `Duration: 23 minutes\n`;
+            } else if (method === 'tar') {
+                const compFlag = compression === 'gzip' ? 'z' : compression === 'bzip2' ? 'j' : compression === 'xz' ? 'J' : '';
+                commands = `[${new Date().toLocaleTimeString()}] Starting TAR backup...\n`;
+                commands += `tar -c${compFlag}vf ${dest}/backup-$(date +%Y%m%d).tar.${compression === 'none' ? '' : compression === 'gzip' ? 'gz' : compression} ${source}/\n\n`;
+                commands += `Creating archive with ${compression === 'none' ? 'no' : compression} compression...\n`;
+                commands += `Progress: [========================================] 100%\n\n`;
+                commands += `Archive created: backup-20241029.tar.gz\n`;
+                commands += `Original size: 45.2 GB\n`;
+                commands += `Compressed size: 28.3 GB (37% reduction)\n`;
+                commands += `Duration: 18 minutes\n`;
+            } else if (method === 'borg') {
+                commands = `[${new Date().toLocaleTimeString()}] Starting BorgBackup...\n`;
+                commands += `borg create --stats --progress ${dest}::backup-$(date +%Y%m%d) ${source}\n\n`;
+                commands += `Repository: ${dest}\n`;
+                commands += `Archive name: backup-20241029\n\n`;
+                commands += `Analyzing files...\n`;
+                commands += `Files: 12,847 new, 125,432 unchanged\n`;
+                commands += `Original size: 45.2 GB\n`;
+                commands += `Deduplicated size: 2.1 GB (95% deduplication!)\n`;
+                commands += `Compressed size: 1.3 GB\n\n`;
+                commands += `Backup completed successfully!\n`;
+                commands += `Duration: 12 minutes\n`;
+            }
+
+            statusPanel.textContent = commands;
+
+            // Update metrics
+            document.getElementById('backup-size').textContent = method === 'borg' ? '1.3 GB' : method === 'tar' ? '28.3 GB' : '45.2 GB';
+            document.getElementById('files-count').textContent = '12,847';
+            document.getElementById('compression-ratio').textContent = method === 'borg' ? '97%' : method === 'tar' ? '37%' : '0%';
+            document.getElementById('backup-duration').textContent = method === 'borg' ? '12m' : method === 'tar' ? '18m' : '23m';
+        }
+
+        function verifyBackup() {
+            const statusPanel = document.getElementById('backup-status');
+            statusPanel.textContent = `[${new Date().toLocaleTimeString()}] Verifying backup integrity...\n\n`;
+            statusPanel.textContent += `Running checksum verification...\n`;
+            statusPanel.textContent += `Comparing file counts...\n`;
+            statusPanel.textContent += `Checking file permissions...\n\n`;
+            statusPanel.textContent += `✓ All checksums match\n`;
+            statusPanel.textContent += `✓ File count verified: 12,847 files\n`;
+            statusPanel.textContent += `✓ Permissions preserved correctly\n\n`;
+            statusPanel.textContent += `Backup verification: SUCCESS\n`;
+        }
+
+        function setupAutomation() {
+            const scheduleType = document.getElementById('schedule-type').value;
+            const frequency = document.getElementById('frequency').value;
+            const execTime = document.getElementById('exec-time').value;
+            const retention = document.getElementById('retention').value;
+
+            const statusPanel = document.getElementById('automation-status');
+
+            if (scheduleType === 'cron') {
+                const hour = execTime.split(':')[0];
+                const minute = execTime.split(':')[1];
+                const cronExpr = frequency === 'daily' ? `${minute} ${hour} * * *` :
+                                 frequency === 'weekly' ? `${minute} ${hour} * * 0` :
+                                 frequency === 'monthly' ? `${minute} ${hour} 1 * *` :
+                                 `${minute} * * * *`;
+
+                statusPanel.textContent = `[${new Date().toLocaleTimeString()}] Setting up cron automation...\n\n`;
+                statusPanel.textContent += `Cron expression: ${cronExpr}\n`;
+                statusPanel.textContent += `Command: /usr/local/bin/backup-script.sh\n`;
+                statusPanel.textContent += `Frequency: ${frequency}\n`;
+                statusPanel.textContent += `Execution time: ${execTime}\n`;
+                statusPanel.textContent += `Retention: ${retention} days\n\n`;
+                statusPanel.textContent += `Adding to crontab...\n`;
+                statusPanel.textContent += `$ crontab -e\n`;
+                statusPanel.textContent += `${cronExpr} /usr/local/bin/backup-script.sh >> /var/log/backup.log 2>&1\n\n`;
+                statusPanel.textContent += `✓ Cron job added successfully!\n`;
+                statusPanel.textContent += `Next run: Tomorrow at ${execTime}\n`;
+            } else {
+                statusPanel.textContent = `[${new Date().toLocaleTimeString()}] Setting up systemd timer...\n\n`;
+                statusPanel.textContent += `Creating backup.timer unit...\n`;
+                statusPanel.textContent += `OnCalendar=${frequency}\n`;
+                statusPanel.textContent += `Creating backup.service unit...\n`;
+                statusPanel.textContent += `ExecStart=/usr/local/bin/backup-script.sh\n\n`;
+                statusPanel.textContent += `$ sudo systemctl daemon-reload\n`;
+                statusPanel.textContent += `$ sudo systemctl enable backup.timer\n`;
+                statusPanel.textContent += `$ sudo systemctl start backup.timer\n\n`;
+                statusPanel.textContent += `✓ Systemd timer enabled successfully!\n`;
+                statusPanel.textContent += `Next run: Tomorrow at ${execTime}\n`;
+            }
+        }
+
+        function testAutomation() {
+            const statusPanel = document.getElementById('automation-status');
+            statusPanel.textContent = `[${new Date().toLocaleTimeString()}] Running test backup...\n\n`;
+            statusPanel.textContent += `Executing backup script manually...\n`;
+            statusPanel.textContent += `$ /usr/local/bin/backup-script.sh\n\n`;
+            statusPanel.textContent += `[INFO] Pre-flight checks passed\n`;
+            statusPanel.textContent += `[INFO] Starting backup...\n`;
+            statusPanel.textContent += `[INFO] Backup completed: 45.2 GB\n`;
+            statusPanel.textContent += `[INFO] Applying retention policy...\n`;
+            statusPanel.textContent += `[INFO] Deleted 3 old backups\n`;
+            statusPanel.textContent += `[INFO] Sending notification email...\n\n`;
+            statusPanel.textContent += `✓ Test run completed successfully!\n`;
+            statusPanel.textContent += `Duration: 23 minutes\n`;
+        }
+
+        function startRestore() {
+            const backup = document.getElementById('restore-backup').value;
+            const recoveryType = document.getElementById('recovery-type').value;
+            const location = document.getElementById('restore-location').value;
+
+            const statusPanel = document.getElementById('restore-status');
+            statusPanel.textContent = `[${new Date().toLocaleTimeString()}] Starting recovery process...\n\n`;
+            statusPanel.textContent += `Backup: ${backup}\n`;
+            statusPanel.textContent += `Recovery type: ${recoveryType}\n`;
+            statusPanel.textContent += `Restore location: ${location}\n\n`;
+            statusPanel.textContent += `Verifying backup integrity...\n`;
+            statusPanel.textContent += `✓ Backup verified successfully\n\n`;
+            statusPanel.textContent += `Starting restore...\n`;
+            statusPanel.textContent += `Progress: [========================================] 100%\n\n`;
+            statusPanel.textContent += `Restoring files: 12,847\n`;
+            statusPanel.textContent += `Total size: 45.2 GB\n`;
+            statusPanel.textContent += `Duration: 18 minutes\n\n`;
+            statusPanel.textContent += `✓ Recovery completed successfully!\n`;
+
+            // Update metrics
+            document.getElementById('restore-progress').textContent = '100%';
+            document.getElementById('restored-files').textContent = '12,847';
+            document.getElementById('restore-time').textContent = '18m';
+            document.getElementById('integrity-status').textContent = '✓';
+        }
+
+        function verifyRestore() {
+            const statusPanel = document.getElementById('restore-status');
+            statusPanel.textContent = `[${new Date().toLocaleTimeString()}] Verifying restore integrity...\n\n`;
+            statusPanel.textContent += `Comparing file counts...\n`;
+            statusPanel.textContent += `Original: 12,847 files\n`;
+            statusPanel.textContent += `Restored: 12,847 files\n`;
+            statusPanel.textContent += `✓ File count matches\n\n`;
+            statusPanel.textContent += `Running checksum verification...\n`;
+            statusPanel.textContent += `Verified: 12,847 / 12,847 files\n`;
+            statusPanel.textContent += `✓ All checksums match\n\n`;
+            statusPanel.textContent += `Checking permissions and timestamps...\n`;
+            statusPanel.textContent += `✓ Permissions preserved\n`;
+            statusPanel.textContent += `✓ Timestamps preserved\n\n`;
+            statusPanel.textContent += `Recovery verification: SUCCESS\n`;
+            statusPanel.textContent += `Data integrity: 100%\n`;
+        }
+
+        function abortRestore() {
+            const statusPanel = document.getElementById('restore-status');
+            statusPanel.textContent = `[${new Date().toLocaleTimeString()}] Aborting restore process...\n\n`;
+            statusPanel.textContent += `Stopping active restore operation...\n`;
+            statusPanel.textContent += `Cleaning up partial restore...\n`;
+            statusPanel.textContent += `✓ Restore aborted successfully\n\n`;
+            statusPanel.textContent += `Partially restored files have been removed\n`;
+            statusPanel.textContent += `Ready to start new restore operation\n`;
+        }
+
+        function refreshMonitoring() {
+            alert('Monitoring data refreshed!\n\nLatest status:\n- Last backup: 2 hours ago\n- Status: Success\n- Size: 45.2 GB\n- Success rate: 98.5%');
+        }
+    </script>
+
+</div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
